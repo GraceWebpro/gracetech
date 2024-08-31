@@ -3,6 +3,7 @@ import './App.css';
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import ScrollToTop from './components/ScrollToTop';
 import Navbar from './components/navbar/Navbar';
+import Homepage from './components/home/Homepage';
 
 function App() {
   const location = useLocation();
@@ -17,12 +18,9 @@ function App() {
 
       <Routes>
           {/* Public routes */}
-          <Route path="/" element={<HomeHeader />} />
-          <Route path='/k-drama' element={<Drama />} />
-          <Route path='/nollywood' element={<Nollywood />} />
-          <Route path='/how-to-download' element={<HowTo />} />
-          <Route path="movies/:id" element={<MovieDetail />} />
-          <Route path="/movie/:title/episode/:episodeNumber" element={<EpDownload />} />
+          <Route path="/" element={<Homepage />} />
+          
+          {/*<Route path="/movie/:title/episode/:episodeNumber" element={<EpDownload />} />*/}
           
           
           {/* Redirect to home for unmatched routes */}

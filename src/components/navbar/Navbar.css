@@ -1,15 +1,13 @@
 
 .header {
-    position: relative;
     width: 100%;
     top: 0;
     position: fixed;
-    z-index: 1000;
     left: 0;
     background-color: transparent;
     z-index: var(--z-fixed);
     background-color: var(--body-color);
-   }
+}
 
 nav {
   width: 100%;
@@ -18,7 +16,7 @@ nav {
 .container {
   max-width: 100%;
   margin: 0 auto;
-  padding: 10px 15px;
+  padding: 10px;
   display: flex;
   position: relative;
   justify-content: space-between;
@@ -29,22 +27,48 @@ nav {
   margin-right: 10px;
 
 }
-
+/*
 .nav__logo {
     color: var(--first-color);
     transition: color 0.4s;
     display: flex;
     gap: 10px;
-    font-size: var(--h2-font-size);
-    font-family: var(--second-font);
+    text-decoration: none;
+    font-size: 30px;
+    font-weight: 700;
+    font-family: var(--body-font);
    }
+*/
 
+.nav__logo {
+  display: flex;
+  text-decoration: none;
+  align-items: center;
+  justify-content: center;
+  
+}
+   .nav__logo img {
+     width: 60px;
+     height: 60px;
+   }
+.nav__logo .logo-txt {
+  color: #0000ff;
+  font-size: 30px;
+  font-weight: 700;
+  align-self: center;
+}
    
    .nav__link {
     color: var(--title-color);
     font-weight: var(--font-semi-bold);
     transition: color 0.4s;
    }
+
+   .nav-btn {
+     padding: 10px;
+     border-radius: 5px;
+     border: 1px solid rgba(255, 255, 255, 0.5);
+    }
    
    .nav__link:hover {
     color: var(--first-color);
@@ -69,11 +93,15 @@ nav {
 
 .nav-elements ul {
   display: flex;
-  justify-content: space-between;
+  align-items: center;
   list-style-type: none;
 
 }
 
+.nav__item {
+  align-items: center;
+  display: flex;
+}
 .nav-elements ul li:not(:last-child) {
   margin-right: 40px;
 }
@@ -103,6 +131,23 @@ nav {
 
 .nav-search {
   display: none;
+}
+
+.social {
+  display: flex;
+  gap: -1px;
+  margin-left: 30px;
+}
+.nav__link .icon {
+  padding: 6px;
+  font-size: 28px;
+  margin-right: 10px;
+  border-radius: 50%;
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  justify-content: center;
+  line-height: 1;
+  background: rgba(217, 217, 217, 0.1);
 }
 
 @media (max-width: 768px) {

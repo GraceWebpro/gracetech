@@ -5,14 +5,16 @@ import { Link } from "react-router-dom";
 //import { RiArrowDropDownLine } from "react-icons/ri";
 import './Navbar.css'
 import { RiMenuUnfold3Fill } from "react-icons/ri";
-import logo from '../../logo.svg';
-import NavSearch from './NavSearch';
+import logo from '../../assets/my-logo.jpeg';
+//import NavSearch from './NavSearch';
+import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';
+import { IoCall } from 'react-icons/io5';
 
 
 const Navbar = () => {
   const [showNavbar, setShowNavbar] = useState(false)
   const [activeLink, setActiveLink] = useState('home');
-  const [scrolled, setscrolled] = useState(false);
+  //const [scrolled, setscrolled] = useState(false);
 
   const handleShowNavbar = () => {
     setShowNavbar(!showNavbar)
@@ -22,19 +24,19 @@ const Navbar = () => {
     setShowNavbar(false);
   }
 
-  useEffect(() => {
-  const onScroll = () => {
-    if (window.scrollY > 50) {
-      setscrolled(true);
-    } else {
-      setscrolled(false);
-    }
-  }
+  //useEffect(() => {
+  //const onScroll = () => {
+  //  if (window.scrollY > 50) {
+   //   setscrolled(true);
+   // } else {
+    //  setscrolled(false);
+   //// }
+  //}
 
-  window.addEventListener('scroll', onScroll);
+ // window.addEventListener('scroll', onScroll);
 
-  return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+  //return () => window.removeEventListener('scroll', onScroll);
+  //}, []);
 
   const updateActiveLink = (value) => {
     setActiveLink(value);
@@ -46,7 +48,7 @@ const Navbar = () => {
       <div className="container">
         <div className="logo">
         <Link to="/" className="nav__logo">
-                <img src={logo} alt='logo' width='30' height='30' style={{ marginRight: '10px'}}/>  Movie Stream 
+                <img src={logo} alt='logo' width='30' height='30' style={{ marginRight: '0px'}}/><p className='logo-txt'>raceTech</p> 
             </Link>
         </div>
         <div className="menu-icon" onClick={handleShowNavbar}>
@@ -77,21 +79,25 @@ const Navbar = () => {
            <li className={activeLink === 'contact' ? 'active nav__item' : 'nav__item'} onClick={() => updateActiveLink('contact')}>
              <Link
                to="contact"
+               className="nav__link nav-btn"
+               onClick={closeNavbar}
+             >
+               Let's connect
+             </Link>
+           </li>
+            <li className={activeLink === 'contact' ? 'active nav__item' : 'nav__item'} onClick={() => updateActiveLink('contact')}>
+             <Link
+               to="contact"
                className="nav__link"
                onClick={closeNavbar}
              >
-               Contact
+               <IoCall className='icon'/> 
              </Link>
            </li>
-           <NavSearch />
+
+          
           </ul>
-          <span>
-          <div className='social' style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', gap: '20px', margin: '0 auto', marginTop: '10px' }}>
-            <a href='https://www.facebook.com' style={{ color: '#fff', fontSize: '25px' }}><FaFacebook /> </a>
-            <a href='https://www.instagram.com' style={{ color: '#fff', fontSize: '25px' }}><FaInstagram /></a>
-            <a href='https://wwww.twitter.com' style={{ color: '#fff', fontSize: '25px' }}><FaTwitter /></a>
-          </div>
-          </span>
+          
         </div>
       </div>
     </nav>
@@ -100,3 +106,34 @@ const Navbar = () => {
 }
 
 export default Navbar
+/*
+<div className='social'>
+           <li className={activeLink === 'contact' ? 'active nav__item' : 'nav__item'} onClick={() => updateActiveLink('contact')}>
+             <Link
+               to="contact"
+               className="nav__link"
+               onClick={closeNavbar}
+             >
+               <FaFacebook className='icon'/> 
+             </Link>
+           </li>
+           <li className={activeLink === 'contact' ? 'active nav__item' : 'nav__item'} onClick={() => updateActiveLink('contact')}>
+             <Link
+               to="contact"
+               className="nav__link"
+               onClick={closeNavbar}
+             >
+               <FaInstagram className='icon'/> 
+             </Link>
+           </li>
+            <li className={activeLink === 'contact' ? 'active nav__item' : 'nav__item'} onClick={() => updateActiveLink('contact')}>
+             <Link
+               to="contact"
+               className="nav__link"
+               onClick={closeNavbar}
+             >
+               <FaTwitter className='icon'/> 
+             </Link>
+           </li>
+
+</div>*/
