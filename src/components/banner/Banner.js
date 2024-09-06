@@ -47,11 +47,12 @@ const Banner = () => {
         <section className='banner' id='home'>
             <div className='container'>
                 <div className='al-center'>
-                    <div xs={12} md={6} xl={7} className='bann-left'>
+                    <div  className='bann-left'>
                         <span className='tagline'>Welcome to my Portfolio</span>
-                        <h1>{`Hi I'm GraceTech `}<span className='wrap'>{text}</span></h1>
-                        <p>Lorem ipsum sgghhgj hjkjhj jgfftt cdrgh jkikoolio kkiol;o;oopi hujyhggfhhnm kukjhjnhhkijn gjkjkjkiijnkk</p>
-                        <button onClick=''>Let's Connect<ArrowRightCircle size={25}/></button>
+                        <h1 style={{ fontSize: '40px'}}>Hi I<span style={{ color: '#0000ff' }}>'</span>m GraceTech<span style={{ color: '#0000ff', fontSize: '60px' }}>.</span></h1> 
+                        <h1>A <span className='wrap'>{text}</span></h1>
+                        <p>Expertly Crafting Digital Solutions</p>
+                        <button className='bann-btn' onClick=''>Let's Connect<ArrowRightCircle size={25}/></button>
                     </div>
                     <Col xs={12} md={6} xl={5}>
                         <img src={bannerImg} alt='Heder img' width='300px' height='300px' />

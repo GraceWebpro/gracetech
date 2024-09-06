@@ -48,7 +48,7 @@ const Navbar = () => {
       <div className="container">
         <div className="logo">
         <Link to="/" className="nav__logo">
-                <img src={logo} alt='logo' width='30' height='30' style={{ marginRight: '0px'}}/><p className='logo-txt'>raceTech</p> 
+                <img src={logo} alt='logo' width='80px' height='80px' style={{ marginRight: '0px'}}/><p className='logo-txt'>raceTech</p> 
             </Link>
         </div>
         <div className="menu-icon" onClick={handleShowNavbar}>
