@@ -63,7 +63,6 @@ const Skills = () => {
                 </Row>
             </Container>
 
-            <img className='bg-img-left' src={dev1} />
         </section>
     )
 };

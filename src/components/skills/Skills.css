@@ -2,20 +2,19 @@
     position: relative;
     margin-top: 60px;
     align-items: center;
+    padding: 20px;
 }
 
-/*
-.skill {
-    padding: 0 auto;
-    position: relative;
-    width: 100%;
-}
+
+
 
 .skill-bx {
     background: #151515;
     border-radius: 64px;
     text-align: center;
+    justify-content: center;
     margin-top: 0px;
+    padding: 30px 25px;
     width: 100%;
 }
 
@@ -34,13 +33,13 @@
 }
 
 .skill-slider {
-    width: 80%;
+    width: 100%;
     margin: 0 auto;
     position: relative;
 }
 
 .skill-slider .item img {
-    width: 50%;
+    width: 100%;
     margin: 0 auto 15px auto;
 }
 
@@ -51,4 +50,3 @@
     width: 40%;
     z-index: -4;
 }
-*/
