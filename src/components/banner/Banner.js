@@ -3,6 +3,8 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { ArrowRightCircle } from 'react-bootstrap-icons';
 import bannerImg from '../../assets/bann2.jpg';
 import './Banner.css'
+import 'animate.css'
+import TrackVisibility from 'react-on-screen'
 
 const Banner = () => {
 
@@ -48,17 +50,23 @@ const Banner = () => {
             <div className='container'>
                 <div className='al-center'>
                     <div  className='bann-left'>
-                        <span className='tagline'>Welcome to my Portfolio</span>
-                        <h1 style={{ fontSize: '40px'}}>Hi I<span style={{ color: '#0000ff' }}>'</span>m GraceTech<span style={{ color: '#0000ff', fontSize: '60px' }}>.</span></h1> 
-                        <h1>A <span className='wrap'>{text}</span></h1>
-                        <p>Expertly Crafting Digital Solutions</p>
-                        <button className='bann-btn' onClick=''>Let's Connect<ArrowRightCircle size={25}/></button>
+                       <TrackVisibility>
+                            {({ isVisible }) =>
+                                <div className={isVisible ? "animates__animated animate__fadeIn" : ""}>
+                                    <span className='tagline'>Welcome to my Portfolio</span>
+                                    <h1 style={{ fontSize: '40px'}}>Hi I<span style={{ color: '#0000ff' }}>'</span>m GraceTech<span style={{ color: '#0000ff', fontSize: '60px' }}>.</span></h1> 
+                                    <h1>A <span className='wrap'>{text}</span></h1>
+                                    <p>Expertly Crafting Digital Solutions</p>
+                                    <button className='bann-btn' onClick=''>Let's Connect<ArrowRightCircle size={25}/></button>
+                                </div>}
+                        </TrackVisibility>
                     </div>
                     <Col xs={12} md={6} xl={5}>
                         <img src={bannerImg} alt='Heder img' width='300px' height='300px' />
                     </Col>
                 </div>
             </div>
+    
         </section>
     )
 };

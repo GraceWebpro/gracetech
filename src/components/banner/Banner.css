@@ -18,6 +18,10 @@
     display: inline-block;
 }
 
+.tagline {
+    color: aliceblue;
+}
+
 .bann-left {
     display: block;
 }
@@ -29,6 +33,7 @@
     line-height: 1;
     margin-bottom: 20px;
     display: block;
+   color: aliceblue;
 }
 
 .banner p {
@@ -86,8 +91,9 @@
 
 .al-center {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+     gap: 100px;
     padding: 20px;
     width: 100%;
     box-sizing: border-box;
