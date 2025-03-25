@@ -5,6 +5,7 @@ import ProjectCard from "./ProjectCard";
 import projImg from '../../assets/dev3.png';
 import gdFrame from '../../assets/GdFrame.png'
 import wunmi from '../../assets/wunmi.png'
+import TrackVisibility from 'react-on-screen'
 
 import './Project.css'
 
@@ -39,19 +40,23 @@ export function Projects() {
       ]
   return (
     <div className="project">
+                   <TrackVisibility>
+                            {({ isVisible }) =>
+                                <div className={isVisible ? "animates__animated animate__slideInUp" : ""}>
       <h2 style={{ textAlign: 'center' }}>Projects</h2>
             <p>Lorem ipsum dolor amet glossier vinyl fanny pack, echo park mustache
           helvetica hexagon. Pinterest enamel pin flexitarian cred literally air
           plant yr vape small batch ennui taiyaki af. Quinoa kombucha</p>
-            
+      </div>}
+            </TrackVisibility>
       <TabsPanel>
         <Tab
           title="Tab One"
-          subtitle="Little About us"
+          subtitle="Recent projects"
           icon="far fa-address-card"
         >
           
-          <div className="project-container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '30px', padding: '20px', justifyContent: 'center', alignItems: 'center' }}>
+          <div id="project-container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '30px', padding: '0px', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
                 {
                     projects.map((project, index) => {
                       return (
@@ -86,6 +91,8 @@ export function Projects() {
           mlkshk YOLO pour-over. Jean shorts intelligentsia snackwave pug.
         </Tab>
       </TabsPanel>
+   
+
     </div>
   );
 }

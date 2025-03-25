@@ -1,5 +1,5 @@
 .banner {
-    margin-top: 0;
+    margin-top: 0px;
     padding: 260px 0 200px 0;
     background-image: url('../../assets/star2.jpg');
     background-position: top center;
@@ -23,7 +23,8 @@
 }
 
 .bann-left {
-    display: block;
+    align-items: center;
+    justify-content: center;
 }
 
 .banner h1 {
@@ -50,7 +51,6 @@
     font-size: 20px;
     margin-top: 40px;
     letter-spacing: 0.8px;
-    display: flex;
     padding: 10px;
     align-items: center;
     background: none;
@@ -98,3 +98,24 @@
     width: 100%;
     box-sizing: border-box;
 }
+
+@media (max-width: 852px) {
+    .al-center {
+        display: block;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .banner {
+        margin-top: 0px;
+    }
+
+    .banner img {
+        display: none;
+    }
+  }
+
+

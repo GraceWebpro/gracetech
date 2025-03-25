@@ -1,6 +1,13 @@
 import React, { useState } from 'react'
 import { Col, Container, Row } from 'react-bootstrap';
 import img from '../../assets/dev2.png'
+import './Contact.css'
+import { Link } from 'react-router-dom';
+import { FaLocationDot } from "react-icons/fa6";
+import { IoLogoWhatsapp, IoLogoInstagram } from "react-icons/io";
+import { MdEmail } from "react-icons/md";
+import { AiOutlineTikTok } from "react-icons/ai";
+import { FaFacebook } from "react-icons/fa";
 
 const Contact = () => {
     const formInitialDetails = {
@@ -44,13 +51,56 @@ const Contact = () => {
 
   return (
     <section className='contact' id='connect'>
-      <Container>
-        <Row className='align-items-center'>
-            <Col md={6}>
-                <img src={img} alt='Contact Us' />
+      <div>
+      <h2>Get In Touch</h2>
+        <Row className='cent'>
+            <Col md={6} className='contact-left'>
+                 <h4>Have a question or a project in mind? Fill out the form, and let's connect!</h4>
+                 <div className='contact-div'>
+                    <Col sm={6} className='px-1 flex'>
+                        <FaLocationDot className='iconn'/> 
+                        <p>Lagos, Nigeria</p>
+                    </Col>
+                    <Col sm={6} className='px-1 flex'>
+                        <IoLogoWhatsapp className='iconn'/> 
+                        <p>+2348021357359</p>
+                    </Col>
+                    <Col sm={6} className='px-1 flex'>
+                        <MdEmail className='iconn'/> 
+                        <p>gracietechdigital@proton.me</p>
+                    </Col>
+                 </div>
+                 <div className='contact-div'>
+                    <h5>Follow us on social media</h5>
+                    <Col sm={6} className='px-1 flex'>
+                    <Link
+                        to="contact"
+                        className="nav__link"
+                        >
+                        <AiOutlineTikTok className='icon2'/> 
+                    </Link>
+               
+                   
+                    <Link
+                        to="contact"
+                        className="nav__link"
+                        >
+                        <IoLogoInstagram className='icon2'/> 
+                    </Link>
+               
+                   
+                    <Link
+                        to="contact"
+                        className="nav__link"
+                        >
+                        <FaFacebook className='icon2'/> 
+                    </Link>
+                    </Col>
+                    
+                 </div>
             </Col>
-            <Col md={6}>
-                <h2>Get In Touch</h2>
+            <div>
+                
                 <form onSubmit={handleSubmit}>
                     <Row>
                         <Col sm={6} className='px-1'>
@@ -81,9 +131,9 @@ const Contact = () => {
 
                     </Row>
                 </form>
-            </Col>
+            </div>
         </Row>
-      </Container>
+      </div>
     </section>
   )
 }

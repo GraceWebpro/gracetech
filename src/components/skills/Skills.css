@@ -16,6 +16,11 @@
   text-align: center;
   margin-top: -40px;
 }
+
+.cont h2 {
+  color: #fff;
+  font-size: 25px;
+}
   .slider p {
     text-align: center;
   }
@@ -34,4 +39,10 @@
   }
   .react-multi-carousel-dot.react-multi-carousel-dot--active button{
   background: rgb(2, 213, 255) !important;
+  }
+
+  @media (max-width: 852px) {
+    .cont {
+      width: 95%;    
+    }
   }

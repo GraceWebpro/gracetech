@@ -1,9 +1,16 @@
 footer {
-    padding: 0 0 50px 0;
-    background-image: url("../../assets/star3.jpg");
-    background-position: center center;
-    background-size: cover;
-    background-repeat: no-repeat;
+    position: relative;
+    padding: 0px 0 0px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.footer .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .newsletter-bx {
@@ -11,8 +18,10 @@ footer {
     border-radius: 55px;
     color: #121212;
     padding: 85px 125px;
-    margin-bottom: 80px;
-    margin-top: -122px;
+    margin-bottom: 30px;
+    margin-top: 32px;
+    align-items: center;
+    justify-content: center;
 }
 
 .newsletter h3 {
@@ -60,13 +69,14 @@ footer {
     color: #121212;
     font-weight: 500;
     background: transparent;
-    border: 0;
+    border: 1px solid #ccc;
     padding: 0 15px;
+    height: 40px;
 }
 
 .new-email-bx button {
     background: linear-gradient(90.21deg, #003f91 -5.91%, #0059ff 111.50%);
-    padding: 20px 65px;
+    padding: 13px 25px;
     color: #fff;
     font-weight: 500;
     letter-spacing: 0.5px;
@@ -83,7 +93,14 @@ footer {
     color: #888888;
     letter-spacing: 0.5px;
     margin-top: 20px;
+    margin-bottom: 30px;
+    text-align: center;
 }
 
-
+.footer .social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px; /* Spacing between icons */
+    margin-top: 10px;
+}
 
