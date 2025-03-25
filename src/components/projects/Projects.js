@@ -6,15 +6,19 @@ import projImg from '../../assets/dev3.png';
 import gdFrame from '../../assets/GdFrame.png'
 import wunmi from '../../assets/wunmi.png'
 import TrackVisibility from 'react-on-screen'
+import Movie from '../../assets/movie.png'
+import Tune from '../../assets/Tune.png'
+import Fiver from '../../assets/fiver.png'
+import Bitcoin from '../../assets/bitcoin.png'
 
 import './Project.css'
 
 export function Projects() {
     const projects = [
         {
-         title: "Business Startup",
-         description: "Design & Development",
-         imgUrl: projImg,
+         title: "Movie App with Figma",
+         description: "UI/UX Design",
+         imgUrl: Movie,
         },
         {
           title: "Wunmi Beauty Empire | Beauty and wellness | Website",
@@ -27,14 +31,19 @@ export function Projects() {
           imgUrl: gdFrame,
          },
          {
-          title: "Business Startup",
-          description: "Design & Development",
-          imgUrl: projImg,
+          title: "Community App with Figma",
+          description: "UI/UX Design",
+          imgUrl: Tune,
          },
          {
-          title: "Business Startup",
-          description: "Design & Development",
-          imgUrl: projImg,
+          title: "Fiver Re-Design with Figma",
+          description: "UI/UX Design",
+          imgUrl: Fiver,
+         },
+         {
+          title: "Crypto Website Ui with Figma",
+          description: "UI/UX Design",
+          imgUrl: Bitcoin,
          },
          
       ]

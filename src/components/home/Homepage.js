@@ -3,8 +3,6 @@ import Banner from '../banner/Banner'
 import Slider from '../skills/Skills';
 import { Projects } from '../projects/Projects';
 import Contact from '../contact/Contact';
-import Footer from '../footer/Footer';
-
 
 const Homepage = () => {
     return (
@@ -14,7 +12,6 @@ const Homepage = () => {
             <Slider />
             <Projects />
             <Contact />
-            <Footer />
         </div>
     )
 };

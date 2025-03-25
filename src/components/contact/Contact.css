@@ -4,6 +4,7 @@
     height: 100vh;
     justify-content: center;
     align-items: center;
+    width: 100%;
   
 }
 
@@ -11,7 +12,8 @@
     margin-top: 20px;
     display: flex;
     justify-content: space-between;
-    
+    gap: 20px;
+    width: 100%;
 }
 .contact img {
     width: 100%;
@@ -50,7 +52,8 @@
 }
 
 .contact-left {
-    max-width: 600px;
+    max-width: 50%;
+    flex: 1;
 }
 
 .flex {
@@ -89,6 +92,8 @@
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    
 }
 
 .contact input,
@@ -158,3 +163,16 @@
         
     }
 }
+
+@media (max-width: 852px) {
+    .cent {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .contact-left, 
+    .contact form {
+        max-width: 100%;
+    }
+}
+
