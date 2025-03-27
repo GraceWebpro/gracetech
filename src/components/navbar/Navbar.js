@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 //import { RiArrowDropDownLine } from "react-icons/ri";
 import './Navbar.css'
 import { RiMenuUnfold3Fill } from "react-icons/ri";
-import logo from '../../assets/my-logo.jpeg';
+import logo from '../../assets/logo-main.png';
 //import NavSearch from './NavSearch';
 import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';
 import { IoCall } from 'react-icons/io5';
@@ -48,7 +48,7 @@ const Navbar = () => {
       <div className="container">
         <div className="logo">
         <Link to="/" className="nav__logo">
-                <img src={logo} alt='logo' width='80px' height='80px' style={{ marginRight: '0px'}}/><p className='logo-txt'>raceTech</p> 
+                <img src={logo} alt='logo' width={40} height={40} style={{ marginRight: '0px'}}/><p className='logo-txt'></p> 
             </Link>
         </div>
         <div className="menu-icon" onClick={handleShowNavbar}>
@@ -62,9 +62,29 @@ const Navbar = () => {
                Home
              </Link>
            </li>
+           <li className={activeLink === 'home' ? 'active nav__item' : 'nav__item'} onClick={() => updateActiveLink('home')}>
+             <Link to="/" className="nav__link" onClick={closeNavbar}>
+               Resume
+             </Link>
+           </li>
+           <li className={activeLink === 'home' ? 'active nav__item' : 'nav__item'} onClick={() => updateActiveLink('home')}>
+             <Link to="/" className="nav__link" onClick={closeNavbar}>
+               Services
+             </Link>
+           </li>
            <li className={activeLink === 'skills' ? 'active nav__item' : 'nav__item'} onClick={() => updateActiveLink('skills')}>
              <Link to="skills" className="nav__link" onClick={closeNavbar}>
                Skills 
+             </Link>
+           </li>
+           <li className={activeLink === 'home' ? 'active nav__item' : 'nav__item'} onClick={() => updateActiveLink('home')}>
+             <Link to="/" className="nav__link" onClick={closeNavbar}>
+               Portfolio
+             </Link>
+           </li>
+           <li className={activeLink === 'home' ? 'active nav__item' : 'nav__item'} onClick={() => updateActiveLink('home')}>
+             <Link to="/" className="nav__link" onClick={closeNavbar}>
+               Templates
              </Link>
            </li>
            <li className={activeLink === 'projects' ? 'active nav__item' : 'nav__item'} onClick={() => updateActiveLink('projects')}>
@@ -74,6 +94,11 @@ const Navbar = () => {
                onClick={closeNavbar}
              >
                Projects 
+             </Link>
+           </li>
+           <li className={activeLink === 'home' ? 'active nav__item' : 'nav__item'} onClick={() => updateActiveLink('home')}>
+             <Link to="/" className="nav__link" onClick={closeNavbar}>
+               Blog
              </Link>
            </li>
            <li className={activeLink === 'contact' ? 'active nav__item' : 'nav__item'} onClick={() => updateActiveLink('contact')}>

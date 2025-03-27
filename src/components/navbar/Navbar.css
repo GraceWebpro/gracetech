@@ -43,13 +43,14 @@ nav {
 .nav__logo {
   display: flex;
   text-decoration: none;
+  transition: color 0.4s;
   align-items: center;
+  margin-left: 10px;
   justify-content: center;
-  
 }
    .nav__logo img {
-     width: 50px;
-     height: 50px;
+     width: 40px;
+     height: 40px;
    }
 .nav__logo .logo-txt {
   color: #0000ff;

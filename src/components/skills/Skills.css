@@ -43,6 +43,7 @@
 
   @media (max-width: 852px) {
     .cont {
-      width: 95%;    
+      width: 95%;  
+      padding: 20px 10px;  
     }
   }

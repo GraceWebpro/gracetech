@@ -35,8 +35,8 @@ function App() {
           {/* Redirect to home for unmatched routes */}
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
+        {!isAdminPage && <Footer />}
             <ScrollToTop />
-            {!isAdminPage && <Footer />}
 
     </div>
   );
