@@ -54,6 +54,7 @@
     padding: 10px;
     align-items: center;
     background: none;
+    border: 1px solid #ccc;
 }
 
 .banner button svg {

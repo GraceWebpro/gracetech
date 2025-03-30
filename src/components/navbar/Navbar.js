@@ -7,8 +7,8 @@ import './Navbar.css'
 import { RiMenuUnfold3Fill } from "react-icons/ri";
 import logo from '../../assets/logo-main.png';
 //import NavSearch from './NavSearch';
-import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';
-import { IoCall } from 'react-icons/io5';
+import { IoMdApps } from "react-icons/io";
+
 
 
 const Navbar = () => {
@@ -48,7 +48,7 @@ const Navbar = () => {
       <div className="container">
         <div className="logo">
         <Link to="/" className="nav__logo">
-                <img src={logo} alt='logo' width={40} height={40} style={{ marginRight: '0px'}}/><p className='logo-txt'></p> 
+                <img src={logo} alt='logo' width={40} height={40} style={{ marginRight: '0px'}}/><p className='logo-txt'>GraceTech</p> 
             </Link>
         </div>
         <div className="menu-icon" onClick={handleShowNavbar}>
@@ -65,11 +65,6 @@ const Navbar = () => {
            <li className={activeLink === 'home' ? 'active nav__item' : 'nav__item'} onClick={() => updateActiveLink('home')}>
              <Link to="/" className="nav__link" onClick={closeNavbar}>
                Resume
-             </Link>
-           </li>
-           <li className={activeLink === 'home' ? 'active nav__item' : 'nav__item'} onClick={() => updateActiveLink('home')}>
-             <Link to="/" className="nav__link" onClick={closeNavbar}>
-               Services
              </Link>
            </li>
            <li className={activeLink === 'skills' ? 'active nav__item' : 'nav__item'} onClick={() => updateActiveLink('skills')}>
@@ -107,7 +102,7 @@ const Navbar = () => {
                className="nav__link nav-btn"
                onClick={closeNavbar}
              >
-               Let's connect
+               Let's Connect
              </Link>
            </li>
             <li className={activeLink === 'contact' ? 'active nav__item' : 'nav__item'} onClick={() => updateActiveLink('contact')}>
@@ -116,7 +111,7 @@ const Navbar = () => {
                className="nav__link"
                onClick={closeNavbar}
              >
-               <IoCall className='icon'/> 
+               <IoMdApps className='icon6'/> 
              </Link>
            </li>
 

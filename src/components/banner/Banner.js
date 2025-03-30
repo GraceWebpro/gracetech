@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { ArrowRightCircle } from 'react-bootstrap-icons';
+import { GoArrowUpRight } from "react-icons/go";
+
 import bannerImg from '../../assets/bann2.jpg';
 import './Banner.css'
 import 'animate.css'
@@ -53,6 +55,10 @@ const Banner = () => {
                        <TrackVisibility>
                             {({ isVisible }) =>
                                 <div className={isVisible ? "animates__animated animate__fadeIn" : ""}>
+                                    <div>
+                                        <p>Currently Available For Freelance Worldwide <GoArrowUpRight /></p>
+                                        <p>__________________________________________---</p>
+                                    </div>
                                     <span className='tagline'>Welcome to my Portfolio</span>
                                     <h1 style={{ fontSize: '40px'}}>Hi I<span style={{ color: '#0000ff' }}>'</span>m GraceTech<span style={{ color: '#0000ff', fontSize: '60px' }}>.</span></h1> 
                                     <h1>A <span className='wrap'>{text}</span></h1>
