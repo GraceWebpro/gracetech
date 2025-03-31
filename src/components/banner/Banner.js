@@ -61,7 +61,7 @@ const Banner = () => {
                                         <p className='bdr'></p>
                                     </div>
                                     <span className='tagline'>Welcome to my Portfolio</span>
-                                    <h1>Hi I<span style={{ color: '#0000ff' }}>'</span>m GraceTech<span style={{ color: '#0000ff', fontSize: '60px' }}>.</span></h1> 
+                                    <h1>Hi 👋 I<span style={{ color: '#0000ff' }}>'</span>m GraceTech<span style={{ color: '#0000ff', fontSize: '60px' }}>.</span></h1> 
                                     <h1>A <span className='wrap' style={{ color: '#0000ff' }}>{text}</span></h1>
                                     <p>Expertly Crafting Digital Solutions</p>
 

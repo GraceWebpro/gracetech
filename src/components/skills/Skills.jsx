@@ -6,6 +6,7 @@ import dev1 from '../../assets/dev2.png';
 import dev2 from '../../assets/dev2.png';
 import dev3 from '../../assets/dev2.png';
 
+
 const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
@@ -52,10 +53,12 @@ const sliderImageUrl = [
   }
 ];
 const Slider = () => {
+
+  
   return (
-    <div className="cont">
+    <div className="cont" data-aos="zoom-in">
       <h2>Skills</h2>
-      <p>this is the skills section of this portfolio</p>
+      <p style={{ marginTop: '10px', fontSize: '15px' }}>this is the skills section of this portfolio</p>
 
       <div className="parent">
         <Carousel

@@ -47,20 +47,57 @@ export function Projects() {
          },
          
       ]
+
+      const figma = [
+        {
+         title: "Movie App with Figma",
+         description: "UI/UX Design",
+         imgUrl: Movie,
+        },
+        
+         {
+          title: "Game Development Website with Figma",
+          description: "UI Design",
+          imgUrl: gdFrame,
+         },
+         {
+          title: "Community App with Figma",
+          description: "UI/UX Design",
+          imgUrl: Tune,
+         },
+         {
+          title: "Fiver Re-Design with Figma",
+          description: "UI/UX Design",
+          imgUrl: Fiver,
+         },
+         {
+          title: "Crypto Website Ui with Figma",
+          description: "UI/UX Design",
+          imgUrl: Bitcoin,
+         },
+         
+      ]
+
+      const bubble = [
+        {
+          title: "Wunmi Beauty Empire | Beauty and wellness | Website",
+          description: "Design & Development",
+          imgUrl: wunmi,
+         },
+         
+      ]
   return (
     <div className="project">
                    <TrackVisibility>
                             {({ isVisible }) =>
                                 <div className={isVisible ? "animates__animated animate__slideInUp" : ""}>
       <h2 style={{ textAlign: 'center' }}>Projects</h2>
-            <p>Lorem ipsum dolor amet glossier vinyl fanny pack, echo park mustache
-          helvetica hexagon. Pinterest enamel pin flexitarian cred literally air
-          plant yr vape small batch ennui taiyaki af. Quinoa kombucha</p>
+            <p>A collection of my recent projects, highlighting my expertise in web development and design.</p>
       </div>}
             </TrackVisibility>
       <TabsPanel>
         <Tab
-          title="Tab One"
+          title="All Tab"
           subtitle="Recent projects"
           icon="far fa-address-card"
         >
@@ -76,28 +113,32 @@ export function Projects() {
                 </div>
         </Tab>
         <Tab
-          title="Tab Two"
+          title="UI Tab"
           subtitle="Our History"
           icon="fas fa-hourglass-start"
         >
-          Lorem ipsum dolor amet glossier vinyl fanny pack, echo park mustache
-          helvetica hexagon. Pinterest enamel.
+           
+           <div id="project-container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '30px', padding: '0px', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
+                {
+                   figma.map((project, index) => {
+                      return (
+                        <ProjectCard key={index} {...project} />
+                      )
+                    })
+                  }
+                </div>
         </Tab>
-        <Tab title="Tab Three">
-          Lorem ipsum dolor amet glossier vinyl fanny pack, echo park mustache
-          helvetica hexagon. Pinterest enamel pin flexitarian cred literally air
-          plant yr vape small batch ennui taiyaki af. Quinoa kombucha
-          asymmetrical, pitchfork 3 wolf moon tilde enamel pin bitters XOXO.
-          Gluten-free distillery semiotics, franzen DIY af green juice cornhole
-          freegan cloud bread. Master cleanse pok pok edison bulb flannel, banjo
-          mlkshk YOLO pour-over. Jean shorts intelligentsia snackwave pug.Lorem
-          ipsum dolor amet glossier vinyl fanny pack, echo park mustache
-          helvetica hexagon. Pinterest enamel pin flexitarian cred literally air
-          plant yr vape small batch ennui taiyaki af. Quinoa kombucha
-          asymmetrical, pitchfork 3 wolf moon tilde enamel pin bitters XOXO.
-          Gluten-free distillery semiotics, franzen DIY af green juice cornhole
-          freegan cloud bread. Master cleanse pok pok edison bulb flannel, banjo
-          mlkshk YOLO pour-over. Jean shorts intelligentsia snackwave pug.
+        <Tab title="UI/UX Tab">
+          
+        <div id="project-container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '30px', padding: '0px', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
+                {
+                   bubble.map((project, index) => {
+                      return (
+                        <ProjectCard key={index} {...project} />
+                      )
+                    })
+                  }
+                </div>
         </Tab>
       </TabsPanel>
    

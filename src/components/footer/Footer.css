@@ -112,9 +112,19 @@ footer {
     margin-top: 10px;
 }
 
+@media (max-width: 1080px) {
+    .footer {
+        margin-top: 200px;
+    }
+
+    .newsletter-bx {
+        border-radius: 25px;
+        padding: 25px 55px;
+    }
+}
 @media (max-width: 852px) {
     .footer {
-        margin-bottom: 0px;
+        margin-top: 500px;
     }
 
     .newsletter-bx {
