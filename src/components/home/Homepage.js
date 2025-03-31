@@ -10,10 +10,10 @@ const Homepage = () => {
         <div style={{ marginTop: '60px' }}>
             
             <Banner />
-            <Slider />
+            {/*<Slider />
             <Example />
             <Projects />
-            <Contact />
+    <Contact />*/}
         </div>
     )
 };
