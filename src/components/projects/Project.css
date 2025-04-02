@@ -18,7 +18,16 @@
 
   }
 
-
+  #project-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    justify-content: center; /* Centers grid items */
+    align-items: center;
+    width: 100%;
+    max-width: 1000px; /* Keep a max width */
+    margin: 0 auto; /* Center the container */
+  }
 .project-card {
     
     align-items: center;

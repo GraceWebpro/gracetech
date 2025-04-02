@@ -52,7 +52,10 @@ const Contact = () => {
   return (
     <section className='contact' id='connect'>
       <div>
-      <h2>Get In Touch</h2>
+      <h2 data-aos="fade-up" 
+     data-aos-duration="1500">Get In Touch</h2>
+      <h4 data-aos="fade-up">Have a question or a project in mind? Fill out the form, and let's connect!</h4>
+
         <Row className='cent'>
             <Col md={6} className='contact-left'>
                  <h4>Have a question or a project in mind? Fill out the form, and let's connect!</h4>

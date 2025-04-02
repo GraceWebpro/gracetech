@@ -10,16 +10,19 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// Your web app's Firebase configuration
+
 const firebaseConfig = {
-  apiKey: "AIzaSyBvzEaGABgi7WiVcExJfqstY7Q_8mOhVa4",
-  authDomain: "gracetech-c0abd.firebaseapp.com",
-  projectId: "gracetech-c0abd",
-  storageBucket: "gracetech-c0abd.firebasestorage.app",
-  messagingSenderId: "407095008267",
-  appId: "1:407095008267:web:227b3a39b26f483df9bb0e",
-  measurementId: "G-7PW30SFHYM"
+  apiKey: "AIzaSyAa7M2sqetsnFGBVk9cKqD5QGHSs4ashlg",
+  authDomain: "react-data-474d8.firebaseapp.com",
+  databaseURL: "https://react-data-474d8-default-rtdb.firebaseio.com",
+  projectId: "react-data-474d8",
+  storageBucket: "react-data-474d8.appspot.com",
+  messagingSenderId: "159616505616",
+  appId: "1:159616505616:web:d1ceee8d9aa40d0c54b795"
+
 };
+
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);

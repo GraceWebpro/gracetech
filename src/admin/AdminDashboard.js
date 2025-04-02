@@ -8,12 +8,14 @@ import UploadProject from "./UploadProject";
 import EditProject from "./EditProject";
 import DeleteProject from "./DeleteProject";
 import UserSettings from "./UserSettings";
+import { FaBars, FaTimes } from "react-icons/fa";
 import "./Admin.css";
 
 function Dashboard() {
   const [user, setUser] = useState(null);
   const [projects, setProjects] = useState([]);
   const [activeTab, setActiveTab] = useState("dashboard");
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -47,17 +49,25 @@ function Dashboard() {
   return (
     <div className="dashboard-container">
       {/* Sidebar */}
-      <div className="dashboard-sidebar">
-        <h2>Admin Panel</h2>
-        {user && <p className="admin-email">Welcome, {user.email}</p>}
-        <ul>
-          <li onClick={() => setActiveTab("dashboard")} className={activeTab === "dashboard" ? "active" : ""}>📊 Dashboard</li>
-          <li onClick={() => setActiveTab("upload")} className={activeTab === "upload" ? "active" : ""}>📤 Upload Project</li>
-          <li onClick={() => setActiveTab("edit")} className={activeTab === "edit" ? "active" : ""}>✏️ Edit Project</li>
-          <li onClick={() => setActiveTab("delete")} className={activeTab === "delete" ? "active" : ""}>🗑️ Delete Project</li>
-          <li onClick={() => setActiveTab("settings")} className={activeTab === "settings" ? "active" : ""}>⚙️ User Settings</li>
-        </ul>
-        <button className="logout-btn" onClick={logout}>Logout</button>
+      <div className={`dashboard-sidebar ${isSidebarOpen ? "open" : "closed"}`}>
+        <button className="menu-toggle" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
+          {isSidebarOpen ? <FaTimes /> : <FaBars />}
+        </button>
+        {isSidebarOpen && (
+          <div className="sidebar-content">
+            <h2 style={{ marginTop: '40px' }}>Admin Panel</h2>
+           
+            {user && <p className="admin-email">Welcome, {user.email}</p>}
+            <ul>
+              <li onClick={() => setActiveTab("dashboard")} className={activeTab === "dashboard" ? "active" : ""}>📊 Dashboard</li>
+              <li onClick={() => setActiveTab("upload")} className={activeTab === "upload" ? "active" : ""}>📤 Upload Project</li>
+              <li onClick={() => setActiveTab("edit")} className={activeTab === "edit" ? "active" : ""}>✏️ Edit Project</li>
+              <li onClick={() => setActiveTab("delete")} className={activeTab === "delete" ? "active" : ""}>🗑️ Delete Project</li>
+              <li onClick={() => setActiveTab("settings")} className={activeTab === "settings" ? "active" : ""}>⚙️ User Settings</li>
+            </ul>
+            <button className="logout-btn" onClick={logout}>Logout</button>
+          </div>
+        )}
       </div>
 
       {/* Main Content */}
@@ -78,7 +88,7 @@ function Dashboard() {
                   projects.map((project) => (
                     <tr key={project.id}>
                       <td>{project.id}</td>
-                      <td>{project.name}</td>
+                      <td>{project.title}</td>
                       <td>{project.description}</td>
                     </tr>
                   ))

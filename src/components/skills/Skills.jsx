@@ -56,7 +56,7 @@ const Slider = () => {
 
   
   return (
-    <div className="cont" data-aos="zoom-in">
+    <div className="cont" data-aos="fade-up">
       <h2>Skills</h2>
       <p style={{ marginTop: '10px', fontSize: '15px' }}>this is the skills section of this portfolio</p>
 

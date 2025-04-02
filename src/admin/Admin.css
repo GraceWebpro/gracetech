@@ -216,3 +216,81 @@
     cursor: not-allowed;
   }
   
+  .sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Space between text and close icon */
+    padding: 10px;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .close-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+    z-index: 1001;
+  }
+  
+  .dashboard-sidebar {
+    width: 250px;
+    transition: width 0.3s ease;
+  }
+  
+  .dashboard-sidebar.closed {
+    width: 60px;
+  }
+  
+  .menu-toggle {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    margin: 10px;
+    color: white;
+    position: absolute;
+    top: 10px;
+    left: 0px;
+    z-index: 1001; /* Ensure it's above other elements */
+  }
+  
+
+  /* */
+  
+  
+  .dashboard-container {
+    display: flex;
+    height: 100vh;
+  }
+ 
+  @media (max-width: 768px) {
+    .dashboard-sidebar {
+      width: 60px;
+      position: fixed;
+      height: 100%;
+      z-index: 1000;
+    }
+  
+    .dashboard-sidebar.open {
+      width: 250px;
+    }
+  
+    .dashboard-content {
+      margin-left: 60px;
+      transition: margin-left 0.3s ease-in-out;
+    }
+  
+    .dashboard-content.shifted {
+      margin-left: 250px;
+    }
+  
+    /* Ensure the toggle button is always visible */
+    .menu-toggle {
+      left: 0px;
+      top: 15px;
+    }
+  }
+  
