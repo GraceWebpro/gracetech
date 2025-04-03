@@ -6,6 +6,7 @@ import Contact from '../contact/Contact';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { useEffect } from 'react';
+import About from '../about/About';
 
 
 const Homepage = () => {
@@ -17,6 +18,7 @@ const Homepage = () => {
         <div style={{ marginTop: '60px' }}>
             
             <Banner />
+            <About />
             <Slider />
             <Projects />
             <Contact />

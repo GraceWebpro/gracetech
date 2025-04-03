@@ -1,21 +1,33 @@
-.banner {
+/*.banner {
     padding: 230px 0 200px 0;
     background-image: url('../../assets/star2.jpg');
     background-position: top center;
     background-size: cover;
     background-repeat: no-repeat;
+    height: fit-content;
+}
+*/
+.banner {
+  padding: 200px 0px 0px 0;
+  position: relative; /* Ensures the logo is positioned relative to the banner */
+  overflow: hidden; /* Prevents elements from going outside */
+  width: 100%;
+  min-height: 100vh; /* Ensures full height */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .bdr {
     border-bottom: 1px solid #fff;
-    width: 100% !important;
+    width: 80% !important;
     margin-top: 10px;
 }
 .banner .tagline {
     font-weight: 700;
     letter-spacing: 0.8px;
     padding: 0 10px;
-    margin-top: 40px;
+    margin-top: 20px;
     align-items: flex-start;
     color: aliceblue;
     background: linear-gradient(90.21deg, rgba(170, 54, 124. 0.5) -5.91%, rgba(74, 47, 189, 0.5));
@@ -32,7 +44,7 @@
 }
 
 .bann-left h1 {
-  font-size: 48px !important;
+  font-size: 45px !important;
   font-weight: 700;
     letter-spacing: 0.8px;
     line-height: 1.2; /* Increase line spacing */
@@ -50,12 +62,19 @@
 
 }
 
+.wrap {
+  color: #0091ff !important;
+   
+}
+
 .ban-av {
   max-width: 500px;
     text-align: left;
     color: #fff !important;
     font-size: 22px !important;
     font-weight: 600;
+    margin-top: -20px;
+    
 }
 
 .banner h1 {
@@ -75,17 +94,33 @@
     line-height: 1.5em;
     width: 96%;
 }
-
+/*
 .bann-btn {
     color: #fff;
     font-weight: 700;
     font-size: 20px;
-    margin-top: 40px;
+    margin-top: 20px;
     letter-spacing: 0.8px;
     padding: 10px;
     align-items: center;
     background: none;
     border: 1px solid #ccc;
+}*/
+
+.bann-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px; /* Adds spacing between text and icon */
+  color: #fff;
+  font-weight: 700;
+  font-size: 20px;
+  margin-top: 20px;
+  letter-spacing: 0.8px;
+  padding: 10px;
+  background: none;
+  border: 1px solid #ccc;
+  cursor: pointer;
 }
 
 .banner button svg {
@@ -105,10 +140,10 @@
     animation: updown 3s linear infinite;
     border-radius: 15px;
     width: 400px;
-    height: 800px;
+    height: 500px;
 
-    max-height: 800px; /* Prevents it from being too big */
-    object-fit: contain;
+    max-height: 500px; /* Prevents it from being too big */
+    object-fit: cover;
     align-self: flex-end; /* Sticks to the bottom */
 }
 
@@ -141,8 +176,13 @@
   position: relative;
 }
 
-@media (max-width: 995px) {
+@media (max-width: 1200px) {
+
   
+}
+
+@media (max-width: 995px) {
+ 
   .banner img {
      width: 350px;
     height: 800px;
@@ -152,7 +192,7 @@
 
 @media (max-width: 965px) {
   .bann-left h1 {
-    font-size: 46px !important;
+    font-size: 43px !important;
   }
 
  
@@ -160,7 +200,7 @@
 
 @media (max-width: 920px) {
   .bann-left h1 {
-    font-size: 42px !important;
+    font-size: 39px !important;
   }
 
   .ban-av {
@@ -173,7 +213,7 @@
 
 @media (max-width: 885px) {
   .bann-left h1 {
-    font-size: 38px !important;
+    font-size: 35px !important;
   }
 
   
@@ -190,7 +230,7 @@
    
   }
   .bann-left h1 {
-    font-size: 36px !important;
+    font-size: 33px !important;
   }
   .banner img {
     width: 300px;
@@ -207,7 +247,7 @@
 @media (max-width: 768px) {
   
   .bann-left h1 {
-    font-size: 34px !important;
+    font-size: 31px !important;
   }
   .banner img {
     width: 280px;
@@ -219,7 +259,7 @@
 @media (max-width: 726px) {
   
   .bann-left h1 {
-    font-size: 32px !important;
+    font-size: 29px !important;
   }
 
   .banner img {
@@ -231,7 +271,7 @@
 @media (max-width: 690px) {
    
   .bann-left h1 {
-    font-size: 30px !important;
+    font-size: 27px !important;
   }
 
   .banner img {
@@ -247,7 +287,7 @@
 @media (max-width: 654px) {
   
   .bann-left h1 {
-    font-size: 28px !important;
+    font-size: 25px !important;
   }
   .banner img {
     width: 210px;
@@ -258,7 +298,7 @@
 @media (max-width: 632px) {
   
   .bann-left h1 {
-    font-size: 28px !important;
+    font-size: 25px !important;
   }
   .banner img {
     width: 190px;
@@ -285,7 +325,7 @@
 @media (max-width: 604px) {
   
   .bann-left h1 {
-    font-size: 28px !important;
+    font-size: 25px !important;
   }
   .banner img {
     width: 170px;
@@ -300,7 +340,7 @@
 @media (max-width: 584px) {
   
   .bann-left h1 {
-    font-size: 26px !important;
+    font-size: 23px !important;
   }
   .banner img {
     width: 150px;
@@ -311,7 +351,7 @@
 @media (max-width: 580px) {
   
   .bann-left h1 {
-    font-size: 32px !important;
+    font-size: 29px !important;
   }
   .banner img {
     width: 150px;
@@ -322,7 +362,7 @@
 @media (max-width: 518px) {
   
   .bann-left h1 {
-    font-size: 30px !important;
+    font-size: 27px !important;
   }
   .banner img {
     width: 150px;
@@ -333,7 +373,7 @@
 @media (max-width: 505px) {
   
   .bann-left h1 {
-    font-size: 28px !important;
+    font-size: 25px !important;
   }
   .banner img {
     width: 150px;
@@ -350,7 +390,7 @@
 @media (max-width: 482px) {
   
   .bann-left h1 {
-    font-size: 26px !important;
+    font-size: 23px !important;
   }
   .banner img {
     width: 150px;
@@ -369,7 +409,7 @@
 @media (max-width: 468px) {
   
   .bann-left h1 {
-    font-size: 24px !important;
+    font-size: 21px !important;
   }
   .banner img {
     width: 130px;
@@ -380,7 +420,7 @@
 @media (max-width: 448px) {
   
   .bann-left h1 {
-    font-size: 22px !important;
+    font-size: 19px !important;
   }
   .banner img {
     width: 110px;
@@ -413,11 +453,27 @@
     display: flex;
     align-items: center;
     gap: 40px;
-    font-size: 18px;
-    font-weight: bold;
+    font-size: 16px;
     color: white;
     cursor: pointer;
   }
+
+  .video-container {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    padding-top: 56.25%; /* 16:9 Aspect Ratio */
+    overflow: hidden;
+  }
+  
+  .video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  
   
   /* Arrow Animation */
   .arrow-icon {
@@ -465,8 +521,8 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 90%;
+    height: 90%;
     background: rgba(0, 0, 0, 0.8);
     display: flex;
     justify-content: center;
@@ -506,8 +562,8 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 65px;
-  height: 65px;
+  width: 55px;
+  height: 55px;
   border-radius: 50%;
   border: 2px solid white;
   opacity: 0.6;
@@ -530,8 +586,8 @@
 
 /* Play Button */
 .play-button {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   background-color: transparent;
   border-radius: 50%;
   display: flex;
@@ -543,3 +599,56 @@
 }
 
 
+.logo-marquee {
+  overflow: hidden;
+  position: absolute;
+  bottom: 30px;
+  width: 100vw;
+  max-width: 100%;
+  height: 100px;
+  background: linear-gradient(90.21deg, #003f91 -5.91%, #0059ff 111.50%);
+  color: #fff;
+  padding: 20px 0;
+  margin: 0px !important;
+  margin-right: -10px !important;
+  z-index: 10; /* Ensure it appears above the banner */
+}
+
+.logos {
+  display: flex;
+  gap: 30px;
+  animation: scrollLogos 10s linear infinite;
+  /*min-width: 200%; /* Ensures two sets of logos fit in */
+}
+
+.logos p {
+  display: flex;
+  gap: 10px;
+  font-size: 30px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.logos img {
+  height: 60px; /* Adjust logo size */
+  width: 60px;
+  display: inline-block;
+}
+
+/* Smooth, seamless scrolling *
+@keyframes scrollLogos {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); } /* Moves halfway, so the second set takes over *
+}
+
+@keyframes scrollLogos {
+  from { transform: translateX(100%); }
+  to { transform: translateX(-100%); }
+}
+
+*/
+
+@keyframes scrollLogos {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}

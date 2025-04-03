@@ -4,13 +4,7 @@ import { getDocs, collection } from "firebase/firestore";
 import Tab from "./Tab";
 import TabsPanel from "./TabsPanel";
 import ProjectCard from "./ProjectCard";
-import gdFrame from '../../assets/GdFrame.png'
-import wunmi from '../../assets/wunmi.png'
 import TrackVisibility from 'react-on-screen'
-import Movie from '../../assets/movie.png'
-import Tune from '../../assets/Tune.png'
-import Fiver from '../../assets/fiver.png'
-import Bitcoin from '../../assets/bitcoin.png'
 import { query, orderBy } from "firebase/firestore"; 
 import './Project.css'
 

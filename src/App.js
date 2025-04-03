@@ -1,8 +1,7 @@
-import logo from './logo.svg';
 import { useState } from "react";
 import './App.css';
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
-import ScrollToTop from './components/ScrollToTop';
+//import ScrollToTop from './components/ScrollToTop';
 import Navbar from './components/navbar/Navbar';
 import Homepage from './components/home/Homepage';
 import Login from './admin/AdminLogin';
@@ -36,7 +35,7 @@ function App() {
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
         {!isAdminPage && <Footer />}
-            <ScrollToTop />
+            {/*<ScrollToTop />*/}
 
     </div>
   );

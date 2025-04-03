@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
-import { IoMdArrowForward, IoMdPlay } from "react-icons/io";
+import { IoMdPlay } from "react-icons/io";
 import { FaArrowTrendDown } from "react-icons/fa6";
 
 Modal.setAppElement("#root"); // Required for accessibility
@@ -12,7 +12,7 @@ const WorkProcess = () => {
   const closeModal = () => setIsOpen(false);
 
   return (
-    <div className="work-process flex items-center gap-4">
+    <div className="work-process flex items-center gap-4" data-aos="fade-up" data-aos-duration="1500">
       {/* Animated Arrow */}
       <div className="arrow-icon">
         <FaArrowTrendDown />
@@ -43,6 +43,7 @@ const WorkProcess = () => {
         overlayClassName="video-overlay"
       >
         <button className="close-button" onClick={closeModal}>X</button>
+        <div className="video-container">
         <iframe 
           width="560" 
           height="315" 
@@ -52,6 +53,7 @@ const WorkProcess = () => {
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
           allowFullScreen
         ></iframe>
+        </div>
       </Modal>
     </div>
   );

@@ -1,7 +1,6 @@
 import React from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
-import MailchimpForm from '../newsletter/MailchimpForm'
-import logo from '../../assets/my-logo.jpeg'
+//import MailchimpForm from '../newsletter/MailchimpForm'
 import './Footer.css'
 import { IoLogoInstagram } from "react-icons/io";
 import { AiOutlineTikTok } from "react-icons/ai";
@@ -14,7 +13,7 @@ const Footer = () => {
       <Container>
         <Row className='align-item-canter'>
           
-            <MailchimpForm />
+            {/*<MailchimpForm />*/}
             <Col sm={6}>
                 {/*<img src={logo} alt='Logo' width={80} height={80} />*/}
             </Col>

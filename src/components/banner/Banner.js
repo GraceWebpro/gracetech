@@ -8,6 +8,7 @@ import './Banner.css'
 import 'animate.css'
 import TrackVisibility from 'react-on-screen'
 import WorkProcess from './WorkProcess';
+import Logo from './logo';
 
 const Banner = () => {
 
@@ -57,26 +58,29 @@ const Banner = () => {
                             {({ isVisible }) =>
                                 <div className={isVisible ? "animates__animated animate__fadeIn" : ""}>
                                     <div>
-                                        <p className='ban-av'>Currently Available For Freelance Worldwide <GoArrowUpRight /></p>
+                                        <p className='ban-av' data-aos="fade-up" data-aos-duration="1500">Currently Available For Freelance Worldwide <GoArrowUpRight /></p>
                                         <p className='bdr'></p>
                                     </div>
-                                    <span className='tagline'>Welcome to my Portfolio</span>
-                                    <h1>Hi 👋 I<span style={{ color: '#0000ff' }}>'</span>m GraceTech<span style={{ color: '#0000ff', fontSize: '60px' }}>.</span></h1> 
-                                    <h1>A <span className='wrap' style={{ color: '#0000ff' }}>{text}</span></h1>
-                                    <p>Expertly Crafting Digital Solutions</p>
+                                    <span className='tagline' data-aos="fade-up" data-aos-duration="1500">Welcome to my Portfolio</span>
+                                    <h1 data-aos="fade-up" data-aos-duration="1500">Hi 👋 I<span style={{ color: '#0000ff' }}>'</span>m GraceTech<span style={{ color: '#0000ff', fontSize: '60px' }}>.</span></h1> 
+                                    <h1 data-aos="fade-up" data-aos-duration="1500">A <span className='wrap' style={{ color: '#0000ff' }}>{text}</span></h1>
 
                                     <div>
                                         <WorkProcess />
                                     </div>
-                                    <button className='bann-btn' onClick=''>Let's Connect<ArrowRightCircle size={25}/></button>
+                                    <button className='bann-btn' onClick=''>
+                                        <span>Let's Connect</span>
+                                        <ArrowRightCircle size={25}/>
+                                    </button>
                                 </div>}
                         </TrackVisibility>
                     </div>
                    <div className="banner-img-container">
-    <img src={bannerImg} alt="Header img" />
-    </div>
+                    <img src={bannerImg} alt="Header img" />
+                    </div>
                 </div>
             </div>
+            <Logo />
     
         </section>
     )
