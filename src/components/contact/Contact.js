@@ -54,12 +54,12 @@ const Contact = () => {
       <div>
       <h2 data-aos="fade-up" 
      data-aos-duration="1500">Get In Touch</h2>
-      <h4 data-aos="fade-up">Have a question or a project in mind? Fill out the form, and let's connect!</h4>
+      <h4 data-aos="fade-up" className='proj-title'>Have a question or a project in mind? Fill out the form, and let's connect!</h4>
 
         <Row className='cent'>
             <Col md={6} className='contact-left'>
-                 <h4>Have a question or a project in mind? Fill out the form, and let's connect!</h4>
-                 <div className='contact-div'>
+                 <h4>Let's work together. fixed a meeting</h4>
+                 <div className='contact-div' data-aos="fade-up-right">
                     <Col sm={6} className='px-1 flex'>
                         <FaLocationDot className='iconn'/> 
                         <p>Lagos, Nigeria</p>
@@ -73,7 +73,7 @@ const Contact = () => {
                         <p>gracietechdigital@proton.me</p>
                     </Col>
                  </div>
-                 <div className='contact-div'>
+                 <div className='contact-div' data-aos="fade-up-right">
                     <h5>Follow us on social media</h5>
                     <Col sm={6} className='px-1 flex'>
                     <Link
@@ -102,7 +102,7 @@ const Contact = () => {
                     
                  </div>
             </Col>
-            <div>
+            <div className='contact-right'>
                 
                 <form onSubmit={handleSubmit}>
                     <Row>
