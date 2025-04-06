@@ -76,3 +76,15 @@
     color: #262626;
     font-size: 16px;
   }*/
+
+  /* Styles for the dot */
+.cursor-dot {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: #0059ff; /* Change to your preferred color */
+  border-radius: 50%;
+  pointer-events: none; /* Ensures the dot doesn't block other interactions */
+  transform: translate(-50%, -50%); /* Centers the dot relative to the cursor */
+  transition: transform 0.1s ease-out; /* Smooth movement */
+}

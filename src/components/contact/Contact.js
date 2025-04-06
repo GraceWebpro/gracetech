@@ -52,8 +52,13 @@ const Contact = () => {
   return (
     <section className='contact' id='connect'>
       <div>
-      <h2 data-aos="fade-up" 
-     data-aos-duration="1500">Get In Touch</h2>
+      <div className='proj-h' style={{ display: 'flex', gap: '20px', alignItems: 'center', justifyContent:'center' }} data-aos="fade-down">
+              <div className='cont-bdr'></div>
+              <h2 style={{ textAlign: 'center', fontFamily: 'Dancing Script, "sans-seriff"', color: '#0059ff' }}>Need a Project</h2>
+              <div className='cont-bdr'></div>
+            </div>
+      {/*<h2 data-aos="fade-up" 
+     data-aos-duration="1500">Get In Touch</h2>*/}
       <h4 data-aos="fade-up" className='proj-title'>Have a question or a project in mind? Fill out the form, and let's connect!</h4>
 
         <Row className='cent'>

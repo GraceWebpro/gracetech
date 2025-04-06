@@ -1,0 +1,183 @@
+.work-process {
+    text-align: center;
+    position: relative;
+    min-height: 100vh; /* Allows it to expand as needed */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 100px;
+    padding: 0px 0 100px 0;
+  }
+
+  .pro-h h2 {
+    color: #fff !important;
+  }
+  .pro-bdr {
+    width: 100px;
+    border-bottom: 1px solid #fff;
+    margin-bottom: 0px;
+  }
+
+  .pro-title {
+    font-size: 40px !important;
+    line-height: 1.5;
+    text-transform: capitalize;
+    color: #fff !important;
+    margin-top: 20px !important;
+    text-align: center !important;
+    width: 80%;
+    font-weight: 600;
+  }
+
+  /* process card */
+  /*
+  .process-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    padding: 50px 40px 20px 40px;
+    
+    margin: 0 auto; /* Center the grid *
+
+    justify-content: center !important;
+    align-items: stretch !important;
+  }
+  
+  .process-card {
+    position: relative;
+    background: transparent;
+    border: 1px solid #444;
+    padding: 30px 25px;
+    border-radius: 16px;
+    transition: border-color 0.3s ease;
+    overflow: hidden;
+    text-align: left;
+    color: #fff;
+    backdrop-filter: blur(10px);
+    min-height: 280px;
+  }
+  */
+
+  .process-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    padding: 50px 40px 20px 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .process-card {
+    flex: 1 1 calc(33.333% - 30px); /* 3 per row with gap taken into account */
+    max-width: calc(33.333% - 30px);
+    background: transparent;
+    border: 1px solid #444;
+    border-radius: 12px;
+    transition: border 0.3s ease;
+    position: relative;
+
+    padding: 30px 25px;
+    overflow: hidden;
+    text-align: left;
+    color: #fff;
+    backdrop-filter: blur(10px);
+    min-height: 280px;
+  }
+  
+  /* Responsive tweaks */
+  @media (max-width: 992px) {
+    .process-card {
+      flex: 1 1 calc(50% - 30px); /* 2 per row */
+      max-width: calc(50% - 30px);
+    }
+
+    .pro-title {
+        font-size: 30px !important;
+    }
+
+  }
+  
+  @media (max-width: 600px) {
+    .process-card {
+      flex: 1 1 100%; /* 1 per row */
+      max-width: 100%;
+    }
+  }
+  
+  .process-card h3 {
+    font-size: 36px;
+    margin-bottom: 15px;
+
+  }
+
+
+  .process-card p {
+    font-size: 16px;
+    color: #7f7f7f;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    font-weight: 600;
+  }
+  
+  
+  .step-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+  }
+  
+  .step-list li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    font-size: 14px;
+    color: #ccc;
+    text-align: left;
+  }
+  
+  .dot {
+    width: 8px;
+    height: 8px;
+    background-color: #0059ff;
+    border-radius: 50%;
+    margin-right: 12px;
+  }
+  
+  /* Hover Effects */
+  .process-card:hover {
+    border-color: #0059ff;
+  }
+  
+  .process-card:hover .corner-shade {
+    background-color: #0059ff;
+  }
+  
+  /* Bottom-right corner shade */
+  .corner-shade {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 60px;
+    height: 60px;
+    background: #111;
+    border-top-left-radius: 60px;
+    transition: background-color 0.3s ease;
+  }
+
+  @media (max-width: 434px) {
+    /* process card */
+  .process-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    padding: 50px 40px 20px 40px;
+    
+    margin: 0 auto; /* Center the grid */
+
+    justify-content: center !important;
+        align-items: stretch !important;
+  }
+  }
+  

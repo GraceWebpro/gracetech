@@ -9,6 +9,7 @@ import Footer from './components/footer/Footer';
 import ProtectedRoute from './server/protectedRoute';
 import AdminDashboard from './admin/AdminDashboard';
 import Register from './admin/AdminRegister';
+import MouseCursor from "./components/home/MouseCursor";
 
 function App() {
   const location = useLocation();
@@ -18,6 +19,7 @@ function App() {
 
   return (
     <div className="App">
+      <MouseCursor />
 
       {!isAdminPage && <Navbar />}
       <Routes>

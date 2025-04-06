@@ -42,7 +42,7 @@ const Pane = () => {
                 </div>
                 <div className='about-div' data-aos="zoom-in-up" data-aos-duration="500">
                   <p><strong>Email</strong> </p>
-                  <h5>gracietechdigital@proton.me</h5>
+                  <h5 className='mail'>gracietechdigital@proton.me</h5>
 
                 </div>
                 <div className='about-div' data-aos="zoom-in-up" data-aos-duration="500">
@@ -163,7 +163,7 @@ const Pane = () => {
               <div className='about-right'>
                 <h2 data-aos="fade-up" data-aos-duration="500">My Skills</h2>
                 <p data-aos="fade-up" data-aos-duration="500">Neque porro quisquam est, qui dolorem ipsum quia dolor sit consectetur, aliquam quaerats voluptatem. Ut enim ad minima veniam, exercitationem laboriosam, nisi ut aliquid ex ea autem velit esse quam nihil</p>
-                <div className='exp-div-display'>
+                <div className='about-div-display'>
                   <div className='skill-div' data-aos="zoom-in-up" data-aos-duration="500">
                    <div className='img-div'>
                       <img src={Bubble} alt='skill' className='img-bub' />

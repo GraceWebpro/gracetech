@@ -9,6 +9,7 @@ import 'animate.css'
 import TrackVisibility from 'react-on-screen'
 import WorkProcess from './WorkProcess';
 import Logo from './logo';
+import DownloadCv from './DownloadCv';
 
 const Banner = () => {
 
@@ -68,10 +69,13 @@ const Banner = () => {
                                     <div>
                                         <WorkProcess />
                                     </div>
+                                    <div className='btn-display'>
                                     <button className='bann-btn' onClick=''>
                                         <span>Let's Connect</span>
                                         <ArrowRightCircle size={25}/>
                                     </button>
+                                    <DownloadCv />
+                                    </div>
                                 </div>}
                         </TrackVisibility>
                     </div>

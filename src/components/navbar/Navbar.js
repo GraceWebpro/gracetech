@@ -113,7 +113,7 @@ const Navbar = () => {
           
           </ul>*/}
             <ul>
-              {['home', 'resume', 'skills', 'portfolio', 'templates', 'projects', 'blog'].map((item) => (
+              {['home', 'about', 'project', 'services', 'templates', 'blog', 'contact'].map((item) => (
                 <li key={item} className={activeLink === item ? 'active nav__item' : 'nav__item'} onClick={() => updateActiveLink(item)}>
                   <Link to={`/${item}`} className="nav__link" onClick={closeNavbar}>
                     {item.charAt(0).toUpperCase() + item.slice(1)}

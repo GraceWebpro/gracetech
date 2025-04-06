@@ -1,28 +1,15 @@
-/*.projects-container {
-    display: grid !important;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-  }
-*/
+/* overall css */
 .project {
-  text-align: center;
-  position: relative;
-  min-height: 100vh; /* Allows it to expand as needed */
+    text-align: center;
+    position: relative;
+    min-height: 100vh; /* Allows it to expand as needed */
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 200px;
+    margin-bottom: 100px;
     margin-top: 40px;
-
-
   }
-
-  
 
   .proj-h h2 {
     color: #fff !important;
@@ -42,59 +29,8 @@
     text-align: center !important;
   }
 
-  #project-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
-    justify-content: center; /* Centers grid items */
-    align-items: center;
-    width: 100%;
-    max-width: 1000px; /* Keep a max width */
-    margin: 0 auto; /* Center the container */
-  }
-.project-card {
-    
-    align-items: center;
-    justify-content: center;
-    height: fit-content;   
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    transition: transform 0.3s ease-in-out;
-    
-  }
-  
-  .project-card img {
-    width: 100%;
-    height: 100%;
-    border-radius: 8px;
-  }
-  
-  .project-card:hover {
-    transform: scale(1.05);
-  }
-  
-.project h2 {
-    text-align: center;
-    color: #fff;
-  font-size: 25px;
-}
-
-.project p {
-    color: #888888;
-    font-size: 18px;
-    letter-spacing: 0,8px;
-    line-height: 1.5em;
-    margin: 14px auto 38px auto;
-    text-align: center;
-    width: 80%;
-}
-
-.title {
-    text-align: center;
-}
-  
-.tabs {
+  /* tab css */
+  .tabs {
     width: 50%;
     margin-top: 40px !important;
     margin: 0 auto;
@@ -153,11 +89,78 @@
 .tab__icon {
     padding-left: 0.5em;
 }
+
+.tab-pane .first {
+  display: flex;
+}
   
 .subtitle {
     color: #888888;
     /*font-family: "Kaushan Script", cursive;*/
 }
+
+.proj-cont {
+  display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    transition: transform 0.3s ease-in-out;
+  /*  height: auto;
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease-in-out;*/
+}
+/* project card */
+.project-card {
+  display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease-in-out;
+    overflow: hidden;
+    position: relative; /* For absolute positioning of the plus */
+  }
+  
+  .project-card img {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+  }
+  
+  .proj-cont:hover {
+    transform: scale(1.05);
+  }
+  
+.project h2 {
+    text-align: center;
+    color: #fff;
+  font-size: 25px;
+}
+
+.project p {
+    color: #888888;
+    font-size: 18px;
+    letter-spacing: 0,8px;
+    line-height: 1.5em;
+    margin: 14px auto 38px auto;
+    text-align: center;
+    width: 80%;
+}
+
+.title {
+    text-align: center;
+}
+  
+
   
 .proj-imgbx {
      position: relative;
@@ -201,6 +204,14 @@
     opacity: 1;
 }
 
+.proj-zoom {
+  color: #000;
+  background: #fff;
+  padding: 5px;
+  font-size: 40px;
+  border-radius: 50%;
+}
+/*
 .proj-txtx h4 {
     font-size: 20px;
     font-weight: 700;
@@ -216,34 +227,68 @@
     letter-spacing: 0.8px;
     color: #fff;
 }
+*/
 
-.bg-img-right {
-    top: 20%;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    right: 0;
-    z-index: -4;
+.proj-bottom {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end; /* This places the items at the bottom */
+  padding: 0px 0px;
+  text-align: left;
+  gap: 5px;
 }
 
-.tab-pane .first {
-    display: flex;
+.proj-block {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  width: 80%;
 }
+
+.proj-block h3 {
+  color: #fff;
+  font-size: 20px;
+  text-align: left;
+  margin-top: -28px;
+  margin-left: 10px;
+}
+
+.proj-block p {
+  font-size: 18px;
+  text-align: left;
+  color: #00ccff;
+  margin-top: 5px;
+  margin-left: 8px;
+}
+
+.icon-div {
+  background: #19191b;
+  border-radius: 5px;
+  height: 60px;
+  width: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+}
+
+.proj-cont:hover .icon-div {
+  background: #0059ff;
+}
+
+.proj-det-btn {
+
+  font-size: 20px;
+}
+
 
 @media (max-width: 768px) {
     .tabs {
       width: 70%;
     }
 
-    #projects-container {
-        display: grid !important;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        display: flex;
-        gap: 10px;
-        justify-content: center;
-        align-items: center;
-        padding: 20px;
-      }
+    
   }
 
 
@@ -253,3 +298,140 @@
     }
 
   }
+
+  /* proj card 2 */
+  .project-card2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease-in-out;
+    overflow: hidden;
+    position: relative; /* For absolute positioning of the plus icon */
+  }
+  
+  .project-card2 img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    transition: transform 0.3s ease; /* Transition effect for image */
+  }
+  
+  /* On hover, scale the card */
+  .project-card2:hover {
+    transform: scale(1.05);
+  }
+  
+  /* Plus icon on hover */
+  .plus-icon {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 30px;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  .project-card2:hover .plus-icon {
+    display: block; /* Show plus icon on hover */
+  }
+  
+  /* Details section: Title and description */
+  .project-details2 {
+    padding-top: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .project-details2 h3 {
+    font-size: 24px;
+    color: #fff;
+  }
+  
+  .project-details2 p {
+    color: #888888;
+    font-size: 18px;
+    letter-spacing: 0.8px;
+    line-height: 1.5em;
+    margin: 14px auto;
+    text-align: center;
+    width: 80%;
+  }
+  
+  .arrow-icon {
+    cursor: pointer;
+    margin-top: 10px;
+    color: #007bff;
+  }
+  
+  .arrow-icon i {
+    font-size: 20px;
+    transition: transform 0.3s ease;
+  }
+  
+  .arrow-icon.open i {
+    transform: rotate(180deg); /* Rotate the arrow icon when details are expanded */
+  }
+  
+  /* Optionally, style for expanded details */
+  .project-card2.expanded .project-details2 {
+    display: block;
+  }
+  
+  .proj-cont {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .click-more-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 30px;
+    font-size: 18px;
+    font-weight: 600;
+    border: 2px solid #0059ff;
+    border-radius: 50px;
+    background: #0059ff;
+    color: #fff;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+  
+  .click-more-btn:hover {
+    background-color: #000;
+    color: #fff;
+  }
+  
+  /* Border movement effect on hover (bottom border slides up) */
+  .click-more-btn::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #0059ff;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+  }
+  
+  .click-more-btn:hover::after {
+    transform: translateY(0);
+  }
+  

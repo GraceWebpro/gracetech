@@ -6,6 +6,9 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { useEffect } from 'react';
 import About from '../about/About';
+import Services from '../services/Services';
+import WorkingProcess from '../process/WorkingProcess';
+import Testimonial from '../testimonial/Testimonial';
 
 
 const Homepage = () => {
@@ -20,6 +23,9 @@ const Homepage = () => {
             <About />
            
             <Projects />
+            <Services />
+            <WorkingProcess />
+            <Testimonial />
             <Contact />
         </div>
     )

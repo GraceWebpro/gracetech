@@ -10,6 +10,16 @@
   
 }
 
+
+.cont-h h2 {
+    color: #0059ff !important;
+  }
+  .cont-bdr {
+    width: 100px;
+    border-bottom: 1px solid #0059ff;
+    margin-bottom: 10px;
+  }
+
 .cent {
     width: 100%;
     display: flex;
@@ -28,7 +38,6 @@
 .contact h2 {
     margin-bottom: 50px;
     text-align: center;
-    color: #fff;
     font-size: 25px;
 }
 

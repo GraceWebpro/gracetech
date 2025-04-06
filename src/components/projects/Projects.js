@@ -7,6 +7,8 @@ import ProjectCard from "./ProjectCard";
 import TrackVisibility from 'react-on-screen'
 import { query, orderBy } from "firebase/firestore"; 
 import './Project.css'
+import ProjectCard2 from "./projCard2";
+import { BsArrowRight } from "react-icons/bs";
 
 export function Projects() {
 
@@ -59,14 +61,39 @@ export function Projects() {
           subtitle="All Recent projects"
           icon="far fa-address-card"
         >
-          
-          <div id="project-container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '30px', padding: '0px', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
-            {projects.length > 0 ? (
-              projects.map((project, index) => <ProjectCard key={index} {...project} />)
+          <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+          gap: '30px',
+          padding: '20px',
+      
+        }}
+      >
+        {projects.length > 0 ? (
+              projects.map((project, index) => 
+              <ProjectCard key={index} {...project} />)
             ) : (
               <p>Loading projects...</p>
             )}
-          </div>
+      </div>
+      <h2>difference</h2>
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+          gap: '30px',
+          padding: '20px',
+      
+        }}
+      >
+        {projects.length > 0 ? (
+              projects.map((project, index) => <ProjectCard2 key={index} {...project} />)
+            ) : (
+              <p>Loading projects...</p>
+            )}
+      </div>
+      
         </Tab>
         <Tab
           title="UI Tab"
@@ -94,6 +121,10 @@ export function Projects() {
         </Tab>
       </TabsPanel>
    
+      <button className="click-more-btn">
+  <span>Click More</span>
+  <BsArrowRight />
+</button>
 
     </div>
   );

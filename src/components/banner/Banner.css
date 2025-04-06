@@ -654,3 +654,50 @@
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
 }
+
+
+.cv-btn {
+  display: flex;
+  align-items: center;
+  gap: 0px;
+  padding: 12px 22px;
+  font-size: 18px;
+  font-weight: 600;
+  border: 2px solid #0059ff;
+  border-radius: 50px;
+  background: #0059ff;
+  color: #fff;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.cv-btn:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+/* Border movement effect on hover (bottom border slides up) */
+.cv-btn::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #0059ff;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+}
+
+.cv-btn:hover::after {
+  transform: translateY(0);
+}
+
+.btn-display {
+  display: flex;
+  align-items: center;
+
+  gap: 20px;
+}
