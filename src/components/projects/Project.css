@@ -270,7 +270,13 @@
     .tabs {
       width: 70%;
     }
+    .tabs .tab {
+      font-size: 15px;
+    }
 
+    .proj-h h2 {
+      font-size: 17px !important;
+    }
     
   }
 
