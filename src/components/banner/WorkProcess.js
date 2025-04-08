@@ -12,7 +12,7 @@ const WorkProcess = () => {
   const closeModal = () => setIsOpen(false);
 
   return (
-    <div className="work-process flex items-center gap-4" data-aos="fade-up" data-aos-duration="1500">
+    <div className="work-pro flex items-center gap-4" data-aos="fade-up" data-aos-duration="1500">
       {/* Animated Arrow */}
       <div className="arrow-icon">
         <FaArrowTrendDown />

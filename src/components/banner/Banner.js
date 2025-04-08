@@ -66,9 +66,9 @@ const Banner = () => {
                                     <h1 data-aos="fade-up" data-aos-duration="1500">Hi 👋 I<span style={{ color: '#0000ff' }}>'</span>m GraceTech<span style={{ color: '#0000ff', fontSize: '60px' }}>.</span></h1> 
                                     <h1 data-aos="fade-up" data-aos-duration="1500">A <span className='wrap' style={{ color: '#0000ff' }}>{text}</span></h1>
 
-                                    <div>
-                                        <WorkProcess />
-                                    </div>
+                                 
+                                    <WorkProcess />
+                                    
                                     <div className='btn-display'>
                                     <button className='bann-btn' onClick=''>
                                         <span>Let's Connect</span>

@@ -1,17 +1,32 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Banner from '../banner/Banner'
-import { Projects } from '../projects/Projects';
+import { Projects } from '../projects/HomeProjects';
 import Contact from '../contact/Contact';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import { useEffect } from 'react';
 import About from '../about/About';
 import Services from '../services/Services';
 import WorkingProcess from '../process/WorkingProcess';
 import Testimonial from '../testimonial/Testimonial';
+import { useLocation } from 'react-router-dom';
+import { scroller } from 'react-scroll';
+//import Meeting from '../projects/Meeting'
+
 
 
 const Homepage = () => {
+    const location = useLocation();
+
+  useEffect(() => {
+    if (location.state?.scrollTo) {
+      scroller.scrollTo(location.state.scrollTo, {
+        smooth: true,
+        duration: 500,
+        offset: -70,
+      });
+    }
+  }, [location]);
+
     useEffect(() => {
         AOS.init({ duration: 1000 }); // Initialize AOS
       }, []);
@@ -23,6 +38,7 @@ const Homepage = () => {
             <About />
            
             <Projects />
+       
             <Services />
             <WorkingProcess />
             <Testimonial />

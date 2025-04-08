@@ -50,7 +50,7 @@ function Dashboard() {
     <div className="dashboard-container">
       {/* Sidebar */}
       <div className={`dashboard-sidebar ${isSidebarOpen ? "open" : "closed"}`}>
-        <button className="menu-toggle" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
+        <button className="admin-menu-toggle" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
           {isSidebarOpen ? <FaTimes /> : <FaBars />}
         </button>
         {isSidebarOpen && (

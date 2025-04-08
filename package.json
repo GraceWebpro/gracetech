@@ -26,6 +26,7 @@
     "react-on-screen": "^2.1.1",
     "react-router-dom": "^6.25.1",
     "react-scripts": "5.0.1",
+    "react-scroll": "^1.9.3",
     "typescript": "^5.8.2",
     "web-vitals": "^2.1.4"
   },

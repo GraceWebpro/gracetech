@@ -4,7 +4,7 @@ import './Services.css'
 
 const Services = () => {
   return (
-    <div className='services'>
+    <div className='services' id='services'>
         <div className='serv-h' style={{ display: 'flex', gap: '20px', alignItems: 'center', justifyContent:'center' }} data-aos="fade-down">
               <div className='serv-bdr'></div>
               <h2 style={{ textAlign: 'center', fontFamily: 'Dancing Script, "sans-seriff"', color: '#0059ff' }}>Services That i Provide</h2>

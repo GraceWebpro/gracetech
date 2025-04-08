@@ -1,13 +1,15 @@
 import React,{ useState, useEffect } from "react";
 import { db } from "../../server/firebase"; // Ensure correct Firestore import
-import { getDocs, collection, query, orderBy } from "firebase/firestore";
+import { getDocs, collection, query, orderBy, limit } from "firebase/firestore";
 import Tab from "./Tab";
 import TabsPanel from "./TabsPanel";
 import ProjectCard from "./ProjectCard";
-import TrackVisibility from 'react-on-screen'
-import './Project.css'
+import TrackVisibility from 'react-on-screen';
+import { Link } from 'react-router-dom';
+import './Project.css';
 import ProjectCard2 from "./projCard2";
 import { BsArrowRight } from "react-icons/bs";
+//import Meeting from "./Meeting";
 
 export function Projects() {
 
@@ -18,7 +20,7 @@ export function Projects() {
   useEffect(() => {
     async function fetchProjects() {
       try {
-        const q = query(collection(db, "projects"), orderBy("timestamp", "desc"));
+        const q = query(collection(db, "projects"), orderBy("timestamp", "desc"), limit(6));
         const querySnapshot = await getDocs(q);
         const projectList = querySnapshot.docs.map((doc) => ({
           id: doc.id,
@@ -45,11 +47,10 @@ export function Projects() {
           <div className={isVisible ? "animates__animated animate__slideInUp" : ""}>
             <div className='proj-h' style={{ display: 'flex', gap: '20px', alignItems: 'center', justifyContent:'center' }} data-aos="fade-down">
               <div className='proj-bdr'></div>
-              <h2 style={{ textAlign: 'center', fontFamily: 'Dancing Script, "sans-seriff"', color: '#0059ff' }}>My Creative Works</h2>
+              <h2 style={{ textAlign: 'center', fontFamily: 'Dancing Script, "sans-seriff"', color: '#0059ff' }}>Recent Projects</h2>
               <div className='proj-bdr'></div>
             </div>
-            <p className='proj-title' data-aos="fade-up" data-aos-duration="500">Explore all of my completed projects from UI Design to full Webflow development. 
-       I’d love to hear your thoughts!</p>
+            <p className='proj-title' data-aos="fade-up" data-aos-duration="500">Look at my recent projects and give me your feedback</p>
 
            {/* <p data-aos="fade-up" data-aos-duration="500">A collection of my recent projects, highlighting my expertise in web development and design.</p>*/}
           </div>}
@@ -121,10 +122,11 @@ export function Projects() {
         </Tab>
       </TabsPanel>
    
-      <button className="click-more-btn">
-  <span>Click More</span>
-  <BsArrowRight />
-</button>
+      <Link to='/projects' className="click-more-btn">
+        <span>Click More</span>
+        <BsArrowRight />
+      </Link>
+
 
     </div>
   );

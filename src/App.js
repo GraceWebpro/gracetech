@@ -10,6 +10,8 @@ import ProtectedRoute from './server/protectedRoute';
 import AdminDashboard from './admin/AdminDashboard';
 import Register from './admin/AdminRegister';
 import MouseCursor from "./components/home/MouseCursor";
+import { Projects } from "./components/projects/Projects";
+import ScrollToTop from "./components/ScrollToTopPage";
 
 function App() {
   const location = useLocation();
@@ -19,12 +21,16 @@ function App() {
 
   return (
     <div className="App">
+      <ScrollToTop />
       <MouseCursor />
 
       {!isAdminPage && <Navbar />}
       <Routes>
           {/* Public routes */}
           <Route path="/" element={<Homepage />} />
+          <Route path="/projects" element={<Projects />} />
+
+          {/* Admin Routes */}
           <Route path='/admin/login' element={<Login onUserChange={setUser} />} />   
           <Route path="/admin/register" element={<Register />} />       
           {/*<Route path="/movie/:title/episode/:episodeNumber" element={<EpDownload />} />*/}

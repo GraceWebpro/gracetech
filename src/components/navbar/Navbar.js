@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
-//import { NavLink } from 'react-router-dom'
-import { Link } from "react-router-dom";
-//import { RiCloseLine } from "react-icons/ri";
-//import { RiArrowDropDownLine } from "react-icons/ri";
+import { Link as ScrollLink } from 'react-scroll'; // ✅ Use this
 import './Navbar.css'
+import { Link } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { RiMenuUnfold3Fill, RiCloseLine } from "react-icons/ri";
 import { AiOutlineClose } from "react-icons/ai";
 import logo from '../../assets/logo-main.png';
@@ -38,20 +38,9 @@ const Navbar = () => {
     setShowInfoPanel(!showInfoPanel);
   };
 
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
 
-  //useEffect(() => {
-  //const onScroll = () => {
-  //  if (window.scrollY > 50) {
-   //   setscrolled(true);
-   // } else {
-    //  setscrolled(false);
-   //// }
-  //}
-
- // window.addEventListener('scroll', onScroll);
-
-  //return () => window.removeEventListener('scroll', onScroll);
-  //}, []);
 
   const updateActiveLink = (value) => {
     setActiveLink(value);
@@ -112,15 +101,46 @@ const Navbar = () => {
            
           
           </ul>*/}
-            <ul>
-              {['home', 'about', 'project', 'services', 'templates', 'blog', 'contact'].map((item) => (
-                <li key={item} className={activeLink === item ? 'active nav__item' : 'nav__item'} onClick={() => updateActiveLink(item)}>
-                  <Link to={`/${item}`} className="nav__link" onClick={closeNavbar}>
+          <ul>
+            {['home', 'about', 'project', 'services', 'templates', 'blog', 'contact'].map((item) => (
+              <li
+                key={item}
+                className={activeLink === item ? 'active nav__item' : 'nav__item'}
+                onClick={() => updateActiveLink(item)}
+              >
+                {item === 'home' ? (
+                  <RouterLink to="/" onClick={closeNavbar} className="nav__link">
+                    Home
+                  </RouterLink>
+                ) : item === 'project' ? (
+                  <RouterLink to="/projects" onClick={closeNavbar} className="nav__link">
+                    Projects
+                  </RouterLink>
+                ) : isHomePage ? (
+                  <ScrollLink
+                    to={item}
+                    smooth={true}
+                    duration={500}
+                    spy={true}
+                    offset={-70}
+                    onClick={closeNavbar}
+                    className="nav__link"
+                  >
                     {item.charAt(0).toUpperCase() + item.slice(1)}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+                  </ScrollLink>
+                ) : (
+                  <RouterLink
+                    to="/"
+                    state={{ scrollTo: item }}
+                    onClick={closeNavbar}
+                    className="nav__link"
+                  >
+                    {item.charAt(0).toUpperCase() + item.slice(1)}
+                  </RouterLink>
+                )}
+              </li>
+            ))}
+          </ul>
         </div>
 
         {/* right section */}
