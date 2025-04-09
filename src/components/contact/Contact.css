@@ -6,7 +6,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 100px;
+    margin-bottom: 70px;
   
 }
 
@@ -16,8 +16,8 @@
   }
   .cont-bdr {
     width: 100px;
-    border-bottom: 1px solid #0059ff;
-    margin-bottom: 10px;
+    border-bottom: 1px solid #fff;
+   
   }
 
 .cent {
@@ -53,9 +53,12 @@
     font-weight: 300;
 }
 
+.contact-left,
 .contact-right {
-    width: 50%;
+    width: 100%;
+    max-width: 600px;
 }
+
 .contact-div {
     background-color: #1e1e26;
     border-radius: 30px;
@@ -63,12 +66,8 @@
     align-items: flex-start;
     margin-right: 10px;
     padding: 30px;
-    width: 350px;
-}
-
-.contact-left {
-    width: 50%;
-    
+    width: 100%;
+    max-width: 350px;
 }
 
 .flex {
@@ -103,7 +102,8 @@
 .contact form {
     background: #1e1e26;
     border: none;
-    width: 500px;
+    width: 100%;
+    max-width: 500px;
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -195,9 +195,24 @@
 }
 
 @media (max-width: 768px) {
-    .proj-title {
-        font-size: 26px !important;
-    }
+    
+
+        .pro-h h2 {
+          font-size: 20px;
+        }
+        .cont-bdr {
+          width: 50px;
+        }
+      
+        .proj-title {
+          font-size: 20px;
+        width: 90%;
+        }
+        .contact form,
+        .contact-left,
+        .contact-div {
+          width: 100% !important;
+        }
 }
 
 @media (max-width: 600px) {

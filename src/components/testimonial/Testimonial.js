@@ -7,21 +7,21 @@ const testimonials = [
     star: "⭐⭐⭐⭐⭐",
     sector: "Business Owner",
     quote: "I’ve been using this service for several months now, and I can honestly say it’s been a game-changer for my business. The ease of use and the level of customization available is unmatched.",
-    img: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e"
+    testImg: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e"
   },
   {
     name: "John Smith",
     star: "⭐⭐⭐⭐⭐",
     sector: "Marketing Specialist",
     quote: "I was initially a little hesitant about switching to this platform, but I am so glad I did. The tool has simplified my workflow and increased my efficiency by at least 30%.",
-    img: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d"
+    testImg: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d"
   },
   {
     name: "Emily Rose",
     star: "⭐⭐⭐⭐⭐",
     sector: "Freelance Graphic Designer",
     quote: "As a freelancer, time management is everything, and this service has helped me manage my projects better than any tool I’ve used before. The functionality is robust and versatile, and the performance is consistent.",
-    img: "https://images.unsplash.com/photo-1544723795-3fb6469f5b39"
+    testImg: "https://images.unsplash.com/photo-1544723795-3fb6469f5b39"
   },
 ];
 
@@ -51,12 +51,12 @@ export default function Testimonial() {
       <div className="testimonial-section">
         <div className="image-side left">
           <img
-            src={testimonials[0].img}
+            src={testimonials[0].testImg}
             alt={testimonials[0].name}
             className={`image-round ${activeIndex === 0 ? 'active' : ''}`}
           />
           <img
-            src={testimonials[1].img}
+            src={testimonials[1].testImg}
             alt={testimonials[1].name}
             className={`image-top-right-round ${activeIndex === 1 ? 'active' : ''}`}
           />
@@ -96,7 +96,7 @@ export default function Testimonial() {
 
         <div className="image-side right">
           <img
-            src={testimonials[2].img}
+            src={testimonials[2].testImg}
             alt={testimonials[2].name}
             className={`image-top-round ${activeIndex === 2 ? 'active' : ''}`}
           />

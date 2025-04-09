@@ -39,12 +39,13 @@
 
   .serv-div {
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
     border-bottom: 1px solid #2f2f2f;
     align-items: center;
-    margin-right: 10px;
-    padding: 35px 0 35px 0;
+    padding: 35px 0;
     width: 100%;
+    flex-wrap: wrap; /* 👈 allows wrapping if needed */
   }
   
   .serv-div:hover {
@@ -97,8 +98,9 @@
     display: flex;
     flex-direction: row;
     gap: 40px;
-    width: 50%;
-    text-align: left;
+    flex: 1 1 50%; /* 👈 better for responsive flex */
+  text-align: left;
+  flex-wrap: wrap;
   }
 
   .serv-left h6 {
@@ -116,4 +118,102 @@
     color: #fff;
     font-size: 36px;
     font-weight: 600;
+  }
+
+  @media (max-width: 768px) {
+    .serv-h h2 {
+      font-size: 20px;
+    }
+    .serv-bdr {
+      width: 50px;
+    }
+  
+    .serv-title {
+      font-size: 24px !important;
+    width: 90%;
+    }
+
+    .serv-div {
+      flex-direction: column;
+    align-items: flex-start;
+    padding: 20px 0;
+    gap: 20px;
+    }
+
+
+.serv-left h5 {
+  font-size: 24px; /* Reduced from 36px */
+}
+
+.serv-left h6 {
+  font-size: 18px;
+}
+
+.serv-left p {
+  font-size: 18px; /* Adjust from 24px */
+}
+
+.serv-div h3 {
+  font-size: 16px;
+}
+
+.serv-div p {
+  font-size: 18px;
+}
+
+.serv-div-display {
+  margin: 40px 20px 0 20px;
+}
+
+.serv-icon-div {
+  width: 50px;
+  height: 50px;
+}
+
+#serv-right {
+  width: 100%;
+  gap: 10px;
+}
+
+.serv-right p {
+  width: 100%;
+}
+
+    .serv-left {
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;    }
+  }
+
+  
+
+  .serv-text {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  #serv-right {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    width: 50%;
+  }
+  
+  #serv-right p {
+    font-size: 15px;
+    color: #ccc;
+    text-align: left;
+    width: 80%;
+  }
+  
+  @media (max-width: 768px) {
+    #serv-right {
+      flex-direction: column;
+      width: 100%;
+    }
+  
+    #serv-right p {
+      font-size: 14px;
+      width: 100%;
+    }
   }

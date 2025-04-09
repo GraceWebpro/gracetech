@@ -27,7 +27,7 @@
   width: 90%;
   display: flex;
   flex-direction: row;
-  margin: 50px auto 0;
+  margin: 20px auto 0;
   gap: 40px;
   justify-content: center;
   align-items: center;
@@ -37,11 +37,17 @@
 }
 
 .about-display img {
-  width: 400px;
+  /*width: 400px;
   height: 300px;
   margin-top: 30px;
   border-radius: 20px;
   align-self: flex-start; /* ✨ THIS LINE IS KEY */
+  width: 100%; /* Make it responsive */
+  max-width: 400px; /* Limit size */
+  height: auto; /* Maintain aspect ratio */
+  margin-top: 30px;
+  border-radius: 20px;
+  align-self: flex-start; /* Align image to the top by default */
 }
 
 .about-right {
@@ -102,14 +108,17 @@
   color: #0059ff;
   font-size: 18px;
   font-weight: 500;
+  text-align: left;
 }
 
 .exp-div p {
-  font-size: 24px;
+  font-size: 20px;
+  text-align: left;
 }
 
 .exp-div h5 {
   font-size: 16px;
+  text-align: left;
 }
 
 
@@ -168,7 +177,7 @@ object-fit: cover;
 .about-div p {
   text-align: left;
   color: #717171;
-
+  margin-top: -5px;
 }
 
 .about-div h5 {
@@ -195,7 +204,7 @@ object-fit: cover;
   }
   
   .pane {
-    padding: 5px 20px;
+    padding: 8px 20px;
     margin: 0 10px;
     cursor: pointer;
     border: 2px solid transparent;
@@ -271,11 +280,14 @@ object-fit: cover;
     }
 
     .about-display img {
-      width: 300px;
+      /*width: 300px;
       height: 300px;
       margin-top: 30px;
       border-radius: 20px;
       align-self: flex-start; /* ✨ THIS LINE IS KEY */
+      width: 90%; /* Adjust size for smaller screens */
+      height: auto;
+      align-self: center; /* Center the image on smaller screens */
     }
 
     .about-right h2 {
@@ -288,6 +300,10 @@ object-fit: cover;
   @media (max-width: 768px) {
     .about h1 {
         font-size: 24px;
+    }
+
+    .about-display {
+      margin-top: -60px;
     }
 
     .about-div-display {
@@ -314,9 +330,12 @@ object-fit: cover;
       font-size: 30px;
       color: #fff;
     }
-
+    .about-right p {
+      text-align: center;
+      font-size: 15px;
+    }
     .exp-div {
-      padding: 0;
+      padding: 20px 0 20px 0;
       margin-right: 0 !important;
     }
   }

@@ -98,7 +98,22 @@
     }
 
   }
+
+  @media (max-width: 768px) {
+
+    .pro-h h2 {
+      font-size: 20px;
+    }
+    .pro-bdr {
+      width: 50px;
+    }
   
+    .pro-title {
+      font-size: 20px;
+    width: 90%;
+    }
+  }
+
   @media (max-width: 600px) {
     .process-card {
       flex: 1 1 100%; /* 1 per row */
@@ -166,18 +181,4 @@
     transition: background-color 0.3s ease;
   }
 
-  @media (max-width: 434px) {
-    /* process card */
-  .process-section {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-    padding: 50px 40px 20px 40px;
-    
-    margin: 0 auto; /* Center the grid */
-
-    justify-content: center !important;
-        align-items: stretch !important;
-  }
-  }
   

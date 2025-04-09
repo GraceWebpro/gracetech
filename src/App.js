@@ -9,7 +9,7 @@ import Footer from './components/footer/Footer';
 import ProtectedRoute from './server/protectedRoute';
 import AdminDashboard from './admin/AdminDashboard';
 import Register from './admin/AdminRegister';
-import MouseCursor from "./components/home/MouseCursor";
+//import MouseCursor from "./components/home/MouseCursor";
 import { Projects } from "./components/projects/Projects";
 import ScrollToTop from "./components/ScrollToTopPage";
 
@@ -21,8 +21,8 @@ function App() {
 
   return (
     <div className="App">
-      <ScrollToTop />
-      <MouseCursor />
+    <ScrollToTop />
+      {/*<MouseCursor />*/}
 
       {!isAdminPage && <Navbar />}
       <Routes>

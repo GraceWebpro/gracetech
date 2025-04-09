@@ -5,15 +5,18 @@ import { FiPlus } from "react-icons/fi";
 import { BsArrowUpRight } from "react-icons/bs";
 
 
-const ProjectCard = ({ title, category, imageUrl }) => {
+const ProjectCard = ({ title, category, imageUrl, onEnlarge }) => {
   return (
     <div className='proj-cont'>
-      <div className="proj-imgbx project-card" data-aos="zoom-in">
+      <div className="proj-imgbx project-card" data-aos="zoom-in" style={{ position: 'relative' }}>
         <img src={imageUrl || defaultImg} alt={title} className="img-fluid" width={350} height={300} />       
         <div className="proj-txtx">
           {/*<h4>{title}</h4>
           <span>{category}</span>*/}
-          <FiPlus className='proj-zoom' />
+          <FiPlus className='proj-zoom'
+          style={{ cursor: 'pointer' }}
+          onClick={onEnlarge} // 🔥 Trigger modal on click
+          title="Enlarge" />
 
         </div>
       </div>

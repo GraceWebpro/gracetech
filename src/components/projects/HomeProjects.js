@@ -16,6 +16,7 @@ export function Projects() {
   const [projects, setProjects] = useState([]);
   const [uiDesignProjects, setUiDesignProjects] = useState([]);
   const [uiUxDesignProjects, setUiUxDesignProjects] = useState([]);
+  const [selectedProject, setSelectedProject] = useState(null);
 
   useEffect(() => {
     async function fetchProjects() {
@@ -73,7 +74,7 @@ export function Projects() {
       >
         {projects.length > 0 ? (
               projects.map((project, index) => 
-              <ProjectCard key={index} {...project} />)
+              <ProjectCard key={index} {...project} onEnlarge={() => setSelectedProject(project)}/>)
             ) : (
               <p>Loading projects...</p>
             )}
@@ -126,6 +127,16 @@ export function Projects() {
         <span>Click More</span>
         <BsArrowRight />
       </Link>
+      {selectedProject && (
+  <div className="modal-overlay" onClick={() => setSelectedProject(null)}>
+    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+      <button className="modal-close-btn" onClick={() => setSelectedProject(null)}>&times;</button>
+      <img src={selectedProject.image} alt={selectedProject.title} className="modal-image" />
+      <h3>{selectedProject.title}</h3>
+      <p>{selectedProject.description}</p>
+    </div>
+  </div>
+)}
 
 
     </div>

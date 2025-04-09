@@ -33,7 +33,8 @@ const Pane = () => {
               <img src={aboutMe} alt="About Me" data-aos="zoom-in" data-aos-duration="500"/>
               <div className='about-right'>
                 <h2 data-aos="fade-up" data-aos-duration="500">Personal Info</h2>
-                <p data-aos="fade-up" data-aos-duration="500">Neque porro quisquam est, qui dolorem ipsum quia dolor sit consectetur, aliquam quaerats voluptatem. Ut enim ad minima veniam, exercitationem laboriosam, nisi ut aliquid ex ea autem velit esse quam nihil</p>
+                <p data-aos="fade-up" data-aos-duration="500">
+                I'm passionate about creating clean and user-focused digital experiences. I enjoy both designing in Figma and building with tools like React, Bubble, FlutterFlow, and HTML. I’m always exploring new ways to improve my work, and I love the process of bringing ideas to life — from concept to launch.                </p>
                 <div className='about-div-display'>
                 <div className='about-div' data-aos="zoom-in-up" data-aos-duration="500">
                   <p><strong>Address</strong> </p>
@@ -92,27 +93,28 @@ const Pane = () => {
               <img src={experience} alt="About Me" data-aos="zoom-in" data-aos-duration="500"/>
               <div className='about-right'>
                 <h2 data-aos="fade-up" data-aos-duration="500">My Experience</h2>
-                <p data-aos="fade-up" data-aos-duration="500">Neque porro quisquam est, qui dolorem ipsum quia dolor sit consectetur, aliquam quaerats voluptatem. Ut enim ad minima veniam, exercitationem laboriosam, nisi ut aliquid ex ea autem velit esse quam nihil</p>
+                <p data-aos="fade-up" data-aos-duration="500">
+                With several years of hands-on experience, I’ve worked on a variety of projects that helped me grow both creatively and technically. From building user-friendly websites to crafting custom features, I take pride in delivering work that not only looks good but also functions smoothly.</p>
                 <div className='exp-div-display'>
                   <div className='exp-div'  data-aos="zoom-in-up" data-aos-duration="500">
                     <h3>In 2011</h3>
                     <div style={{ flexDirection: 'column' }}>
-                      <p><strong>Software Engineer</strong> </p>
+                      <p><strong>UI Designer</strong> </p>
                       <h5>UI Head & Manager</h5>
                     </div>
                   </div>
                   <div className='exp-div'  data-aos="zoom-in-up" data-aos-duration="500">
                     <h3>In 2016</h3>
                     <div style={{ flexDirection: 'column' }}>
-                      <p><strong>Software Engineer</strong> </p>
-                      <h5>Head of Department</h5>
+                      <p><strong>Web Developer</strong> </p>
+                      <h5>Evolve With Tech</h5>
                     </div>
                   </div>
                   <div className='exp-div'  data-aos="zoom-in-up" data-aos-duration="500">
                     <h3>In 2023</h3>
                     <div style={{ flexDirection: 'column' }}>
                       <p><strong>Senior UI Designer</strong> </p>
-                      <h5>Fiverr.com.</h5>
+                      <h5>EWT - SM Designs</h5>
                     </div>
                   </div>
                 </div>
@@ -127,27 +129,35 @@ const Pane = () => {
               <img src={education} alt="About Me" data-aos="zoom-in" data-aos-duration="500"/>
               <div className='about-right'>
                 <h2 data-aos="fade-up" data-aos-duration="500">My Education</h2>
-                <p data-aos="fade-up" data-aos-duration="500">Neque porro quisquam est, qui dolorem ipsum quia dolor sit consectetur, aliquam quaerats voluptatem. Ut enim ad minima veniam, exercitationem laboriosam, nisi ut aliquid ex ea autem velit esse quam nihil</p>
-                <div className='exp-div-display'>
+                <p data-aos="fade-up" data-aos-duration="500">
+                I have a solid educational foundation in web development and design, complemented by continuous self-learning and hands-on experience. I've taken courses and training in UI/UX design, frontend development, and no-code tools like Bubble and FlutterFlow, which have helped me stay up-to-date with modern web technologies and practices.                  </p>
+                <div className='about-div-display'>
                   <div className='exp-div' data-aos="zoom-in-up" data-aos-duration="500">
-                    <h3>2011-2013</h3>
-                    <div style={{ flexDirection: 'column' }}>
-                      <p><strong>Programming Course</strong> </p>
-                      <h5>New York University</h5>
-                    </div>
-                  </div>
-                  <div className='exp-div' data-aos="zoom-in-up" data-aos-duration="500">
-                    <h3>2013-2016</h3>
-                    <div style={{ flexDirection: 'column' }}>
-                      <p><strong>University of Design</strong> </p>
-                      <h5>Kingston, United States</h5>
-                    </div>
-                  </div>
-                  <div className='exp-div' data-aos="zoom-in-up" data-aos-duration="500">
-                    <h3>2016-2018</h3>
-                    <div style={{ flexDirection: 'column' }}>
+                    <h3>2021</h3>
+                    <div style={{ flexDirection: 'column', width: "60%", textAlign: 'left' }}>
                       <p><strong>Web Design Course</strong> </p>
-                      <h5>New York University</h5>
+                      <h5>Udemy</h5>
+                    </div>
+                  </div>
+                  <div className='exp-div' data-aos="zoom-in-up" data-aos-duration="500">
+                    <h3>2021</h3>
+                    <div style={{ flexDirection: 'column', width: "60%", textAlign: 'left' }}>
+                      <p><strong>Complete React Developer Course</strong> </p>
+                      <h5>Udemy</h5>
+                    </div>
+                  </div>
+                  <div className='exp-div' data-aos="zoom-in-up" data-aos-duration="500">
+                    <h3>2022</h3>
+                    <div style={{ flexDirection: 'column', width: "60%", textAlign: 'left' }}>
+                      <p><strong>Google UX Design Certificate</strong> </p>
+                      <h5>Coursera</h5>
+                    </div>
+                  </div>
+                  <div className='exp-div' data-aos="zoom-in-up" data-aos-duration="500">
+                    <h3>2023</h3>
+                    <div style={{ flexDirection: 'column', width: "60%", textAlign: 'left' }}>
+                      <p><strong>No-Code Bootcamp (Bubble & FlutterFlow)</strong> </p>
+                      <h5>Makerpad / Nucode</h5>
                     </div>
                   </div>
                 </div>
@@ -162,7 +172,8 @@ const Pane = () => {
               <img src={skill} alt="About Me" data-aos="zoom-in" data-aos-duration="500"/>
               <div className='about-right'>
                 <h2 data-aos="fade-up" data-aos-duration="500">My Skills</h2>
-                <p data-aos="fade-up" data-aos-duration="500">Neque porro quisquam est, qui dolorem ipsum quia dolor sit consectetur, aliquam quaerats voluptatem. Ut enim ad minima veniam, exercitationem laboriosam, nisi ut aliquid ex ea autem velit esse quam nihil</p>
+                <p data-aos="fade-up" data-aos-duration="500">
+                I specialize in web design using Figma, and web development with React, HTML, CSS, and JavaScript. I’m also experienced in no-code platforms like Bubble and FlutterFlow, building responsive and user-friendly web applications.                  </p>
                 <div className='about-div-display'>
                   <div className='skill-div' data-aos="zoom-in-up" data-aos-duration="500">
                    <div className='img-div'>

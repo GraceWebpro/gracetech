@@ -15,13 +15,13 @@ const Services = () => {
             <div className='serv-div' data-aos="fade-up" data-aos-duration="500">
                 <div className='serv-left'>
                 <h6>01</h6>
-                    <div  style={{ flexDirection: 'column' }}>
+                    <div className='serv-text'>
                         <p>Designer</p>
                         <h5>Illustration Design</h5>
                     </div>
                 </div>
-                <div style={{ gap: '20px', width:'50%', display: 'flex', flexDirection: 'row' }}>
-                    <p style={{ fontSize: '15px', color: '#ccc', textAlign: 'left', width: '80%'}}>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. sunt in culpa qui officia deserunt mollit </p>
+                <div id='serv-right'>
+                    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. sunt in culpa qui officia deserunt mollit </p>
                     <div className='serv-icon-div'>
                         <BsArrowUpRight className='serv-det-btn' />
                     </div>
@@ -30,13 +30,13 @@ const Services = () => {
             <div className='serv-div' data-aos="fade-up" data-aos-duration="500">
                 <div className='serv-left'>
                 <h6>02</h6>
-                    <div  style={{ flexDirection: 'column' }}>
+                <div className='serv-text'>
                         <p>Branding</p>
                         <h5>Business Branding</h5>
                     </div>
                 </div>
-                <div style={{ gap: '20px', width:'50%', display: 'flex', flexDirection: 'row' }}>
-                    <p style={{ fontSize: '15px', color: '#ccc', textAlign: 'left', width: '80%'}}>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. sunt in culpa qui officia deserunt mollit </p>
+                <div id='serv-right'>                    
+                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. sunt in culpa qui officia deserunt mollit </p>
                     <div className='serv-icon-div'>
                         <BsArrowUpRight className='serv-det-btn' />
                     </div>
@@ -45,13 +45,13 @@ const Services = () => {
             <div className='serv-div' data-aos="fade-up" data-aos-duration="500">
                 <div className='serv-left'>
                 <h6>03</h6>
-                    <div  style={{ flexDirection: 'column' }}>
+                <div className='serv-text'>
                         <p>UI/UX Design</p>
                         <h5>Web UI/UX Design</h5>
                     </div>
                 </div>
-                <div style={{ gap: '20px', width:'50%', display: 'flex', flexDirection: 'row' }}>
-                    <p style={{ fontSize: '15px', color: '#ccc', textAlign: 'left', width: '80%'}}>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. sunt in culpa qui officia deserunt mollit </p>
+                <div id='serv-right'>                    
+                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. sunt in culpa qui officia deserunt mollit </p>
                     <div className='serv-icon-div'>
                         <BsArrowUpRight className='serv-det-btn' />
                     </div>
@@ -60,13 +60,13 @@ const Services = () => {
             <div className='serv-div' data-aos="fade-up" data-aos-duration="500">
                 <div className='serv-left'>
                 <h6>04</h6>
-                    <div  style={{ flexDirection: 'column' }}>
+                <div className='serv-text'>
                         <p>Web Design</p>
                         <h5>Application Design</h5>
                     </div>
                 </div>
-                <div style={{ gap: '20px', width:'50%', display: 'flex', flexDirection: 'row' }}>
-                    <p style={{ fontSize: '15px', color: '#ccc', textAlign: 'left', width: '80%'}}>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. sunt in culpa qui officia deserunt mollit </p>
+                <div id='serv-right'>                    
+                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. sunt in culpa qui officia deserunt mollit </p>
                     <div className='serv-icon-div'>
                         <BsArrowUpRight className='serv-det-btn' />
                     </div>
@@ -75,13 +75,13 @@ const Services = () => {
             <div className='serv-div' data-aos="fade-up" data-aos-duration="500">
                 <div className='serv-left'>
                 <h6>05</h6>
-                    <div  style={{ flexDirection: 'column' }}>
+                <div className='serv-text'>
                         <p>Seo Analytics</p>
                         <h5>Digital Marketing</h5>
                     </div>
                 </div>
-                <div style={{ gap: '20px', width:'50%', display: 'flex', flexDirection: 'row' }}>
-                    <p style={{ fontSize: '15px', color: '#ccc', textAlign: 'left', width: '80%'}}>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. sunt in culpa qui officia deserunt mollit </p>
+                <div id='serv-right'>                    
+                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. sunt in culpa qui officia deserunt mollit </p>
                     <div className='serv-icon-div'>
                         <BsArrowUpRight className='serv-det-btn' />
                     </div>

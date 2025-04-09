@@ -78,7 +78,7 @@
   .image-side.right {
     right: 0px;
   }
-  img {
+  .image-side img {
     width: 150px;
     height: 150px;
     object-fit: cover;
@@ -86,7 +86,7 @@
     opacity: 0.5;
   }
   
-  img.active {
+  .image-side img.active {
     opacity: 1;
     transform: scale(1.05);
   }
@@ -224,6 +224,21 @@
     z-index: 3; /* Make sure content is always on top of images */
     opacity: 1; /* Make the content fully visible */
   }
+
+
+
+    .test-h h2 {
+      font-size: 20px;
+    }
+    .test-bdr {
+      width: 50px;
+    }
+  
+    .test-title {
+      font-size: 20px !important;
+    width: 90%;
+    }
+
 }
 
 @media (max-width: 668px) {
@@ -242,6 +257,21 @@
   }
 }
 
+@media (max-width: 456px) {
+
+  .testimonial-content-container {
+    margin-top: -30px;
+    height: 430px;
+  }
+
+  .testimonial-content h4 {
+    font-size: 22px;
+  }
+  
+  .testimonial-content p {
+    font-size: 15px;
+  }
+}
   .dots-container {
     display: flex;
     justify-content: center;
