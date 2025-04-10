@@ -10,7 +10,14 @@
   
 }
 
-
+.contact-div-page {
+    
+        width: 100%;
+   
+}
+.contact-page {
+    padding: 0;
+}
 .cont-h h2 {
     color: #0059ff !important;
   }
@@ -100,11 +107,10 @@
 }
 
 .contact form {
-    background: #1e1e26;
     border: none;
     width: 100%;
-    max-width: 500px;
-    padding: 30px;
+    max-width: 700px;
+    padding: 0px;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
  
@@ -114,7 +120,7 @@
 .contact input,
 .contact textarea {
     width: 100%;
-    padding: 12px;
+    padding: 18px;
     margin-top: 10px;
     border: none;
     border-radius: 5px;
@@ -167,6 +173,14 @@
         font-size: 1.8rem;
     }
 
+    .cent,
+  .cent-page {
+    flex-direction: column !important;
+    align-items: center;
+    justify-content: center;
+    padding: 0 30px;
+  }
+
     .contact form {
         padding: 20px;
     }
@@ -196,7 +210,9 @@
 
 @media (max-width: 768px) {
     
-
+.contact-page h2 {
+    font-size: 32px !important;
+}
         .pro-h h2 {
           font-size: 20px;
         }
@@ -221,4 +237,369 @@
     }
 }
 
+.meeting {
+    display: flex;
+    flex-direction: row;
 
+    gap: 40px;
+
+    padding: 0 40px;
+    margin-top: -20px;
+    min-height: 100vh; /* Allows it to expand as needed */
+    width: 100%;
+height: fit-content;
+    align-items: center;
+    margin-bottom: 350px;
+  
+}
+
+.meet-left {
+    align-items: flex-start;
+    color: #fff;
+
+    width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  
+}
+
+.meet-title {
+    font-size: 30px;
+    text-align: left;
+    font-family: 500;
+    color: #fff;
+    margin-top: 30px;
+}
+
+.meet-div-display {
+    display: flex;
+    flex-direction: column;
+}
+
+.meet-div, .meet-p {
+    display: flex;
+    flex-direction: row;
+
+  justify-content: flex-start;
+  gap: 30px;
+  align-items: center;
+  padding: 30px;
+  border-radius: 10px;
+  margin-top: 30px;
+  background: #101010;
+  width: 100%;
+}
+
+
+.meet-div:hover, .meet-p:hover {
+    border-bottom: 1px solid #0059ff;
+}
+
+.proj-cont-left {
+    text-align: left;
+    gap: 20px;
+}
+
+.proj-cont-left p {
+    font-size: 18px;
+    color: #818181 !important;
+}
+
+.proj-cont-left h6 {
+    font-size: 20px;
+    margin-top: 20px;
+}
+
+.meet-icon {
+    font-size: 60px;
+    background: #0059ff;
+    border-radius: 50%;
+    padding: 15px;
+}
+
+
+.meet-img {
+    width: 100%; /* Make it responsive */
+  max-width: 400px; /* Limit size */
+  height: auto; /* Maintain aspect ratio */
+ margin-top: -10px;
+  border-radius: 20px;
+  align-self: flex-start; /* Align image to the top by default */
+}
+
+  /* Responsive Design */
+  @media (max-width: 992px) {
+    .meeting {
+        flex-direction: column;
+        align-items: center;
+        margin-top: 0;
+        margin: 20px auto 0;
+        margin-bottom: 100px; /* increase spacing */
+        padding: 0 20px; /* add padding for small screens */
+      }
+
+      .meet-left {
+        width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+
+      }
+
+      .about-div-display {
+        flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      width: 100%;
+      }
+    .meet-img {
+        width: 90%; /* Adjust size for smaller screens */
+        height: auto;
+        margin: 20px auto 0; /* center horizontally */
+        display: block; /* block + margin auto centers it */
+    }
+  }
+
+  @media (max-width: 768px) {
+    .meet-title {
+        font-size: 26px;
+    }
+  }
+
+  @media (max-width: 500px) {
+    .meet-title {
+        font-size: 24px;
+    }
+
+    .meet-div, .meet-p {
+      gap: 20px;
+      padding: 30px 0;
+  
+      width: 100%;
+    }
+
+    .proj-cont-left h6 {
+        font-size: 16px;
+    }
+
+    .meet-title {
+        font-size: 20px;
+    }
+
+    .meet-icon {
+        font-size: 45px;
+        background: #0059ff;
+        border-radius: 50%;
+        padding: 8px;
+    }
+  }
+
+  .touch-h2 {
+    text-transform: uppercase;
+    font-size: 100px !important;
+    color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-weight: 600;
+  }
+
+  .touch-content {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    gap: 30px;
+    padding: 0 40px;
+  }
+
+  .touch-left {
+    align-items: flex-start;
+    color: #fff;
+
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  
+}
+
+.touch-right {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap; /* allow items to wrap */
+  gap: 20px;
+  justify-content: flex-end;
+}
+
+.touch-left h2 {
+    font-size: 26px;
+    text-align: left;
+}
+
+.touch-left h3 {
+    font-size: 28px;
+    text-align: left;
+    text-decoration: underline;
+}
+
+.touch-social {
+   
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 0 30px;
+    font-size: 18px;
+    font-weight: 600;
+    height: 80px; /* <-- fixed height */
+    flex: 1 1 auto; /* flexible width */
+    min-width: 200px; /* prevent it from shrinking too small */
+    border: 1px solid #303030;
+    border-radius: 10px;
+    color: #fff;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+.touch-social span {
+    font-size: 20px;
+    
+}
+
+.touch-icon {
+    font-size: 20px;
+    display: flex;
+  align-items: center;
+}
+
+.touch-social:hover {
+    background-color: #0059ff;
+}
+
+@media (max-width: 992px) {
+    .touch-content {
+        display: flex;
+        flex-direction: column;
+        
+      }
+    
+}
+
+@media (max-width: 855px) {
+    .touch-h2 {
+        font-size: 80px !important;
+       
+      }
+}
+
+@media (max-width: 768px) {
+    .touch-content {
+        padding: 0 20px;
+    }
+    .touch-h2 {
+        font-size: 55px !important;
+       
+      }
+    
+    
+  
+    .touch-left h2 {
+      font-size: 18px;
+    }
+
+    .touch-left h3 {
+        font-size: 24px;
+    }
+  }
+
+  @media (max-width: 519px) {
+    .touch-content {
+        padding: 0;
+    }
+    .touch-social {
+        height: 60px;
+    }
+
+    .touch-h2 {
+        font-size: 45px !important;
+       
+      }
+    .touch-left h2 {
+        font-size: 15px !important;
+    }
+
+    .touch-left h3 {
+        font-size: 17px !important;
+    }
+  }
+
+  @media (max-width: 440px) {
+    .touch-h2 {
+        font-size: 32px !important;
+    }
+  }
+
+  .contact-page {
+    margin-top: 120px;
+  }
+
+  .contact-page h2 {
+    font-size: 40px;
+    font-weight: 600;
+    color: #fff;
+  }
+
+  .contact-page .proj-title {
+    font-weight: 300 !important;
+  }
+
+  .cent-page {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    margin-top: 50px;
+    gap: 40px;
+    justify-content: center;
+}
+
+.contact-page-right {
+    background: #131313;    
+    padding: 40px;
+    border-radius: 10px;
+    width: 100%;
+    
+}
+
+.contact-left {
+    background: #131313;
+    padding: 40px;
+    border-radius: 10px;
+    width: 100%;
+}
+
+.contact-page-right h4 {
+    font-size: 30px;
+    color: #fff;
+}
+
+.contact-page-right h5 {
+    font-size: 14px;
+    color: #a0a0a0;
+    margin-bottom: 20px;
+}
+
+.contact-left h4 {
+    font-size: 30px;
+    color: #fff;
+}
+
+.contact-left h5 {
+    font-size: 14px;
+    color: #a0a0a0;
+    margin-bottom: 20px;
+}

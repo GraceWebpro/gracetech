@@ -50,65 +50,19 @@ const Contact = () => {
     }
 
   return (
-    <section className='contact' id='connect'>
+    <section className='contact contact-page'>
       <div>
-      <div className='proj-h' style={{ display: 'flex', gap: '20px', alignItems: 'center', justifyContent:'center' }} data-aos="fade-down">
-              <div className='cont-bdr'></div>
-              <h2 style={{ textAlign: 'center', fontFamily: 'Dancing Script, "sans-seriff"', color: '#0059ff' }}>Need a Project</h2>
-              <div className='cont-bdr'></div>
-            </div>
-      {/*<h2 data-aos="fade-up" 
-     data-aos-duration="1500">Get In Touch</h2>*/}
-      <h4 data-aos="fade-up" className='proj-title'>Have a question or a project in mind? Fill out the form, and let's connect!</h4>
+      
+      <h2 data-aos="fade-up" 
+     data-aos-duration="1500">Lets Start Something</h2>
+      <h6 data-aos="fade-up" className='proj-title' style={{ textAlign: 'center', fontFamily: 'Dancing Script, "sans-seriff"', color: '#fff', fontWeight:'300' }}><span style={{ color: '#0059ff'}}>Home</span> / Let's Start Something</h6>
 
-        <Row className='cent'>
-            <Col md={6} className='contact-left'>
-                 <h4>Let's work together. fixed a meeting</h4>
-                 <div className='contact-div' data-aos="fade-up-right">
-                    <Col sm={6} className='px-1 flex'>
-                        <FaLocationDot className='iconn'/> 
-                        <p>Lagos, Nigeria</p>
-                    </Col>
-                    <Col sm={6} className='px-1 flex'>
-                        <IoLogoWhatsapp className='iconn'/> 
-                        <p>+2348021357359</p>
-                    </Col>
-                    <Col sm={6} className='px-1 flex'>
-                        <MdEmail className='iconn'/> 
-                        <p>gracietechdigital@proton.me</p>
-                    </Col>
-                 </div>
-                 <div className='contact-div' data-aos="fade-up-right">
-                    <h5>Follow us on social media</h5>
-                    <Col sm={6} className='px-1 flex'>
-                    <Link
-                        to="contact"
-                        className="nav__link"
-                        >
-                        <AiOutlineTikTok className='icon2'/> 
-                    </Link>
+        <Row className='cent-page'>
+            
+            <Col md={6} className='contact-right contact-page-right'>
+                <h4>Leave A Reply</h4>
+                <h5>Your email address will not be published. Required fields are marked *</h5>
                
-                   
-                    <Link
-                        to="contact"
-                        className="nav__link"
-                        >
-                        <IoLogoInstagram className='icon2'/> 
-                    </Link>
-               
-                   
-                    <Link
-                        to="contact"
-                        className="nav__link"
-                        >
-                        <FaFacebook className='icon2'/> 
-                    </Link>
-                    </Col>
-                    
-                 </div>
-            </Col>
-            <div className='contact-right'>
-                
                 <form onSubmit={handleSubmit}>
                     <Row>
                         <Col sm={6} className='px-1'>
@@ -139,7 +93,30 @@ const Contact = () => {
 
                     </Row>
                 </form>
-            </div>
+            </Col>
+            <Col md={6} className='contact-left'>
+                    <h4>Feel Free To Connect Me Anytime</h4>
+                    <div className='contact-div-display'>
+                    <div className='about-div contact-div-page' data-aos="zoom-in-up" data-aos-duration="500">
+                        <p><strong>Address</strong> </p>
+                        <h5>Victoria Highland, Lagos.</h5>
+
+                    </div>
+                    <div className='about-div' data-aos="zoom-in-up" data-aos-duration="500">
+                        <p><strong>Email</strong> </p>
+                        <h5 className='mail'>gracietechdigital@proton.me</h5>
+
+                    </div>
+                    <div className='about-div' data-aos="zoom-in-up" data-aos-duration="500">
+                        <p><strong>Phone</strong> </p>
+                        <h5>+2348021357359</h5>
+
+                    </div>
+                    </div>
+
+            </Col>
+           
+            
         </Row>
       </div>
     </section>

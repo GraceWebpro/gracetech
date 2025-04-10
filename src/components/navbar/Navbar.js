@@ -58,49 +58,10 @@ const Navbar = () => {
        
         
         <div className={`nav-elements  ${showNavbar && 'active'}`}>
-          {/*<ul>
-          <li className={activeLink === 'home' ? 'active nav__item' : 'nav__item'} onClick={() => updateActiveLink('home')}>
-             <Link to="/" className="nav__link" onClick={closeNavbar}>
-               Home
-             </Link>
-           </li>
-           <li className={activeLink === 'home' ? 'active nav__item' : 'nav__item'} onClick={() => updateActiveLink('home')}>
-             <Link to="/" className="nav__link" onClick={closeNavbar}>
-               Resume
-             </Link>
-           </li>
-           <li className={activeLink === 'skills' ? 'active nav__item' : 'nav__item'} onClick={() => updateActiveLink('skills')}>
-             <Link to="skills" className="nav__link" onClick={closeNavbar}>
-               Skills 
-             </Link>
-           </li>
-           <li className={activeLink === 'home' ? 'active nav__item' : 'nav__item'} onClick={() => updateActiveLink('home')}>
-             <Link to="/" className="nav__link" onClick={closeNavbar}>
-               Portfolio
-             </Link>
-           </li>
-           <li className={activeLink === 'home' ? 'active nav__item' : 'nav__item'} onClick={() => updateActiveLink('home')}>
-             <Link to="/" className="nav__link" onClick={closeNavbar}>
-               Templates
-             </Link>
-           </li>
-           <li className={activeLink === 'projects' ? 'active nav__item' : 'nav__item'} onClick={() => updateActiveLink('projects')}>
-             <Link
-               to="projects"
-               className="nav__link"
-               onClick={closeNavbar}
-             >
-               Projects 
-             </Link>
-           </li>
-           <li className={activeLink === 'home' ? 'active nav__item' : 'nav__item'} onClick={() => updateActiveLink('home')}>
-             <Link to="/" className="nav__link" onClick={closeNavbar}>
-               Blog
-             </Link>
-           </li>
+         
            
           
-          </ul>*/}
+
           <ul>
             {['home', 'about', 'project', 'services', 'templates', 'blog', 'contact'].map((item) => (
               <li
@@ -115,6 +76,10 @@ const Navbar = () => {
                 ) : item === 'project' ? (
                   <RouterLink to="/projects" onClick={closeNavbar} className="nav__link">
                     Projects
+                  </RouterLink>
+                ) : item === 'contact' ? (
+                  <RouterLink to="/contact" onClick={closeNavbar} className="nav__link">
+                    Contact
                   </RouterLink>
                 ) : isHomePage ? (
                   <ScrollLink

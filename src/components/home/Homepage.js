@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import Banner from '../banner/Banner'
 import { Projects } from '../projects/HomeProjects';
-import Contact from '../contact/Contact';
+import HomeContact from '../contact/HomeContact';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import About from '../about/About';
@@ -10,6 +10,8 @@ import WorkingProcess from '../process/WorkingProcess';
 import Testimonial from '../testimonial/Testimonial';
 import { useLocation } from 'react-router-dom';
 import { scroller } from 'react-scroll';
+import ProjectContact from '../contact/ProjectContact';
+import Blog from '../blog/Blog';
 //import Meeting from '../projects/Meeting'
 
 
@@ -38,11 +40,12 @@ const Homepage = () => {
             <About />
            
             <Projects />
-       
+            <ProjectContact />
             <Services />
             <WorkingProcess />
             <Testimonial />
-            <Contact />
+            <Blog />
+            <HomeContact />
         </div>
     )
 };

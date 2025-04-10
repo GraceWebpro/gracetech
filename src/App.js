@@ -12,6 +12,7 @@ import Register from './admin/AdminRegister';
 //import MouseCursor from "./components/home/MouseCursor";
 import { Projects } from "./components/projects/Projects";
 import ScrollToTop from "./components/ScrollToTopPage";
+import Contact from "./components/contact/Contact";
 
 function App() {
   const location = useLocation();
@@ -29,6 +30,7 @@ function App() {
           {/* Public routes */}
           <Route path="/" element={<Homepage />} />
           <Route path="/projects" element={<Projects />} />
+          <Route path="/contact" element={<Contact />} />
 
           {/* Admin Routes */}
           <Route path='/admin/login' element={<Login onUserChange={setUser} />} />   
