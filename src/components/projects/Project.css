@@ -220,18 +220,26 @@
     opacity: 0;
     width: 100%;
 
+    pointer-events: none;
+z-index: -1;
+visibility: hidden;
+display: none;
+
+
   
 }
 
 /* When active on mobile */
 .proj-txtx.show {
   opacity: 1;
+  pointer-events: auto; /* allow interaction when manually shown (mobile) */
 }
 
 
 .proj-imgbx:hover .proj-txtx {
     top: 50%;
     opacity: 1;
+    pointer-events: auto; /* allow interaction on hover */
 }
 
 .proj-zoom {
