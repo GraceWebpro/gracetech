@@ -46,7 +46,7 @@ export function Projects() {
       <TrackVisibility>
         {({ isVisible }) =>
           <div className={isVisible ? "animates__animated animate__slideInUp" : ""}>
-            <div className='proj-h' style={{ display: 'flex', gap: '20px', alignItems: 'center', justifyContent:'center' }} data-aos="fade-down">
+            <div className='proj-h' style={{ display: 'flex', gap: '10px', alignItems: 'center', justifyContent:'center' }} data-aos="fade-down">
               <div className='proj-bdr'></div>
               <h2 style={{ textAlign: 'center', fontFamily: 'var(--second-font)', color: '#0059ff' }}>Recent Projects</h2>
               <div className='proj-bdr'></div>
@@ -127,16 +127,88 @@ export function Projects() {
         <span>Click More</span>
         <BsArrowRight />
       </Link>
+  
       {selectedProject && (
   <div className="modal-overlay" onClick={() => setSelectedProject(null)}>
     <div className="modal-content" onClick={(e) => e.stopPropagation()}>
       <button className="modal-close-btn" onClick={() => setSelectedProject(null)}>&times;</button>
-      <img src={selectedProject.image} alt={selectedProject.title} className="modal-image" />
+
+      {/* Main Project Image */}
+      <div className="main-image-container">
+        <img src={selectedProject.imageUrl} alt={selectedProject.title} className="modal-image" />
+      </div>
+
+      {/* Image Gallery */}
+      <div className="image-gallery">
+        {selectedProject.gallery?.map((image, index) => (
+          <img
+            key={index}
+            src={image}
+            alt={`${selectedProject.title}-gallery-${index}`}
+            className="gallery-thumbnail"
+            onClick={() => setSelectedProject({ ...selectedProject, imageUrl: image })}
+          />
+        ))}
+      </div>
+
+      <div style={{ textAlign: 'left' }}>
       <h3>{selectedProject.title}</h3>
       <p>{selectedProject.description}</p>
+
+      {/* Key Features */}
+      <h4>Key Features</h4>
+      <ul className="feature-list">
+        <li><i className="feature-icon">✔</i> Responsive Design</li>
+        <li><i className="feature-icon">✔</i> User-Friendly Interface</li>
+        <li><i className="feature-icon">✔</i> Fast Performance</li>
+        <li><i className="feature-icon">✔</i> Scalable Architecture</li>
+      </ul>
+
+      {/* Technology Stack */}
+      <h4>Technology Stack</h4>
+      <div className="tech-stack">
+        <span className="tech-icon">React</span>
+        <span className="tech-icon">Node.js</span>
+        <span className="tech-icon">MongoDB</span>
+        <span className="tech-icon">Express</span>
+      </div>
+
+      {/* User Benefits */}
+      <h4>User Benefits</h4>
+      <p>Users can easily interact with the platform, improving overall engagement. The system allows users to access content at their fingertips and receive updates in real-time, leading to increased user satisfaction and retention.</p>
+
+      {/* Challenges and Solutions */}
+      <h4>Challenges & Solutions</h4>
+      <p><strong>Challenge:</strong> Ensuring fast performance while maintaining scalability.</p>
+      <p><strong>Solution:</strong> Implemented efficient caching strategies and a modular architecture, enabling the system to handle heavy traffic seamlessly.</p>
+
+      {/* Project Timeline */}
+      <h4>Project Timeline</h4>
+      <p><strong>Start Date:</strong> January 2023</p>
+      <p><strong>End Date:</strong> June 2023</p>
+
+      <div className="project-links">
+        <Link to={`/project-details/${selectedProject.id}`} className="link-btn">
+          View Full Project
+        </Link>
+      </div>
+
+      {/* Project Links */}
+      <div className="project-links">
+        <a href={selectedProject.demoLink} target="_blank" rel="noopener noreferrer" className="link-btn">
+          See it in action
+        </a>
+        <a href={selectedProject.githubLink} target="_blank" rel="noopener noreferrer" className="link-btn">
+          View on GitHub
+        </a>
+      </div>
+      </div>
+
+      
     </div>
   </div>
 )}
+
 
 
     </div>

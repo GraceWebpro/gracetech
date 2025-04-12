@@ -1,0 +1,162 @@
+/* Container for the entire tabbed section */
+.template-tabs-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1200px;
+  margin: 100px auto;
+  padding: 100px 20px
+  }
+  
+  /* Tab Navigation Styling */
+  .tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #ddd;
+    flex-wrap: wrap; /* Allow tabs to wrap on small screens */
+  }
+  
+  .tab {
+    padding: 10px 20px;
+    margin-right: 15px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #555;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap; /* Prevent text from wrapping */
+  }
+  
+  .tab:hover {
+    color: #2c3e50;
+  }
+  
+  .tab.active {
+    color: #fff;
+    background-color: #3498db;
+    border-radius: 5px 5px 0 0;
+  }
+  
+  .tab:focus {
+    outline: none;
+  }
+  
+  /* Template List Section */
+  .template-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    padding-top: 20px;
+  }
+  
+  @media (max-width: 768px) {
+    .template-list {
+      grid-template-columns: 1fr; /* Stack templates in a single column on smaller screens */
+      gap: 15px; /* Reduce gap between cards on smaller screens */
+    }
+  
+    .tabs {
+      flex-direction: column; /* Stack tabs vertically on small screens */
+    }
+  
+    .tab {
+      width: 100%;
+      margin-bottom: 10px; /* Add some space between stacked tabs */
+      text-align: center; /* Center text for better alignment */
+    }
+  
+    .tab:hover {
+      background-color: #2980b9; /* Change hover color for better visibility on small screens */
+    }
+  }
+  
+  /* Template Card Styling */
+  .template-card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    overflow: hidden;
+  }
+  
+  .template-card:hover {
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+  }
+  
+  .template-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .template-card .template-info {
+    padding: 15px;
+  }
+  
+  .template-card .template-info h3 {
+    font-size: 18px;
+    margin: 0;
+    color: #333;
+  }
+  
+  .template-card .template-info p {
+    color: #777;
+    margin-top: 5px;
+  }
+  
+  .template-card .template-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #f9f9f9;
+  }
+  
+  .template-card .template-footer button {
+    padding: 8px 15px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .template-card .template-footer button:hover {
+    background-color: #2980b9;
+  }
+  
+  .template-card .template-footer .view-details-btn {
+    color: #3498db;
+    text-decoration: none;
+    font-size: 14px;
+  }
+  
+  @media (max-width: 600px) {
+    .template-card .template-info h3 {
+      font-size: 16px; /* Slightly smaller heading font on very small screens */
+    }
+  
+    .template-card .template-info p {
+      font-size: 14px; /* Adjust text size for small screens */
+    }
+  
+    .template-card .template-footer {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .template-card .template-footer button {
+      width: 100%; /* Make the buy button full width on small screens */
+      margin-bottom: 10px; /* Space between the button and view details */
+    }
+  
+    .template-card .template-footer .view-details-btn {
+      font-size: 14px;
+      text-align: left; /* Left-align the view details button */
+    }
+  }
+  

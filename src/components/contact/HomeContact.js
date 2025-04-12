@@ -28,23 +28,23 @@ const HomeContact = () => {
                 <BsArrowRight className='touch-icon'/>
             </div>
             <div className='touch-social'>
-                <span>Facebook</span>
+                <span>Tiktok</span>
                 <BsArrowRight className='touch-icon'/>
             </div>
             <div className='touch-social'>
-                <span>Facebook</span>
+                <span>Instagram</span>
                 <BsArrowRight className='touch-icon'/>
             </div>
             <div className='touch-social'>
-                <span>Facebook</span>
+                <span>Twitter</span>
                 <BsArrowRight className='touch-icon'/>
             </div>
             <div className='touch-social'>
-                <span>Facebook</span>
+                <span>LinkedIn</span>
                 <BsArrowRight className='touch-icon'/>
             </div>
             <div className='touch-social'>
-                <span>Facebook</span>
+                <span>WhatsApp</span>
                 <BsArrowRight className='touch-icon'/>
             </div>
         </div>

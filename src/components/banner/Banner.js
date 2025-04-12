@@ -3,7 +3,7 @@ import { ArrowRightCircle } from 'react-bootstrap-icons';
 import { GoArrowUpRight } from "react-icons/go";
 import { Link } from 'react-router-dom';
 
-import bannerImg from '../../assets/woman1.png';
+import bannerImg from '../../assets/ban.png';
 import './Banner.css'
 import 'animate.css'
 import TrackVisibility from 'react-on-screen'

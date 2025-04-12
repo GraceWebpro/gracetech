@@ -15,7 +15,7 @@
     color: #fff !important;
   }
   .proj-bdr {
-    width: 100px;
+    width: 80px;
     border-bottom: 1px solid #fff;
     margin-bottom: 0px;
   }
@@ -219,7 +219,15 @@
     transition: 0.5s ease-in-out;
     opacity: 0;
     width: 100%;
+
+  
 }
+
+/* When active on mobile */
+.proj-txtx.show {
+  opacity: 1;
+}
+
 
 .proj-imgbx:hover .proj-txtx {
     top: 50%;
@@ -420,7 +428,10 @@
     font-weight: 600;
     border: 2px solid #0059ff;
     border-radius: 50px;
-    background: #0059ff;
+    background-image: -webkit-gradient(linear, left top, right top, from(var(--tj-color-theme-primary)), to(var(--tj-color-theme-secondary)));
+    background-image: linear-gradient(90deg, var(--tj-color-theme-primary) 0%, var(--tj-color-theme-secondary) 100%);
+   
+    transition: background 0.3s ease, color 0.3s ease;
     color: #fff;
     cursor: pointer;
     position: relative;
@@ -430,7 +441,7 @@
   }
   
   .click-more-btn:hover {
-    background-color: #000;
+    background: #000;
     color: #fff;
   }
   
@@ -481,12 +492,14 @@
   }
   
   .modal-content {
-    background: white;
+    background: #121212;
     padding: 20px;
-    max-width: 600px;
+    max-width: 800px;
     width: 90%;
     position: relative;
     border-radius: 10px;
+    overflow-y: auto;
+    max-height: 90vh; /* Ensure the modal doesn't overflow on smaller screens */
   }
   
   .modal-image {
@@ -504,6 +517,168 @@
     font-size: 24px;
     border: none;
     cursor: pointer;
-    color: #888;
+    color: #fff;
+  }
+
+  h3 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  h4 {
+    font-size: 20px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .feature-list,
+  .metrics-list {
+    list-style-type: none;
+    padding-left: 0;
+    margin: 0;
+  }
+  
+  .feature-item {
+    display: flex;
+    align-items: center;
+  }
+  
+  .feature-icon {
+    margin-right: 8px;
+  }
+  
+  .tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .tech-icon {
+    padding: 8px;
+    background-color: #f1f1f1;
+    border-radius: 4px;
+  }
+  
+  .testimonial {
+    font-style: italic;
+    margin: 15px 0;
+  }
+  
+  .testimonial footer {
+    text-align: right;
+    font-weight: bold;
+  }
+  
+  .project-links {
+    margin-top: 20px;
+  }
+  
+  .link-btn {
+    display: inline-block;
+    margin-right: 10px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+    text-decoration: none;
+  }
+  
+  .link-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Responsive Design for Smaller Screens */
+  @media (max-width: 768px) {
+    .modal-content {
+      padding: 15px;
+      max-width: 90%;
+      margin: 0;
+      width: 100%;
+      height: auto;
+    }
+  
+    h3 {
+      font-size: 20px;
+    }
+  
+    h4 {
+      font-size: 18px;
+    }
+  
+    .feature-list,
+    .metrics-list {
+      margin-left: 20px;
+    }
+  
+    .link-btn {
+      padding: 8px 16px;
+      font-size: 14px;
+    }
+  
+    .modal-close-btn {
+      font-size: 18px;
+    }
+  
+    .tech-stack {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .tech-icon {
+      margin: 5px 0;
+    }
+  
+    .testimonial {
+      font-size: 14px;
+    }
+  
+    .testimonial footer {
+      font-size: 12px;
+    }
+  }
+  
+  /* For even smaller screens (Mobile Portrait) */
+  @media (max-width: 480px) {
+    .modal-content {
+      padding: 10px;
+      max-width: 100%;
+      width: 100%;
+      height: auto;
+    }
+  
+    h3 {
+      font-size: 18px;
+    }
+  
+    h4 {
+      font-size: 16px;
+    }
+  
+    .link-btn {
+      padding: 6px 14px;
+      font-size: 12px;
+    }
+  
+    .modal-close-btn {
+      font-size: 16px;
+    }
+  
+    .tech-stack {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .tech-icon {
+      margin: 5px 0;
+    }
+  
+    .testimonial {
+      font-size: 12px;
+    }
+  
+    .testimonial footer {
+      font-size: 10px;
+    }
   }
   
