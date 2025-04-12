@@ -13,6 +13,7 @@ import Register from './admin/AdminRegister';
 import { Projects } from "./components/projects/Projects";
 import ScrollToTop from "./components/ScrollToTopPage";
 import Contact from "./components/contact/Contact";
+import GetAQuote from "./components/quote/Quote";
 
 function App() {
   const location = useLocation();
@@ -31,6 +32,7 @@ function App() {
           <Route path="/" element={<Homepage />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/get-a-quote" element={<GetAQuote />} />
 
           {/* Admin Routes */}
           <Route path='/admin/login' element={<Login onUserChange={setUser} />} />   

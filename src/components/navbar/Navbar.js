@@ -46,6 +46,23 @@ const Navbar = () => {
     setActiveLink(value);
   }
 
+  useEffect(() => {
+    // Set the active link based on the current path
+    const path = location.pathname.split('/')[1]; // Get the current route path
+    setActiveLink(path || 'home'); // Default to 'home' if there's no path
+  }, [location]);
+
+
+  useEffect(() => {
+    const currentPath = location.pathname;
+    if (currentPath === '/') {
+      setActiveLink('home');
+    } else {
+      const pathName = currentPath.split('/')[1]; // get the section name after '/'
+      setActiveLink(pathName || 'home');
+    }
+  }, [location]);
+
   return (
       <header className='header'>
     <nav className="navbar">
@@ -63,7 +80,7 @@ const Navbar = () => {
           
 
           <ul>
-            {['home', 'about', 'project', 'services', 'templates', 'blog', 'contact'].map((item) => (
+            {['home', 'about', 'project', 'services', 'templates', 'blog', 'courses'].map((item) => (
               <li
                 key={item}
                 className={activeLink === item ? 'active nav__item' : 'nav__item'}
@@ -76,10 +93,6 @@ const Navbar = () => {
                 ) : item === 'project' ? (
                   <RouterLink to="/projects" onClick={closeNavbar} className="nav__link">
                     Projects
-                  </RouterLink>
-                ) : item === 'contact' ? (
-                  <RouterLink to="/contact" onClick={closeNavbar} className="nav__link">
-                    Contact
                   </RouterLink>
                 ) : isHomePage ? (
                   <ScrollLink
@@ -95,7 +108,7 @@ const Navbar = () => {
                   </ScrollLink>
                 ) : (
                   <RouterLink
-                    to="/"
+                    to={`/${item}`}
                     state={{ scrollTo: item }}
                     onClick={closeNavbar}
                     className="nav__link"
@@ -117,9 +130,10 @@ const Navbar = () => {
                className="nav__link nav-btn"
                onClick={closeNavbar}
              >
-               Let's Connect
+               Contact Us
              </Link>
            </li>
+
            <div className="menu-icon" onClick={handleShowNavbar}>
            {showNavbar ? <RiCloseLine /> : <RiMenuUnfold3Fill />}
           </div>

@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Dancing+Script:wght@600&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+}
+
+.banner {
+  background-color: #F6F6F6;
+  padding: 120px 20px;
+  text-align: center;
+}
+
+.banner-content {
+  max-width: 800px;
+  margin: auto;
+}
+
+.script-text {
+  font-family: 'Dancing Script', cursive;
+  font-size: 36px;
+  color: #3F94FF;
+  margin: 0;
+}
+
+.gradient-text {
+  font-size: 64px;
+  font-weight: 700;
+  margin: 10px 0;
+  background: linear-gradient(90deg, #6560FF, #3F94FF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.banner p {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 30px;
+}
+
+.banner-buttons a {
+  text-decoration: none;
+  padding: 12px 28px;
+  margin: 0 10px;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+.btn-primary {
+  background: linear-gradient(90deg, #6560FF, #3F94FF);
+  color: white;
+}
+
+.btn-secondary {
+  background: transparent;
+  border: 2px solid #3F94FF;
+  color: #3F94FF;
+}
+
+@keyframes floatUpDown {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0); }
+  }
+  
+  .floating-img {
+    animation: floatUpDown 3s ease-in-out infinite;
+  }
+  

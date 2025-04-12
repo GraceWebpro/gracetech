@@ -7,10 +7,10 @@ const Services = () => {
     <div className='services' id='services'>
         <div className='serv-h' style={{ display: 'flex', gap: '20px', alignItems: 'center', justifyContent:'center' }} data-aos="fade-down">
               <div className='serv-bdr'></div>
-              <h2 style={{ textAlign: 'center', fontFamily: 'Dancing Script, "sans-seriff"', color: '#0059ff' }}>Services That i Provide</h2>
+              <h2 style={{ textAlign: 'center', fontFamily: 'Dancing Script, "sans-seriff"', color: '#0059ff' }}>Our Services</h2>
               <div className='serv-bdr'></div>
         </div>
-        <p className='serv-title' data-aos="fade-up" data-aos-duration="500">My Special Service For Your Business Development</p>
+        <p className='serv-title' data-aos="fade-up" data-aos-duration="500">Tailored Solutions for Your Business Growth</p>
         <div className='serv-div-display'>
             <div className='serv-div' data-aos="fade-up" data-aos-duration="500">
                 <div className='serv-left'>

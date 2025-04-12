@@ -14,7 +14,8 @@ const HomeContact = () => {
      <div className='touch-content'>
         <div className='touch-left'>
          
-              <h2>Hello, I’m David Matias, Website & User Interface Designer based in London.</h2>
+              <h2>
+              Hello, we are Grace Wilson and the team of expert Website & User Interface Designers, based in London, committed to delivering exceptional digital experiences.                </h2>
 
               <h3>gracietechdigital@proton.me</h3>
 

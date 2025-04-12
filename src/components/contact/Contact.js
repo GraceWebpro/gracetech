@@ -95,7 +95,7 @@ const Contact = () => {
                 </form>
             </Col>
             <Col md={6} className='contact-left'>
-                    <h4>Feel Free To Connect Me Anytime</h4>
+                    <h4>Don’t hesitate to reach out to us anytime.</h4>
                     <div className='contact-div-display'>
                     <div className='about-div contact-div-page' data-aos="zoom-in-up" data-aos-duration="500">
                         <p><strong>Address</strong> </p>

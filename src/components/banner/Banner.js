@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
 import { ArrowRightCircle } from 'react-bootstrap-icons';
 import { GoArrowUpRight } from "react-icons/go";
+import { Link } from 'react-router-dom';
 
 import bannerImg from '../../assets/woman1.png';
 import './Banner.css'
@@ -18,7 +18,7 @@ const Banner = () => {
     const [text, setText] = useState('');
     const [delta, setDelta] = useState(300 - Math.random() * 100);
 
-    const toRotate = [ "Web Developer", "Web Designer", "UI/UX Designer" ];
+    const toRotate = [ "Web Development Agency", "UI/UX Design Agency", "Creative Digital Agency", "Branding Experts", "Marketing Strategists" ];
     const period = 2000;
 
     useEffect(() => {
@@ -62,26 +62,32 @@ const Banner = () => {
                                         <p className='ban-av' data-aos="fade-up" data-aos-duration="1500">Currently Available For Freelance Worldwide <GoArrowUpRight /></p>
                                         <p className='bdr'></p>
                                     </div>
-                                    <span className='tagline' data-aos="fade-up" data-aos-duration="1500">Welcome to my Portfolio</span>
-                                    <h1 data-aos="fade-up" data-aos-duration="1500">Hi 👋 I<span style={{ color: '#0000ff' }}>'</span>m GraceTech<span style={{ color: '#0000ff', fontSize: '60px' }}>.</span></h1> 
-                                    <h1 data-aos="fade-up" data-aos-duration="1500">A <span className='wrap' style={{ color: '#0000ff' }}>{text}</span></h1>
+                                    <span className='tagline' data-aos="fade-up" data-aos-duration="1500">Welcome to GraceTech Agency</span>
+                                    <h1 data-aos="fade-up" data-aos-duration="1500">Hi 👋 We<span style={{ color: '#0000ff' }}>'</span>re GraceTech<span style={{ color: '#0000ff', fontSize: '60px' }}>.</span></h1> 
+                                    <h1 data-aos="fade-up" data-aos-duration="1500">A <span className='wrap'>{text}</span></h1>
 
                                  
                                     <WorkProcess />
                                     
                                     <div className='btn-display'>
-                                    <button className='bann-btn' onClick=''>
-                                        <span>Let's Connect</span>
+                                    <Link className='bann-btn' to='/get-a-quote'>
+                                        <span>Get A Quote</span>
                                         <ArrowRightCircle size={25}/>
-                                    </button>
+                                    </Link>
                                     <DownloadCv />
                                     </div>
                                 </div>}
                         </TrackVisibility>
                     </div>
-                   <div className="banner-img-container">
+                <div className="banner-img-container">
                     <img src={bannerImg} alt="Header img" />
-                    </div>
+
+    </div>{/*
+    <div class="image-wrapper">
+  <img src={bannerImg} class="img-main" alt="Main Image" />
+  <img src={bannerImg} class="img-overlap floating-img" alt="Floating Image" />
+</div>*/}
+
                 </div>
             </div>
             <Logo />

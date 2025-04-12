@@ -48,10 +48,10 @@ export function Projects() {
           <div className={isVisible ? "animates__animated animate__slideInUp" : ""}>
             <div className='proj-h' style={{ display: 'flex', gap: '20px', alignItems: 'center', justifyContent:'center' }} data-aos="fade-down">
               <div className='proj-bdr'></div>
-              <h2 style={{ textAlign: 'center', fontFamily: 'Dancing Script, "sans-seriff"', color: '#0059ff' }}>Recent Projects</h2>
+              <h2 style={{ textAlign: 'center', fontFamily: 'var(--second-font)', color: '#0059ff' }}>Recent Projects</h2>
               <div className='proj-bdr'></div>
             </div>
-            <p className='proj-title' data-aos="fade-up" data-aos-duration="500">Look at my recent projects and give me your feedback</p>
+            <p className='proj-title' data-aos="fade-up" data-aos-duration="500">Browse Our Team's Recent Projects and Provide Your Feedback</p>
 
            {/* <p data-aos="fade-up" data-aos-duration="500">A collection of my recent projects, highlighting my expertise in web development and design.</p>*/}
           </div>}

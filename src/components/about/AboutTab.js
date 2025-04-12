@@ -32,9 +32,9 @@ const Pane = () => {
             <div className='about-display'>
               <img src={aboutMe} alt="About Me" data-aos="zoom-in" data-aos-duration="500"/>
               <div className='about-right'>
-                <h2 data-aos="fade-up" data-aos-duration="500">Personal Info</h2>
+                <h2 data-aos="fade-up" data-aos-duration="500">Who We Are</h2>
                 <p data-aos="fade-up" data-aos-duration="500">
-                I'm passionate about creating clean and user-focused digital experiences. I enjoy both designing in Figma and building with tools like React, Bubble, FlutterFlow, and HTML. I’m always exploring new ways to improve my work, and I love the process of bringing ideas to life — from concept to launch.                </p>
+                At GraceTech, we create clean, user-focused digital experiences. Our team excels in design and development using tools like Figma, React, Bubble, FlutterFlow, and HTML, delivering impactful solutions from concept to launch.                </p>
                 <div className='about-div-display'>
                 <div className='about-div' data-aos="zoom-in-up" data-aos-duration="500">
                   <p><strong>Address</strong> </p>
@@ -92,9 +92,9 @@ const Pane = () => {
             <div className='about-display'>
               <img src={experience} alt="About Me" data-aos="zoom-in" data-aos-duration="500"/>
               <div className='about-right'>
-                <h2 data-aos="fade-up" data-aos-duration="500">My Experience</h2>
+                <h2 data-aos="fade-up" data-aos-duration="500">Our Experience</h2>
                 <p data-aos="fade-up" data-aos-duration="500">
-                With several years of hands-on experience, I’ve worked on a variety of projects that helped me grow both creatively and technically. From building user-friendly websites to crafting custom features, I take pride in delivering work that not only looks good but also functions smoothly.</p>
+                With years of collective experience, our team has delivered a variety of projects, from user-friendly websites to custom digital solutions. We focus on creating designs that not only look great but also function seamlessly to provide the best user experience.                </p>
                 <div className='exp-div-display'>
                   <div className='exp-div'  data-aos="zoom-in-up" data-aos-duration="500">
                     <h3>In 2011</h3>
@@ -128,9 +128,9 @@ const Pane = () => {
             <div className='about-display'>
               <img src={education} alt="About Me" data-aos="zoom-in" data-aos-duration="500"/>
               <div className='about-right'>
-                <h2 data-aos="fade-up" data-aos-duration="500">My Education</h2>
+                <h2 data-aos="fade-up" data-aos-duration="500">Our Education & Growth</h2>
                 <p data-aos="fade-up" data-aos-duration="500">
-                I have a solid educational foundation in web development and design, complemented by continuous self-learning and hands-on experience. I've taken courses and training in UI/UX design, frontend development, and no-code tools like Bubble and FlutterFlow, which have helped me stay up-to-date with modern web technologies and practices.                  </p>
+                At GraceTech, our team has a solid foundation in web development and design, continually updated through hands-on experience and training in UI/UX design, frontend development, and no-code tools like Bubble and FlutterFlow.                </p>
                 <div className='about-div-display'>
                   <div className='exp-div' data-aos="zoom-in-up" data-aos-duration="500">
                     <h3>2021</h3>
@@ -171,9 +171,9 @@ const Pane = () => {
            <div className='about-display'>
               <img src={skill} alt="About Me" data-aos="zoom-in" data-aos-duration="500"/>
               <div className='about-right'>
-                <h2 data-aos="fade-up" data-aos-duration="500">My Skills</h2>
+                <h2 data-aos="fade-up" data-aos-duration="500">Our Skills</h2>
                 <p data-aos="fade-up" data-aos-duration="500">
-                I specialize in web design using Figma, and web development with React, HTML, CSS, and JavaScript. I’m also experienced in no-code platforms like Bubble and FlutterFlow, building responsive and user-friendly web applications.                  </p>
+                At GraceTech, our team specializes in web design using Figma and web development with React, HTML, CSS, and JavaScript. We are also skilled in no-code platforms like Bubble and FlutterFlow, creating responsive, user-friendly web applications.                </p>
                 <div className='about-div-display'>
                   <div className='skill-div' data-aos="zoom-in-up" data-aos-duration="500">
                    <div className='img-div'>

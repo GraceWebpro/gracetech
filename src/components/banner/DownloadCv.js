@@ -1,12 +1,18 @@
 import React from 'react'
 //import { GiSaveArrow } from "react-icons/gi";
+import { Link } from 'react-router-dom';
 
 const DownloadCv = () => {
   return (
     <div>
-        <button className="cv-btn">
-            <span>Download Cv</span>
-        </button>
+        
+        <Link
+               to="projects"
+               className="cv-btn"
+             >
+            <span>View Our Work</span>
+            </Link>
+       
     </div>
   )
 }

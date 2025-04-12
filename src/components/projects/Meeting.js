@@ -12,7 +12,7 @@ const Meeting = () => {
             </div>
             <div className='exp-div-display'>
                 <div className='exp-div'  data-aos="zoom-in-up" data-aos-duration="500">
-                    <h3>Let's Work Together. Fixed A Meeting
+                    <h3>Let's Work Together. Fix A Meeting
                     </h3>
                     
                 </div>  

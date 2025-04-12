@@ -45,11 +45,12 @@ export function Projects() {
           <div className={isVisible ? "animates__animated animate__slideInUp" : ""}>
             <div className='proj-h' style={{ display: 'flex', gap: '20px', alignItems: 'center', justifyContent:'center' }} data-aos="fade-down">
               <div className='proj-bdr'></div>
-              <h2 style={{ textAlign: 'center', fontFamily: 'Dancing Script, "sans-seriff"', color: '#0059ff' }}>My Creative Works</h2>
+              <h2 style={{ textAlign: 'center', fontFamily: 'Caveat, "sans-seriff"', color: '#0059ff' }}>Our Design & Development Showcase</h2>
               <div className='proj-bdr'></div>
             </div>
-            <p className='proj-title' data-aos="fade-up" data-aos-duration="500">Explore all of my completed projects from UI Design to full Webflow development. 
-       I’d love to hear your thoughts!</p>
+            <p className='proj-title' data-aos="fade-up" data-aos-duration="500">
+            Explore our team's portfolio of completed projects, from UI Design to full Webflow development. We’d love to hear your feedback!
+       </p>
 
            {/* <p data-aos="fade-up" data-aos-duration="500">A collection of my recent projects, highlighting my expertise in web development and design.</p>*/}
           </div>}

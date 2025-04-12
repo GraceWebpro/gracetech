@@ -9,7 +9,8 @@ const About = () => {
   return (
     <div className='about' id='about'>
         <img src={headast} alt='head logo' className='headast' data-aos="zoom-in"  />
-        <h1 data-aos="fade-up">I'm Grace Wilson, I'm a UI & UX Designer, Currently residing in Victoria Highland Lagos, GraceTech operates globally and is ready to take on any design/development challenge.</h1>
+        <h1 data-aos="fade-up">
+        We are GraceTech, a global agency of designers, developers, and innovators, based in Victoria Highland, Lagos. We specialize in turning ideas into impactful digital solutions to help your business succeed.          </h1>
     
     <Pane />
         
