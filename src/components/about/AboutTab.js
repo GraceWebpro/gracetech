@@ -180,7 +180,7 @@ const Pane = () => {
                       <img src={Bubble} alt='skill' className='img-bub' />
                     </div>
                     <div style={{ flexDirection: 'column' }}>
-                      <p><strong>Bubble</strong> </p>
+                      <p style={{ textAlign: 'left'}}><strong>Bubble</strong> </p>
                       <h5>95%</h5>
                     </div>
                   </div>
@@ -189,7 +189,7 @@ const Pane = () => {
                       <img src={Figma} alt='skill' className='img-fig' />
                     </div>
                     <div style={{ flexDirection: 'column' }}>
-                      <p><strong>Figma</strong> </p>
+                      <p style={{ textAlign: 'left'}}><strong>Figma</strong> </p>
                       <h5>90%</h5>
                     </div>
                   </div>
@@ -198,7 +198,7 @@ const Pane = () => {
                       <img src={ReactL} alt='skill' />
                     </div>
                     <div style={{ flexDirection: 'column' }}>
-                      <p><strong>Reactjs</strong> </p>
+                      <p style={{ textAlign: 'left'}}><strong>Reactjs</strong> </p>
                       <h5>90%</h5>
                     </div>
                   </div>
@@ -207,7 +207,7 @@ const Pane = () => {
                       <img src={Flutter} alt='skill' />
                     </div>
                     <div style={{ flexDirection: 'column' }}>
-                      <p><strong>FlutterFlow</strong> </p>
+                      <p style={{ textAlign: 'left'}}><strong>FlutterFlow</strong> </p>
                       <h5>85%</h5>
                     </div>
                   </div>
@@ -215,8 +215,8 @@ const Pane = () => {
                     <div className='img-div'>
                       <img src={Canva} alt='skill' />
                     </div>
-                    <div style={{ flexDirection: 'column' }}>
-                      <p><strong>Canva</strong> </p>
+                    <div style={{ flexDirection: 'column',textAlign: 'left' }}>
+                      <p style={{ textAlign: 'left'}}><strong>Canva</strong> </p>
                       <h5>85%</h5>
                     </div>
                   </div>
@@ -225,7 +225,7 @@ const Pane = () => {
                       <img src={Next} alt='skill' />
                     </div>
                     <div style={{ flexDirection: 'column' }}>
-                      <p><strong>Nextjs</strong> </p>
+                      <p style={{ textAlign: 'left'}}><strong>Nextjs</strong> </p>
                       <h5>85%</h5>
                     </div>
                   </div>

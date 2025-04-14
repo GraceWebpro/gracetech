@@ -7,17 +7,65 @@
   margin: 100px auto;
   padding: 100px 20px
   }
+
+  .template-tabs-wrapper {
+    position: relative;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+  }
   
-  /* Tab Navigation Styling */
-  .tabs {
+  .template-tabs-wrapper::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+  }
+
+  .template-tabs {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 20px;
+  padding: 10px 0;
+  min-width: max-content;
+  position: relative;
+}
+
+.template-tab {
+  position: relative;
+  background: transparent;
+  border: none;
+  color: #ccc;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  white-space: nowrap;
+}
+
+.template-tab.active {
+  color: #007bff;
+}
+
+.tab-indicator {
+  position: absolute;
+  height: 3px;
+  background-color: #007bff;
+  bottom: 0;
+  left: 0;
+  transition: all 0.3s ease;
+  border-radius: 4px;
+}
+  
+  /* Tab Navigation Styling *
+  .template-tabs {
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
     border-bottom: 2px solid #ddd;
-    flex-wrap: wrap; /* Allow tabs to wrap on small screens */
+    flex-wrap: wrap; /* Allow tabs to wrap on small screens *
   }
   
-  .tab {
+  .template-tab {
     padding: 10px 20px;
     margin-right: 15px;
     font-size: 16px;
@@ -27,30 +75,39 @@
     border: none;
     cursor: pointer;
     transition: all 0.3s ease;
-    white-space: nowrap; /* Prevent text from wrapping */
+    white-space: nowrap; /* Prevent text from wrapping *
   }
   
-  .tab:hover {
+  .template-tab:hover {
     color: #2c3e50;
   }
   
-  .tab.active {
+  .template-tab.active {
     color: #fff;
     background-color: #3498db;
     border-radius: 5px 5px 0 0;
   }
   
-  .tab:focus {
+  .template-tab:focus {
     outline: none;
   }
-  
+  */
   /* Template List Section */
   .template-list {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 20px;
     padding-top: 20px;
+  }/*
+
+  .template-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding-top: 20px;
   }
+  */
   
   @media (max-width: 768px) {
     .template-list {
@@ -58,17 +115,17 @@
       gap: 15px; /* Reduce gap between cards on smaller screens */
     }
   
-    .tabs {
+    .template-tabs-container {
       flex-direction: column; /* Stack tabs vertically on small screens */
     }
   
-    .tab {
+    .template-tab {
       width: 100%;
       margin-bottom: 10px; /* Add some space between stacked tabs */
       text-align: center; /* Center text for better alignment */
     }
   
-    .tab:hover {
+    .template-tab:hover {
       background-color: #2980b9; /* Change hover color for better visibility on small screens */
     }
   }
@@ -79,6 +136,8 @@
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
+    max-width: 400px; /* Optional: to limit max card width */
+
     overflow: hidden;
   }
   
@@ -157,6 +216,28 @@
     .template-card .template-footer .view-details-btn {
       font-size: 14px;
       text-align: left; /* Left-align the view details button */
+    }
+  }
+
+  @media (max-width: 480px) {
+    
+  
+    .template-tab {
+      font-size: 14px;
+      padding: 6px 8px;
+      min-width: 50px;
+      flex: 1 1 auto;
+      text-align: center;
+      white-space: nowrap;
+    }
+  
+    .template-tab.active {
+      font-size: 10px;
+      padding: 6px 8px;
+    }
+  
+    .template-tabs-container {
+      padding: 10px 0px;
     }
   }
   

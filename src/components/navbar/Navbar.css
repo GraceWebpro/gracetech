@@ -24,6 +24,8 @@ nav {
   margin: 0 auto;
   padding: 40px;
   display: flex;
+  pointer-events: auto;
+
   position: relative;
   justify-content: space-between;
   align-items: center;
@@ -435,7 +437,9 @@ nav {
 
 @media (max-width: 992px) {
   .header {
-    height: calc(100vh - 60px);
+    /*height: calc(100vh - 60px);*/
+    height: 100vh;
+    pointer-events: none;
   }
   .menu-icon {
     display: block;
@@ -449,7 +453,7 @@ nav {
     text-decoration: none;
     display: block;
     padding: 10px 20px;
-    
+    pointer-events: auto;
     transition: border-bottom 0.3s ease-in-out;
   }
   

@@ -75,9 +75,14 @@
 }
 
 .about-div-display {
-  display: flex;
   flex-direction: column;
-  
+  display: flex;
+  flex-wrap: wrap; /* allows wrapping on small screens */
+  justify-content: center; /* centers horizontally */
+  align-items: center; /* centers vertically if needed */
+  gap: 2rem; /* optional spacing between items */
+  padding: 2rem; /* optional padding */
+  width: 100%;
 
 }
 
@@ -153,16 +158,19 @@
 .img-div {
   background: #fff;
   border-radius: 50%;
-  width: 100px;
-  height: 100px;
+  width: 90px;
+  height: 90px;
 
+  display: flex;              /* Make it a flex container */
+  justify-content: center;    /* Center horizontally */
+  align-items: center;        /* Center vertically */
+  margin: auto;               /* Optional: center the whole circle in its container */
 }
 
 .img-div img {
-  object-fit: contain;
-  align-items: center;
-  height: 60px;
-  width: 80px;
+  object-fit: cover;
+  height: 50px !important;
+  width: 50px !important;
 }
 
 .img-bub {
@@ -325,6 +333,10 @@ object-fit: cover;
     width: 100%;
    }
 
+   .skill-div h5 {
+    font-size: 40px;
+    font-weight: 700;
+  }
    .about-right {
       display: flex;
       width: 100%;
@@ -384,6 +396,15 @@ object-fit: cover;
     .pane {
         padding: 8px 15px;
         margin: 0 5px;
+      }
+
+      .skill-div {
+        gap: 10px;
+      }
+
+      .skill-div h5 {
+        font-size: 30px;
+        font-weight: 700;
       }
       
   }

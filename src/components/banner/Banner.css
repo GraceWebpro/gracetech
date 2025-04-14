@@ -248,22 +248,26 @@
    height: 800px;
  }
 
+ .btn-display {
+  gap: 15px !important;
+ }
+
  .bann-btn {
   
-  gap: 0; /* Adds spacing between text and icon */
+  gap: 5; /* Adds spacing between text and icon */
   
   font-weight: 400;
   font-size: 13px;
   text-decoration: none;
   letter-spacing: 0.5px;
-  padding: 10px 2px 10px 2px;
+  padding: 8px 10px 8px 10px;
   
 }
 
 .cv-btn {
   
-  padding: 10px 20px;
-  font-size: 16px !important;
+  padding: 12px 15px !important;
+  font-size: 14px !important;
   font-weight: 400;
   
 }

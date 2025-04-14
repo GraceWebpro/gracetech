@@ -45,7 +45,7 @@ export function Projects() {
           <div className={isVisible ? "animates__animated animate__slideInUp" : ""}>
             <div className='proj-h' style={{ display: 'flex', gap: '20px', alignItems: 'center', justifyContent:'center' }} data-aos="fade-down">
               <div className='proj-bdr'></div>
-              <h2 style={{ textAlign: 'center', fontFamily: 'Caveat, "sans-seriff"', color: '#0059ff' }}>Our Design & Development Showcase</h2>
+              <h2 style={{ textAlign: 'center', fontFamily: 'Caveat, "sans-seriff"', color: '#0059ff' }}>Our Digital Creations</h2>
               <div className='proj-bdr'></div>
             </div>
             <p className='proj-title' data-aos="fade-up" data-aos-duration="500">
