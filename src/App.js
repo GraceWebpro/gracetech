@@ -16,6 +16,7 @@ import Contact from "./components/contact/Contact";
 import GetAQuote from "./components/quote/Quote";
 import ProjectDetails from "./components/projects/ProjectDetails";
 import TemplateTabs from "./components/template/Templates";
+import ThankYou from "./components/quote/ThankYou";
 
 function App() {
   const location = useLocation();
@@ -36,6 +37,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/templates" element={<TemplateTabs />} />
           <Route path="/get-a-quote" element={<GetAQuote />} />
+          <Route path="/thank-you" element={<ThankYou />} />
           <Route path="/project-details/:id" element={<ProjectDetails />} />
 
           {/* Admin Routes */}

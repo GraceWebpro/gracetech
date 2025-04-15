@@ -1,8 +1,16 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { db } from '../../server/firebase'; // adjust the path if needed
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './Quote.css';
 
 
 const GetAQuote = () => {
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -38,36 +46,82 @@ const GetAQuote = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData); // You can replace this with API submission logic
-    alert("Quote request submitted!");
+    setLoading(true);
+  
+    const message = `*Quote Request from ${formData.fullName}*\n\n📧 Email: ${formData.email}\n📞 Phone: ${formData.phone || 'N/A'}\n🏢 Company: ${formData.company || 'N/A'}\n\n🛠 Services: ${formData.services.join(', ')}\n💰 Budget: ${formData.budget}\n📆 Timeline: ${formData.timeline}\n📝 Description:\n${formData.description}`;
+  
+    const whatsappNumber = '2347043421913';
+    const encodedMsg = encodeURIComponent(message);
+    const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMsg}`;
+  
+    try {
+      await addDoc(collection(db, 'quotes'), {
+        ...formData,
+        createdAt: serverTimestamp()
+      });
+  
+      toast.success("Quote submitted successfully!", {
+        position: "top-center",
+        autoClose: 2000,
+      });
+  
+      window.open(whatsappURL, '_blank');
+  
+      // Reset form
+      setFormData({
+        fullName: '',
+        email: '',
+        phone: '',
+        company: '',
+        services: [],
+        budget: '',
+        timeline: '',
+        description: '',
+        file: null
+      });
+  
+      // Redirect after slight delay to show toast
+      setTimeout(() => {
+        navigate('/thank-you');
+      }, 2000);
+  
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      toast.error("Something went wrong. Try again.");
+    } finally {
+      setLoading(false);
+    }
   };
+  
 
   return (
-    <div className="quote-container">
-      <h1>Get a Quote</h1>
-      <p>Tell us what you're looking for and we'll be in touch shortly.</p>
+    <div className="quote-container modern">
+      <h1>🚀 Get a Free Quote</h1>
+      <p>Tell us what you need, and we'll get back to you on WhatsApp!</p>
       <form className="quote-form" onSubmit={handleSubmit}>
         <input type="text" name="fullName" placeholder="Full Name" required onChange={handleChange} />
         <input type="email" name="email" placeholder="Email Address" required onChange={handleChange} />
         <input type="text" name="phone" placeholder="Phone Number (optional)" onChange={handleChange} />
         <input type="text" name="company" placeholder="Company / Brand Name (optional)" onChange={handleChange} />
 
-        <div className="services">
+        <div className="services modern-services">
           <label>Services Needed:</label>
-          {servicesList.map((service) => (
-            <label key={service}>
-              <input
-                type="checkbox"
-                name="services"
-                value={service}
-                checked={formData.services.includes(service)}
-                onChange={handleChange}
-              />
-              {service}
-            </label>
-          ))}
+          <div className="checkbox-grid">
+            {servicesList.map((service) => (
+              <label key={service} className="checkbox-item">
+                <input
+                  type="checkbox"
+                  name="services"
+                  value={service}
+                  checked={formData.services.includes(service)}
+                  onChange={handleChange}
+                />
+                {service}
+              </label>
+            ))}
+          </div>
         </div>
 
         <select name="budget" onChange={handleChange} required>
@@ -96,8 +150,12 @@ const GetAQuote = () => {
 
         <input type="file" name="file" onChange={handleChange} />
 
-        <button type="submit">Request My Quote</button>
+        <button type="submit" disabled={loading}>
+          {loading ? 'Sending...' : '📩 Request Quote via WhatsApp'}
+        </button>
       </form>
+      <ToastContainer />
+
     </div>
   );
 };

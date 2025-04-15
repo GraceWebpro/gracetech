@@ -7,16 +7,24 @@ const ThankYou = () => {
       <div className="thankyou-box">
         <h1>Thank You for Reaching Out!</h1>
         <p className="subtext">
-          We’ve received your quote request and our team will review it shortly.
-          You can expect a reply within <strong>24–48 hours</strong>.
+          We’ve received your quote request, and our team will review it shortly.
+          Expect a reply within <strong>24–48 hours</strong>.
         </p>
 
         <div className="next-steps">
           <h2>What’s Next?</h2>
           <ul>
-            <li>📧 You’ll receive an email confirmation shortly.</li>
-            <li>💬 A team member may reach out to clarify your needs.</li>
+            <li>📧 You’ll receive an email confirmation soon.</li>
+            <li>💬 Our team may reach out to clarify your needs.</li>
             <li>🛠️ We’ll prepare a personalized proposal based on your input.</li>
+          </ul>
+        </div>
+
+        <div className="cta-section">
+          <p>While you wait, why not:</p>
+          <ul>
+            <li>🚀 Check out our <a href="/blog">latest blog post</a></li>
+            <li>🔍 Explore our <a href="/services">services</a> for more info</li>
           </ul>
         </div>
 
