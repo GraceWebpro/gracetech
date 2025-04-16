@@ -217,3 +217,22 @@
       width: 100%;
     }
   }
+
+  .serviceDetails {
+    margin-top: 10rem;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .serv-det-flex {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: flex-start;
+  }
+
+  .serv-det-left img {
+    width: 200px;
+    height: auto;
+  }

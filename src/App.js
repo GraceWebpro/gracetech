@@ -17,6 +17,7 @@ import GetAQuote from "./components/quote/Quote";
 import ProjectDetails from "./components/projects/ProjectDetails";
 import TemplateTabs from "./components/template/Templates";
 import ThankYou from "./components/quote/ThankYou";
+import ServiceDetailsPage from "./components/services/ServiceDetailPage";
 
 function App() {
   const location = useLocation();
@@ -39,6 +40,8 @@ function App() {
           <Route path="/get-a-quote" element={<GetAQuote />} />
           <Route path="/thank-you" element={<ThankYou />} />
           <Route path="/project-details/:id" element={<ProjectDetails />} />
+          <Route path="/services/:id" element={<ServiceDetailsPage />} />
+
 
           {/* Admin Routes */}
           <Route path='/admin/login' element={<Login onUserChange={setUser} />} />   

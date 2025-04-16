@@ -5,7 +5,7 @@ import HomeContact from '../contact/HomeContact';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import About from '../about/About';
-import Services from '../services/Services';
+import Services from '../services/HomeServices';
 import WorkingProcess from '../process/WorkingProcess';
 import Testimonial from '../testimonial/Testimonial';
 import { useLocation } from 'react-router-dom';

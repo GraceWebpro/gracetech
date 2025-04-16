@@ -1,15 +1,14 @@
 
 .quote-container {
-    max-width: 700px;
+    max-width: 80%;
     margin: 8rem auto;
-    padding: 2rem;
+    padding: 2rem 1.5rem;
     background: #191919;
     border-radius: 16px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     font-family: 'Segoe UI', sans-serif;
     box-sizing: border-box;
-width: 100%;
-
+    width: 100%;
   }
   
   .quote-container h1 {
@@ -22,13 +21,14 @@ width: 100%;
   .quote-container p {
     text-align: center;
     margin-bottom: 2rem;
-    color: #555;
+    color: #a5a5a5;
   }
   
   .quote-form {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    width: 100%;
   }
   .quote-form select {
     margin-top: 0.5rem;  /* Reduce this to reduce space before select */
@@ -43,6 +43,7 @@ width: 100%;
     border: 1px solid #ccc;
     outline: none;
     transition: border 0.3s;
+    width: 100%;
   }
   
   .quote-form input:focus,
@@ -50,41 +51,56 @@ width: 100%;
   .quote-form textarea:focus {
     border-color: #007bff;
   }
-  .services {
+  .services-display {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;  /* Adjust gap to make the services stack neatly */
-    text-align: left;
-  }
+    align-items: flex-start; /* Align items to the start of the container */
+    width: 100%; /* Ensure the section takes up full width */
+    }
   
-  .services label {
+  .services-display label {
     margin-top: 0;
     font-size: 0.95rem;
     text-align: left;
   }
+
+  .checkbox-display .checkbox-item {
+    display: flex;
+    align-items: center; /* Align checkbox and text horizontally */
+    gap: 0.5rem; /* Space between the checkbox and text */
+  }
+
+  .services-display input[type="checkbox"] {
+    width: 20px; /* Size of the checkbox */
+    height: 20px; /* Size of the checkbox */
+    margin-top: 5px; /* Remove default margin */
+    display: inline-block; /* Ensure it's aligned inline with the label */
+  }
   
   button[type='submit'] {
-    background-color: #007bff;
+    background-image: -webkit-gradient(linear, left top, right top, from(var(--tj-color-theme-primary)), to(var(--tj-color-theme-secondary)));
+    background-image: linear-gradient(90deg, var(--tj-color-theme-primary) 0%, var(--tj-color-theme-secondary) 100%);
+   
+    transition: background 0.3s ease, color 0.3s ease;
+        border: none;
+    padding: 0.9rem;
     color: white;
-    font-size: 1rem;
-    padding: 0.75rem;
-    border: none;
-    border-radius: 8px;
+    font-weight: 600;
     cursor: pointer;
-    transition: background 0.3s;
+    font-size: 1.1rem;
+    border-radius: 10px;
+    transition: background 0.3s ease;
+    width: 100%;
   }
   
   button[type='submit']:hover {
-    background-color: #0056b3;
+    background: linear-gradient(135deg, #218838, #046cfe);
   }
   
 
   @media (max-width: 768px) {
-    .quote-container {
-      padding: 1.5rem;
-      margin: 1rem;
-    }
-  
+    
     .quote-form {
       gap: 0.75rem;
     }
@@ -94,7 +110,6 @@ width: 100%;
     .quote-form textarea,
     button[type="submit"] {
       font-size: 0.95rem;
-      padding: 0.65rem 0.85rem;
     }
   
     .services label {
@@ -106,10 +121,34 @@ width: 100%;
     .quote-container h1 {
       font-size: 1.5rem;
     }
+
+   
   
     .quote-container p {
       font-size: 0.95rem;
     }
+
+    /* Form fields padding */
+  .quote-form input,
+  .quote-form select,
+  .quote-form textarea,
+  button[type="submit"] {
+    font-size: 0.9rem;
+  }
+
+  /* Reduce the spacing between fields */
+  .quote-form {
+    gap: 0.5rem;
+  }
+
+  /* Button should take 100% of the width */
+  .quote-form button[type="submit"] {
+    width: 100%;
+  }
+
+  .services label {
+    font-size: 0.85rem;
+  }
   }
 
   .quote-container.modern {
@@ -118,51 +157,6 @@ width: 100%;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
   }
   
-  .quote-container.modern h1 {
-    font-size: 2.2rem;
-    color: #fff;
-  }
-  
-  .quote-container.modern p {
-    color: #a3a3a3;
-    font-size: 1rem;
-  }
-  
-  .modern-services .checkbox-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.2rem 0.2rem;
-    width: fit-content;
-    margin-top: 0.5rem;
-  }
-  
-  .modern-services .checkbox-item {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.95rem;
-  }
-  
-  .quote-form button {
-    background-image: -webkit-gradient(linear, left top, right top, from(var(--tj-color-theme-primary)), to(var(--tj-color-theme-secondary)));
-    background-image: linear-gradient(90deg, var(--tj-color-theme-primary) 0%, var(--tj-color-theme-secondary) 100%);
-   
-    transition: background 0.3s ease, color 0.3s ease;
-        border: none;
-    padding: 0.9rem;
-    color: white;
-    font-weight: 600;
-    font-size: 1.1rem;
-    border-radius: 10px;
-    transition: background 0.3s ease;
-  }
-  
-  .quote-form button:hover {
-    background: linear-gradient(135deg, #218838, #046cfe);
-  }
-  
-  
-
 /* thank you page */
 .thankyou-container {
     .thankyou-container {

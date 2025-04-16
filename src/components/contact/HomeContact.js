@@ -47,6 +47,7 @@ const HomeContact = () => {
                 <span>WhatsApp</span>
                 <BsArrowRight className='touch-icon'/>
             </div>
+            
         </div>
       </div>
     </section>

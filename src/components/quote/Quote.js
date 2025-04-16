@@ -106,9 +106,9 @@ const GetAQuote = () => {
         <input type="text" name="phone" placeholder="Phone Number (optional)" onChange={handleChange} />
         <input type="text" name="company" placeholder="Company / Brand Name (optional)" onChange={handleChange} />
 
-        <div className="services modern-services">
+        <div className="services-display">
           <label>Services Needed:</label>
-          <div className="checkbox-grid">
+          <div className="checkbox-display">
             {servicesList.map((service) => (
               <label key={service} className="checkbox-item">
                 <input
