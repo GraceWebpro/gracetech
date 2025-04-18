@@ -18,6 +18,8 @@ import ProjectDetails from "./components/projects/ProjectDetails";
 import TemplateTabs from "./components/template/Templates";
 import ThankYou from "./components/quote/ThankYou";
 import ServiceDetailsPage from "./components/services/ServiceDetailPage";
+import ModernBlogPage from "./components/blog/Blog";
+import BlogDetail from "./components/blog/BlogDetail";
 
 function App() {
   const location = useLocation();
@@ -38,9 +40,12 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/templates" element={<TemplateTabs />} />
           <Route path="/get-a-quote" element={<GetAQuote />} />
+          <Route path="/blog" element={<ModernBlogPage />} />
+          
           <Route path="/thank-you" element={<ThankYou />} />
           <Route path="/project-details/:id" element={<ProjectDetails />} />
           <Route path="/services/:id" element={<ServiceDetailsPage />} />
+          <Route path="/blog/:id" element={<BlogDetail />} />
 
 
           {/* Admin Routes */}

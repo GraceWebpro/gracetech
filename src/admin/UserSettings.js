@@ -1,8 +1,8 @@
 function UserSettings() {
     return (
-      <div>
+      <div className="upload-container">
         <h2>User Settings</h2>
-        <p>Manage your account details here.</p>
+        <p style={{ color: '#000' }}>Manage your account details here.</p>
       </div>
     );
   }

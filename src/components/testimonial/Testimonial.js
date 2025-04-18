@@ -38,10 +38,22 @@ export default function Testimonial() {
     return () => clearInterval(interval);
   }, [activeIndex]);
 
+  const [isPaused, setIsPaused] = useState(false);
+
+useEffect(() => {
+  if (isPaused) return;
+  const interval = setInterval(() => {
+    setActiveIndex((prev) => (prev + 1) % testimonials.length);
+  }, 5000);
+  return () => clearInterval(interval);
+}, [isPaused]);
+
+
   const { name, quote, star, sector } = testimonials[activeIndex];
 
   return (
-    <div className='testimonials'>
+    <div className='testimonials' onMouseEnter={() => setIsPaused(true)}
+    onMouseLeave={() => setIsPaused(false)}>
       <div className='test-h' style={{ display: 'flex', gap: '20px', alignItems: 'center', justifyContent:'center' }} data-aos="fade-down">
         <div className='test-bdr'></div>
         <h2 style={{ textAlign: 'center', fontFamily: 'Dancing Script, "sans-seriff"', color: '#0059ff' }}>Testimonial</h2>

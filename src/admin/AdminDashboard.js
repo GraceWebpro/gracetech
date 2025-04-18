@@ -10,6 +10,8 @@ import DeleteProject from "./DeleteProject";
 import UserSettings from "./UserSettings";
 import { FaBars, FaTimes } from "react-icons/fa";
 import "./Admin.css";
+import UploadBlog from "./UploadBlog";
+import UploadTemplate from "./UploadTemplate";
 
 function Dashboard() {
   const [user, setUser] = useState(null);
@@ -61,6 +63,9 @@ function Dashboard() {
             <ul>
               <li onClick={() => setActiveTab("dashboard")} className={activeTab === "dashboard" ? "active" : ""}>📊 Dashboard</li>
               <li onClick={() => setActiveTab("upload")} className={activeTab === "upload" ? "active" : ""}>📤 Upload Project</li>
+              <li onClick={() => setActiveTab("uploadTemplate")} className={activeTab === "uploadTemplate" ? "active" : ""}>📤 Upload Template</li>
+              <li onClick={() => setActiveTab("uploadBlog")} className={activeTab === "uploadBlog" ? "active" : ""}>📤 Upload Blog</li>
+
               <li onClick={() => setActiveTab("edit")} className={activeTab === "edit" ? "active" : ""}>✏️ Edit Project</li>
               <li onClick={() => setActiveTab("delete")} className={activeTab === "delete" ? "active" : ""}>🗑️ Delete Project</li>
               <li onClick={() => setActiveTab("settings")} className={activeTab === "settings" ? "active" : ""}>⚙️ User Settings</li>
@@ -102,6 +107,9 @@ function Dashboard() {
           </div>
         )}
         {activeTab === "upload" && <UploadProject />}
+        {activeTab === "uploadBlog" && <UploadBlog />}
+        {activeTab === "uploadTemplate" && <UploadTemplate />}
+
         {activeTab === "edit" && <EditProject projects={projects} />} {/* Pass projects */}
         {activeTab === "delete" && <DeleteProject projects={projects} />} {/* Pass projects */}
         {activeTab === "settings" && <UserSettings />}

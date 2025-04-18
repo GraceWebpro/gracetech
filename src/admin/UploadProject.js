@@ -52,23 +52,61 @@ function UploadProject() {
   };
 
   return (
-    <div>
-      <h2>Upload New Project</h2>
-      <input type="text" placeholder="Project Title" value={title} onChange={(e) => setTitle(e.target.value)} />
-      <input type="text" placeholder="Project Category" value={category} onChange={(e) => setCategory(e.target.value)} />
-      <textarea placeholder="Project Description" value={description} onChange={(e) => setDescription(e.target.value)} />
-      <input type="file" onChange={(e) => setFile(e.target.files[0])} />
-      {isUploading && (
-        <div>
-          <progress value={progress} max="100"></progress>
-          <p>{progress}% uploaded</p>
-        </div>
-      )}
+    <div className="upload-container">
+    <h2>Upload New Project</h2>
 
-      <button onClick={handleUpload} disabled={isUploading}>
-        {isUploading ? "Uploading..." : "Upload"}
-      </button>
+    <div className="input-group">
+      <input 
+        type="text" 
+        placeholder="Project Title" 
+        value={title} 
+        onChange={(e) => setTitle(e.target.value)} 
+        className="input-field"
+      />
     </div>
+
+    <div className="input-group">
+      <input 
+        type="text" 
+        placeholder="Project Category" 
+        value={category} 
+        onChange={(e) => setCategory(e.target.value)} 
+        className="input-field"
+      />
+    </div>
+
+    <div className="input-group">
+      <textarea 
+        placeholder="Project Description" 
+        value={description} 
+        onChange={(e) => setDescription(e.target.value)} 
+        className="textarea-field"
+      />
+    </div>
+
+    <div className="input-group">
+      <input 
+        type="file" 
+        onChange={(e) => setFile(e.target.files[0])} 
+        className="file-input"
+      />
+    </div>
+
+    {isUploading && (
+      <div className="progress-container">
+        <progress value={progress} max="100" className="progress-bar"></progress>
+        <p className="progress-text">{progress}% uploaded</p>
+      </div>
+    )}
+
+    <button 
+      onClick={handleUpload} 
+      disabled={isUploading} 
+      className="submit-btn"
+    >
+      {isUploading ? "Uploading..." : "Upload"}
+    </button>
+  </div>
   );
 }
 

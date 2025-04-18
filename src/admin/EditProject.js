@@ -46,8 +46,8 @@ function EditProject({ projects }) {
   };
 
   return (
-    <div>
-      <h3>Edit Project</h3>
+    <div className="upload-container">
+      <h2>Edit Project</h2>
       <select onChange={(e) => setSelectedProject(e.target.value)} value={selectedProject}>
         <option value="">Select a project</option>
         {projects.map((project) => (
@@ -56,35 +56,45 @@ function EditProject({ projects }) {
           </option>
         ))}
       </select>
+      <div className="input-group">
       <input
         type="text"
         placeholder="New Project Title"
         value={newTitle}
         onChange={(e) => setNewTitle(e.target.value)}
         disabled={loading}
+        className="input-field"
       />
+      </div>
+      <div className="input-group">
       <input
         type="text"
         placeholder="New Project Category"
         value={newCategory}
         onChange={(e) => setNewCategory(e.target.value)}
         disabled={loading}
+        className="input-field"
       />
+      </div>
+      <div className="input-group">
       <textarea
         placeholder="New Project Description"
         value={newDescription}
         onChange={(e) => setNewDescription(e.target.value)}
         disabled={loading}
+        className="textarea-field"
       />
-
+</div>
       {loading && <div className="progress-bar"><div className="progress"></div></div>}
 
       <button 
+        className="submit-btn"
         onClick={handleUpdate} 
         disabled={loading || !newTitle || !newCategory || !newDescription || !selectedProject}
       >
         {loading ? "Updating..." : "Update Project"}
       </button>
+
 
 
       <style>

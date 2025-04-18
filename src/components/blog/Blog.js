@@ -1,88 +1,80 @@
-import React, { useState } from 'react'
-import './Blog.css'
-import { IoMailOutline } from "react-icons/io5";
-import { IoLocationOutline } from "react-icons/io5";
-import { BsArrowRight } from "react-icons/bs";
-import { Link } from 'react-router-dom';
-import blog from '../../assets/dummyImg.jpg';
-import { IoEyeOutline } from "react-icons/io5";
+import React, { useEffect, useState } from "react";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../server/firebase";
+import { Link } from "react-router-dom";
+import './Blog.css';
 
+const blogPosts = [
+  {
+    id: 1,
+    title: 'Mastering Minimalist Web Design',
+    date: 'April 10, 2025',
+    excerpt: 'Uncover the elegance of less-is-more in UI/UX design with these principles...',
+    image: 'https://source.unsplash.com/800x600/?minimal,design',
+  },
+  {
+    id: 2,
+    title: 'Boost Conversions With Better UX',
+    date: 'March 30, 2025',
+    excerpt: 'Simple tweaks in user flow can significantly impact your conversion rate...',
+    image: 'https://source.unsplash.com/800x600/?ux,conversion',
+  },
+  {
+    id: 3,
+    title: 'Why Motion Design Matters',
+    date: 'March 20, 2025',
+    excerpt: 'Add life to your UI with meaningful motion. Learn the best practices...',
+    image: 'https://source.unsplash.com/800x600/?motion,interface',
+  },
+];
 
+const ModernBlogPage = () => {
 
-const Blog = () => {
-    
-    
+    const [blogs, setBlogs] = useState([]);
+
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      const blogCollection = collection(db, "blogs");
+      const blogSnapshot = await getDocs(blogCollection);
+      const blogList = blogSnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setBlogs(blogList);
+    };
+
+    fetchBlogs();
+  }, []);
   return (
-    <section className='blog' id='blog'>
-        
-        <div className='blog-left'>
-            <div className='meet-h' style={{ display: 'flex', gap: '20px', alignItems: 'center',}} data-aos="fade-down">
-              <div className='cont-bdr'></div>
-              <h2 style={{ textAlign: 'center', fontFamily: 'Caveat, "sans-seriff"', color: '#fff' }}>Blog</h2>
-
+    <div className="modern-blog">
+      <h1 className="modern-heading">📝 Insights & Articles</h1>
+      <div className="modern-grid">
+        {blogPosts.map((post) => (
+          <div className="modern-card" key={post.id}>
+            <div className="modern-img-wrap">
+              <img src={post.image} alt={post.title} className="modern-img" />
             </div>
-            <div className='meet-pa'>
-                <h4 data-aos="fade-up" className='meet-title'>Recent Posts</h4>
+            <div className="modern-content">
+              <p className="modern-date">{post.date}</p>
+              <h2 className="modern-title">{post.title}</h2>
+              <p className="modern-excerpt">{post.excerpt}</p>
+              <button className="modern-btn">Read More →</button>
             </div>
+          </div>
+        ))}
 
-            <Link to='/blog' className="click-more-btn blog-btn" style={{ marginTop: '20px' }}>
-                <span>Click More</span>
-                <BsArrowRight />
-            </Link>
-            
-        </div>
-        <div className='blog-right'>
-            <div className='blog-line'></div>
-       
-            <div className='blog-div div-first' data-aos="zoom-in-up" data-aos-duration="500">
-                    
-                <div className='blog-cont-left' style={{ flexDirection: 'column' }}>
-                    <p><strong>October 19, 2023</strong> </p>
-                    <h6>Brand Design That Helps The Company Glow</h6>
-                </div>
-
-                <div className='blog-cont-right'>
-                    <img src={blog} alt='blog' className='blog-img'/>
-                    <div className='blog-icon-div'>
-                        <IoEyeOutline className='blog-icon'/>
-                    </div>
-                </div>
+        {blogs.map((blog) => (
+          <Link to={`/blog/${blog.id}`} key={blog.id} className="blog-card">
+            <img src={blog.image} alt={blog.title} />
+            <div className="blog-card-content">
+              <h2>{blog.title}</h2>
+              <p>{blog.date}</p>
             </div>
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+};
 
-            <div className='blog-div' data-aos="zoom-in-up" data-aos-duration="500">
-                    
-                <div className='blog-cont-left' style={{ flexDirection: 'column' }}>
-                    <p><strong>October 19, 2023</strong> </p>
-                    <h6>Fresh Design Ideas & Inspiration For 2023</h6>
-                </div>
-
-                <div className='blog-cont-right'>
-                    <img src={blog} alt='blog' className='blog-img'/>
-                    <div className='blog-icon-div'>
-                        <IoEyeOutline className='blog-icon'/>
-                    </div>
-                </div>
-            </div>
-
-            <div className='blog-div' data-aos="zoom-in-up" data-aos-duration="500">
-                    
-                <div className='blog-cont-left' style={{ flexDirection: 'column' }}>
-                    <p><strong>October 19, 2023</strong> </p>
-                    <h6>Brand Design That Helps The Company Glow</h6>
-                </div>
-
-                <div className='blog-cont-right'>
-                    <img src={blog} alt='blog' className='blog-img'/>
-                    <div className='blog-icon-div'>
-                        <IoEyeOutline className='blog-icon'/>
-                    </div>
-                </div>
-            </div>
-                
-            
-        </div>
-    </section>
-  )
-}
-
-export default Blog
+export default ModernBlogPage;

@@ -12,8 +12,8 @@ function DeleteProject({ projects }) {
   };
 
   return (
-    <div>
-      <h3>Delete Project</h3>
+    <div className="upload-container">
+      <h2>Delete Project</h2>
       <select onChange={(e) => setSelectedProject(e.target.value)} value={selectedProject}>
         <option value="">Select Project</option>
         {projects.map((project) => (

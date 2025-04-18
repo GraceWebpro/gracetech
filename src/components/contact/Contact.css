@@ -456,7 +456,7 @@ height: fit-content;
     padding: 0 30px;
     font-size: 18px;
     font-weight: 600;
-    height: 80px; /* <-- fixed height */
+    height: 70px; /* <-- fixed height */
     flex: 1 1 auto; /* flexible width */
     min-width: 200px; /* prevent it from shrinking too small */
     border: 1px solid #303030;
@@ -509,6 +509,8 @@ height: fit-content;
         font-size: 55px !important;
        
       }
+
+      .de
     
     
   

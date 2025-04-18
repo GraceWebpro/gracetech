@@ -3,6 +3,7 @@ import { db } from '../../server/firebase';
 import { collection, getDocs, query, orderBy } from 'firebase/firestore';
 import TemplateCard from './TemplateCard';
 import './Templates.css';
+import Template from './Temp';
 
 const tabs = [
   { label: 'All Templates', value: 'all' },
@@ -76,6 +77,7 @@ const TemplateTabs = () => {
           <p>No templates found in this category.</p>
         )}
       </div>
+      <Template />
     </div>
   );
 };

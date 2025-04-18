@@ -261,6 +261,7 @@
   .testimonial-content-container {
     margin-top: -30px;
     height: 430px;
+    width: 250px;
   }
 
   .testimonial-content h4 {
@@ -292,6 +293,8 @@
   
   .dot.active {
     border-color: #0059ff; /* Border color when active */
+    transform: scale(1.2);
+    transition: transform 0.3s ease;
   }
   
   .dot.active::after {
