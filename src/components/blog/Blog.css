@@ -4,13 +4,13 @@
     gap: 40px;
     padding: 0 40px;
     margin-top: -20px;
-    min-height: 100vh; /* Allows it to expand as needed */
+    min-height: 100vh; 
     width: 100%;
     height: fit-content(100%);
     align-items: center;
     margin-bottom: 350px;
-    flex-wrap: wrap; /* allow items to wrap */
-  overflow-x: hidden; /* prevent horizontal scroll */
+    flex-wrap: wrap; 
+  overflow-x: hidden; 
 }
 
 .blog-line {
@@ -53,7 +53,7 @@
   border-radius: 10px;
   background: #101010;
   width: 100%;
-  flex-wrap: wrap; /* <-- Add this to allow wrapping if space is tight */
+  flex-wrap: wrap; 
 }
 
 
@@ -108,12 +108,12 @@
     opacity: 0;
   transform: translateY(10px);
   transition: opacity 0.4s ease, transform 0.4s ease;
-    width: 100%; /* Make it responsive */
-  max-width: 300px; /* Limit size */
-  height: auto; /* Maintain aspect ratio */
+    width: 100%; 
+  max-width: 300px; 
+  height: auto; 
  margin-top: -10px;
   border-radius: 20px;
-  align-self: flex-start; /* Align image to the top by default */
+  align-self: flex-start; 
 }
 
 .blog-div:hover .blog-img {
@@ -140,8 +140,8 @@
         margin-top: 0;
         width: 90%;
         margin: 20px auto 0;
-        margin-bottom: 100px; /* increase spacing */
-        padding: 0 20px; /* add padding for small screens */
+        margin-bottom: 100px; 
+        padding: 0 20px; 
       }
 
       .blog-btn {
@@ -164,10 +164,10 @@
     
       
     .blog-img {
-        width: 90%; /* Adjust size for smaller screens */
+        width: 90%; 
         height: auto;
-        margin: 20px auto 0; /* center horizontally */
-        display: block; /* block + margin auto centers it */
+        margin: 20px auto 0; 
+        display: block;
     }
     
   .blog-left,
@@ -228,9 +228,6 @@
   font-weight: 700;
   margin-bottom: 3rem;
   background: linear-gradient(90deg, #0061ff, #60efff);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;  color: transparent;
 }
 
 .modern-grid {
@@ -373,9 +370,7 @@ body {
   margin-bottom: 0.5rem;
   color: #ffffff;
   background: linear-gradient(90deg, #60efff, #0061ff);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+
   color: transparent;
 }
 
