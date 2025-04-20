@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth, logout } from "../server/firebase";
-import { onAuthStateChanged } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getDocs, collection } from "firebase/firestore";
-import { db } from "../server/firebase"; // Ensure db is imported
+import { getFirestore, doc, getDoc } from "firebase/firestore";
 import UploadProject from "./UploadProject";
 import EditProject from "./EditProject";
 import DeleteProject from "./DeleteProject";
@@ -14,11 +14,15 @@ import UploadBlog from "./UploadBlog";
 import UploadTemplate from "./UploadTemplate";
 
 function Dashboard() {
+  const [role, setRole] = useState(null); // State to store the user's role
   const [user, setUser] = useState(null);
   const [projects, setProjects] = useState([]);
   const [activeTab, setActiveTab] = useState("dashboard");
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const navigate = useNavigate();
+  const auth = getAuth();
+  const db = getFirestore();
+
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -26,11 +30,34 @@ function Dashboard() {
         navigate("/admin/login"); // Redirect if not logged in
       } else {
         setUser(currentUser);
+
+        const fetchUserRole = async () => {
+          const userDoc = await getDoc(doc(db, "users", currentUser.uid));
+          if (userDoc.exists()) {
+            setRole(userDoc.data().role);
+          } else {
+            console.error("User not found in Firestore");
+          }
+        };
+        
+        fetchUserRole();
+
       }
     });
 
     return () => unsubscribe();
-  }, [navigate]);
+  }, [auth, db, navigate]);
+
+  useEffect(() => {
+    // Redirect if user is not an admin
+    if (role && role !== "admin") {
+      navigate("/"); // Redirect to homepage or a different page
+    }
+  }, [role, navigate]);
+
+  // If the role is still loading, we can show a loading state
+  if (role === null) return <div>Loading...</div>;
+
 
   useEffect(() => {
     async function fetchProjects() {

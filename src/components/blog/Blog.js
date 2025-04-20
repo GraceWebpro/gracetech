@@ -46,7 +46,7 @@ const ModernBlogPage = () => {
     fetchBlogs();
   }, []);
   return (
-    <div className="modern-blog">
+    <div className="modern-blog" id='blog'>
       <h1 className="modern-heading">📝 Insights & Articles</h1>
       <div className="modern-grid">
         {blogPosts.map((post) => (

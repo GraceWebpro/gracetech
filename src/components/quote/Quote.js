@@ -50,17 +50,28 @@ const GetAQuote = () => {
     e.preventDefault();
     setLoading(true);
   
-    const message = `*Quote Request from ${formData.fullName}*\n\n📧 Email: ${formData.email}\n📞 Phone: ${formData.phone || 'N/A'}\n🏢 Company: ${formData.company || 'N/A'}\n\n🛠 Services: ${formData.services.join(', ')}\n💰 Budget: ${formData.budget}\n📆 Timeline: ${formData.timeline}\n📝 Description:\n${formData.description}`;
-  
+    const message = `*Quote Request from ${formData.fullName}*\n\n` +
+  `📧 *Email:* ${formData.email}\n` +
+  `📞 *Phone:* ${formData.phone || 'N/A'}\n` +
+  `🏢 *Company:* ${formData.company || 'N/A'}\n\n` +
+  `🛠 *Services Needed:* ${formData.services.join(', ')}\n` +
+  `💰 *Budget:* ${formData.budget}\n` +
+  `📆 *Timeline:* ${formData.timeline}\n\n` +
+  `📝 *Description:*\n${formData.description}`;
+
+
     const whatsappNumber = '2347043421913';
     const encodedMsg = encodeURIComponent(message);
     const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMsg}`;
   
+    const { file, ...dataWithoutFile } = formData;
+
     try {
       await addDoc(collection(db, 'quotes'), {
-        ...formData,
+        ...dataWithoutFile,
         createdAt: serverTimestamp()
       });
+      
   
       toast.success("Quote submitted successfully!", {
         position: "top-center",

@@ -7,15 +7,28 @@ function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const db = getFirestore();
+
 
   const handleRegister = async () => {
     try {
-      await registerWithEmail(email, password);
-      navigate("/admin/dashboard"); // Redirect after successful registration
+      // Register the user with email and password using Firebase Authentication
+      const userCredential = await registerWithEmail(email, password);
+      const user = userCredential.user;
+
+      // After successful registration, assign the 'admin' role
+      await setDoc(doc(db, "users", user.uid), {
+        email: user.email,
+        role: "admin", // Set the role to 'admin'
+      });
+
+      // Redirect to the admin dashboard after successful registration
+      navigate("/admin/dashboard");
     } catch (error) {
       alert(error.message);
     }
   };
+
 
   return (
     <div className="auth-container">

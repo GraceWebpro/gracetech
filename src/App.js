@@ -20,6 +20,8 @@ import ThankYou from "./components/quote/ThankYou";
 import ServiceDetailsPage from "./components/services/ServiceDetailPage";
 import ModernBlogPage from "./components/blog/Blog";
 import BlogDetail from "./components/blog/BlogDetail";
+import PrivateRoute from "./server/PrivateRoute";
+import DownloadPage from "./components/template/DownloadPage";
 
 function App() {
   const location = useLocation();
@@ -28,6 +30,7 @@ function App() {
   const isAdminPage = location.pathname.startsWith('/admin');
 
   return (
+    
     <div className="App">
     <ScrollToTop />
       {/*<MouseCursor />*/}
@@ -46,6 +49,14 @@ function App() {
           <Route path="/project-details/:id" element={<ProjectDetails />} />
           <Route path="/services/:id" element={<ServiceDetailsPage />} />
           <Route path="/blog/:id" element={<BlogDetail />} />
+          <Route
+            path="/download/:id"
+            element={
+              <PrivateRoute>
+                <DownloadPage />
+              </PrivateRoute>
+            }
+          />
 
 
           {/* Admin Routes */}

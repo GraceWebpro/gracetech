@@ -64,7 +64,7 @@ const ProjectContact = () => {
 
             </div>
             <div className='meet-pa'>
-                <h4 data-aos="fade-up" className='meet-title'>Let's Work Together. Fixed A Meeting</h4>
+                <h4 data-aos="fade-up" className='meet-title'>Let's Work Together. Fix A Meeting</h4>
             </div>
             <div className='meet-div-display'>
                 <div className='meet-div' data-aos="zoom-in-up" data-aos-duration="500">
@@ -74,7 +74,7 @@ const ProjectContact = () => {
                     </div>
                     <div className='proj-cont-left' style={{ flexDirection: 'column' }}>
                       <p><strong>Email</strong> </p>
-                      <h6>gracietechdigital@proton.me</h6>
+                      <h6>gracetechagency@gmail.com</h6>
                     </div>
                 </div>
                 <div className='meet-div' data-aos="zoom-in-up" data-aos-duration="500">
@@ -84,7 +84,7 @@ const ProjectContact = () => {
                     </div>
                     <div className='proj-cont-left' style={{ flexDirection: 'column' }}>
                       <p><strong>Location</strong> </p>
-                      <h6>Victoria Highland, Lagos.</h6>
+                      <h6>Victoria Island, Lagos.</h6>
                     </div>
                 </div>
             </div>

@@ -17,7 +17,7 @@ const HomeContact = () => {
               <h2>
               Hello, we are Grace Wilson and the team of expert Website & User Interface Designers, based in London, committed to delivering exceptional digital experiences.                </h2>
 
-              <h3>gracietechdigital@proton.me</h3>
+              <h3>gracetechagency@gmail.com</h3>
 
             
             

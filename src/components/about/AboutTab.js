@@ -38,17 +38,17 @@ const Pane = () => {
                 <div className='about-div-display'>
                 <div className='about-div' data-aos="zoom-in-up" data-aos-duration="500">
                   <p><strong>Address</strong> </p>
-                  <h5>Victoria Highland, Lagos.</h5>
+                  <h5>Victoria Island, Lagos.</h5>
 
                 </div>
                 <div className='about-div' data-aos="zoom-in-up" data-aos-duration="500">
                   <p><strong>Email</strong> </p>
-                  <h5 className='mail'>gracietechdigital@proton.me</h5>
+                  <h5 className='mail'>gracetechagency@gmail.com</h5>
 
                 </div>
                 <div className='about-div' data-aos="zoom-in-up" data-aos-duration="500">
                   <p><strong>Phone</strong> </p>
-                  <h5>+2348021357359</h5>
+                  <h5>+234 704 342 1913</h5>
 
                 </div>
 

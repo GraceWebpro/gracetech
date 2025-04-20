@@ -98,6 +98,10 @@ const Navbar = () => {
                   <RouterLink to="/templates" onClick={closeNavbar} className="nav__link">
                     Templates
                   </RouterLink>
+                ) : item === 'blog' ? (
+                  <RouterLink to="/blog" onClick={closeNavbar} className="nav__link">
+                    Blog
+                  </RouterLink>
                 ) : isHomePage ? (
                   <ScrollLink
                     to={item}
@@ -162,10 +166,10 @@ const Navbar = () => {
             </Link>
           </div>
           <p className='abt'>Neque porro quisquam est, qui dolorem ipsum quia dolor sit consectetur, aliquam quaerats voluptatem. Ut enim ad minima veniam, exercitationem laboriosam, nisi ut aliquid ex ea autem velit esse quam nihil</p>
-        <p className='p-first'><strong>ADDRESS</strong> <br /><h5>Lagos, Lagos.</h5></p>
-        <p><strong>EMAIL</strong> <br /><h5>gracietechdigital@proton.me</h5></p>
+        <p className='p-first'><strong>ADDRESS</strong> <br /><h5>Victoria Island, Lagos.</h5></p>
+        <p><strong>EMAIL</strong> <br /><span>gracetechagency@gmail.com</span></p>
 
-        <p><strong>CALL NOW</strong><br /><h5>+2348021357359</h5></p>
+        <p><strong>CALL NOW</strong><br /><span>+234 704 342 1913</span></p>
         <div className='nav-flex'>
           <Link
             to="contact"
