@@ -22,12 +22,15 @@ import ModernBlogPage from "./components/blog/Blog";
 import BlogDetail from "./components/blog/BlogDetail";
 import PrivateRoute from "./server/PrivateRoute";
 import DownloadPage from "./components/template/DownloadPage";
+import TemplateNavbar from "./components/template/TemplateNavbar";
+import Template from "./components/template/Template";
 
 function App() {
   const location = useLocation();
   const [user, setUser] = useState(null);
   // Determine if the current route is for the admin page
   const isAdminPage = location.pathname.startsWith('/admin');
+  const isTemplatePage = location.pathname.startsWith("/template");
 
   return (
     
@@ -35,13 +38,16 @@ function App() {
     <ScrollToTop />
       {/*<MouseCursor />*/}
 
-      {!isAdminPage && <Navbar />}
+      {!isAdminPage && (isTemplatePage ? <TemplateNavbar /> : <Navbar />)}
+
       <Routes>
           {/* Public routes */}
           <Route path="/" element={<Homepage />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/templates" element={<TemplateTabs />} />
+          <Route path="/template" element={<Template />} />
+
           <Route path="/get-a-quote" element={<GetAQuote />} />
           <Route path="/blog" element={<ModernBlogPage />} />
           
