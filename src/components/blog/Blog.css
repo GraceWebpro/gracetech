@@ -6,7 +6,7 @@
     margin-top: -20px;
     min-height: 100vh; /* Allows it to expand as needed */
     width: 100%;
-    height: fit-content;
+    height: fit-content(100%);
     align-items: center;
     margin-bottom: 350px;
     flex-wrap: wrap; /* allow items to wrap */
@@ -228,8 +228,9 @@
   font-weight: 700;
   margin-bottom: 3rem;
   background: linear-gradient(90deg, #0061ff, #60efff);
+  background-clip: text;
   -webkit-background-clip: text;
-  color: transparent;
+  -webkit-text-fill-color: transparent;  color: transparent;
 }
 
 .modern-grid {
@@ -372,7 +373,9 @@ body {
   margin-bottom: 0.5rem;
   color: #ffffff;
   background: linear-gradient(90deg, #60efff, #0061ff);
+  background-clip: text;
   -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   color: transparent;
 }
 

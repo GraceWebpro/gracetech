@@ -52,7 +52,9 @@ const Template = () => {
                 </div>
 
                 <div className="pricing">
-                  <span className="price">${discountedPrice.toFixed(2)}</span>
+                  {/*<span className="price">${discountedPrice.toFixed(2)}</span>*/}
+
+                  
                   {template.discount > 0 && (
                     <span className="discount">-{template.discount}%</span>
                   )}
