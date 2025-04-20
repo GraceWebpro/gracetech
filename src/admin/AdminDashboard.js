@@ -1,9 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { auth, logout } from "../server/firebase";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { getDocs, collection } from "firebase/firestore";
-import { getFirestore, doc, getDoc } from "firebase/firestore";
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import { getFirestore, getDocs, collection, doc, getDoc } from "firebase/firestore";
 import UploadProject from "./UploadProject";
 import EditProject from "./EditProject";
 import DeleteProject from "./DeleteProject";
@@ -19,61 +17,66 @@ function Dashboard() {
   const [projects, setProjects] = useState([]);
   const [activeTab, setActiveTab] = useState("dashboard");
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [loading, setLoading] = useState(true); // Loading state
+
   const navigate = useNavigate();
-  const auth = getAuth();
-  const db = getFirestore();
 
+  const auth = getAuth(); // Firebase Auth instance
+  const db = getFirestore(); // Firebase Firestore instance
 
+  // Listen for user authentication state changes
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (!currentUser) {
         navigate("/admin/login"); // Redirect if not logged in
       } else {
         setUser(currentUser);
-
-        const fetchUserRole = async () => {
+        try {
+          // Fetch user role from Firestore
           const userDoc = await getDoc(doc(db, "users", currentUser.uid));
           if (userDoc.exists()) {
-            setRole(userDoc.data().role);
+            const fetchedRole = userDoc.data().role;
+            setRole(fetchedRole);
+
+            // Fetch projects only if the user is an admin
+            if (fetchedRole === "admin") {
+              setLoading(true); // Start loading before fetching projects
+              const querySnapshot = await getDocs(collection(db, "projects"));
+              const projectList = querySnapshot.docs.map((doc) => ({
+                id: doc.id,
+                ...doc.data(),
+              }));
+              setProjects(projectList);
+              setLoading(false); // Stop loading once projects are fetched
+            } else {
+              navigate("/"); // Redirect if user is not an admin
+            }
           } else {
             console.error("User not found in Firestore");
+            setLoading(false); // Stop loading if user is not found
           }
-        };
-        
-        fetchUserRole();
-
+        } catch (error) {
+          console.error("Error fetching user role or projects:", error);
+          setLoading(false); // Stop loading on error
+        }
       }
     });
 
-    return () => unsubscribe();
-  }, [auth, db, navigate]);
+    return () => unsubscribe(); // Cleanup on component unmount
+  }, [auth, db, navigate]); // This effect depends on auth, db, and navigate
 
-  useEffect(() => {
-    // Redirect if user is not an admin
-    if (role && role !== "admin") {
-      navigate("/"); // Redirect to homepage or a different page
+  // Define the logout function
+  const logout = async () => {
+    try {
+      await signOut(auth);
+      navigate("/admin/login"); // Redirect to login page after logout
+    } catch (error) {
+      console.error("Error logging out:", error);
     }
-  }, [role, navigate]);
+  };
 
-  // If the role is still loading, we can show a loading state
-  if (role === null) return <div>Loading...</div>;
-
-
-  useEffect(() => {
-    async function fetchProjects() {
-      try {
-        const querySnapshot = await getDocs(collection(db, "projects"));
-        const projectList = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        setProjects(projectList);
-      } catch (error) {
-        console.error("Error fetching projects:", error);
-      }
-    }
-    fetchProjects();
-  }, []);
+  // Loading state until role is fetched
+  if (loading) return <div>Loading...</div>;
 
   return (
     <div className="dashboard-container">
@@ -136,7 +139,6 @@ function Dashboard() {
         {activeTab === "upload" && <UploadProject />}
         {activeTab === "uploadBlog" && <UploadBlog />}
         {activeTab === "uploadTemplate" && <UploadTemplate />}
-
         {activeTab === "edit" && <EditProject projects={projects} />} {/* Pass projects */}
         {activeTab === "delete" && <DeleteProject projects={projects} />} {/* Pass projects */}
         {activeTab === "settings" && <UserSettings />}
