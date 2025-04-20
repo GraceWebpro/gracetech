@@ -30,7 +30,7 @@ function App() {
   const [user, setUser] = useState(null);
   // Determine if the current route is for the admin page
   const isAdminPage = location.pathname.startsWith('/admin');
-  const isTemplatePage = location.pathname.startsWith("/template");
+  const isTemplatePage = location.pathname.startsWith("/templates");
 
   return (
     
@@ -45,8 +45,7 @@ function App() {
           <Route path="/" element={<Homepage />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/templates" element={<TemplateTabs />} />
-          <Route path="/template" element={<Template />} />
+          <Route path="/templates" element={<Template />} />
 
           <Route path="/get-a-quote" element={<GetAQuote />} />
           <Route path="/blog" element={<ModernBlogPage />} />
