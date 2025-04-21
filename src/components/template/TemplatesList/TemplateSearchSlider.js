@@ -45,13 +45,13 @@ const TemplateSearchSlider = () => {
           <FaSearch /> Figma Template
         </div>
         <div onClick={() => handleCategoryChange('HTML')} className={`search-option ${selectedCategory === 'HTML' ? 'active' : ''}`}>
-          <FaSearch /> HTML Template
+          <FaSearch /> React Template
         </div>
         <div onClick={() => handleCategoryChange('Bubble')} className={`search-option ${selectedCategory === 'Bubble' ? 'active' : ''}`}>
-          <FaSearch /> Bubble Template
+          <FaSearch /> Graphic Template
         </div>
         <div onClick={() => handleCategoryChange('Figma')} className={`search-option ${selectedCategory === 'Figma' ? 'active' : ''}`}>
-          <FaSearch /> Figma Template
+          <FaSearch /> Bootstrap Template
         </div>
         <div onClick={() => handleCategoryChange('HTML')} className={`search-option ${selectedCategory === 'HTML' ? 'active' : ''}`}>
           <FaSearch /> HTML Template

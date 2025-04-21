@@ -23,7 +23,9 @@ import BlogDetail from "./components/blog/BlogDetail";
 import PrivateRoute from "./server/PrivateRoute";
 import DownloadPage from "./components/template/DownloadPage";
 import TemplateNavbar from "./components/template/TemplateNavbar";
-import Template from "./components/template/Template";
+import Template from "./components/template/TemplatesList/Template";
+import TemplateList from "./components/template/TemplatesList/TemplateList";
+import TemplateDetails from "./components/template/TemplateDetail";
 
 function App() {
   const location = useLocation();
@@ -62,6 +64,8 @@ function App() {
               </PrivateRoute>
             }
           />
+                  <Route path="/templates/:id" element={<TemplateDetails />} />
+          <Route path="/templates/:slug" element={<TemplateList />} />
 
 
           {/* Admin Routes */}

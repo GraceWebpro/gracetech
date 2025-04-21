@@ -19,8 +19,11 @@ const TemplateCarousel = ({ categories }) => {
       <div className="carousel" ref={carouselRef}>
         {categories.map((cat, idx) => (
           <div className="carousel-card" key={idx}>
-            <img src={cat.image} alt={cat.name} />
+            <div className="card-image">
+              <img src={cat.image} alt={cat.name} />
+            </div>           
             <div className="card-info">
+
               <h4>{cat.name}</h4>
               <p>{cat.count} items</p>
             </div>

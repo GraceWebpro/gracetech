@@ -1,13 +1,15 @@
 import React from 'react'
 import './Template.css'
 import TemplateSearchSlider from './TemplateSearchSlider'
-import TemplateCarousel from './CatCarousel'
-import graphic from '../../assets/grapic.jpeg'
-import website from '../../assets/website.jpeg'
-import appImg from '../../assets/app.jpeg'
-import figma from '../../assets/figma.jpeg'
-import bubble from '../../assets/bubble.jpeg'
-import flutter from '../../assets/flutter.jpeg'
+import TemplateCarousel from '../CatCarousel'
+import graphic from '../../../assets/grapic.jpeg'
+import website from '../../../assets/website.jpeg'
+import appImg from '../../../assets/app.jpeg'
+import figma from '../../../assets/figma.jpeg'
+import bubble from '../../../assets/bubble.jpeg'
+import flutter from '../../../assets/flutter.jpeg'
+import TemplateFetcher from './TemplateFetcher'
+//import AllCategories from './GraphicSection'
 
 const categoryData = [
     { 
@@ -57,6 +59,11 @@ const Template = () => {
             <h4>Browse by category</h4>
             <p>21,999,668 assets</p>
             <TemplateCarousel categories={categoryData} />
+        </div>
+
+        <div>
+          {/*<AllCategories />*/}
+          <TemplateFetcher />
         </div>
         
     </div>

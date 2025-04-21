@@ -551,3 +551,16 @@ progress[value]::-webkit-progress-value {
 .upload-form button:hover:not(:disabled) {
   background-color: #4338ca;
 }
+
+
+.checkbox-group {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
