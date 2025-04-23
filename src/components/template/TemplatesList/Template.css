@@ -470,4 +470,60 @@
   .card-icon:hover {
     background-color: rgba(255, 255, 255, 0.4);
   }
+
+  .similar-section {
+    margin-top: 60px;
+    text-align: left;
+  }
+  
+  .similar-section h3 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .similar-grid {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  }
+  
+  .template-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 16px;
+    text-align: center;
+  }
+  
+  .template-card img {
+    width: 100%;
+    border-radius: 8px;
+    object-fit: cover;
+    height: 140px;
+  }
+  
+  .template-card h4 {
+    margin: 10px 0 5px;
+    font-size: 16px;
+  }
+  
+  .template-card p {
+    font-size: 14px;
+    color: #666;
+  }
+  
+  .view-btn {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 12px;
+    background: #4a90e2;
+    color: white;
+    border-radius: 6px;
+    text-decoration: none;
+  }
+  
+  .view-btn:hover {
+    background: #357ABD;
+  }
+  
   

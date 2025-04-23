@@ -12,6 +12,7 @@ import { useLocation } from 'react-router-dom';
 import { scroller } from 'react-scroll';
 import ProjectContact from '../contact/ProjectContact';
 import Blog from '../blog/Blog';
+import HomeBlog from '../blog/HomeBlog';
 //import Banner2 from '../banner/Banner2';
 //import Meeting from '../projects/Meeting'
 
@@ -46,7 +47,7 @@ const Homepage = () => {
             <Services />
             <WorkingProcess />
             <Testimonial />
-            <Blog />
+            <HomeBlog />
             <HomeContact />
         </div>
     )

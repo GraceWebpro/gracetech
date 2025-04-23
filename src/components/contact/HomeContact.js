@@ -6,7 +6,7 @@ const HomeContact = () => {
    
 
   return (
-    <section className='contact' id='connect'>
+    <section className='contact home-contact' id='connect'>
      
       
       <h2 className='touch-h2' data-aos="fade-up" 

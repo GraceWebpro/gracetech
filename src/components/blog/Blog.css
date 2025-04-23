@@ -1,16 +1,16 @@
-.blog {
+.home-blog {
     display: flex;
     flex-direction: row;
     gap: 40px;
-    padding: 0 40px;
-    margin-top: -20px;
+    padding: 0 40px 0 50px;
+    margin-top: 40px;
     min-height: 100vh; 
     width: 100%;
     height: fit-content(100%);
-    align-items: center;
-    margin-bottom: 350px;
+    align-items: flex-start;
+    margin-bottom: 200px;
     flex-wrap: wrap; 
-  overflow-x: hidden; 
+  overflow: hidden; 
 }
 
 .blog-line {
@@ -123,6 +123,10 @@
   
   .div-first:hover .blog-line {
     border: 1px solid #0059ff;
+  }
+
+  .blog-div:hover .blog-icon {
+    background: #0059ff;
   }
 .blog-right {
   flex: 1;
@@ -294,6 +298,13 @@
   color: #ccc;
   margin-bottom: 1.2rem;
   line-height: 1.6;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;       /* Limit to 2 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 3.2em;           /* Optional, based on line-height */
 }
 
 .modern-btn {
@@ -336,7 +347,7 @@ body {
 
 .blog-detail {
   max-width: 900px;
-  margin: 3rem auto;
+  margin: 6rem auto;
   padding: 0 1rem;
 }
 
@@ -356,8 +367,8 @@ body {
 }
 
 .blog-image img {
-  width: 100%;
-  height: auto;
+  width: 80%;
+  height: 350px;
   border-radius: 18px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
   margin-bottom: 2rem;

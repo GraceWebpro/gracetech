@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, query, collection, where, limit, getDocs } from "firebase/firestore";
 import { db } from "../../server/firebase";
 import TemplateFetcher from "./TemplatesList/TemplateFetcher";
 
@@ -8,15 +8,34 @@ function TemplateDetails() {
   const { id } = useParams();
   const [template, setTemplate] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [similarTemplates, setSimilarTemplates] = useState([]);
 
   useEffect(() => {
     const fetchTemplate = async () => {
       try {
         const docRef = doc(db, "templates", id);
         const docSnap = await getDoc(docRef);
-
+  
         if (docSnap.exists()) {
-          setTemplate(docSnap.data());
+          const data = docSnap.data();
+          setTemplate(data);
+  
+          // Fetch similar templates
+          const q = query(
+            collection(db, "templates"),
+            where("category", "==", data.category),
+            limit(5) // Adjust how many you want to show
+          );
+  
+          const querySnapshot = await getDocs(q);
+          const similar = [];
+          querySnapshot.forEach((doc) => {
+            if (doc.id !== id) {
+              similar.push({ id: doc.id, ...doc.data() });
+            }
+          });
+  
+          setSimilarTemplates(similar);
         } else {
           console.log("No such document!");
         }
@@ -26,10 +45,10 @@ function TemplateDetails() {
         setLoading(false);
       }
     };
-
+  
     fetchTemplate();
   }, [id]);
-
+  
   if (loading) return <div className="loading">Loading...</div>;
   if (!template) return <div className="error">Template not found.</div>;
 
@@ -128,8 +147,22 @@ function TemplateDetails() {
         */}
       </div>
         
-<TemplateFetcher />
-      
+      {similarTemplates.length > 0 && (
+  <div className="similar-section">
+    <h3>Similar Templates</h3>
+    <div className="similar-grid">
+      {similarTemplates.map((item) => (
+        <div key={item.id} className="template-card">
+          <img src={item.thumbnail} alt={item.title} />
+          <h4>{item.title}</h4>
+          <p>{item.category} - {item.subCategory}</p>
+          <a href={`/templates/${item.id}`} className="view-btn">View</a>
+        </div>
+      ))}
+    </div>
+  </div>
+)}
+
       <style>{`
         .template-details {
           max-width: 1200px;

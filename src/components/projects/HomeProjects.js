@@ -151,8 +151,8 @@ export function Projects() {
         ))}
       </div>
 
-      <div style={{ textAlign: 'left' }}>
-      <h3>{selectedProject.title}</h3>
+      <div>
+      <h3 >{selectedProject.title}</h3>
       <p>{selectedProject.description}</p>
 
       {/* Key Features */}
@@ -175,30 +175,30 @@ export function Projects() {
 
       {/* User Benefits */}
       <h4>User Benefits</h4>
-      <p>Users can easily interact with the platform, improving overall engagement. The system allows users to access content at their fingertips and receive updates in real-time, leading to increased user satisfaction and retention.</p>
+      <h3 style={{ fontSize: '17px', color: '#888', fontWeight: '400', lineHeight: '1.5' }}>Users can easily interact with the platform, improving overall engagement. The system allows users to access content at their fingertips and receive updates in real-time, leading to increased user satisfaction and retention.</h3>
 
       {/* Challenges and Solutions */}
       <h4>Challenges & Solutions</h4>
-      <p><strong>Challenge:</strong> Ensuring fast performance while maintaining scalability.</p>
-      <p><strong>Solution:</strong> Implemented efficient caching strategies and a modular architecture, enabling the system to handle heavy traffic seamlessly.</p>
+      <h3 style={{ fontSize: '17px', color: '#888', fontWeight: '400', lineHeight: '1.5' }}><strong>Challenge:</strong> Ensuring fast performance while maintaining scalability.</h3>
+      <h3 style={{ fontSize: '17px', color: '#888', fontWeight: '400', lineHeight: '1.5' }}><strong>Solution:</strong> Implemented efficient caching strategies and a modular architecture, enabling the system to handle heavy traffic seamlessly.</h3>
 
       {/* Project Timeline */}
       <h4>Project Timeline</h4>
-      <p><strong>Start Date:</strong> January 2023</p>
-      <p><strong>End Date:</strong> June 2023</p>
+      <h3 style={{ fontSize: '17px', color: '#888', fontWeight: '400', lineHeight: '1.5' }}><strong>Start Date:</strong> January 2023</h3>
+      <h3 style={{ fontSize: '17px', color: '#888', fontWeight: '400', lineHeight: '1.5' }}><strong>End Date:</strong> June 2023</h3>
 
-      <div className="project-links">
-        <Link to={`/project-details/${selectedProject.id}`} className="link-btn">
+      <div className="project-l">
+        <Link to={`/project-details/${selectedProject.id}`} className="l-btn">
           View Full Project
         </Link>
       </div>
 
       {/* Project Links */}
-      <div className="project-links">
-        <a href={selectedProject.demoLink} target="_blank" rel="noopener noreferrer" className="link-btn">
+      <div className="project-l">
+        <a href={selectedProject.demoLink} target="_blank" rel="noopener noreferrer" className="l-btn">
           See it in action
         </a>
-        <a href={selectedProject.githubLink} target="_blank" rel="noopener noreferrer" className="link-btn">
+        <a href={selectedProject.githubLink} target="_blank" rel="noopener noreferrer" className="l-btn">
           View on GitHub
         </a>
       </div>

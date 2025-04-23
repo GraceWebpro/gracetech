@@ -162,7 +162,7 @@ const GetAQuote = () => {
         <input type="file" name="file" onChange={handleChange} />
 
         <button type="submit" disabled={loading}>
-          {loading ? 'Sending...' : '📩 Request Quote via WhatsApp'}
+          {loading ? 'Sending...' : '📩 Request Quote'}
         </button>
       </form>
       <ToastContainer />

@@ -148,11 +148,22 @@
   .services-display label {
     font-size: 0.85rem;
   }
+
+  .quote-container {
+    max-width: 90%;
+  }
   }
 
+  @media (max-width: 394px) {
+    .quote-container {
+      max-width: 88%;
+    }
+  }
   .quote-container.modern {
     backdrop-filter: blur(6px);
     border: 1px solid #e3e3e3;
+    padding: 2rem 1.5rem;
+
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
   }
   
