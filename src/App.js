@@ -4,7 +4,7 @@ import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 //import ScrollToTop from './components/ScrollToTop';
 import Navbar from './components/navbar/Navbar';
 import Homepage from './components/home/Homepage';
-import Login from './admin/AdminLogin';
+import AdminLogin from './admin/AdminLogin';
 import Footer from './components/footer/Footer';
 import ProtectedRoute from './server/protectedRoute';
 import AdminDashboard from './admin/AdminDashboard';
@@ -24,8 +24,9 @@ import PrivateRoute from "./server/PrivateRoute";
 import DownloadPage from "./components/template/DownloadPage";
 import TemplateNavbar from "./components/template/TemplateNavbar";
 import Template from "./components/template/TemplatesList/Template";
-import TemplateList from "./components/template/TemplatesList/TemplateList";
 import TemplateDetails from "./components/template/TemplateDetail";
+import Login from './components/userAuth/Login'
+import TemplateList from './components/template/TemplatesList/TemplateList'
 
 function App() {
   const location = useLocation();
@@ -51,7 +52,8 @@ function App() {
 
           <Route path="/get-a-quote" element={<GetAQuote />} />
           <Route path="/blog" element={<ModernBlogPage />} />
-          
+          <Route path="/login" element={<Login />} />
+
           <Route path="/thank-you" element={<ThankYou />} />
           <Route path="/project-details/:id" element={<ProjectDetails />} />
           <Route path="/services/:id" element={<ServiceDetailsPage />} />
@@ -65,11 +67,11 @@ function App() {
             }
           />
                   <Route path="/templates/:id" element={<TemplateDetails />} />
-          <Route path="/templates/:slug" element={<TemplateList />} />
+          <Route path="/template-list" element={<TemplateList />} />
 
 
           {/* Admin Routes */}
-          <Route path='/admin/login' element={<Login onUserChange={setUser} />} />   
+          <Route path='/admin/login' element={<AdminLogin onUserChange={setUser} />} />   
           <Route path="/admin/register" element={<Register />} />       
           {/*<Route path="/movie/:title/episode/:episodeNumber" element={<EpDownload />} />*/}
           

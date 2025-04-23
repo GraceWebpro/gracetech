@@ -6,11 +6,15 @@ import { Link } from "react-router-dom";
 const TemplateSection = ({ subCategory }) => {
   const navigate = useNavigate();
 
+  const handleShowAllClick = () => {
+    navigate(`/template-list?category=${subCategory.slug}`);
+  };
+
   return (
     <div className="template-section">
             <div className="section-header">
                 <h2>{subCategory.name} Templates</h2>
-                <button onClick={() => navigate(`/templates/${subCategory.slug}`)}>Show All</button>
+                <button onClick={handleShowAllClick}>Show All</button>
             </div>
             <div className="template-grid">
                 {subCategory.templates.slice(0, 4).map(template => (

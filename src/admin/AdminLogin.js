@@ -3,7 +3,7 @@ import { auth, loginWithEmail } from "../server/firebase";
 import { useNavigate } from "react-router-dom";
 import "./Admin.css"; // Import the CSS file
 
-function Login() {
+function AdminLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -42,4 +42,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default AdminLogin;

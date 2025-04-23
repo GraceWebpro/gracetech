@@ -1,14 +1,22 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate, useLocation, } from "react-router-dom";
 import { doc, getDoc, query, collection, where, limit, getDocs } from "firebase/firestore";
 import { db } from "../../server/firebase";
-import TemplateFetcher from "./TemplatesList/TemplateFetcher";
+import { FaHeart, FaDownload } from 'react-icons/fa';
+import { Link } from "react-router-dom";
+import { useAuth } from "../../server/AuthProvider";
+import PayPalPayment from "../../payment/PaypalPayment"; // Adjust if needed
 
 function TemplateDetails() {
   const { id } = useParams();
   const [template, setTemplate] = useState(null);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+  const location = useLocation();
   const [similarTemplates, setSimilarTemplates] = useState([]);
+  const [hasPurchasedTemplate, setHasPurchasedTemplate] = useState(false);
+  const { currentUser } = useAuth(); // optional if you're using authentication
+
 
   useEffect(() => {
     const fetchTemplate = async () => {
@@ -36,6 +44,20 @@ function TemplateDetails() {
           });
   
           setSimilarTemplates(similar);
+
+        // ✅ Check if user has purchased this template
+        if (currentUser) {
+          const purchasesRef = collection(db, "purchases");
+          const purchaseQuery = query(
+            purchasesRef,
+            where("userId", "==", currentUser.uid),
+            where("templateId", "==", id)
+          );
+          const purchaseSnap = await getDocs(purchaseQuery);
+          if (!purchaseSnap.empty) {
+            setHasPurchasedTemplate(true);
+          }
+        }
         } else {
           console.log("No such document!");
         }
@@ -47,8 +69,20 @@ function TemplateDetails() {
     };
   
     fetchTemplate();
-  }, [id]);
+  }, [id, currentUser]);
   
+
+  const handleDownloadClick = () => {
+    if (!currentUser) {
+      // Redirect to login with current path
+      navigate(`/login?redirect=${encodeURIComponent(location.pathname)}`);
+    } else {
+      // Download logic here (or redirect to download page)
+      // Example:
+      window.open(`/download/${id}`, "_blank"); // or any logic you have
+    }
+  };
+
   if (loading) return <div className="loading">Loading...</div>;
   if (!template) return <div className="error">Template not found.</div>;
 
@@ -131,9 +165,46 @@ function TemplateDetails() {
           </a>
         )}
 
-        <a href={template.fileUrl} download className="download-btn">
-          Download .zip
-        </a>
+        {
+          template.isFree ? (
+            // If the template is free, allow download regardless of login status
+            <a
+              href={template.fileUrl}
+              download
+              className="download-btn"
+            >
+              Download .zip
+            </a>
+          ) : (
+            // If the template is not free
+            currentUser ? (
+              // If the user is logged in, show payment option
+              <PayPalPayment
+                amount={template.price}
+                template={template}
+                user={currentUser}
+                onSuccess={(details) => {
+                  setHasPurchasedTemplate(true);
+                  alert("Payment successful! Download is now available.");
+                  // Save purchase to Firestore if needed
+                }}
+              />
+            ) : (
+              // If the user is not logged in, redirect them to login and back to template page for payment
+              <button
+                onClick={() => {
+                  // Redirect to login page and store the current template details page URL
+                  window.localStorage.setItem("redirectAfterLogin", window.location.pathname);
+                  window.location.href = "/login";
+                }}
+                className="preview-btn"
+              >
+                Login to Purchase
+              </button>
+            )
+          )
+        }
+
       </div>
      {/*} <div className="cta-x">
           <h2>Want to support?</h2>
@@ -146,22 +217,29 @@ function TemplateDetails() {
         </p>
         */}
       </div>
-        
-      {similarTemplates.length > 0 && (
-  <div className="similar-section">
-    <h3>Similar Templates</h3>
-    <div className="similar-grid">
-      {similarTemplates.map((item) => (
-        <div key={item.id} className="template-card">
-          <img src={item.thumbnail} alt={item.title} />
-          <h4>{item.title}</h4>
-          <p>{item.category} - {item.subCategory}</p>
-          <a href={`/templates/${item.id}`} className="view-btn">View</a>
+
+      <div className="template-section">
+        <div className="section-header">
+          <h2>Similar Templates</h2>
         </div>
-      ))}
-    </div>
+      <div className="template-grid">
+
+        {similarTemplates.slice(0, 4).map(template => (
+              <Link to={`/templates/${template.id}`} key={template.id} className="template-card-link">
+                <div className="template-card">
+                  <img src={template.thumbnail} alt={template.name} className='template-image' />
+                  <div className="overlay">
+                    <h4 className="template-title">{template.name}</h4>
+                    <div className="icon-group">
+                      <FaHeart className="card-icon" />
+                      <FaDownload className="card-icon" />
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            ))}
+      </div>
   </div>
-)}
 
       <style>{`
         .template-details {

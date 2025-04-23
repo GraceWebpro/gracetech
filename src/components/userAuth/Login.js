@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { loginWithEmail } from "../server/firebase"; // Your login function
+import { loginWithEmail } from "../../server/firebase"; // Your login function
 
 const Login = () => {
   const [email, setEmail] = useState("");
