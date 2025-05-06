@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import React,{ useState, useEffect } from "react";
 import { db } from "../../server/firebase"; // Ensure correct Firestore import
 import { getDoc, doc } from "firebase/firestore";
+import { Link } from 'react-router-dom';
 import './ProjectsDetails.css'
 
 const ProjectDetails = () => {
@@ -57,24 +58,71 @@ const ProjectDetails = () => {
         ))}
         </ul>*/}
 
-      {/* Project Image Gallery */}
-      <h4>Image Gallery</h4>
-      <div className="gallery">
+      {/* Image Gallery */}
+      <div className="image-gallery">
         {project.gallery?.map((image, index) => (
           <img
             key={index}
             src={image}
             alt={`${project.title}-gallery-${index}`}
             className="gallery-thumbnail"
+            onClick={() => setProject({ ...project, imageUrl: image })}
           />
         ))}
       </div>
 
-      {/* Links to demo or GitHub */}
-      <div className="project-links">
-        <a href={project.demoLink} target="_blank" rel="noopener noreferrer">See it in Action</a>
-        <a href={project.githubLink} target="_blank" rel="noopener noreferrer">View on GitHub</a>
+      <div>
+      <h3 >{project.title}</h3>
+      <p>{project.description}</p>
+
+      {/* Key Features */}
+      <h4>Key Features</h4>
+      <ul className="feature-list">
+        <li><i className="feature-icon">✔</i> Responsive Design</li>
+        <li><i className="feature-icon">✔</i> User-Friendly Interface</li>
+        <li><i className="feature-icon">✔</i> Fast Performance</li>
+        <li><i className="feature-icon">✔</i> Scalable Architecture</li>
+      </ul>
+
+      {/* Technology Stack */}
+      <h4>Technology Stack</h4>
+      <div className="tech-stack">
+        <span className="tech-icon">React</span>
+        <span className="tech-icon">Node.js</span>
+        <span className="tech-icon">MongoDB</span>
+        <span className="tech-icon">Express</span>
       </div>
+
+      {/* User Benefits */}
+      <h4>User Benefits</h4>
+      <h3 style={{ fontSize: '17px', color: '#888', fontWeight: '400', lineHeight: '1.5' }}>Users can easily interact with the platform, improving overall engagement. The system allows users to access content at their fingertips and receive updates in real-time, leading to increased user satisfaction and retention.</h3>
+
+      {/* Challenges and Solutions */}
+      <h4>Challenges & Solutions</h4>
+      <h3 style={{ fontSize: '17px', color: '#888', fontWeight: '400', lineHeight: '1.5' }}><strong>Challenge:</strong> Ensuring fast performance while maintaining scalability.</h3>
+      <h3 style={{ fontSize: '17px', color: '#888', fontWeight: '400', lineHeight: '1.5' }}><strong>Solution:</strong> Implemented efficient caching strategies and a modular architecture, enabling the system to handle heavy traffic seamlessly.</h3>
+
+      {/* Project Timeline */}
+      <h4>Project Timeline</h4>
+      <h3 style={{ fontSize: '17px', color: '#888', fontWeight: '400', lineHeight: '1.5' }}><strong>Start Date:</strong> January 2023</h3>
+      <h3 style={{ fontSize: '17px', color: '#888', fontWeight: '400', lineHeight: '1.5' }}><strong>End Date:</strong> June 2023</h3>
+
+      <div className="project-l">
+        <Link to={`/project-details/${project.id}`} className="l-btn">
+          View Full Project
+        </Link>
+      </div>
+
+      {/* Project Links */}
+      <div className="project-l">
+        <a href={project.demoLink} target="_blank" rel="noopener noreferrer" className="l-btn">
+          See it in action
+        </a>
+        <a href={project.githubLink} target="_blank" rel="noopener noreferrer" className="l-btn">
+          View on GitHub
+        </a>
+      </div>
+    </div>
     </div>
   );
 };

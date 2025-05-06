@@ -7,6 +7,8 @@ import './Admin.css'
 function UploadProject() {
   const [file, setFile] = useState(null);
   const [title, setTitle] = useState("");
+    const [demoLink, setDemoLink] = useState("");
+
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const [progress, setProgress] = useState(0); // Track upload progress
@@ -36,6 +38,7 @@ function UploadProject() {
         await addDoc(collection(db, "projects"), {
           title,
           description,
+          demoLink,
           imageUrl: url,
           category,
           timestamp: new Date(),
@@ -44,6 +47,7 @@ function UploadProject() {
         setIsUploading(false);
         setProgress(0); // Reset progress
         setTitle("");
+        setDemoLink("");
         setCategory("");
         setDescription("");
         setFile(null);
@@ -71,6 +75,16 @@ function UploadProject() {
         placeholder="Project Category" 
         value={category} 
         onChange={(e) => setCategory(e.target.value)} 
+        className="input-field"
+      />
+    </div>
+
+    <div className="input-group">
+      <input 
+        type="text" 
+        placeholder="Project Category" 
+        value={demoLink} 
+        onChange={(e) => setDemoLink(e.target.value)} 
         className="input-field"
       />
     </div>

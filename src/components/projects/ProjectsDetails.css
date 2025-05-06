@@ -3,17 +3,19 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: left;
     padding: 20px;
-    background-color: #f8f8f8;
-    margin: 0 auto;
+    background-color: none;
+    margin: 130px auto;
     max-width: 1200px;
+    color: #fff;
   }
   
   /* Title and Description */
   .project-details h2 {
     font-size: 2rem;
     font-weight: bold;
-    margin-bottom: 15px;
+    margin-bottom: 30px;
     text-align: center;
   }
   
@@ -41,7 +43,7 @@
     font-weight: bold;
     margin-top: 30px;
     margin-bottom: 10px;
-    color: #333;
+    color: #fff;
   }
   
   .project-details ul {

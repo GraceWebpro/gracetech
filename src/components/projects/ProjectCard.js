@@ -47,7 +47,7 @@ const ProjectCard = ({ id, title, category, imageUrl, onEnlarge }) => {
          
         </div>
         <div className='icon-div'>
-        <Link to={`/project-details/${id}`}>
+        <Link to={`/project-details/${id}`} style={{ color: '#fff' }}>
 
           <BsArrowUpRight className='proj-det-btn' />
           </Link>
