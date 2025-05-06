@@ -3,7 +3,7 @@ import { ArrowRightCircle } from 'react-bootstrap-icons';
 import { GoArrowUpRight } from "react-icons/go";
 import { Link } from 'react-router-dom';
 
-import bannerImg from '../../assets/ban.png';
+import bannerImg from '../../assets/banner.png';
 import './Banner.css'
 import 'animate.css'
 import TrackVisibility from 'react-on-screen'
@@ -79,14 +79,10 @@ const Banner = () => {
                                 </div>}
                         </TrackVisibility>
                     </div>
-                <div className="banner-img-container">
-                    <img src={bannerImg} alt="Header img" />
+                    <div className="banner-img-container">
+                        <img src={bannerImg} alt="Header img" />
 
-    </div>{/*
-    <div class="image-wrapper">
-  <img src={bannerImg} class="img-main" alt="Main Image" />
-  <img src={bannerImg} class="img-overlap floating-img" alt="Floating Image" />
-</div>*/}
+                    </div>
 
                 </div>
             </div>
