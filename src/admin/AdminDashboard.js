@@ -10,6 +10,7 @@ import { FaBars, FaTimes } from "react-icons/fa";
 import "./Admin.css";
 import UploadBlog from "./UploadBlog";
 import UploadTemplate from "./UploadTemplate";
+import UploadCourses from "./UploadCourses";
 
 function Dashboard() {
   const [role, setRole] = useState(null); // State to store the user's role
@@ -33,7 +34,7 @@ function Dashboard() {
         setUser(currentUser);
         try {
           // Fetch user role from Firestore
-          const userDoc = await getDoc(doc(db, "users", currentUser.uid));
+          const userDoc = await getDoc(doc(db, "admins", currentUser.uid));
           if (userDoc.exists()) {
             const fetchedRole = userDoc.data().role;
             setRole(fetchedRole);
@@ -95,6 +96,7 @@ function Dashboard() {
               <li onClick={() => setActiveTab("upload")} className={activeTab === "upload" ? "active" : ""}>📤 Upload Project</li>
               <li onClick={() => setActiveTab("uploadTemplate")} className={activeTab === "uploadTemplate" ? "active" : ""}>📤 Upload Template</li>
               <li onClick={() => setActiveTab("uploadBlog")} className={activeTab === "uploadBlog" ? "active" : ""}>📤 Upload Blog</li>
+              <li onClick={() => setActiveTab("uploadCourse")} className={activeTab === "uploadCourse" ? "active" : ""}>✏️ Upload Course</li>
 
               <li onClick={() => setActiveTab("edit")} className={activeTab === "edit" ? "active" : ""}>✏️ Edit Project</li>
               <li onClick={() => setActiveTab("delete")} className={activeTab === "delete" ? "active" : ""}>🗑️ Delete Project</li>
@@ -106,7 +108,7 @@ function Dashboard() {
       </div>
 
       {/* Main Content */}
-      <div className="dashboard-content">
+      <div className="dashboard-content" style={{ color: '#000' }}>
         {activeTab === "dashboard" && (
           <div className="dashboard-table">
             <h3>Project List</h3>
@@ -139,6 +141,8 @@ function Dashboard() {
         {activeTab === "upload" && <UploadProject />}
         {activeTab === "uploadBlog" && <UploadBlog />}
         {activeTab === "uploadTemplate" && <UploadTemplate />}
+        {activeTab === "uploadCourse" && <UploadCourses />}
+
         {activeTab === "edit" && <EditProject projects={projects} />} {/* Pass projects */}
         {activeTab === "delete" && <DeleteProject projects={projects} />} {/* Pass projects */}
         {activeTab === "settings" && <UserSettings />}

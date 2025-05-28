@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { auth, registerWithEmail } from "../server/firebase";
 import { useNavigate } from "react-router-dom";
-import { getFirestore, setDoc, doc } from "firebase/firestore"; // Import required Firebase functions
+import { getFirestore, setDoc, addDoc, doc } from "firebase/firestore"; // Import required Firebase functions
 import "./Admin.css"; // Import the CSS file
 
 function Register() {
@@ -18,11 +18,18 @@ function Register() {
       const userCredential = await registerWithEmail(email, password);
       const user = userCredential.user;
 
-      // After successful registration, assign the 'admin' role
+      /* After successful registration, assign the 'admin' role
       await setDoc(doc(db, "users", user.uid), {
         email: user.email,
         role: "admin", // Set the role to 'admin'
+      });*/
+
+      await setDoc(doc(db, "admins", user.uid), {
+        isAdmin: true,
+        role: "admin",
+        email: user.email,
       });
+      
 
       // Redirect to the admin dashboard after successful registration
       navigate("/admin/dashboard");

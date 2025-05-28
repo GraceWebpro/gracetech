@@ -1,0 +1,194 @@
+/* movie page css starts here */
+.movies-page, .music-page {
+    padding: 20px;
+  }
+  
+  .temp-bann {
+    margin-bottom: 30px;
+  }
+  
+  .temp-bann h1 {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+  
+  .temp-bann p {
+    font-size: 1rem;
+    color: #555;
+  }
+  .template-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* 🛠️ Center button + sort dropdown vertically */
+    margin-bottom: 20px;
+  }
+  
+  .filter-toggle {
+    background-color: #ff6347;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+  }
+  
+  .filter-toggle:hover {
+    background-color: #e5533a;
+  }
+  
+  .sort-dropdown {
+    display: flex; /* 🛠️ Make label and select stay side by side */
+    align-items: center; /* 🛠️ Align vertically center */
+    gap: 10px; /* 🛠️ Add small space between label and select */
+  }
+  
+  .sort-dropdown label {
+    color: #5a6b77;
+    white-space: nowrap; /* Prevent "Sort by:" from breaking into two lines */
+    font-size: 1rem;
+    display: flex;
+  }
+  
+  .sort-dropdown select {
+    padding: 8px;
+    font-size: 1rem;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .template-content.with-filters {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start
+  }
+  
+  .template-content.no-filters {
+    display: block;
+  }
+  
+  .filters {
+    width: 250px;
+    background: #1a1a1a;
+    margin-top: 20px;
+    padding: 15px;
+    margin-right: 0px;
+    border-radius: 5px;
+    height: fit-content;
+  }
+  
+  .category-item {
+    display: flex;
+    align-items: center; /* Center checkbox + text vertically */
+    gap: 10px; /* Nice space between checkbox and text */
+    margin-bottom: 10px;
+  }
+  
+  .category-item input[type="checkbox"] {
+    appearance: none; /* Reset default checkbox style */
+    width: 15px;
+    height: 15px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background: white;
+    cursor: pointer;
+    display: grid;
+    place-content: center; /* Center checkmark */
+  }
+  
+  .category-item input[type="checkbox"]:checked {
+    background-color: var(--primary-color); /* Green background when checked */
+    border-color: var(--primary-color);
+  }
+  
+  .category-item input[type="checkbox"]::before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    background-color: white;
+    transform: scale(0);
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .category-item input[type="checkbox"]:checked::before {
+    transform: scale(1);
+  }
+  
+  .category-item span {
+    color: white;
+    font-size: 1rem;
+  }
+  
+  
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .template-actions {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .filter-toggle {
+      margin-bottom: 10px;
+    }
+  
+    .template-content.with-filters {
+      flex-direction: column;
+    }
+  
+    .filters {
+      width: 100%;
+      margin-right: 0;
+      margin-bottom: 20px;
+    }
+  
+    .template-grid {
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+  
+    .movie-card {
+      padding: 10px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .temp-bann h1 {
+      font-size: 1.5rem;
+    }
+  
+    .temp-bann p {
+      font-size: 0.9rem;
+    }
+  
+    .filter-toggle {
+      font-size: 0.9rem;
+    }
+  
+    .template-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  .movie-hero-section {
+    background: linear-gradient(135deg, #1c1c1c, #333);
+    color: #fff;
+    padding: 45px 20px 60px 20px;
+    text-align: center;
+    border-radius: 12px;
+    margin-bottom: 30px;
+  }
+  
+  .movie-hero-content h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .movie-hero-content p {
+    font-size: 1.2rem;
+    color: #ccc;
+  }
+  
+  
+  /* movie page css ends here */

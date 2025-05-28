@@ -44,13 +44,15 @@ const loginWithGoogle = async () => {
 
 // Email/password authentication functions
 export const registerWithEmail = async (email, password) => {
-    try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      alert("Registration successful! You can now log in.");
-    } catch (error) {
-      alert(error.message);
-    }
-  };
+  try {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    alert("Registration successful! You can now log in.");
+    return userCredential; // ✅ return this so the caller can access .user
+  } catch (error) {
+    alert(error.message);
+    throw error; // re-throw so the catch block in `handleRegister` can handle it too
+  }
+};
   
   export const loginWithEmail = async (email, password) => {
     try {

@@ -27,6 +27,7 @@ import Template from "./components/template/TemplatesList/Template";
 import TemplateDetails from "./components/template/TemplateDetail";
 import Login from './components/userAuth/Login'
 import TemplateList from './components/template/TemplatesList/TemplateList'
+import Courses from "./components/courses/Courses";
 
 function App() {
   const location = useLocation();
@@ -49,6 +50,7 @@ function App() {
           <Route path="/projects" element={<Projects />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/templates" element={<Template />} />
+          <Route path="/courses" element={<Courses />} />
 
           <Route path="/get-a-quote" element={<GetAQuote />} />
           <Route path="/blog" element={<ModernBlogPage />} />

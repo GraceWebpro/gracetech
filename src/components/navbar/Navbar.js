@@ -102,7 +102,11 @@ const Navbar = () => {
                   <RouterLink to="/blog" onClick={closeNavbar} className="nav__link">
                     Blog
                   </RouterLink>
-                ) : isHomePage ? (
+                ): item === 'Courses' ? (
+                  <RouterLink to="/courses" onClick={closeNavbar} className="nav__link">
+                    Blog
+                  </RouterLink>
+                )  : isHomePage ? (
                   <ScrollLink
                     to={item}
                     smooth={true}
