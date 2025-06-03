@@ -1,7 +1,9 @@
 import React from 'react';
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../server/firebase"; // adjust this path based on your project
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
 
-const PayPalPayment = ({ amount, onSuccess }) => {
+const PayPalPayment = ({ amount, template, user, onSuccess }) => {
 
   const clientId = process.env.REACT_APP_PAYPAL_CLIENT_ID;
 
