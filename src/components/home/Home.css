@@ -1,0 +1,349 @@
+.hero {
+  position: relative;
+  height: 90vh;
+  background: linear-gradient(175deg, #000000 0%, #2e2e60 40%, #5f39ff 75%, #20d9a1 100%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  padding: 0 1rem;
+  text-align: center;
+}
+
+  
+.overlay {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-image: url("https://www.transparenttextures.com/patterns/stardust.png");
+  opacity: 0.05;
+  z-index: 1;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  z-index: 2;
+}
+
+
+.tagline {
+  font-size: 1rem;
+  color: #ffffff;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.highlight {
+  color: #20d9a1;
+ 
+  display: inline-block;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: #f2f2f2;
+  margin-bottom: 1rem;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 15px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn.primary {
+  background: linear-gradient(90deg, var(--tj-color-theme-primary) 0%, var(--tj-color-theme-secondary) 100%);
+  color: #fff;
+  border: none;
+  border: 2px solid #fff;
+
+}
+
+.btn.primary:hover {
+  background: transparent;
+  color: #fff;
+  
+}
+
+.btn.secondary {
+  border: 2px solid #fff;
+  color: #fff;
+  background: transparent;
+}
+
+.btn.secondary:hover {
+  background: linear-gradient(90deg, var(--tj-color-theme-primary) 0%, var(--tj-color-theme-secondary) 100%);
+  color: #fff;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2rem;
+  }
+  .subtitle {
+    font-size: 1rem;
+  }
+}
+
+.comment-bubble {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  border-radius: 20px;
+  padding: 0.75rem 1.25rem;
+  color: #fff;
+  font-size: 0.875rem;
+  max-width: 250px;
+  display: flex;
+  align-items: center;
+  text-align: left;
+  gap: 0.5rem;
+  animation: float 6s ease-in-out infinite alternate;
+}
+
+.comment-bubble img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-15px); }
+}
+
+
+/* work process styles */
+.work-pro {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: 'center';
+  gap: 40px;
+  font-size: 16px;
+  color: white;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+.video-container {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  padding-top: 56.25%; /* 16:9 Aspect Ratio */
+  overflow: hidden;
+}
+
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+
+/* Arrow Animation */
+.arrow-icon {
+  font-size: 24px;
+  animation: slideRight 1s infinite alternate ease-in-out;
+}
+
+@keyframes slideRight {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(10px);
+  }
+}
+
+/* Play Icon Animation */
+.play-icon {
+  font-size: 24px;
+  animation: pulse 1s infinite alternate ease-in-out;
+}
+
+@keyframes pulse {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.2);
+  }
+}
+
+/* Modal Styles */
+.video-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  transform: translate(-50%, -50%);
+  background: #000;
+  padding: 1rem;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 700px;
+  outline: none;
+}
+
+.video-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  z-index: 999;
+}
+
+.close-button {
+  background: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+/* Arrow Animation */
+.arrow-icon {
+font-size: 2rem;
+color: white;
+animation: moveArrow 1s infinite alternate ease-in-out;
+}
+
+.close-button {
+  background: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 20;
+}
+@media (max-width: 600px) {
+  .video-modal {
+    width: 90%;
+    padding: 0.5rem;
+    border-radius: 8px;
+  }
+
+  .close-button {
+    padding: 4px 8px;
+    font-size: 0.9rem;
+  }
+}
+
+@keyframes moveArrow {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(10px); }
+}
+
+
+.relative {
+  position: relative;
+}
+
+/* Pulsing Effect */
+.pulse {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  border: 2px solid white;
+  opacity: 0.6;
+  transform: translate(-50%, -50%);
+  animation: pulseAnimation 1.5s infinite ease-out;
+}
+
+.pulse:nth-child(1) {
+  animation-delay: 0s;
+}
+.pulse:nth-child(2) {
+  animation-delay: 0.75s;
+}
+
+@keyframes pulseAnimation {
+  0% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+  100% { transform: translate(-50%, -50%) scale(1.8); opacity: 0; }
+}
+
+/* Play Button */
+.play-button {
+  width: 40px;
+  height: 40px;
+  background-color: transparent;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border: 1px solid #ccc;
+  z-index: 10; /* Ensure it's above the animation */
+}
+
+
+@media (max-width: 632px) {
+  
+  .bann-left h1 {
+    font-size: 22px !important;
+  }
+  .banner img {
+    width: 190px;
+   height: 800px;
+  }
+  .pulse {
+    width: 50px;
+    height: 50px;
+  }
+  .play-button {
+    width: 40px;
+    height: 40px;
+  }
+
+  .arrow-icon {
+    font-size: 1.5rem;
+  }
+
+   .work-process {
+    font-size: 15px;
+   }
+}
+

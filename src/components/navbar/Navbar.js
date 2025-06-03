@@ -6,7 +6,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { RiMenuUnfold3Fill, RiCloseLine } from "react-icons/ri";
 import { AiOutlineClose } from "react-icons/ai";
-import logo from '../../assets/logo-main.png';
+import logo from '../../assets/my-logo2-removebg-preview (1).png';
 //import NavSearch from './NavSearch';
 import { IoMdApps } from "react-icons/io";
 import { IoLogoInstagram } from "react-icons/io";

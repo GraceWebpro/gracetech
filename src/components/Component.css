@@ -1,0 +1,160 @@
+/* Base navbar styles */
+.navbar {
+  position: fixed; /* make it always visible, even on scroll */
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 2rem;
+  background: rgba(0, 0, 0, 0.85); /* darker transparency for better visibility */
+  backdrop-filter: blur(12px); /* slightly stronger blur for depth */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* subtle shadow for separation */
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+  .navbar-logo a {
+    font-weight: 700;
+    font-size: 2rem;
+    background-image: -webkit-gradient(linear, left top, right top, from(var(--tj-color-theme-primary)), to(var(--tj-color-theme-secondary)));
+  background-image: linear-gradient(90deg, var(--tj-color-theme-primary) 0%, var(--tj-color-theme-secondary) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: var(--tj-fw-bold);
+    text-decoration: none;
+  }
+  
+  .navbar-links {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+  }
+  
+  .navbar-links li a {
+    color: var(--title-color);    
+    text-decoration: none;
+  }
+
+  .link:hover {
+    background-image: -webkit-gradient(linear, left top, right top, from(var(--tj-color-theme-primary)), to(var(--tj-color-theme-secondary)));
+    background-image: linear-gradient(90deg, var(--tj-color-theme-primary) 0%, var(--tj-color-theme-secondary) 100%);
+    -webkit-text-fill-color: transparent;
+    transition: background 0.3s ease, color 0.3s ease;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+  }
+
+ /* .navbar-links li a:hover {
+    background-image: -webkit-gradient(linear, left top, right top, from(var(--tj-color-theme-primary)), to(var(--tj-color-theme-secondary)));
+    background-image: linear-gradient(90deg, var(--tj-color-theme-primary) 0%, var(--tj-color-theme-secondary) 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  */
+  .cta {
+    border: 1px solid #97b3b1;
+    background: transparent;
+    color: #fff !important;
+    padding: 0.75rem 1.5rem;
+    border-radius: 15px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 45px; /* Optional: make it consistent with other navbar items */
+    text-decoration: none;
+  }
+  
+  .cta:hover {
+    background: linear-gradient(90deg, var(--tj-color-theme-primary) 0%, var(--tj-color-theme-secondary) 100%);
+  
+  }
+
+  
+  /* Dropdown */
+  /* Dropdown button */
+.dropdown {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+ .dropdown-menu {
+    position: absolute;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    margin-top: 0.5rem;
+    display: block;
+    padding: 1.5rem 2.5rem;
+    color: #fff !important;
+    cursor: pointer;
+    background-color: #000;
+    z-index: 4000;
+    text-align: left;
+  }
+  
+  .dropdown-menu li {
+    color: white;
+    margin-bottom: 1rem;
+    text-decoration: none;
+  }
+  
+  /* Hamburger (mobile) */
+  .navbar-hamburger {
+    display: none;
+    font-size: 2rem;
+    cursor: pointer;
+  }
+  
+  /* Mobile drawer menu */
+  .mobile-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 50vw;
+    height: 100%;
+    background-color: var(--body-color);
+    box-shadow: -2px 0 8px rgba(0,0,0,0.1);
+    padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    transition: right 0.3s ease-in-out;
+    z-index: 999;
+  }
+  
+  .mobile-menu.open {
+    right: 0;
+  }
+  
+  .mobile-close {
+    font-size: 2rem;
+    align-self: flex-end;
+    cursor: pointer;
+  }
+  
+  .mobile-dropdown .mobile-dropdown-content {
+    margin-left: 1rem;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .navbar-links {
+      display: none;
+    }
+    .navbar-hamburger {
+      display: block;
+    }
+  }
+  

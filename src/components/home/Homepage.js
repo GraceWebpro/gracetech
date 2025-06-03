@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import Banner from '../banner/Banner'
+//import Banner from '../banner/Banner'
 import { Projects } from '../projects/HomeProjects';
 import HomeContact from '../contact/HomeContact';
 import AOS from 'aos';
@@ -13,6 +13,7 @@ import { scroller } from 'react-scroll';
 import ProjectContact from '../contact/ProjectContact';
 import Blog from '../blog/Blog';
 import HomeBlog from '../blog/HomeBlog';
+import HeroSection from './Hero';
 //import Banner2 from '../banner/Banner2';
 //import Meeting from '../projects/Meeting'
 
@@ -39,7 +40,7 @@ const Homepage = () => {
         <div style={{ marginTop: '60px' }}>
             
             
-            <Banner />
+            <HeroSection />
             <About />
            
             <Projects />

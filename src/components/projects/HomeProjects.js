@@ -66,7 +66,7 @@ export function Projects() {
           <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 2fr))',
           gap: '30px',
           padding: '20px',
       
@@ -79,22 +79,7 @@ export function Projects() {
               <p>Loading projects...</p>
             )}
       </div>
-      <h2>difference</h2>
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-          gap: '30px',
-          padding: '20px',
-      
-        }}
-      >
-        {projects.length > 0 ? (
-              projects.map((project, index) => <ProjectCard2 key={index} {...project} />)
-            ) : (
-              <p>Loading projects...</p>
-            )}
-      </div>
+ 
       
         </Tab>
         <Tab

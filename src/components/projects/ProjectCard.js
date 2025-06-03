@@ -24,7 +24,7 @@ const ProjectCard = ({ id, title, category, imageUrl, onEnlarge }) => {
 
 
   return (
-    <div className='proj-cont'>
+    <div className='project-card2'>
       <div className="proj-imgbx project-card" data-aos="zoom-in" style={{ position: 'relative' }} onClick={handleCardClick}>
         <img src={imageUrl || defaultImg} alt={title} className="img-fluid" width={350} height={300} />       
         <div className={`proj-txtx ${isMobile && showOverlay ? 'show' : ''}`}>          {/*<h4>{title}</h4>

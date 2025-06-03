@@ -8,7 +8,7 @@ const ProjectCard2 = ({ category, imageUrl, title, description }) => {
   };
 
   return (
-    <div className={`project-card2 ${isExpanded ? 'expanded' : ''}`}>
+    <div className={`project-card2 ${isExpanded ? 'expanded' : ''}`} style={{ border: '2px solid blue', width: '100%' }}>
       <div className="image-container">
         <img src={imageUrl} alt="Project" />
         <div className="plus-icon">

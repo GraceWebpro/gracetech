@@ -34,6 +34,57 @@ const Courses = ({ currentUser, purchasedVideos }) => {
 
   // Fetch initial page of courses
   useEffect(() => {
+    const fetchCourses = async (loadMore = false) => {
+        setLoading(true);
+        setError(null);
+  
+      const coursesCollection = collection(db, "courses");
+      
+      // Build the query
+      let q = query(coursesCollection);
+
+        // If one or more categories are selected, filter movies by category
+      if (selectedTopic.length > 0) {
+        q = query(q, where("title", "array-contains-any", selectedTopic));
+      }
+  
+        try {
+          let baseQuery = collection(db, 'courses');
+          let q;
+    
+          
+      
+          if (selectedTopic.length > 0 && selectedTopic.length <= 10) {
+            // Filtered by selected topics
+            q = query(
+              baseQuery,
+              where("topic", "in", selectedTopic),
+              orderBy("createdAt", "desc"),
+              ...(loadMore && lastVisible ? [startAfter(lastVisible)] : []),
+              limit(PAGE_SIZE)
+            );
+          } else {
+            // Show all courses
+            q = query(
+              baseQuery,
+              orderBy("createdAt", "desc"),
+              ...(loadMore && lastVisible ? [startAfter(lastVisible)] : []),
+              limit(PAGE_SIZE)
+            );
+          }
+      
+          const snapshot = await getDocs(q);
+          const coursesList = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+          setLastVisible(snapshot.docs[snapshot.docs.length - 1]);
+          setCourses(prev => loadMore ? [...prev, ...coursesList] : coursesList);
+          setLoading(false);
+        } catch (err) {
+          console.error("Error loading courses:", err);
+          setError("No matching course available");
+          setLoading(false);
+        }
+      };
+      
     fetchCourses();
   }, []);
 
@@ -44,43 +95,7 @@ const Courses = ({ currentUser, purchasedVideos }) => {
     }
   }, [topicFromURL]); // Dependency array added for categoryFromURL
 
-
-  const fetchCourses = async (loadMore = false) => {
-    setLoading(true);
   
-    try {
-      let baseQuery = collection(db, 'courses');
-      let q;
-  
-      // Build query dynamically
-      if (selectedTopic.length === 1) {
-        q = query(
-          baseQuery,
-          where("topic", "==", selectedTopic[0]),
-          orderBy("createdAt", "desc"),
-          ...(loadMore && lastVisible ? [startAfter(lastVisible)] : []),
-          limit(PAGE_SIZE)
-        );
-      } else {
-        q = query(
-          baseQuery,
-          orderBy("createdAt", "desc"),
-          ...(loadMore && lastVisible ? [startAfter(lastVisible)] : []),
-          limit(PAGE_SIZE)
-        );
-      }
-  
-      const snapshot = await getDocs(q);
-      const coursesList = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      setLastVisible(snapshot.docs[snapshot.docs.length - 1]);
-      setCourses(prev => loadMore ? [...prev, ...coursesList] : coursesList);
-      setLoading(false);
-    } catch (err) {
-      console.error("Error loading courses:", err);
-      setError("Failed to load courses");
-      setLoading(false);
-    }
-  };
   
 
   // Handle category checkbox change
@@ -92,9 +107,7 @@ const Courses = ({ currentUser, purchasedVideos }) => {
     );
   };
   
-  useEffect(() => {
-    fetchCourses();
-  }, [selectedTopic]);
+ 
   
   // Filter & search logic
   useEffect(() => {
@@ -122,9 +135,14 @@ const Courses = ({ currentUser, purchasedVideos }) => {
     return purchasedVideos.includes(course.id);
   };
 
+  const clearFilters = () => {
+  setSelectedTopic([]);
+};
+
+
   return (
     <div style={{ maxWidth: 1200, margin: '8rem auto', padding: '0 1rem' }}>
-      <h1>Our Tutorials</h1>
+    
 
 
       <div className="movie-hero-section">
@@ -152,27 +170,32 @@ const Courses = ({ currentUser, purchasedVideos }) => {
         />
 
         <div className="template-actions">
-        <button className="filter-toggle" onClick={() => setShowFilters(!showFilters)}>
-          {showFilters ? 'Hide Filters' : 'Show Filters'}
-        </button>
+<div style={{ display: 'flex', gap: '20px'}}>
+            <button className="filter-toggle" onClick={() => setShowFilters(!showFilters)}>
+            {showFilters ? 'Hide Filters' : 'Show Filters'}
+            </button>
 
-        <div className="sort-dropdown">
-          <label htmlFor="sort-select">Sort by:</label>
-        <select value={filterTopic} onChange={e => setFilterTopic(e.target.value)} style={{ padding: 8 }}>
-          <option value="">All Topics</option>
-          {topics.map(t => <option key={t} value={t}>{t}</option>)}
-        </select>
+            <button onClick={clearFilters} className="filter-toggle"   disabled={selectedTopic.length === 0}
+>
+            Clear Filters
+            </button>
+</div>
+            <div className="sort-dropdown">
+            <label htmlFor="sort-select">Sort by:</label>
+            <select value={filterTopic} onChange={e => setFilterTopic(e.target.value)} style={{ padding: 8 }}>
+            <option value="">All Topics</option>
+            {topics.map(t => <option key={t} value={t}>{t}</option>)}
+            </select>
 
-        <select value={filterDifficulty} onChange={e => setFilterDifficulty(e.target.value)} style={{ padding: 8 }}>
-          <option value="">All Difficulty</option>
-          {difficulties.map(d => <option key={d} value={d}>{d}</option>)}
-        </select>
+            <select value={filterDifficulty} onChange={e => setFilterDifficulty(e.target.value)} style={{ padding: 8 }}>
+            <option value="">All Difficulty</option>
+            {difficulties.map(d => <option key={d} value={d}>{d}</option>)}
+            </select>
 
-        <select value={filterFormat} onChange={e => setFilterFormat(e.target.value)} style={{ padding: 8 }}>
-          <option value="">All Formats</option>
-          {formats.map(f => <option key={f} value={f}>{f}</option>)}
-        </select>
-
+            <select value={filterFormat} onChange={e => setFilterFormat(e.target.value)} style={{ padding: 8 }}>
+            <option value="">All Formats</option>
+            {formats.map(f => <option key={f} value={f}>{f}</option>)}
+            </select>
         </div>
       </div>
 
@@ -183,97 +206,99 @@ const Courses = ({ currentUser, purchasedVideos }) => {
 
       <div className={`template-content ${showFilters ? 'with-filters' : 'no-filters'}`}>
       {showFilters && (
-        <aside className="filters" style={{ textAlign: 'left' }}>
-            <h3>Topics</h3>
+        <aside className="filter" style={{ textAlign: 'left' }}>
+            <h4 style={{ marginTop: '10px'}}>Categories</h4>
             {topics.map((topic) => (
-            <label key={topic} className="category-item">
-                <input
-                type="checkbox"
-                checked={selectedTopic.includes(topic)}
-                onChange={() => handleCategoryChange(topic)}
-                />
-                <span>{topic}</span>
-            </label>
+                <div style={{ display: 'flex', }}>
+                    <label key={topic} className="category-item">
+                        <input
+                        type="checkbox"
+                        checked={selectedTopic.includes(topic)}
+                        onChange={() => handleCategoryChange(topic)}
+                        />
+                        <span style={{ marginTop: '-10px' }}>{topic}</span>
+                    </label>
+            </div>
             ))}
         </aside>
         )}
 
-<div className="movie-grid">
-        {loading ? (
-          <p>Loading...</p>
-        ) : error ? (
-          <p>{error}</p>
-        ) : filteredCourses.length > 0 ? (
-          filteredCourses.map((course, index) => (
-            <div key={course.id} style={{ border: '1px solid #ccc', borderRadius: 6, overflow: 'hidden', boxShadow: '0 2px 5px rgba(0,0,0,0.1)' }}>
-            <img 
-              src={course.thumbnailUrl} 
-              alt={`${course.title} thumbnail`} 
-              style={{ width: '100%', height: 160, objectFit: 'cover' }} 
-            />
-            <div style={{ padding: 12 }}>
-              <h3>{course.title}</h3>
-              <p style={{ fontSize: 14, color: '#666' }}>{course.description.substring(0, 80)}...</p>
-              <p><b>Topic:</b> {course.topic} | <b>Difficulty:</b> {course.difficulty}</p>
-              <p><b>Format:</b> {course.format} | {course.isFree ? <span style={{ color: 'green' }}>Free</span> : <span style={{ color: 'red' }}>Paid</span>}</p>
+        <div className="movie-grid" style={{ marginTop: '10px', padding: '15px'}}>
+                {loading ? (
+                <p>Loading...</p>
+                ) : error ? (
+                <p>{error}</p>
+                ) : filteredCourses.length > 0 ? (
+                filteredCourses.map((course, index) => (
+                    <div key={course.id} style={{ border: '1px solid #ccc', borderRadius: 6, overflow: 'hidden', boxShadow: '0 2px 5px rgba(0,0,0,0.1)' }}>
+                    <img 
+                    src={course.thumbnailUrl} 
+                    alt={`${course.title} thumbnail`} 
+                    style={{ width: '100%', height: 160, objectFit: 'cover' }} 
+                    />
+                    <div style={{ padding: 12 }}>
+                    <h3>{course.title}</h3>
+                    <p style={{ fontSize: 14, color: '#666' }}>{course.description.substring(0, 80)}...</p>
+                    <p><b>Topic:</b> {course.topic} | <b>Difficulty:</b> {course.difficulty}</p>
+                    <p><b>Format:</b> {course.format} | {course.isFree ? <span style={{ color: 'green' }}>Free</span> : <span style={{ color: 'red' }}>Paid</span>}</p>
 
-              {/* Author Info */}
-              {course.author && (
-                <div style={{ marginTop: 10, fontSize: 12, color: '#555' }}>
-                  <img src={course.author.avatarUrl} alt={course.author.name} style={{ width: 30, height: 30, borderRadius: '50%', marginRight: 6, verticalAlign: 'middle' }} />
-                  <span>{course.author.name} - {course.author.bio}</span>
+                    {/* Author Info */}
+                    {course.author && (
+                        <div style={{ marginTop: 10, fontSize: 12, color: '#555' }}>
+                        <img src={course.author.avatarUrl} alt={course.author.name} style={{ width: 30, height: 30, borderRadius: '50%', marginRight: 6, verticalAlign: 'middle' }} />
+                        <span>{course.author.name} - {course.author.bio}</span>
+                        </div>
+                    )}
+
+                    {/* Access control and video modal trigger */}
+                    <button
+                            onClick={() => {
+                                if (course.isFree) {
+                                setModalCourse(course);
+                                } else if (!currentUser) {
+                                alert('Please log in to watch this tutorial.');
+                                // You can redirect to login page if needed
+                                // navigate('/login');
+                                } else if (userHasAccess(course)) {
+                                setModalCourse(course);
+                                } else {
+                                alert('Please purchase this tutorial to watch.');
+                                }
+                            }}
+                            style={{
+                                marginTop: 10,
+                                padding: '8px 12px',
+                                cursor: course.isFree || (currentUser && userHasAccess(course)) ? 'pointer' : 'not-allowed',
+                                backgroundColor: course.isFree || (currentUser && userHasAccess(course)) ? '#007bff' : '#ccc',
+                                color: '#fff',
+                                border: 'none',
+                                borderRadius: 4
+                            }}
+                            >
+                            {course.isFree || (currentUser && userHasAccess(course)) ? 'Watch Tutorial' : 'Buy to Watch'}
+                            </button>
+
+
+                    {/* Mark completed */}
+                    {currentUser && (
+                        <div style={{ marginTop: 10 }}>
+                        <label>
+                            <input 
+                            type="checkbox" 
+                            checked={!!completedCourses[course.id]} 
+                            onChange={() => handleMarkComplete(course.id)} 
+                            /> Mark as completed
+                        </label>
+                        </div>
+                    )}
+                    </div>
                 </div>
-              )}
-
-              {/* Access control and video modal trigger */}
-              <button
-                    onClick={() => {
-                        if (course.isFree) {
-                        setModalCourse(course);
-                        } else if (!currentUser) {
-                        alert('Please log in to watch this tutorial.');
-                        // You can redirect to login page if needed
-                        // navigate('/login');
-                        } else if (userHasAccess(course)) {
-                        setModalCourse(course);
-                        } else {
-                        alert('Please purchase this tutorial to watch.');
-                        }
-                    }}
-                    style={{
-                        marginTop: 10,
-                        padding: '8px 12px',
-                        cursor: course.isFree || (currentUser && userHasAccess(course)) ? 'pointer' : 'not-allowed',
-                        backgroundColor: course.isFree || (currentUser && userHasAccess(course)) ? '#007bff' : '#ccc',
-                        color: '#fff',
-                        border: 'none',
-                        borderRadius: 4
-                    }}
-                    >
-                    {course.isFree || (currentUser && userHasAccess(course)) ? 'Watch Tutorial' : 'Buy to Watch'}
-                    </button>
-
-
-              {/* Mark completed */}
-              {currentUser && (
-                <div style={{ marginTop: 10 }}>
-                  <label>
-                    <input 
-                      type="checkbox" 
-                      checked={!!completedCourses[course.id]} 
-                      onChange={() => handleMarkComplete(course.id)} 
-                    /> Mark as completed
-                  </label>
-                </div>
-              )}
-            </div>
-          </div>
-            
-          ))
-        ) : (
-          <p>No movies found.</p>
-        )}
-      </div>
+                    
+                ))
+                ) : (
+                <p>No movies found.</p>
+                )}
+        </div>
 
 
       </div>
@@ -348,12 +373,12 @@ const Courses = ({ currentUser, purchasedVideos }) => {
             </div>
           </div>
         ))}
-      </div>
+      </div> 
 
       {/* Load More */}
       {lastVisible && (
         <div style={{ textAlign: 'center', marginTop: 20 }}>
-          <button onClick={() => fetchCourses(true)} disabled={loading}>
+          <button disabled={loading}>
             {loading ? 'Loading...' : 'Load More Tutorials'}
           </button>
         </div>

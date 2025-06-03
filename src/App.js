@@ -28,6 +28,7 @@ import TemplateDetails from "./components/template/TemplateDetail";
 import Login from './components/userAuth/Login'
 import TemplateList from './components/template/TemplatesList/TemplateList'
 import Courses from "./components/courses/Courses";
+import NavbarN from "./components/Navbar";
 
 function App() {
   const location = useLocation();
@@ -42,12 +43,12 @@ function App() {
     <ScrollToTop />
       {/*<MouseCursor />*/}
 
-      {!isAdminPage && (isTemplatePage ? <TemplateNavbar /> : <Navbar />)}
+      {!isAdminPage && (isTemplatePage ? <TemplateNavbar /> : <NavbarN />)}
 
       <Routes>
           {/* Public routes */}
           <Route path="/" element={<Homepage />} />
-          <Route path="/projects" element={<Projects />} />
+          <Route path="/portfolio" element={<Projects />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/templates" element={<Template />} />
           <Route path="/courses" element={<Courses />} />

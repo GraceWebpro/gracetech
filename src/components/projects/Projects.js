@@ -9,6 +9,7 @@ import TrackVisibility from 'react-on-screen';
 import { Link } from 'react-router-dom';
 import { BsArrowRight } from "react-icons/bs";
 import './Project.css';
+import ProjectContact from "../contact/ProjectContact";
 
 export function Projects() {
   const [projects, setProjects] = useState([]);
@@ -54,7 +55,7 @@ export function Projects() {
         )}
       </TrackVisibility>
 
-      <TabsPanel>
+      <TabsPanel style={{ paddingBottom: '40px'}}>
         <Tab title="All Tab" subtitle="All Recent projects" icon="far fa-address-card">
           <div style={{
             display: 'grid',
@@ -71,22 +72,6 @@ export function Projects() {
             )}
           </div>
 
-          <h2>difference</h2>
-
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-            gap: '30px',
-            padding: '20px',
-          }}>
-            {projects.length > 0 ? (
-              projects.map((project, index) => (
-                <ProjectCard2 key={index} {...project} />
-              ))
-            ) : (
-              <p>Loading projects...</p>
-            )}
-          </div>
         </Tab>
 
         <Tab title="UI Tab" subtitle="All UI Design Projects" icon="fas fa-hourglass-start">
@@ -136,10 +121,7 @@ export function Projects() {
         </Tab>
       </TabsPanel>
 
-      <Link to='/projects' className="click-more-btn">
-        <span>Click More</span>
-        <BsArrowRight />
-      </Link>
+    <ProjectContact />
 
       {selectedProject && (
         <div className="modal-overlay" onClick={() => setSelectedProject(null)}>

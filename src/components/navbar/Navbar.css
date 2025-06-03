@@ -43,8 +43,9 @@ nav {
   font-family: var(--body-font);
 }
    .nav__logo img {
-     width: 30px;
-     height: 30px;
+     width: 90px;
+     height: 90px;
+     margin-top: 5px;
    }
 .nav__logo .logo-txt {
   background-image: -webkit-gradient(linear, left top, right top, from(var(--tj-color-theme-primary)), to(var(--tj-color-theme-secondary)));
@@ -54,6 +55,7 @@ nav {
   -webkit-text-fill-color: transparent;
   font-weight: var(--tj-fw-bold);
   font-size: 30px;
+  margin-left: -60px;
   font-weight: 700;
   align-self: center;
   font-family: "Merriweather", sans-serif;
@@ -64,7 +66,7 @@ nav {
     color: var(--title-color);
     font-weight: var(--font-semi-bold);
     transition: color 0.4s;
-    font-size: 15px !important;
+    font-size: 15px !important; 
     
    }
 
@@ -278,6 +280,13 @@ nav {
   }
   .nav__logo .logo-txt { 
     font-size: 20px;
+    margin-left: -50px;
+  }
+
+  .nav__logo img {
+    width: 75px;
+    height: 75px;
+   
   }
 
 }
@@ -285,7 +294,7 @@ nav {
 .info-panel {
   position: fixed;
   top: 0;
-  right: -300px; /* Hidden by default */
+  right: -350px; /* Hidden by default */
   width: 320px;
   height: 100vh;
   background: #000;
@@ -503,6 +512,18 @@ nav {
   .container {
     padding: 10px;
   }
+
+  .nav__logo .logo-txt { 
+    font-size: 19px;
+    margin-left: -43px;
+  }
+
+  .nav__logo img {
+    width: 65px;
+    height: 65px;
+   
+  }
+
 }
 
 @media (max-width: 520px) {

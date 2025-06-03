@@ -30,16 +30,8 @@
   }
 
   /* tab css */
-  .tabs {
-   /* width: 50%;
-    margin-top: 40px !important;
-    margin: 0 auto;
-    border-radius: 50px;
-    background-color: #2d2d38;
-    overflow: hidden;
-    display: flex;
-    cursor: pointer;*/
-    display: flex;
+.tabs {
+  display: flex;
   width: 50%;
   margin: 40px auto 0;
   border-radius: 50px;
@@ -105,9 +97,8 @@
   
 .subtitle {
     color: #888888;
-    /*font-family: "Kaushan Script", cursive;*/
 }
-
+/*
 .proj-cont {
   display: flex;
     flex-direction: column;
@@ -116,8 +107,8 @@
     width: 100%;
     transition: transform 0.3s ease-in-out;
   
-}
-/* project card */
+}*/
+/* project card *
 .project-card {
   display: flex;
     flex-direction: column;
@@ -130,14 +121,14 @@
     text-align: center;
     transition: transform 0.3s ease-in-out;
     overflow: hidden;
-    position: relative; /* For absolute positioning of the plus */
+    position: relative; /* For absolute positioning of the plus *
   }
-  
+  *
   .project-card img {
    
     width: 100%;
   height: 100%;
-  object-fit: cover; /* ✅ prevents cut-off or stretching */
+  object-fit: cover; /* ✅ prevents cut-off or stretching *
   border-radius: 8px;
   transition: transform 0.3s ease;
   }
@@ -145,7 +136,7 @@
   .proj-cont:hover {
     transform: scale(1.05);
   }
-  
+  */
 .project h2 {
     text-align: center;
     color: #fff;
@@ -167,12 +158,12 @@
 }
   
 
-  
+
 .proj-imgbx {
      position: relative;
-  width: 100%;
-  max-width: 400px;
-  aspect-ratio: 4 / 3; /* ✅ alternative to fixed height */
+ width: 100%;
+  max-width: 1200px;
+ aspect-ratio: 4 / 3; /* ✅ alternative to fixed height */
   overflow: hidden;
   margin: 20px auto;
   display: block;
@@ -311,7 +302,7 @@
   }
 
   /* proj card 2 */
-  .project-card2 {
+  .project-card2, .project-card {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -326,7 +317,7 @@
     position: relative; /* For absolute positioning of the plus icon */
   }
   
-  .project-card2 img {
+  .project-card2, .project-card img {
     width: 100%;
     height: auto;
     border-radius: 8px;
