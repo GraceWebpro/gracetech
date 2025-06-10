@@ -29,6 +29,7 @@ import Login from './components/userAuth/Login'
 import TemplateList from './components/template/TemplatesList/TemplateList'
 import Courses from "./components/courses/Courses";
 import NavbarN from "./components/Navbar";
+import BookingPage from "./components/book/Booking";
 
 function App() {
   const location = useLocation();
@@ -56,6 +57,7 @@ function App() {
           <Route path="/get-a-quote" element={<GetAQuote />} />
           <Route path="/blog" element={<ModernBlogPage />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/book-a-call" element={<BookingPage />} />
 
           <Route path="/thank-you" element={<ThankYou />} />
           <Route path="/project-details/:id" element={<ProjectDetails />} />

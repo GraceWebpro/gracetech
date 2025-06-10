@@ -10,9 +10,9 @@ import { AiOutlineClose } from "react-icons/ai";
 
 const menuItems = [
   { name: 'Home', path: '/' },
+  { name: 'About', path: '#about' },
   { name: 'Services', path: '#services' },
   { name: 'Portfolio', path: '/portfolio' },
-  { name: 'About', path: '#about' },
   {
     name: 'Resources',
     dropdown: true,

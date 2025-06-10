@@ -53,7 +53,6 @@ const Homepage = () => {
             <WorkingProcess />
             <Testimonial />
             <HomeBlog />
-            <HomeContact />
         </div>
     )
 };

@@ -207,7 +207,7 @@
 }
 
 
-.proj-imgbx:hover .proj-txtx {
+.proj-imgbx:hover .proj-txtx .icon-div {
     top: 50%;
     opacity: 1;
     pointer-events: auto; /* allow interaction on hover */
@@ -265,8 +265,12 @@
   color: #fff;
 }
 
-.proj-cont:hover .icon-div {
+.icon-div:hover {
   background: #0059ff;
+
+}
+.proj-imgbx:hover .icon-div {
+  background: #0059ff !important;
 }
 
 .proj-det-btn {
