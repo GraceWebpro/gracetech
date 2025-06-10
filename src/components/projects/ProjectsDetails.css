@@ -86,6 +86,10 @@
   .gallery img:hover {
     transform: scale(1.1);
   }
+
+  .l-btn {
+    cursor: pointer;
+  }
   
   /* Links Section (GitHub and Demo) */
   .project-links {

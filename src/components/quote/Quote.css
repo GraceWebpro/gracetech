@@ -172,9 +172,9 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        padding: 3rem 1rem;
+        padding: 8rem 1rem;
         min-height: 100vh;
-        background: linear-gradient(to right, #f8fafc, #eef2f7);
+        background: #191919;
         font-family: 'Segoe UI', sans-serif;
         box-sizing: border-box;
       }
@@ -216,7 +216,7 @@
   
   .next-steps li {
     font-size: 1rem;
-    color: #444;
+    color: #000;
     margin-bottom: 0.5rem;
   }
   
@@ -226,6 +226,13 @@
     gap: 1rem;
     margin-bottom: 2rem;
     flex-wrap: wrap;
+  }
+
+  .cta-section {
+    color: #000;
+    text-align: left;
+    margin-left: 25px;
+    margin-bottom: 30px;
   }
   
   .btn-primary,
@@ -261,7 +268,7 @@
   .footer-links {
     margin-top: 1rem;
     font-size: 0.95rem;
-    color: #777;
+    color: #000;
   }
   
   .footer-links .socials {

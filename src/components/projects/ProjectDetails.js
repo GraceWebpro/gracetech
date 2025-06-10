@@ -107,12 +107,7 @@ const ProjectDetails = () => {
       <h3 style={{ fontSize: '17px', color: '#888', fontWeight: '400', lineHeight: '1.5' }}><strong>Start Date:</strong> January 2023</h3>
       <h3 style={{ fontSize: '17px', color: '#888', fontWeight: '400', lineHeight: '1.5' }}><strong>End Date:</strong> June 2023</h3>
 
-      <div className="project-l">
-        <Link to={`/project-details/${project.id}`} className="l-btn">
-          View Full Project
-        </Link>
-      </div>
-
+      
       {/* Project Links */}
       <div className="project-l">
         <a href={project.demoLink} target="_blank" rel="noopener noreferrer" className="l-btn">

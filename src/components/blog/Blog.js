@@ -37,9 +37,9 @@ const ModernBlogPage = () => {
               <img src={post.imageUrl} alt={post.title} className="modern-img" />
             </div>
             <div className="modern-content">
-              <p className="modern-date">{post.date}</p>
               <h2 className="modern-title">{post.title}</h2>
               <p className="modern-excerpt">{post.description}</p>
+              <p className="modern-date">{post.date}</p>
               <Link to={`/blog/${post.id}`} key={post.id}>
                 <button className="modern-btn">Read More →</button>
               </Link>            

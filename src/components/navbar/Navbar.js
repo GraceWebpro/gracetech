@@ -104,7 +104,7 @@ const Navbar = () => {
                   </RouterLink>
                 ): item === 'Courses' ? (
                   <RouterLink to="/courses" onClick={closeNavbar} className="nav__link">
-                    Blog
+                    Courses
                   </RouterLink>
                 )  : isHomePage ? (
                   <ScrollLink

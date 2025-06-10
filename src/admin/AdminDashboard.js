@@ -11,6 +11,7 @@ import "./Admin.css";
 import UploadBlog from "./UploadBlog";
 import UploadTemplate from "./UploadTemplate";
 import UploadCourses from "./UploadCourses";
+import UploadContent from "./Upload";
 
 function Dashboard() {
   const [role, setRole] = useState(null); // State to store the user's role
@@ -93,10 +94,8 @@ function Dashboard() {
             {user && <p className="admin-email">Welcome, {user.email}</p>}
             <ul>
               <li onClick={() => setActiveTab("dashboard")} className={activeTab === "dashboard" ? "active" : ""}>📊 Dashboard</li>
-              <li onClick={() => setActiveTab("upload")} className={activeTab === "upload" ? "active" : ""}>📤 Upload Project</li>
-              <li onClick={() => setActiveTab("uploadTemplate")} className={activeTab === "uploadTemplate" ? "active" : ""}>📤 Upload Template</li>
+              <li onClick={() => setActiveTab("upload")} className={activeTab === "upload" ? "active" : ""}>📤 Upload</li>
               <li onClick={() => setActiveTab("uploadBlog")} className={activeTab === "uploadBlog" ? "active" : ""}>📤 Upload Blog</li>
-              <li onClick={() => setActiveTab("uploadCourse")} className={activeTab === "uploadCourse" ? "active" : ""}>✏️ Upload Course</li>
 
               <li onClick={() => setActiveTab("edit")} className={activeTab === "edit" ? "active" : ""}>✏️ Edit Project</li>
               <li onClick={() => setActiveTab("delete")} className={activeTab === "delete" ? "active" : ""}>🗑️ Delete Project</li>
@@ -138,11 +137,8 @@ function Dashboard() {
             </table>
           </div>
         )}
-        {activeTab === "upload" && <UploadProject />}
+        {activeTab === "upload" && <UploadContent />}
         {activeTab === "uploadBlog" && <UploadBlog />}
-        {activeTab === "uploadTemplate" && <UploadTemplate />}
-        {activeTab === "uploadCourse" && <UploadCourses />}
-
         {activeTab === "edit" && <EditProject projects={projects} />} {/* Pass projects */}
         {activeTab === "delete" && <DeleteProject projects={projects} />} {/* Pass projects */}
         {activeTab === "settings" && <UserSettings />}

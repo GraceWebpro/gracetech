@@ -64,6 +64,8 @@ export function Projects() {
           icon="far fa-address-card"
         >
           <div
+                    data-aos="zoom-in"
+
         style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 2fr))',
@@ -143,34 +145,77 @@ export function Projects() {
       {/* Key Features */}
       <h4>Key Features</h4>
       <ul className="feature-list">
-        <li><i className="feature-icon">✔</i> Responsive Design</li>
-        <li><i className="feature-icon">✔</i> User-Friendly Interface</li>
-        <li><i className="feature-icon">✔</i> Fast Performance</li>
-        <li><i className="feature-icon">✔</i> Scalable Architecture</li>
+        {selectedProject.keyFeatures && selectedProject.keyFeatures.map((feature, index) => (
+          <li key={index}>
+            <i className="feature-icon">✔</i> {feature}
+          </li>
+        ))}
       </ul>
+
 
       {/* Technology Stack */}
       <h4>Technology Stack</h4>
       <div className="tech-stack">
-        <span className="tech-icon">React</span>
-        <span className="tech-icon">Node.js</span>
-        <span className="tech-icon">MongoDB</span>
-        <span className="tech-icon">Express</span>
+        {selectedProject.technologyStacks && selectedProject.technologyStacks.map((tech, index) => (
+          <span key={index} className="tech-icon">{tech}</span>
+        ))}
       </div>
 
       {/* User Benefits */}
       <h4>User Benefits</h4>
-      <h3 style={{ fontSize: '17px', color: '#888', fontWeight: '400', lineHeight: '1.5' }}>Users can easily interact with the platform, improving overall engagement. The system allows users to access content at their fingertips and receive updates in real-time, leading to increased user satisfaction and retention.</h3>
+              <ol style={{ paddingLeft: '20px' }}>
+                {selectedProject.userBenefits.map((benefits, index) => (
+                  <li
+                    key={`benefits-${index}`}
+                    style={{
+                      fontSize: '17px',
+                      color: '#888',
+                      fontWeight: '400',
+                      lineHeight: '1.5',
+                      listStyleType: 'decimal',
+                      marginBottom: '10px'
+                    }}
+                  >
+                  {benefits}
+                  </li>
+                ))}
+              </ol>
+
 
       {/* Challenges and Solutions */}
       <h4>Challenges & Solutions</h4>
-      <h3 style={{ fontSize: '17px', color: '#888', fontWeight: '400', lineHeight: '1.5' }}><strong>Challenge:</strong> Ensuring fast performance while maintaining scalability.</h3>
-      <h3 style={{ fontSize: '17px', color: '#888', fontWeight: '400', lineHeight: '1.5' }}><strong>Solution:</strong> Implemented efficient caching strategies and a modular architecture, enabling the system to handle heavy traffic seamlessly.</h3>
+        <strong>Challenge:</strong>
+        <ul>
+        {selectedProject.challenges?.map((challenge, index) => (
+          <li
+            key={`challenge-${index}`}
+            style={{ fontSize: '17px', color: '#888', fontWeight: '400', lineHeight: '1.5', marginLeft: '20px' }}
+          >
+            {challenge}
+          </li>
+        ))}
+        </ul>
+          <br />
+        <strong>Solution:</strong>
+        <ul>
+        {selectedProject.solutions?.map((solution, index) => (
+          <li
+            key={`solution-${index}`}
+            style={{ fontSize: '17px', color: '#888', fontWeight: '400', lineHeight: '1.5', marginLeft: '20px' }}
+          >
+            {solution}
+          </li>
+        ))}
+        </ul>
 
       {/* Project Timeline */}
       <h4>Project Timeline</h4>
-      <h3 style={{ fontSize: '17px', color: '#888', fontWeight: '400', lineHeight: '1.5' }}><strong>Start Date:</strong> January 2023</h3>
-      <h3 style={{ fontSize: '17px', color: '#888', fontWeight: '400', lineHeight: '1.5' }}><strong>End Date:</strong> June 2023</h3>
+      <h3 style={{ fontSize: '17px', color: '#888', fontWeight: '400', lineHeight: '1.5' }}>
+        <strong>Start Date:</strong> {selectedProject.projectStartDate}
+      </h3>
+      <h3 style={{ fontSize: '17px', color: '#888', fontWeight: '400', lineHeight: '1.5' }}>
+        <strong>End Date:</strong> {selectedProject.projectEndDate}
+      </h3>
 
       <div className="project-l">
         <Link to={`/project-details/${selectedProject.id}`} className="l-btn">

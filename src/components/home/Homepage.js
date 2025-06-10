@@ -21,16 +21,20 @@ import HeroSection from './Hero';
 
 const Homepage = () => {
     const location = useLocation();
-
-  useEffect(() => {
-    if (location.state?.scrollTo) {
-      scroller.scrollTo(location.state.scrollTo, {
-        smooth: true,
-        duration: 500,
-        offset: -70,
-      });
-    }
-  }, [location]);
+    useEffect(() => {
+      const params = new URLSearchParams(location.search);
+      const scrollTo = params.get('scrollTo');
+  
+      if (scrollTo) {
+        // Delay to ensure the section is mounted
+        setTimeout(() => {
+          const targetElement = document.getElementById(scrollTo);
+          if (targetElement) {
+            targetElement.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 100); // small delay for DOM to fully render
+      }
+    }, [location]);
 
     useEffect(() => {
         AOS.init({ duration: 1000 }); // Initialize AOS

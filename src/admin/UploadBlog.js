@@ -101,7 +101,7 @@ const UploadBlog = () => {
   return (
     <div className="upload-container">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <h2>{isEditMode ? 'Edit Blog Post' : 'Upload a Blog Post'}</h2>
+        <h2 className='submit-btnh' >{isEditMode ? 'Edit Blog Post' : 'Upload a Blog Post'}</h2>
         <button
           type="button"
           onClick={() => {

@@ -7,6 +7,8 @@ import defaultImg from '../../assets/dummyImg.jpg'
 import { IoIosArrowForward } from "react-icons/io";
 import FAQ from './FAQ';
 import HomeContact from '../contact/HomeContact';
+import { Link } from 'react-router-dom';
+
 
 const ServiceDetailsPage = () => {
   const { id } = useParams();
@@ -27,20 +29,22 @@ const ServiceDetailsPage = () => {
   return (
     <div className='serviceDetails'>
       <h1>{serviceDetails.type}</h1>
-      <p className='serv-script'>Home / <span>{serviceDetails.type}</span></p>
+      <p className='serv-script'>Home / <span style={{ color: '#20d9a1' }}>{serviceDetails.type}</span></p>
       <div className='serv-det-flex'>
         <div className='serv-det-left'>
-          <img src={defaultImg} alt={serviceDetails.name} />
+          <img src={serviceDetails.image} alt={serviceDetails.name} />
           <div className='serv-left-type'>
             <h3>About {serviceDetails.type}</h3>
-            <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, numquam eius modi tempora incidunt ut labore et dolore magnam aliquam
-
-            Quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem fugiat quo voluptas nulla the Lorem Ipsum generators on the Internet tend to repeat predefined chunks</p>
+            <p>{serviceDetails.about}</p>
           </div>
           
           <div>
-            <h3>Specialization & Working Process</h3>
-            <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a you need to be sure there isn't anything embarrassing hidden in the middle of text. All the generators on the Internet tend to repeat predefined chunks as necessary, Making this the first true generator on the Internet. It uses a dictionary of over combined with a handful of structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from injected humour, or non-characteristic words etc.</p>
+            <h3 style={{ marginBottom: '20px'}}>Specialization & Working Process</h3>
+            <ol>
+              {serviceDetails.process.map((step, index) => (
+                <li key={index} style={{ marginBottom: '30px', marginLeft: '20px' }}><strong>{step.split('–')[0]}</strong> – {step.split('–')[1]}</li>
+              ))}
+            </ol>
           </div>
 
           <a
@@ -68,31 +72,49 @@ const ServiceDetailsPage = () => {
         <div className='serv-det-right'>
           <div className='touch-right serv-touch'>
             <h2>Service List</h2>
+            <Link to='/services/packaging'>
+              <div className='touch-social serv-social'>
+              
+                  <span>Packaging Design</span>
+                  <IoIosArrowForward className='touch-icon'/>
+              </div>
+              </Link>
+              <Link to='/services/branding'>
 
               <div className='touch-social serv-social'>
-                  <span>Illustration Design</span>
+                  <span>Business Branding</span>
                   <IoIosArrowForward className='touch-icon'/>
               </div>
+              </Link>
+              <Link to='/services/ui-ux-design'>
+
               <div className='touch-social serv-social'>
-                  <span>Branding Business</span>
+                  <span>UI/UX Design</span>
                   <IoIosArrowForward className='touch-icon'/>
               </div>
+              </Link>
+              <Link to='/services/web-development'>
+
               <div className='touch-social serv-social'>
-                  <span>Web UI/UX Design</span>
+                  <span>Web Developement</span>
                   <IoIosArrowForward className='touch-icon'/>
               </div>
+              </Link>
+              <Link to='/services/seo'>
+
               <div className='touch-social serv-social'>
-                  <span>Application Design</span>
+                  <span>SEO Optimization</span>
                   <IoIosArrowForward className='touch-icon'/>
               </div>
+              </Link>
+              <Link to='/services/social-media'>
+
               <div className='touch-social serv-social'>
-                  <span>Digital Marketing</span>
+                  <span>Social Media Management</span>
                   <IoIosArrowForward className='touch-icon'/>
               </div>
-              <div className='touch-social serv-social'>
-                  <span>Web Development</span>
-                  <IoIosArrowForward className='touch-icon'/>
-              </div>
+              </Link>
+
               
           </div>
           <div className='serv-cont-div'>

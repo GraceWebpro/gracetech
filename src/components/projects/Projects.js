@@ -148,40 +148,89 @@ export function Projects() {
               <h3>{selectedProject.title}</h3>
               <p>{selectedProject.description}</p>
 
+                
+              {/* Key Features */}
               <h4>Key Features</h4>
               <ul className="feature-list">
-                <li>✔ Responsive Design</li>
-                <li>✔ User-Friendly Interface</li>
-                <li>✔ Fast Performance</li>
-                <li>✔ Scalable Architecture</li>
+                {selectedProject.keyFeatures && selectedProject.keyFeatures.map((feature, index) => (
+                  <li key={index}>
+                    <i className="feature-icon">✔</i> {feature}
+                  </li>
+                ))}
               </ul>
 
+
+              {/* Technology Stack */}
               <h4>Technology Stack</h4>
               <div className="tech-stack">
-                <span className="tech-icon">React</span>
-                <span className="tech-icon">Node.js</span>
-                <span className="tech-icon">MongoDB</span>
-                <span className="tech-icon">Express</span>
+                {selectedProject.technologyStacks && selectedProject.technologyStacks.map((tech, index) => (
+                  <span key={index} className="tech-icon">{tech}</span>
+                ))}
               </div>
 
+
+              {/* User Benefits */}
               <h4>User Benefits</h4>
-              <h3 className="desc">Users can easily interact with the platform, improving overall engagement. The system allows users to access content at their fingertips and receive updates in real-time.</h3>
+              <ol style={{ paddingLeft: '20px' }}>
+                {selectedProject.userBenefits.map((benefits, index) => (
+                  <li
+                    key={`benefits-${index}`}
+                    style={{
+                      fontSize: '17px',
+                      color: '#888',
+                      fontWeight: '400',
+                      lineHeight: '1.5',
+                      listStyleType: 'decimal',
+                      marginBottom: '10px'
+                    }}
+                  >
+                  {benefits}
+                  </li>
+                ))}
+              </ol>
 
+
+              {/* Challenges and Solutions */}
               <h4>Challenges & Solutions</h4>
-              <h3 className="desc"><strong>Challenge:</strong> Ensuring fast performance while maintaining scalability.</h3>
-              <h3 className="desc"><strong>Solution:</strong> Implemented caching and modular architecture for high traffic handling.</h3>
+                <strong>Challenge:</strong>
+                <ul>
+                {selectedProject.challenges?.map((challenge, index) => (
+                  <li
+                    key={`challenge-${index}`}
+                    style={{ fontSize: '17px', color: '#888', fontWeight: '400', lineHeight: '1.5', marginLeft: '20px' }}
+                  >
+                    {challenge}
+                  </li>
+                ))}
+                </ul>
+                  <br />
+                <strong>Solution:</strong>
+                <ul>
+                {selectedProject.solutions?.map((solution, index) => (
+                  <li
+                    key={`solution-${index}`}
+                    style={{ fontSize: '17px', color: '#888', fontWeight: '400', lineHeight: '1.5', marginLeft: '20px' }}
+                  >
+                    {solution}
+                  </li>
+                ))}
+                </ul>
 
+              {/* Project Timeline */}
               <h4>Project Timeline</h4>
-              <h3 className="desc"><strong>Start Date:</strong> January 2023</h3>
-              <h3 className="desc"><strong>End Date:</strong> June 2023</h3>
-
+              <h3 style={{ fontSize: '17px', color: '#888', fontWeight: '400', lineHeight: '1.5' }}>
+                <strong>Start Date:</strong> {selectedProject.projectStartDate}
+              </h3>
+              <h3 style={{ fontSize: '17px', color: '#888', fontWeight: '400', lineHeight: '1.5' }}>
+                <strong>End Date:</strong> {selectedProject.projectEndDate}
+              </h3>
               <div className="project-l">
                 <Link to={`/project-details/${selectedProject.id}`} className="l-btn">View Full Project</Link>
               </div>
 
               <div className="project-l">
                 <a href={selectedProject.demoLink} target="_blank" rel="noopener noreferrer" className="l-btn">See it in action</a>
-                <a href={selectedProject.githubLink} target="_blank" rel="noopener noreferrer" className="l-btn">View on GitHub</a>
+                <a href={selectedProject.githubLink} target="_blank" rel="noopener noreferrer" className="l-btn" aria-disabled>View on GitHub</a>
               </div>
             </div>
           </div>

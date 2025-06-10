@@ -28,9 +28,9 @@ const Pane = () => {
     switch (section) {
       case 'about':
         return (
-          <div className="pane-content">
+          <div className="pane-content" data-aos="zoom-in">
             <div className='about-display'>
-              <img src={aboutMe} alt="About Me" data-aos="zoom-in" data-aos-duration="500"/>
+              <img src={aboutMe} alt="About Me"  data-aos-duration="500"/>
               <div className='about-right'>
                 <h2 data-aos="fade-up" data-aos-duration="500">Who We Are</h2>
                 <p data-aos="fade-up" data-aos-duration="500">
@@ -88,9 +88,9 @@ const Pane = () => {
 
       case 'experience':
         return (
-          <div className="pane-content">
+          <div className="pane-content" data-aos="zoom-in">
             <div className='about-display'>
-              <img src={experience} alt="About Me" data-aos="zoom-in" data-aos-duration="500"/>
+              <img src={experience} alt="About Me"  data-aos-duration="500"/>
               <div className='about-right'>
                 <h2 data-aos="fade-up" data-aos-duration="500">Our Experience</h2>
                 <p data-aos="fade-up" data-aos-duration="500">

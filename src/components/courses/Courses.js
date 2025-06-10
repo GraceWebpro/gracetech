@@ -151,7 +151,7 @@ const Courses = ({ currentUser, purchasedVideos }) => {
           <p style={{ textAlign: 'center' }}>Browse through the courses. Use filters or sort options to find what you need!</p>
           <h4>
             {selectedTopic.length > 0
-            ? `${selectedTopic.join(", ")} Movies`
+            ? `${selectedTopic.join(", ")} Courses`
             : "All Courses"}
           </h4>
         
@@ -296,7 +296,7 @@ const Courses = ({ currentUser, purchasedVideos }) => {
                     
                 ))
                 ) : (
-                <p>No movies found.</p>
+                <p>No courses found.</p>
                 )}
         </div>
 

@@ -3,24 +3,24 @@ import './Testimonial.css';
 
 const testimonials = [
   {
-    name: "Lily Johnson",
+    name: "Sandra Johnson",
     star: "⭐⭐⭐⭐⭐",
-    sector: "Business Owner",
-    quote: "I’ve been using this service for several months now, and I can honestly say it’s been a game-changer for my business. The ease of use and the level of customization available is unmatched.",
+    sector: "Co-Founder, NovaPlay Studios",
+    quote: "The team doesn’t just build — they innovate. GraceTech suggested ideas and features we hadn’t even considered, and they made all the difference in the final product. Our audience loves the experience, and the feedback has been incredible.",
     testImg: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e"
   },
   {
-    name: "John Smith",
+    name: "Jason Miller",
     star: "⭐⭐⭐⭐⭐",
-    sector: "Marketing Specialist",
-    quote: "I was initially a little hesitant about switching to this platform, but I am so glad I did. The tool has simplified my workflow and increased my efficiency by at least 30%.",
+    sector: "Co-Founder of Urban Nest",
+    quote: "We came to them with a rough idea for our website, and they brought it to life better than we imagined. The layout, functionality, and speed are top-notch. They made the entire process seamless and stress-free.",
     testImg: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d"
   },
   {
-    name: "Emily Rose",
+    name: "Samir Verma",
     star: "⭐⭐⭐⭐⭐",
-    sector: "Freelance Graphic Designer",
-    quote: "As a freelancer, time management is everything, and this service has helped me manage my projects better than any tool I’ve used before. The functionality is robust and versatile, and the performance is consistent.",
+    sector: "Founder, Indie Game Studio",
+    quote: "GraceTech brought our vision to life. We couldn't have asked for a better development partner! Their communication was clear, timelines were met, and the end result exceeded all expectations.",
     testImg: "https://images.unsplash.com/photo-1544723795-3fb6469f5b39"
   },
 ];

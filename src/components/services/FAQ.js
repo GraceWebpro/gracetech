@@ -28,7 +28,7 @@ const Faq = () => {
 
   return (
     <div className="faq-container">
-      <h2>Frequently Asked Questions</h2>
+      <h2 >Frequently Asked Questions</h2>
       {faqData.map((faq, index) => (
         <div className="faq-item" key={index}>
           <button

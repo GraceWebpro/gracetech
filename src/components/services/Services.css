@@ -247,10 +247,11 @@
     margin-top: 30px;
     font-family: 'Dancing Script', cursive, Arial, sans-serif;
     font-size: 24px;
+    margin-left: 60px;
   }
 
   .serviceDetails .serv-script span {
-    color: #0059ff;
+    color: #20d9a1;
   }
 
   .serv-det-flex {
@@ -286,7 +287,7 @@
     align-items: flex-start; 
     width: 300px; 
     display: block;
-    gap: 30px;
+    gap: 30px !important;
     margin-top: 30px;
 }
 
@@ -296,11 +297,20 @@
   }
 
   .serv-social {
-    padding: 0 20px;
+    padding: 20px 20px;
+    margin-top: 20px;
     height: 60px;
+    text-decoration: none;
+    display: flex;
   }
   .serv-social span {
     font-size: 14px;
+    color: #fff;
+    text-decoration: none;
+  }
+  a {
+    text-decoration: none;
+    color: inherit;
   }
 
   .serv-cont-div {
@@ -544,7 +554,7 @@
   text-align: center;
   font-size: 2rem;
   margin-bottom: 2rem;
-  color: #0059ff;
+  color: #20d9a1;
 }
 
 .faq-item {
@@ -577,7 +587,7 @@
 .faq-icon {
   font-size: 1.2rem;
   margin-left: 1rem;
-  color: #0059ff;
+  color: #20d9a1;
 }
 
 .faq-answer-wrapper {

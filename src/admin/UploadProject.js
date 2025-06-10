@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { storage, db } from "../server/firebase"; // Ensure Firebase is properly set up
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { collection, addDoc } from "firebase/firestore";
@@ -7,7 +7,9 @@ import './Admin.css'
 function UploadProject() {
   const [file, setFile] = useState(null);
   const [title, setTitle] = useState("");
-    const [demoLink, setDemoLink] = useState("");
+  const [demoLink, setDemoLink] = useState("");
+  const [githubLink, setGithubLink] = useState("");
+
 
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
@@ -39,6 +41,7 @@ function UploadProject() {
           title,
           description,
           demoLink,
+          githubLink,
           imageUrl: url,
           category,
           timestamp: new Date(),
@@ -48,6 +51,7 @@ function UploadProject() {
         setProgress(0); // Reset progress
         setTitle("");
         setDemoLink("");
+        setGithubLink("");
         setCategory("");
         setDescription("");
         setFile(null);
@@ -82,9 +86,19 @@ function UploadProject() {
     <div className="input-group">
       <input 
         type="text" 
-        placeholder="Project Category" 
+        placeholder="Project Demo Link" 
         value={demoLink} 
         onChange={(e) => setDemoLink(e.target.value)} 
+        className="input-field"
+      />
+    </div>
+
+    <div className="input-group">
+      <input 
+        type="text" 
+        placeholder="Project Github Link" 
+        value={demoLink} 
+        onChange={(e) => setGithubLink(e.target.value)} 
         className="input-field"
       />
     </div>

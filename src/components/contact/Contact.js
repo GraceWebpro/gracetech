@@ -20,12 +20,11 @@ const Contact = () => {
             ref={formRef}
             action="https://formsubmit.co/gracetechagency@gmail.com" // Replace with your email
             method="POST"
-            onSubmit={() => setStatus("Message sent successfully!")}
           >
             {/* Disable captcha by default */}
             <input type="hidden" name="_captcha" value="false" />
             {/* Optional: Redirect to thank-you page */}
-            <input type="hidden" name="_next" value="https://localhost:3000/thank-you" />
+            <input type="hidden" name="_next" value="http://localhost:3000/thank-you" />
 
             <Row>
               <Col sm={6}>
