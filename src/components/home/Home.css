@@ -55,7 +55,7 @@ margin: 0 auto;
 }
 
 .cont-left h1 {
-  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-size: clamp(1.5rem, 5vw, 3rem);
   margin-bottom: 20px;
 }
 
@@ -120,6 +120,7 @@ h1 {
   color: #20d9a1;
  
   display: inline-block;
+  font-size: clamp(0.8rem, 5vw, 3rem);
 }
 
 .subtitle {

@@ -57,7 +57,7 @@ const HeroSection2 = () => {
           >
             {rotatingWords[index]}
           </motion.span>
-          {' '}— <br />We Build Experiences.
+          {' '} <br />We Build Experiences.
         </motion.h1>
         <motion.p 
            initial={{ opacity: 0, y: 80 }}
@@ -90,12 +90,12 @@ const HeroSection2 = () => {
     </div>
 
     {/*<!-- Floating Comments -->*/}
-    <div class="comment-bubble" style={{ top: '10%', left: '5%' }} >
+    <div class="comment-bubble" style={{ top: '15%', left: '5%' }} >
         <img src={user_3} alt="User 1" />
         Where creativity meets performance. 💻
       </div>
 
-      <div class="comment-bubble" style={{ top: '10%', right: '5%' }} >
+      <div class="comment-bubble" style={{ top: '15%', right: '5%' }} >
         <img src={user_4} alt="User 2" />
         Templates, tutorials, and tools — everything you need in one place! 💼
       </div>
