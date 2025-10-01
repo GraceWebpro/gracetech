@@ -30,6 +30,7 @@ import TemplateList from './components/template/TemplatesList/TemplateList'
 import Courses from "./components/courses/Courses";
 import NavbarN from "./components/Navbar";
 import BookingPage from "./components/book/Booking";
+import CoursesPage from "./components/courses/CoursesPage";
 
 function App() {
   const location = useLocation();
@@ -53,6 +54,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/templates" element={<Template />} />
           <Route path="/courses" element={<Courses />} />
+          <Route path="/courses/:id" element={<CoursesPage />} />
 
           <Route path="/get-a-quote" element={<GetAQuote />} />
           <Route path="/blog" element={<ModernBlogPage />} />

@@ -72,19 +72,19 @@ const Footer = () => {
             <h2 className="footer-menu-name"> Quick Links</h2>
             <ul id="menu-quick-links" className="footer-menu-list">
               <li className="menu-item menu-item-type-custom menu-item-object-custom">
-                <a target="_blank" rel="noopener noreferrer" href="sup">Services</a>
+                <a rel="noopener noreferrer" href="sup">Services</a>
               </li>
               <li className="menu-item menu-item-type-custom menu-item-object-custom">
-                <a target="_blank" rel="noopener noreferrer" href="serv">Portfolio</a>
+                <a rel="noopener noreferrer" href="portfolio">Portfolio</a>
               </li>
               <li className="menu-item menu-item-type-post_type menu-item-object-page">
-                <a href="sec">Templates</a>
+                <a href="templates">Templates</a>
               </li>
               <li className="menu-item menu-item-type-post_type menu-item-object-page">
-                <a href="blog">Courses</a>
+                <a href="courses">Courses</a>
               </li>
               <li className="menu-item menu-item-type-post_type_archive menu-item-object-customer">
-                <a href="ust">Contct Us</a></li>
+                <a href="contact">Contct Us</a></li>
               <li className="menu-item menu-item-type-post_type menu-item-object-page">
                 <a href="reviews">FAQ</a>
               </li>
@@ -95,7 +95,7 @@ const Footer = () => {
           <div className="footer-call-to-action">
             <h2 className="footer-call-to-action-title"> Let's Chat</h2>
             <p className="footer-call-to-action-description"> Got a question?</p>
-            <a className="footer-call-to-action-button button" href="contact" target="_self"> Book a Call </a>
+            <a className="footer-call-to-action-button button" href="book-a-call" target="_self"> Book a Call </a>
           </div>
         
         </div>
@@ -132,7 +132,7 @@ const Footer = () => {
       <div className="footer-copyright">
         <div className="footer-copyright-wrapper">
           <p className="footer-copyright-text">
-            <a className="footer-copyright-link" href="home" target="_self"> ©2020. | Designed By: Pooja Nahelia. | All rights reserved. </a>
+            <a className="footer-copyright-link" href="home" target="_self"> ©2025. | Designed By: Grace Tech. | All rights reserved. </a>
           </p>
         </div>
       </div>

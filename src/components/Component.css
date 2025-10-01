@@ -34,11 +34,14 @@
     display: flex;
     gap: 1.5rem;
     list-style: none;
+    font-family: Arial, Helvetica, sans-serif;
   }
   
   .navbar-links li a {
     color: var(--title-color);    
     text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+    
   }
 
   .link:hover {

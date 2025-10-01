@@ -250,6 +250,14 @@ const UploadContent = () => {
   const [uploadProgress, setUploadProgress] = useState(0);
   const [uploading, setUploading] = useState(false);
 
+  const createSlug = (text) =>
+  text
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, '-') // replace spaces/specials with hyphens
+    .replace(/^-+|-+$/g, '');    // remove leading/trailing hyphens
+
+
   const handleFileChange = (e) => {
     setVideoFile(e.target.files[0]);
   };
@@ -297,8 +305,11 @@ const UploadContent = () => {
         thumbnailUrl = await uploadFileToStorage(thumbnailFile, 'thumbnails');
       }
 
+      const slug = createSlug(title);
+
       const courseData = {
         title,
+        slug,
         description,
         topic,
         difficulty,

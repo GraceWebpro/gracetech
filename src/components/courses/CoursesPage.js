@@ -1,189 +1,256 @@
-// MoviesPage.js
-import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import { db } from "../../firebase/firebaseConfig"; // Make sure to import your Firebase config
-import { collection, query, where, getDocs } from "firebase/firestore";
-import '../../styles/Main.css';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { db } from '../../server/firebase'; // your firebase config file
+import { collection, query, where, getDocs, getDoc, doc, limit } from 'firebase/firestore';
+import './Courses.css';
+import defaultThumbnail from '../../assets/fig.jpg'
+import CourseHero from './CourseHero';
+import { MdOutlineKeyboardArrowRight } from "react-icons/md";
+import CourseTabs from './CourseTab';
+import SimilarCourses from './SimilarCourses';
+import SimilarCoursesCarousel from './SimilarCarousel';
+import { Link } from 'react-router-dom'
 
-const categories = [
-  { name: "Action" },
-  { name: "Comedy" },
-  { name: "Drama" },
-  { name: "Sci-Fi" },
-  { name: "Romance" },
-  { name: "Thriller" },
-];
-
-const CoursesPage = () => {
-  const [showFilters, setShowFilters] = useState(false);
-  const [sortOption, setSortOption] = useState("relevant");
-  const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
-  const categoryFromURL = searchParams.get("category");
-// State for selected category and selected tags
-const [selectedCategories, setSelectedCategories] = useState([]);
-
-  const [movies, setMovies] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+const CoursePage = () => {
+  const { id } = useParams();
+  const [course, setCourse] = useState(null);
+  const [relatedCourses, setRelatedCourses] = useState([]);
+  const [loading, setLoading] = useState(true); // ✅ Add loading state
+  const [coupon, setCoupon] = useState('');
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    // If a category is selected from the URL, update the selectedCategories state
-    if (categoryFromURL && !selectedCategories.includes(categoryFromURL)) {
-      setSelectedCategories([categoryFromURL]);
-    }
-  }, [categoryFromURL]); // Dependency array added for categoryFromURL
-
-  useEffect(() => {
-    const fetchMovies = async () => {
-      setLoading(true);
-      setError(null);
-  
-      const moviesCollection = collection(db, "movies");
-      
-      // Build the query
-      let q = query(moviesCollection);
-
-       // Add topic filter if selected
-    if (selectedTopic) {
-        q = query(q, where("topic", "==", selectedTopic));
-    }
-  
-      // If one or more categories are selected, filter movies by category
-      if (selectedCategories.length > 0) {
-        q = query(q, where("tags", "array-contains-any", selectedCategories));
-      }
-  
-      
+    const fetchCourseAndSimilar = async () => {
       try {
-        const querySnapshot = await getDocs(q);
-        const movieList = querySnapshot.docs.map((doc) => ({
-          id: doc.id,            // ✅ Include the Firestore document ID
-          ...doc.data(),         // ✅ Spread the rest of the movie data
-        }));
-        
-        setMovies(movieList);
-      } catch (err) {
-        console.error("Error fetching movies:", err);
-        setError("Failed to fetch movies.");
+        const docRef = doc(db, "courses", id);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          const courseData = docSnap.data();
+          setCourse(courseData);
+
+          // ✅ Fetch similar courses by category
+          const q = query(
+            collection(db, "courses"),
+            where("category", "==", courseData.category),
+            limit(5)
+          );
+          const querySnapshot = await getDocs(q);
+
+          const similar = [];
+          querySnapshot.forEach((docSnap) => {
+            if (docSnap.id !== id) {
+              similar.push({ id: docSnap.id, ...docSnap.data() });
+            }
+          });
+
+          setRelatedCourses(similar);
+        }
+      } catch (error) {
+        console.error("Error fetching course:", error);
       } finally {
-        setLoading(false);
+        setLoading(false); // ✅ stop loading regardless of success/fail
       }
     };
-  
-    fetchMovies();
-  }, [selectedTopic]);  // Re-fetch when category or tags change
-// Handle category checkbox change
-const handleCategoryChange = (category) => {
-  setSelectedCategories((prevSelected) => {
-    if (prevSelected.includes(category)) {
-      return prevSelected.filter((cat) => cat !== category); // Deselect if already selected
-    } else {
-      return [...prevSelected, category]; // Select if not already selected
-    }
-  });
-};
 
-  // Sorting logic based on selected sort option
-  const sortedMovies = movies.sort((a, b) => {
-    if (sortOption === "popular") {
-      return b.popularity - a.popularity; // Assuming there's a popularity field in the data
+    fetchCourseAndSimilar();
+  }, [id]);
+
+  const getYoutubeEmbedUrl = (url) => {
+    try {
+      const videoId = new URL(url).searchParams.get("v");
+      return `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+    } catch {
+      return '';
     }
-    if (sortOption === "new") {
-      return new Date(b.releaseDate) - new Date(a.releaseDate); // Assuming there's a releaseDate field
-    }
-    return 0; // Default: relevant, no sorting
-  });
+  };
+
+  if (loading) return <div className="course-loading">Loading...</div>;
+  if (!course) return <div className="course-error">Course not found</div>;
+
 
   return (
-    <div className="movies-page">
+    <div className="course-page">
+      {/* Hero Section */}
 
-      <div className="movie-hero-section">
-        <div className="movie-hero-content">
-          <h1>Discover Movies</h1>
-          <p>Browse through the movies. Use filters or sort options to find what you need!</p>
-          <h4>
-            {selectedCategories.length > 0
-            ? `${selectedCategories.join(", ")} Movies`
-            : "All Movies"}
-          </h4>
+ <div className="course-hero">
+      <div className="course-hero-left">
+        <p style={{ fontSize: '12px', color: 'blue', marginTop: '-10px' }}>Design <MdOutlineKeyboardArrowRight /> Figma UI UX Design </p>
+        <h1 className="course-title">{course.title}</h1>
+        <p className="course-subtitle">{course.description}Use Figma to get a job in UI Design, User Interface, User Experience design, UX Design & Web Design</p>
+        {/* Rating + Duration */}
+        <div style={{ fontSize: 13, color: '#ccc', marginBottom: 8 }}>
+                      ⭐ {course.rating ?? '4.5'} / 5 
+                    </div>
+                    <span>Created by <strong>{course.author?.name || 'Grace Wilson'}</strong></span>
+   
+                    {/* Price Label */}
+                    <div style={{ marginBottom: 10 }}>
+                      <span
+                        style={{
+                          padding: '4px 8px',
+                          borderRadius: 4,
+                          backgroundColor: course.isFree ? '#d4edda' : '#f8d7da',
+                          color: course.isFree ? '#155724' : '#721c24',
+                          fontSize: 13
+                        }}
+                      >
+                        {course.isFree ? 'Free' : 'Paid'}
+                      </span>
+                    </div>
+                
+
+        <div className="course-meta">
+          <span> • Last updated {new Date(course.createdAt?.seconds * 1000).toLocaleDateString()} English</span>
+          <p style={{ fontSize: 13, color: '#ccc', marginBottom: 8 }}>⏱ {course.duration ?? '1h 30m'} • {course.lessons ?? 10} lessons</p>
+        </div>
+
         
+      </div>
+      <div className="course-hero-right">
+        <div className="video-thumbnail-container" onClick={() => setShowModal(true)}>
+          <img src={course.thumbnailUrl || defaultThumbnail} alt="Course thumbnail" className="course-thumbnail" />
+          <div className="play-button">
+            <div className="play-icon">▶</div>
+          </div>
         </div>
+
+        {/* Actions */}
+        <div className="course-actions">
+  {course.isFree ? (
+    <>
+      <Link to='/login'><button className="btn btn-primary">Enroll Now</button></Link>
+
+      <div className="coupon-section">
+        <input
+          type="text"
+          placeholder="Enter coupon code"
+          value={coupon}
+          onChange={(e) => setCoupon(e.target.value)}
+        />
+        <button className="apply-coupon-button">Apply</button>
       </div>
 
-      
-      <div className="template-actions">
-        <button className="filter-toggle" onClick={() => setShowFilters(!showFilters)}>
-          {showFilters ? 'Hide Filters' : 'Show Filters'}
-        </button>
+      {/*<button className="subscribe-button">Subscribe</button>*/}
+    </>
+  ) : (
+    <>
+      <div className="course-price">₹{course.price}</div>
+      <button className="btn btn-primary">Buy Now</button>
+      <button className="btn btn-secondary">Add to Cart</button>
+    </>
+  )}
+</div>
 
-        <div className="sort-dropdown">
-          <label htmlFor="sort-select">Sort by:</label>
-          <select
-            id="sort-select"
-            value={sortOption}
-            onChange={(e) => setSortOption(e.target.value)}
-          >
-            <option value="relevant">Relevant</option>
-            <option value="popular">Popular</option>
-            <option value="new">New</option>
-          </select>
-        </div>
-      </div>
 
-      <div className={`template-content ${showFilters ? 'with-filters' : 'no-filters'}`}>
-        {showFilters && (
-          <aside className="filters">
-            <h3>Categories</h3>
-            {/* Loop through categories (example below) */}
-            {categories.map((category) => (
-              <label key={category.name} className="category-item">
-                <input
-                  type="checkbox"
-                  checked={selectedCategories.includes(category.name)}
-                  onChange={() => handleCategoryChange(category.name)}
-                />
-                <span>{category.name}</span>
-              </label>
-            ))}
-          </aside>
-        )}
-
-      <div className="movie-grid">
-        {loading ? (
-          <p>Loading...</p>
-        ) : error ? (
-          <p>{error}</p>
-        ) : sortedMovies.length > 0 ? (
-          sortedMovies.map((movie, index) => (
+        {/* Modal */}
+        {showModal && (
+        <div className="video-modal-overlay" onClick={() => setShowModal(false)}>
+          <div className="video-modal-large" onClick={e => e.stopPropagation()}>
+            <button className="close-modal" onClick={() => setShowModal(false)}>×</button>
             
-            <div key={index} className="movie-card">
-              <Link to={`/movie/${movie.id}`}>
-              <img src={movie.thumbnailUrl} alt={movie.title} />
-              <div className="movie-info">
-          <h3 className="movie-title">{movie.title}</h3>
-          <p className="movie-year-genre">
-            {movie.releaseYear} • {movie.category}
-          </p>
-          <p className="movie-year-genre">
-            {movie.status}
-          </p>
-          {movie.rating && (
-            <p className="movie-rating">⭐ {movie.rating}/10</p>
-          )}
-        </div>
-            </Link>
+            <div className="modal-content-container">
+              {/* Left: Video */}
+              <div className="modal-left">
+                <div className="modal-video-wrapper">
+                  <iframe
+                    width="100%"
+                    height="100%"
+                    src={course.youtubeUrl.replace("watch?v=", "embed/")}
+                    title="Course Preview"
+                    frameBorder="0"
+                    allow="autoplay; encrypted-media"
+                    allowFullScreen
+                  />
+                </div>
+              </div>
+
+              {/* Right: Course Info */}
+              <div className="modal-right">
+                <h2>{course.title}</h2>
+                <p>{course.description}</p>
+                <p><strong>Instructor:</strong> {course.author?.name || 'Unknown'}</p>
+                <p><strong>Difficulty:</strong> {course.difficulty}</p>
+                <p><strong>Price:</strong> {course.isFree ? 'Free' : `₹${course.price}`}</p>
+
+                <div className="modal-actions">
+                  <button className="enroll-btn">Enroll Now</button>
+                  <button className="coupon-btn">Apply Coupon</button>
+                  <button className="subscribe-btn">Subscribe</button>
+                </div>
+              </div>
             </div>
-            
+          </div>
+        </div>
+      )}
+
+    </div>
+    </div>
+
+    <CourseTabs />
+    <SimilarCourses />
+
+    {/* ✅ Similar courses carousel */}
+    {relatedCourses.length > 0 && (
+      <SimilarCoursesCarousel courses={relatedCourses} />
+    )}
+
+      {/* What you'll learn 
+      <div className="course-section">
+        <h2>What you'll learn</h2>
+        <ul className="section-list">
+          <li>Understand core concepts of {course.topic}</li>
+          <li>Apply hands-on projects</li>
+          <li>Build real-world UI/UX applications</li>
+          <li>Gain practical portfolio skills</li>
+        </ul>
+      </div>
+
+      {/* Curriculum 
+      <div className="course-section">
+        <h2>Course content</h2>
+        <ul className="curriculum-list">
+          {course.curriculum?.map((lesson, index) => (
+            <li key={index}>
+              <strong>Lesson {index + 1}:</strong> {lesson}
+            </li>
+          )) || <p>No curriculum listed.</p>}
+        </ul>
+      </div>
+
+      {/* Reviews 
+      <div className="course-section">
+        <h2>Student Reviews</h2>
+        {course.reviews?.length ? (
+          course.reviews.map((review, index) => (
+            <div key={index} className="review-item">
+              <strong>{review.name}</strong>
+              <p>{review.comment}</p>
+            </div>
           ))
         ) : (
-          <p>No movies found.</p>
+          <p>No reviews yet.</p>
         )}
-      </div>
-      </div>
+       */} 
+
+      {/* Related Courses 
+      <div className="course-section">
+        <h2>Related Courses</h2>
+        <div className="related-courses">
+          {relatedCourses.length ? (
+            relatedCourses.map((related, index) => (
+              <div key={index} className="related-card">
+                <h4>{related.title}</h4>
+                <p>{related.description}</p>
+              </div>
+            ))
+          ) : (
+            <p>No related courses found.</p>
+          )}
+        </div>
+      </div>*/}
     </div>
   );
 };
 
-export default CoursesPage;
+export default CoursePage;

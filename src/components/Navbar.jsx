@@ -7,6 +7,8 @@ import { IoLogoInstagram } from "react-icons/io";
 import { AiOutlineTikTok } from "react-icons/ai";
 import { FaFacebook } from "react-icons/fa";
 import { AiOutlineClose } from "react-icons/ai";
+import logo from '../assets/my-logo2-removebg-preview (1).png'
+import { motion } from 'framer-motion';
 
 const menuItems = [
   { name: 'Home', path: '/' },
@@ -59,15 +61,34 @@ const NavbarN = () => {
   return (
     <>
     <nav className="navbar">
-      <div className="navbar-logo">
-        <a href="#home">GraceTech</a>
-      </div>
+      <motion.div
+      initial={{ opacity: 0, x: -100 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{
+        type: "spring",
+        stiffnexx: 100,
+        damping: 25,
+        delay: 0.3,
+        duration: 1.2,
+      }}
+      className="navbar-logo">
+        <img src={logo} alt='brand logo' width={70} height={70} /><a href="#home">GraceTech</a>
+      </motion.div>
 
       
 
       <ul className="navbar-links">
-      {menuItems.map((item) => (
-  <li className={item.dropdown ? 'dropdown' : ''} id='link-item' key={item.name}>
+      {menuItems.map((item, index) => (
+  <motion.li
+  initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ 
+                type: "spring",
+                stiffness: 100,
+                damping: 20,
+                delay: 0.7 + index * 0.2,
+              }}
+   className={item.dropdown ? 'dropdown' : ''} id='link-item' key={item.name}>
     {item.dropdown ? (
       <>
         <span onClick={toggleDropdown} className="dropdown-toggle">
@@ -76,13 +97,23 @@ const NavbarN = () => {
         {resourcesOpen && (
           <ul className="dropdown-menu">
             {item.children.map((child) => (
-              <li key={child.name} id='link-item'>
+              <motion.li 
+              key={child.name} 
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ 
+                type: "spring",
+                stiffness: 100,
+                damping: 20,
+                delay: 0.7 + index * 0.2,
+              }}
+              id='link-item'>
                 <Link to={child.path} onClick={() => {
                   closeMobileMenu();       // closes mobile nav if open
                   setResourcesOpen(false); // closes the dropdown
                 }}>{child.name}
                 </Link>
-              </li>
+              </motion.li>
             ))}
           </ul>
         )}
@@ -106,12 +137,22 @@ const NavbarN = () => {
         {item.name}
       </Link>
     )}
-  </li>
+  </motion.li>
 ))}
 
       </ul>
 
-      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+      <motion.div 
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{
+        delay: 1.6,
+        duration: 0.5,
+        type: "spring",
+        stiffness: 100,
+        damping: 15,
+      }}
+      style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
         <div><Link to="/book-a-call" className="cta">Book a Call</Link></div>
         <div className="navbar-hamburger" onClick={toggleMobileMenu}>
           ☰
@@ -121,7 +162,7 @@ const NavbarN = () => {
             <IoMdApps className="icon6" />
           </span>
         </div>
-      </div>
+      </motion.div>
 
 
       {/* Info Side Panel */}
