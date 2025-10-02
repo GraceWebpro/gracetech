@@ -83,8 +83,7 @@ const HeroSection2 = () => {
 
       {/* Right Section */}
       <div className='hero-img2'>
-           {/* <img src={heroimg} alt='hero-img' className='cont-right' /> */}
-      <Spline scene="https://prod.spline.design/ZH0N0X5EF3nNQdC1/scene.splinecode" />
+          <img src={heroimg} alt='hero-img' className='cont-right' />
 </div>
       </div>
 

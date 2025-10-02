@@ -32,7 +32,7 @@ const Pane = () => {
             <div className='about-display'>
               <img src={aboutMe} alt="About Me"  data-aos-duration="500"/>
               <div className='about-right'>
-                <h2 data-aos="fade-up" data-aos-duration="500">Who We Are</h2>
+                <h2 data-aos="fade-left" data-aos-duration="500">Who We Are</h2>
                 <p data-aos="fade-up" data-aos-duration="500">
                 At GraceTech, we create clean, user-focused digital experiences. Our team excels in design and development using tools like Figma, React, Bubble, FlutterFlow, and HTML, delivering impactful solutions from concept to launch.                </p>
                 <div className='about-div-display'>

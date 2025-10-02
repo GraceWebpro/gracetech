@@ -92,7 +92,7 @@ const NavbarN = () => {
     {item.dropdown ? (
       <>
         <span onClick={toggleDropdown} className="dropdown-toggle">
-          {item.name} <MdArrowDropDown />
+          {item.name} <span className='drop-plus'>+</span>
         </span>
         {resourcesOpen && (
           <ul className="dropdown-menu">
@@ -158,7 +158,7 @@ const NavbarN = () => {
           ☰
         </div>
         <div className={activeLink === 'contact' ? 'active nav__item' : 'nav__item'} id='book'>
-          <span className="nav__link" onClick={toggleInfoPanel}>
+          <span className="nav__link icon66" onClick={toggleInfoPanel}>
             <IoMdApps className="icon6" />
           </span>
         </div>
@@ -199,7 +199,7 @@ const NavbarN = () => {
         {menuItems.map((item) =>
           item.dropdown ? (
             <div key={item.name} className="mobile-dropdown">
-              <span onClick={toggleDropdown}>Resources</span>
+              <span onClick={toggleDropdown}>Resources <span className='drop-plus'>+</span></span>
               {resourcesOpen && (
               <ul className="dropdown-menu">
                 {item.children.map((child) => (

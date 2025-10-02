@@ -10,7 +10,7 @@
   height: 80px;
   align-items: center;
   justify-content: space-between;
-  padding: 1.5rem 2rem;
+  padding: 1.5rem 2rem; 
   background: rgba(0, 0, 0, 0.85); /* darker transparency for better visibility */
   backdrop-filter: blur(12px); /* slightly stronger blur for depth */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* subtle shadow for separation */
@@ -87,6 +87,7 @@
     justify-content: center;
     height: 45px; /* Optional: make it consistent with other navbar items */
     text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
   }
   
   .cta:hover {
@@ -94,7 +95,9 @@
   
   }
 
-  
+  .icon66 {
+    margin-right: -20px;
+  }
   /* Dropdown */
   /* Dropdown button */
 .dropdown {
@@ -118,6 +121,16 @@
     text-align: left;
   }
 
+  .drop-plus {
+    background: linear-gradient(90deg, var(--tj-color-theme-primary) 0%, var(--tj-color-theme-secondary) 100%);
+    border-radius: 5px;
+    padding: 3px 7px;
+  }
+
+  .drop-plus:hover {
+    color: #fff;
+  }
+
   #link-item:hover {
     color: #20d9a1;
   }
@@ -133,7 +146,7 @@
     display: none;
     align-items: center;       /* vertical center within flexbox */
     justify-content: center;   /* horizontal center */
-    font-size: 2rem;
+    font-size: 1.7rem;
     cursor: pointer;
     height: 100%;              /* ensure it fills parent vertically */
     line-height: 1;            /* prevent extra vertical spacing */
@@ -247,6 +260,23 @@
       padding: 1.5rem 1rem;
 
     }
+
+    .navbar-logo img {
+      width: 45px;
+      height: 45px;
+    }
+    
+      .navbar-logo a {
+        font-weight: 900;
+        font-size: 1.3rem;
+        margin-left: -35px;
+
+      }
+
+      .navbar-hamburger {
+        font-size: 1.5rem;
+
+      }
     
   }
   
