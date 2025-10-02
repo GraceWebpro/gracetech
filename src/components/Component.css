@@ -18,16 +18,28 @@
 }
 
 
+.navbar-logo {
+  display: flex;
+  align-items: center;  /* vertically align image & text */
+  gap: 8px;             /* space between image and text */
+  text-decoration: none;
+}
+
+.navbar-logo img {
+  display: block;       /* removes any inline spacing issues */
+}
+
   .navbar-logo a {
-    font-weight: 700;
+    font-weight: 900;
     font-size: 2rem;
     background-image: -webkit-gradient(linear, left top, right top, from(var(--tj-color-theme-primary)), to(var(--tj-color-theme-secondary)));
     background-image: linear-gradient(90deg, var(--tj-color-theme-primary) 0%, var(--tj-color-theme-secondary) 100%);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    font-weight: var(--tj-fw-bold);
     text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-left: -50px;
   }
   
   .navbar-links {
@@ -229,6 +241,11 @@
 
     .navbar-logo a{
       font-size: 1.6rem;
+    }
+
+    .navbar {
+      padding: 1.5rem 1rem;
+
     }
     
   }

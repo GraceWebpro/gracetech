@@ -8,6 +8,7 @@ import user_2 from '../../assets/user_2.jpeg'
 import user_3 from '../../assets/user_3.jpeg'
 import user_4 from '../../assets/user_4.jpeg'
 import { Link } from 'react-router-dom';
+import Spline from '@splinetool/react-spline'
 
 
 const rotatingWords = [
@@ -82,8 +83,8 @@ const HeroSection2 = () => {
 
       {/* Right Section */}
       <div className='hero-img2'>
-           <img src={heroimg} alt='hero-img' className='cont-right' />
-      
+           {/* <img src={heroimg} alt='hero-img' className='cont-right' /> */}
+      <Spline scene="https://prod.spline.design/ZH0N0X5EF3nNQdC1/scene.splinecode" />
 </div>
       </div>
 

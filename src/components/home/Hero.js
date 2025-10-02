@@ -28,9 +28,9 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className="hero">
-      <div className="overlay" />
-      <div className="content">
+    <section className="hero11">
+      <div className="overlay11" />
+      <div className="content11">
         <p className="tagline">Full - service digital agency for brands that dare to stand out.</p>
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
