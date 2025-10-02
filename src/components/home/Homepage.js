@@ -14,6 +14,7 @@ import ProjectContact from '../contact/ProjectContact';
 import Blog from '../blog/Blog';
 import HomeBlog from '../blog/HomeBlog';
 import HeroSection from './Hero';
+import CustomCursor from '../CustomCursor';
 //import Banner2 from '../banner/Banner2';
 //import Meeting from '../projects/Meeting'
 
@@ -45,6 +46,7 @@ const Homepage = () => {
             
             
             <HeroSection />
+            <CustomCursor />
             <About />
            
             <Projects />

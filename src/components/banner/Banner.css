@@ -655,10 +655,10 @@
 
 
 /* Play Button */
-.play-button {
+.work-play-button {
   width: 40px;
   height: 40px;
-  background-color: transparent;
+  background-color: transparent !important;
   border-radius: 50%;
   display: flex;
   align-items: center;

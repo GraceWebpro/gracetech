@@ -8,7 +8,6 @@ import user_2 from '../../assets/user_2.jpeg'
 import user_3 from '../../assets/user_3.jpeg'
 import user_4 from '../../assets/user_4.jpeg'
 import { Link } from 'react-router-dom';
-import Spline from '@splinetool/react-spline'
 
 
 const rotatingWords = [
@@ -22,6 +21,14 @@ const rotatingWords = [
 
 const HeroSection2 = () => {
   const [index, setIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkScreen = () => setIsMobile(window.innerWidth < 768);
+    checkScreen();
+    window.addEventListener("resize", checkScreen);
+    return () => window.removeEventListener("resize", checkScreen);
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -37,8 +44,8 @@ const HeroSection2 = () => {
       {/* Left Section */}
       <div className='cont-left'>
       <motion.h1
-          initial={{ opacity: 0, y: 80 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, x: 80 }}
+          animate={{ opacity: 1, x: 0 }}
           transition={{
             type: "spring",
             stiffness: 40,
@@ -74,22 +81,52 @@ const HeroSection2 = () => {
           Elevate your brand with cutting-edge design, powerful development, and real business results.
           From custom websites to downloadable templates and guided tutorials, GraceTech helps you create, learn, and grow.
         </motion.p>
-        <WorkProcess />
-        <div className="buttons">
+        <WorkProcess className="hero-proc" />
+        <motion.div 
+         initial={{ opacity: 0, y: 80 }}
+         animate={{ opacity: 1, y: 0 }}
+         transition={{
+           type: "spring",
+           stiffness: 40,
+           damping: 25,
+           delay: 1.8,
+           duration: 1.5, 
+         }}
+        className="buttons">
           <Link to='/get-a-quote' className="btn primary">Get A Quote</Link>
           <Link to="/portfolio" className="btn secondary">View Our Work</Link>
-        </div>
+        </motion.div>
       </div>
 
       {/* Right Section */}
       <div className='hero-img2'>
-          <img src={heroimg} alt='hero-img' className='cont-right' />
+      <motion.img
+      
+      animate={
+        isMobile
+          ? {
+              y: [0, -10, 0],         // smaller float
+              scale: [1, 1.03, 1],    // tiny pulse
+            }
+          : {
+              y: [0, -20, 0],         // bigger float
+              rotate: [0, 3, -3, 0],  // gentle wobble
+              scale: [1, 1.05, 1],    // pulsing
+            }
+      }
+      transition={{
+        duration: isMobile ? 8 : 6,   // slower on mobile
+        repeat: Infinity,
+        ease: "easeInOut",
+      }}
+
+          src={heroimg} alt='hero-img' className='cont-right' />
 </div>
       </div>
 
     </div>
 
-    {/*<!-- Floating Comments -->*/}
+    {/*<!-- Floating Comments -->
     <div class="comment-bubble" style={{ top: '15%', left: '5%' }} >
         <img src={user_3} alt="User 1" />
         Where creativity meets performance. 💻
@@ -108,7 +145,7 @@ const HeroSection2 = () => {
       <div class="comment-bubble" style={{ bottom: '10%', right: '5%' }}>
         <img src={user_2} alt="User 3" />
         Start your project with us today — it’s easier than you think! 🎨
-      </div>
+      </div>*/}
 
    </section>
   )

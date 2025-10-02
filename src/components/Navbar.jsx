@@ -61,7 +61,7 @@ const NavbarN = () => {
   return (
     <>
     <nav className="navbar">
-      <motion.div
+      <Link to="/"><motion.div
       initial={{ opacity: 0, x: -100 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{
@@ -73,7 +73,7 @@ const NavbarN = () => {
       }}
       className="navbar-logo">
         <img src={logo} alt='brand logo' width={70} height={70} /><a href="#home">GraceTech</a>
-      </motion.div>
+      </motion.div></Link>
 
       
 
@@ -166,8 +166,9 @@ const NavbarN = () => {
 
 
       {/* Info Side Panel */}
-      <div className={`info-panel ${showInfoPanel ? 'open' : ''}`}>
-        <button className="close-btn" onClick={toggleInfoPanel}>
+      <div 
+      className={`info-panel ${showInfoPanel ? 'open' : ''}`}>
+        <button className="close-btn" id="info-close" onClick={toggleInfoPanel}>
           <AiOutlineClose className="icon6" />
         </button>
         <div className="side-info">
@@ -193,8 +194,17 @@ const NavbarN = () => {
         </div>
       </div>
     </nav>
+
+
      {/* Mobile drawer */}
-     <div className={`mobile-menu ${isMobileOpen ? 'open' : ''}`}>
+     <motion.div 
+    initial={{ opacity: 0, width: 0 }}
+    animate={{ 
+      opacity: isMobileOpen ? 1 : 0,
+      width: isMobileOpen ? "250px" : 0,
+    }}
+    transition={{ duration: 0.7 }}
+     className={`mobile-menu ${isMobileOpen ? 'open' : ''}`}>
         <div className="mobile-close" onClick={closeMobileMenu}>×</div>
         {menuItems.map((item) =>
           item.dropdown ? (
@@ -219,6 +229,7 @@ const NavbarN = () => {
               href={item.path}
               id='link-item'
               key={item.name}
+              className='mobile-items'
               onClick={(e) => handleScroll(e, item.path)}
             >
               {item.name}
@@ -226,7 +237,7 @@ const NavbarN = () => {
           )
         )}
         <Link to="/book-a-call" className="cta" onClick={closeMobileMenu}>Book a Call</Link>
-      </div>
+      </motion.div>
     </>
   );
 };
