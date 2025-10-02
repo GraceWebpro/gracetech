@@ -53,7 +53,7 @@ const HeroSection = () => {
           Elevate your brand with cutting-edge design, powerful development, and real business results.
           From custom websites to downloadable templates and guided tutorials, GraceTech helps you create, learn, and grow.
         </p>
-        <WorkProcess />
+        <WorkProcess style={{ justifyContent: "center" }} />
         <div className="buttons">
           <Link to='/get-a-quote' className="btn primary">Get A Quote</Link>
           <Link to="/portfolio" className="btn secondary">View Our Work</Link>

@@ -77,11 +77,11 @@ const HeroSection2 = () => {
              delay: 1.8,
              duration: 1.5, 
            }}
-        className="subtit">
+        className="subtitle">
           Elevate your brand with cutting-edge design, powerful development, and real business results.
           From custom websites to downloadable templates and guided tutorials, GraceTech helps you create, learn, and grow.
         </motion.p>
-        <WorkProcess className="hero-proc" />
+        <WorkProcess id="hero-proc" style={{ justifyContent: "flex-start", textAlign: "left" }} />
         <motion.div 
          initial={{ opacity: 0, y: 80 }}
          animate={{ opacity: 1, y: 0 }}
@@ -92,10 +92,11 @@ const HeroSection2 = () => {
            delay: 1.8,
            duration: 1.5, 
          }}
-        className="buttons">
+        className="buttons buttonss">
           <Link to='/get-a-quote' className="btn primary">Get A Quote</Link>
           <Link to="/portfolio" className="btn secondary">View Our Work</Link>
         </motion.div>
+        
       </div>
 
       {/* Right Section */}
@@ -121,7 +122,7 @@ const HeroSection2 = () => {
       }}
 
           src={heroimg} alt='hero-img' className='cont-right' />
-</div>
+      </div>
       </div>
 
     </div>
@@ -146,6 +147,50 @@ const HeroSection2 = () => {
         <img src={user_2} alt="User 3" />
         Start your project with us today — it’s easier than you think! 🎨
       </div>*/}
+             {/* Comment bubbles */}
+    {/* <motion.div
+      className="comment-bubble"
+      style={{ top: "15%", right: "2%"}}
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1, delay: 0.5 }}
+    >
+      <img src={user_3} alt="User 1" />
+      Where creativity meets performance. 💻
+    </motion.div>
+
+    <motion.div
+      className="comment-bubble"
+      style={{ top: "15%", right: "30%" }}
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1, delay: 1 }}
+    >
+      <img src={user_4} alt="User 2" />
+      Templates, tutorials, and tools — everything you need in one place! 💼
+    </motion.div>
+
+    <motion.div
+      className="comment-bubble"
+      style={{ bottom: "10%", left: "5%" }}
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1, delay: 1.5 }}
+    >
+      <img src={user_1} alt="User 3" />
+      GraceTech transformed our brand — couldn’t be happier! 😀
+    </motion.div>
+
+    <motion.div
+      className="comment-bubble"
+      style={{ bottom: "10%", right: "5%" }}
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1, delay: 2 }}
+    >
+      <img src={user_2} alt="User 4" />
+      Start your project with us today — it’s easier than you think! 🎨
+    </motion.div> */}
 
    </section>
   )

@@ -10,7 +10,7 @@
   height: 80px;
   align-items: center;
   justify-content: space-between;
-  padding: 1.5rem 2rem; 
+  padding: 1.5rem 3rem; 
   background: rgba(0, 0, 0, 0.85); /* darker transparency for better visibility */
   backdrop-filter: blur(12px); /* slightly stronger blur for depth */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* subtle shadow for separation */

@@ -16,7 +16,7 @@
 .hero22 {
   background: linear-gradient(175deg, #000000 0%, #2e2e60 40%, #5f39ff 75%, #20d9a1 100%);
 
-padding: 40px;
+padding: 50px;
 margin: 0;
   width: 100%;
 }
@@ -51,13 +51,15 @@ margin: 0;
 .cont-left {
  flex: 2;
  flex-direction: column;
-  align-items: flex-start; /* makes children align left */
-  text-align: left;        /* ensures text aligns left */
+ justify-content: center;
+ align-items: flex-start;   /* left align by default */
+
+ text-align: left;        /* ensures text aligns left */
   gap: 1.2rem;      
 }
 
 .cont-left h1 {
-  font-size: clamp(1.5rem, 5vw, 1rem);
+  font-size: clamp(2.5rem, 5vw, 3rem);
   margin-bottom: 20px;
 }
 
@@ -79,6 +81,10 @@ margin: 0;
  height: auto;
 }
 
+.buttons {
+  display: flex;
+}
+
 @media (min-width: 1280px) {
   .hero-img2 img {
     right: -28%;
@@ -88,7 +94,34 @@ margin: 0;
 @media (max-width: 768px) {
   .content22 {
     flex-direction: column;
-    align-items: flex-start;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh; /* keep inside screen */
+  }
+
+  .cont-left {
+    margin-top: -30px;
+    text-align: center !important;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .cont-left h1 {
+    font-size: 30px;
+    width: 100%;
+  }
+
+  .subtitle {
+    font-size: 18px !important;
+    justify-content: center;
+    text-align: center !important;
+    align-items: center;
+  }
+
+  #hero-proc, .buttonss {
+    justify-content: center !important;
   }
 
   .hero11 {
@@ -96,17 +129,25 @@ margin: 0;
   }
 
   .hero22{ 
-    padding: 30px;
+    padding: 20px;
   }
 
   .hero-img2 {
     order: -1;
     width: 100%;
+    margin-top: -80px;
     justify-content: center;
-    margin-bottom: 20px;
+    margin-bottom: 0px;
   }
   .hero-img2 img {
     max-width: 250px;
+  }
+}
+
+@media (max-width: 500px) {
+  .cont-left p {
+    font-size: 0.5rem;
+    max-width: 90%;
   }
 }
 
@@ -130,22 +171,22 @@ h1 {
   color: #20d9a1;
  
   display: inline-block;
-  font-size: clamp(0.8rem, 5vw, 3rem);
 }
 
 .subtitle {
   font-size: 1.1rem;
   color: #f2f2f2;
   margin-bottom: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
   line-height: 1.6;
-  text-align: center;
+  text-align: left;
+  width: 100%;
 }
 
 .buttons {
   display: flex;
   justify-content: center;
   gap: 1rem;
-  flex-wrap: wrap;
 }
 
 .btn {
@@ -181,15 +222,7 @@ h1 {
   color: #fff;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  h1 {
-    font-size: 2rem;
-  }
-  .subtitle {
-    font-size: 1rem;
-  }
-}
+
 
 .comment-bubble {
   position: absolute;
@@ -398,8 +431,10 @@ animation: moveArrow 1s infinite alternate ease-in-out;
   z-index: 10; /* Ensure it's above the animation */
 }
 
-.work-pro, .buttons {
-  justify-content: flex-start;
+#hero-proc, .buttonss {
+  display: flex;
+  justify-content: flex-start !important;
+  width: 100%;
 }
 
 
