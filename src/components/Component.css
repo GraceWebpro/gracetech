@@ -265,7 +265,9 @@
 
     .navbar {
       padding: 1.5rem 1rem;
-
+      display: flex;
+      justify-content: space-between;  /* logo on left, hamburger on right */
+      align-items: center;
     }
 
     .navbar-logo img {
@@ -280,10 +282,7 @@
 
       }
 
-      .navbar-hamburger {
-        font-size: 1.8rem;
-
-      }
+    
     
   }
 

@@ -206,36 +206,65 @@ const NavbarN = () => {
     transition={{ duration: 0.7 }}
      className={`mobile-menu ${isMobileOpen ? 'open' : ''}`}>
         <div className="mobile-close" onClick={closeMobileMenu}>×</div>
-        {menuItems.map((item) =>
-          item.dropdown ? (
-            <div key={item.name} className="mobile-dropdown">
-              <span onClick={toggleDropdown}>Resources <span className='drop-plus'>+</span></span>
-              {resourcesOpen && (
-              <ul className="dropdown-menu">
-                {item.children.map((child) => (
-                  <li key={child.name} id='link-item'>
-                    <Link to={child.path} onClick={() => {
-                      closeMobileMenu();       // closes mobile nav if open
-                      setResourcesOpen(false); // closes the dropdown
-                    }}>{child.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-        )}
-            </div>
-          ) : (
-            <a
-              href={item.path}
-              id='link-item'
-              key={item.name}
-              className='mobile-items'
-              onClick={(e) => handleScroll(e, item.path)}
+        {menuItems.map((item) => (
+  item.dropdown ? (
+    <div key={item.name} className="mobile-dropdown">
+      <span onClick={toggleDropdown} className="mobile-dropdown-toggle">
+        {item.name} <span className="drop-plus">+</span>
+      </span>
+      {resourcesOpen && (
+        <ul className="dropdown-menu">
+          {item.children.map((child) => (
+            <li 
+              key={child.name} 
+              id="link-item"
+              className={activeLink === child.name.toLowerCase() ? "active" : ""}
             >
-              {item.name}
-            </a>
-          )
-        )}
+              <Link 
+                to={child.path} 
+                onClick={() => {
+                  closeMobileMenu();
+                  setResourcesOpen(false);
+                  setActiveLink(child.name.toLowerCase());
+                }}
+              >
+                {child.name}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  ) : item.path.startsWith('#') ? (
+    <a
+      href={item.path}
+      id="link-item"
+      key={item.name}
+      className={`mobile-items ${activeLink === item.name.toLowerCase() ? "active" : ""}`}
+      onClick={(e) => {
+        handleScroll(e, item.path);   // ✅ only for hash links
+        setActiveLink(item.name.toLowerCase());
+        closeMobileMenu();
+      }}
+    >
+      {item.name}
+    </a>
+  ) : (
+    <Link
+      to={item.path}
+      id="link-item"
+      key={item.name}
+      className={`mobile-items ${activeLink === item.name.toLowerCase() ? "active" : ""}`}
+      onClick={() => {
+        closeMobileMenu();           // ✅ no handleScroll here
+        setActiveLink(item.name.toLowerCase());
+      }}
+    >
+      {item.name}
+    </Link>
+  )
+))}
+
         <Link to="/book-a-call" className="cta" onClick={closeMobileMenu}>Book a Call</Link>
       </motion.div>
     </>

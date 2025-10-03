@@ -56,7 +56,7 @@ useEffect(() => {
     onMouseLeave={() => setIsPaused(false)}>
       <div className='test-h' style={{ display: 'flex', gap: '20px', alignItems: 'center', justifyContent:'center' }} data-aos="fade-down">
         <div className='test-bdr'></div>
-        <h2 style={{ textAlign: 'center', fontFamily: 'Dancing Script, "sans-seriff"', color: '#0059ff' }}>Testimonial</h2>
+        <h2 style={{ textAlign: 'center', fontFamily: 'Dancing Script, cursive, Arial, "sans-seriff"', color: '#0059ff' }}>Testimonial</h2>
         <div className='test-bdr'></div>
       </div>
       <p className='test-title' data-aos="fade-up" data-aos-duration="500">Happy Words From Happy Customer</p>

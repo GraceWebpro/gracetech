@@ -117,19 +117,18 @@ const ServiceDetailsPage = () => {
 
               
           </div>
-          <div className='serv-cont-div'>
+          {/* <div className='serv-cont-div'>
             <div className='touch-icon-div'>
-                <div className='blur-bg'></div> {/* this is the blurred layer */}
-
+               
               <div className='touch-social serv-soc serv-social'>
                 <span>Contact Me</span>
                 <BsArrowRight className='touch-icon serv-icon'/>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
-      <HomeContact style={{ marginTop: '80px'}} />
+      <HomeContact style={{ marginTop: '0px'}} />
     </div>
   );
 };

@@ -35,7 +35,7 @@ const HomeBlog = () => {
         <div className='blog-left'>
             <div className='meet-h' style={{ display: 'flex', gap: '20px', alignItems: 'center',}} data-aos="fade-down">
               <div className='cont-bdr'></div>
-              <h2 style={{ textAlign: 'center', fontFamily: 'Dancing Script, "sans-seriff"', color: '#fff' }}><em>Blog</em></h2>
+              <h2 style={{ textAlign: 'center', fontFamily: 'Dancing Script, cursive, Arial, "sans-seriff"', color: '#fff' }}>Blog</h2>
 
             </div>
             <div className='meet-pa'>

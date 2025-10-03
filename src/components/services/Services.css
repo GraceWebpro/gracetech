@@ -234,6 +234,7 @@
     display: flex;
     flex-direction: column;
     width: 100%;
+    padding: 0 50px;
   }
 
   .serviceDetails h1 {
@@ -244,10 +245,10 @@
 
   .serviceDetails .serv-script {
     color: #fff;
-    margin-top: 30px;
+    margin: 30px 0 30px 0;
     font-family: 'Dancing Script', cursive, Arial, sans-serif;
     font-size: 24px;
-    margin-left: 60px;
+    
   }
 
   .serviceDetails .serv-script span {
@@ -259,7 +260,6 @@
     flex-direction: row;
     width: 100%;
     text-align: left;
-    padding: 60px;
     gap: 70px;
   }
 
@@ -346,7 +346,7 @@
   }
 
   /* Blurred background image */
-.blur-bg {
+/* .blur-bg {
   position: absolute;
   top: 0;
   left: 0;
@@ -355,14 +355,17 @@
   background: url('../../assets/education.jpg') center/cover no-repeat;
   filter: blur(6px);
   z-index: 1;
-}
+} */
 
 /* Tablet screens (768px and below) */
 @media screen and (max-width: 768px) {
   .serv-det-flex {
     flex-direction: column;
-    padding: 30px 70px;
     gap: 40px;
+  }
+
+  .serviceDetails {
+    padding: 0 30px;
   }
 
   .serv-det-left img {
@@ -398,14 +401,13 @@
 
   .serv-det-flex {
     flex-direction: column;
-    padding: 30px 30px;
     gap: 40px;
   }
 
 
 
   .serviceDetails .serv-script {
-    font-size: 18px;
+    font-size: 22px;
   }
 
   .serv-det-left h3 {
@@ -546,7 +548,6 @@
 .faq-container {
   max-width: 800px;
   margin: 5rem auto;
-  padding: 0 1rem;
   color: #fff;
 }
 
@@ -563,6 +564,13 @@
   border-radius: 8px;
   overflow: hidden;
   background: #111;
+  display: flex;
+  flex-direction: column;
+}
+
+.faq-item button {
+  display: flex;
+  justify-content: space-between;
 }
 
 .faq-question {
@@ -587,6 +595,7 @@
 .faq-icon {
   font-size: 1.2rem;
   margin-left: 1rem;
+  
   color: #20d9a1;
 }
 
@@ -619,8 +628,5 @@
     align-items: flex-start;
   }
 
-  .faq-icon {
-    align-self: flex-end;
-    margin-top: 0.5rem;
-  }
+ 
 }
