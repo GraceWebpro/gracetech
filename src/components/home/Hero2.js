@@ -81,7 +81,7 @@ const HeroSection2 = () => {
           Elevate your brand with cutting-edge design, powerful development, and real business results.
           From custom websites to downloadable templates and guided tutorials, GraceTech helps you create, learn, and grow.
         </motion.p>
-        <WorkProcess id="hero-proc" style={{ justifyContent: "flex-start", textAlign: "left" }} />
+        <WorkProcess />
         <motion.div 
          initial={{ opacity: 0, y: 80 }}
          animate={{ opacity: 1, y: 0 }}
@@ -90,9 +90,9 @@ const HeroSection2 = () => {
            stiffness: 40,
            damping: 25,
            delay: 1.8,
-           duration: 1.5, 
+           duration: 1.5,
          }}
-        className="buttons buttonss">
+        id="buttonss">
           <Link to='/get-a-quote' className="btn primary">Get A Quote</Link>
           <Link to="/portfolio" className="btn secondary">View Our Work</Link>
         </motion.div>

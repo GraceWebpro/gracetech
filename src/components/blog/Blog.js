@@ -3,7 +3,6 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../server/firebase";
 import { Link } from "react-router-dom";
 import './Blog.css';
-import HeroSection2 from "../home/Hero2";
 
 
 const ModernBlogPage = () => {
@@ -30,7 +29,6 @@ const ModernBlogPage = () => {
 
   return (
     <div className="modern-blog" id='blog'>
-      <HeroSection2 />
       <h1 className="modern-heading">📝 Insights & Articles</h1>
       <div className="modern-grid">
         {blogs.map((post) => (

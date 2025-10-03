@@ -67,14 +67,6 @@
 
   }
 
- /* .navbar-links li a:hover {
-    background-image: -webkit-gradient(linear, left top, right top, from(var(--tj-color-theme-primary)), to(var(--tj-color-theme-secondary)));
-    background-image: linear-gradient(90deg, var(--tj-color-theme-primary) 0%, var(--tj-color-theme-secondary) 100%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  */
   .cta {
     border: 1px solid #97b3b1;
     background: transparent;
@@ -269,15 +261,33 @@
       padding: 0rem 0.8rem;
     }
 
-    .navbar-logo a{
-      font-size: 1.6rem;
-    }
+
 
     .navbar {
       padding: 1.5rem 1rem;
 
     }
 
+    .navbar-logo img {
+      width: 60px;
+      height: 60px;
+    }
+    
+      .navbar-logo a {
+        font-weight: 900;
+        font-size: 1.7rem;
+        margin-left: -45px;
+
+      }
+
+      .navbar-hamburger {
+        font-size: 1.8rem;
+
+      }
+    
+  }
+
+  @media (max-width: 500px) {
     .navbar-logo img {
       width: 45px;
       height: 45px;
@@ -289,11 +299,5 @@
         margin-left: -35px;
 
       }
-
-      .navbar-hamburger {
-        font-size: 1.8rem;
-
-      }
-    
   }
   

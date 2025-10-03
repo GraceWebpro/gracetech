@@ -15,6 +15,7 @@ import Blog from '../blog/Blog';
 import HomeBlog from '../blog/HomeBlog';
 import HeroSection from './Hero';
 import CustomCursor from '../CustomCursor';
+import HeroSection2 from './Hero2';
 //import Banner2 from '../banner/Banner2';
 //import Meeting from '../projects/Meeting'
 
@@ -44,8 +45,7 @@ const Homepage = () => {
     return (
         <div style={{ marginTop: '60px' }}>
             
-            
-            <HeroSection />
+            <HeroSection2 /> 
             <CustomCursor />
             <About />
            
