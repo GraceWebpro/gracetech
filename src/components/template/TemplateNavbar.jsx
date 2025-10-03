@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './TemplateNavbar.css';
-import logo from '../../assets/logo-main.png';
+import logo from '../../assets/my-logo2-removebg-preview (1).png'
 import { RiMenuUnfold3Fill, RiCloseLine } from "react-icons/ri";
 import { IoMdArrowDropdown, IoMdSearch } from "react-icons/io";
 import { TbZoomScan } from "react-icons/tb";
