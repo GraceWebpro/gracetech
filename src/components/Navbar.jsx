@@ -78,67 +78,67 @@ const NavbarN = () => {
       
 
       <ul className="navbar-links">
-      {menuItems.map((item, index) => (
-  <motion.li
-  initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ 
-                type: "spring",
-                stiffness: 100,
-                damping: 20,
-                delay: 0.7 + index * 0.2,
-              }}
-   className={item.dropdown ? 'dropdown' : ''} id='link-item' key={item.name}>
-    {item.dropdown ? (
-      <>
-        <span onClick={toggleDropdown} className="dropdown-toggle">
-          {item.name} <span className='drop-plus'>+</span>
-        </span>
-        {resourcesOpen && (
-          <ul className="dropdown-menu">
-            {item.children.map((child) => (
-              <motion.li 
-              key={child.name} 
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ 
-                type: "spring",
-                stiffness: 100,
-                damping: 20,
-                delay: 0.7 + index * 0.2,
-              }}
-              id='link-item'>
-                <Link to={child.path} onClick={() => {
-                  closeMobileMenu();       // closes mobile nav if open
-                  setResourcesOpen(false); // closes the dropdown
-                }}>{child.name}
-                </Link>
-              </motion.li>
-            ))}
-          </ul>
-        )}
-      </>
-    ) : item.path.startsWith('#') ? (
-      <a
-        href={item.path}
-        onClick={(e) => handleScroll(e, item.path)}
-        id='link-item'
-        className={activeLink === item.name.toLowerCase() ? 'active' : ''}
-      >
-        {item.name}
-      </a>
-    ) : (
-      <Link
-        to={item.path}
-        onClick={closeMobileMenu}
-        id='link-item'
-        className={activeLink === item.name.toLowerCase() ? 'active' : ''}
-      >
-        {item.name}
-      </Link>
-    )}
-  </motion.li>
-))}
+        {menuItems.map((item, index) => (
+          <motion.li
+          initial={{ opacity: 0, y: -20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ 
+                        type: "spring",
+                        stiffness: 100,
+                        damping: 20,
+                        delay: 0.7 + index * 0.2,
+                      }}
+          className={item.dropdown ? 'dropdown' : ''} id='link-item' key={item.name}>
+          {item.dropdown ? (
+        <>
+          <span onClick={toggleDropdown} className="dropdown-toggle">
+            {item.name} <span className='drop-plus'>+</span>
+          </span>
+          {resourcesOpen && (
+            <ul className="dropdown-menu">
+              {item.children.map((child) => (
+                <motion.li 
+                key={child.name} 
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ 
+                  type: "spring",
+                  stiffness: 100,
+                  damping: 20,
+                  delay: 0.7 + index * 0.2,
+                }}
+                id='link-item'>
+                  <Link to={child.path} onClick={() => {
+                    closeMobileMenu();       // closes mobile nav if open
+                    setResourcesOpen(false); // closes the dropdown
+                  }}>{child.name}
+                  </Link>
+                </motion.li>
+              ))}
+            </ul>
+          )}
+        </>
+      ) : item.path.startsWith('#') ? (
+        <a
+          href={item.path}
+          onClick={(e) => handleScroll(e, item.path)}
+          id='link-item'
+          className={activeLink === item.name.toLowerCase() ? 'active' : ''}
+        >
+          {item.name}
+        </a>
+      ) : (
+        <Link
+          to={item.path}
+          onClick={closeMobileMenu}
+          id='link-item'
+          className={activeLink === item.name.toLowerCase() ? 'active' : ''}
+        >
+          {item.name}
+        </Link>
+      )}
+          </motion.li>
+        ))}
 
       </ul>
 

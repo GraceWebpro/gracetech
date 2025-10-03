@@ -77,6 +77,10 @@
   margin-top: 20px;
 }
 
+.about-div p {
+  text-align: left;
+}
+
 .about-div-display {
   flex-direction: column;
   display: flex;

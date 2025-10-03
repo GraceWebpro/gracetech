@@ -60,14 +60,14 @@ const ProjectContact = () => {
         <div className='meet-left'>
             <div className='meet-h' style={{ display: 'flex', gap: '20px', alignItems: 'center',}} data-aos="fade-down">
               <div className='cont-bdr'></div>
-              <h2 style={{ textAlign: 'center', fontFamily: 'Dancing Script, "sans-seriff"' }}>Need a Project?</h2>
+              <h2 style={{ textAlign: 'center', fontFamily: 'Dancing Script, "sans-seriff"' }}><em>Need a Project?</em></h2>
 
             </div>
             <div className='meet-pa'>
-                <h4 data-aos="fade-up" className='meet-title'>Let's Work Together. Fix A Meeting</h4>
+                <h4 data-aos="fade-left" data-aos-duration="1000" className='meet-title'>Let's Work Together. Fix A Meeting</h4>
             </div>
             <div className='meet-div-display'>
-                <div className='meet-div' data-aos="zoom-in-up" data-aos-duration="500">
+                <div className='meet-div' data-aos="fade-left" data-aos-duration="1000">
                     <div className='meet-icon-div'>
                     <IoMailOutline className='meet-icon'/>
 
@@ -77,7 +77,7 @@ const ProjectContact = () => {
                       <h6>gracetechagency@gmail.com</h6>
                     </div>
                 </div>
-                <div className='meet-div' data-aos="zoom-in-up" data-aos-duration="500">
+                <div className='meet-div' data-aos="fade-left" data-aos-duration="1000">
                     <div className='meet-icon-div'>
                     <IoLocationOutline className='meet-icon'/>
 

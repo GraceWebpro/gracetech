@@ -9,13 +9,13 @@ const Services = () => {
     <div className='services' id='services'>
       <div className='serv-h' style={{ display: 'flex', gap: '20px', alignItems: 'center', justifyContent: 'center' }} data-aos="fade-down">
         <div className='serv-bdr'></div>
-        <h2 style={{ textAlign: 'center', fontFamily: 'Dancing Script, "sans-serif"', color: '#0059ff' }}>Our Services</h2>
+        <h2 style={{ textAlign: 'center', fontFamily: 'Dancing Script, "sans-serif"', color: '#0059ff' }}><em>Our Services</em></h2>
         <div className='serv-bdr'></div>
       </div>
-      <p className='serv-title' data-aos="fade-up" data-aos-duration="500">Tailored Solutions for Your Business Growth</p>
+      <p className='serv-title' data-aos="fade-left" data-aos-duration="1000">Tailored Solutions for Your Business Growth</p>
       <div className='serv-div-display'>
         {services.map((service, index) => (
-          <div className='serv-div' key={index} data-aos="fade-up" data-aos-duration="500">
+          <div className='serv-div' key={index} data-aos="fade-left" data-aos-duration="1000">
             <div className='serv-left'>
               <h6>{String(index + 1).padStart(2, '0')}</h6> {/* To show 01, 02, etc. */}
               <div className='serv-text'>

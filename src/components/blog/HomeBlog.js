@@ -35,11 +35,11 @@ const HomeBlog = () => {
         <div className='blog-left'>
             <div className='meet-h' style={{ display: 'flex', gap: '20px', alignItems: 'center',}} data-aos="fade-down">
               <div className='cont-bdr'></div>
-              <h2 style={{ textAlign: 'center', fontFamily: 'Caveat, "sans-seriff"', color: '#fff' }}>Blog</h2>
+              <h2 style={{ textAlign: 'center', fontFamily: 'Dancing Script, "sans-seriff"', color: '#fff' }}><em>Blog</em></h2>
 
             </div>
             <div className='meet-pa'>
-                <h4 data-aos="fade-up" className='meet-title'>Recent Posts</h4>
+                <h4 data-aos="fade-left" data-aos-duration="1000" className='meet-title'>Recent Posts</h4>
             </div>
 
             <Link to='/blog' className="click-more-btn blog-btn" style={{ marginTop: '20px' }}>
@@ -105,7 +105,7 @@ const HomeBlog = () => {
         <div className='blog-line'></div>
 
         {blogs.map((blog, index) => (
-          <div className='blog-div' data-aos="zoom-in-up" data-aos-duration="500" key={blog.id}>
+          <div className='blog-div' data-aos="fade-left" data-aos-duration="1000" key={blog.id}>
             <div className='blog-cont-left' style={{ flexDirection: 'column' }}>
               <p><strong>{new Date(blog.date || blog.createdAt?.toDate()).toDateString()}</strong></p>
               <h6>{blog.title}</h6>
