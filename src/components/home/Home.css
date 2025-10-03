@@ -138,8 +138,9 @@
   }
 
   .cont-left p {
-    font-size: 1.6rem;
+    font-size: 1.2rem;
     text-align: center;
+    font-weight: 200 !important;
   }
 
   .work-pro {
@@ -184,7 +185,7 @@
   }
 
   .cont-left p {
-    font-size: 1.5rem;
+    font-size: 0.9rem;
   }
 }
 
@@ -218,7 +219,7 @@
   }
 
   .cont-left p {
-    font-size: 1.2rem;
+    font-size: 0.7rem;
     max-width: 100%;
   }
 }
