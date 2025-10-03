@@ -27,7 +27,7 @@ const Contact = () => {
             <input type="hidden" name="_next" value="http://localhost:3000/thank-you" />
 
             <Row>
-              <Col sm={6}>
+              <Col md={6}>
                 <input type="text" name="firstName" placeholder="First Name" required />
               </Col>
               <Col sm={6}>

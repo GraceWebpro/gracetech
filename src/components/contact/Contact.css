@@ -16,9 +16,7 @@
         width: 100%;
    
 }
-.contact-page {
-    padding: 0;
-}
+
 .cont-h h2 {
     color: #0059ff !important;
   }
@@ -65,6 +63,7 @@
 .contact-right {
     width: 100%;
     max-width: 600px;
+    padding: 0 50px;
 }
 
 .contact-div {
@@ -182,9 +181,7 @@
     padding: 0 30px;
   }
 
-    .contact form {
-        padding: 20px;
-    }
+   
 
     .cent {
         flex-direction: column;
@@ -223,7 +220,6 @@
       
         .proj-title {
           font-size: 20px;
-        width: 90%;
         }
         .contact form,
         .contact-left,
