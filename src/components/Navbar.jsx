@@ -213,7 +213,7 @@ const NavbarN = () => {
         {item.name} <span className="drop-plus">+</span>
       </span>
       {resourcesOpen && (
-        <ul className="dropdown-menu">
+        <ul className="dropdown-menu" id='mobile-drop'>
           {item.children.map((child) => (
             <li 
               key={child.name} 

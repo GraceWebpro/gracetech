@@ -628,5 +628,7 @@
     align-items: flex-start;
   }
 
- 
+  .faq-icon {
+    align-self: flex-end;
+  }
 }
