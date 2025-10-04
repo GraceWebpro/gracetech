@@ -105,7 +105,7 @@ const NavbarN = () => {
                   type: "spring",
                   stiffness: 100,
                   damping: 20,
-                  delay: 0.7 + index * 0.2,
+                  delay: 0.2 + index * 0.2,
                 }}
                 id='link-item'>
                   <Link to={child.path} onClick={() => {
@@ -178,10 +178,10 @@ const NavbarN = () => {
             </a>
           </div>
           <p className="abt">
-            Neque porro quisquam est, qui dolorem ipsum quia dolor sit consectetur, aliquam quaerats voluptatem. Ut enim ad minima veniam, exercitationem laboriosam, nisi ut aliquid ex ea autem velit esse quam nihil
+          We are GraceTech, a global agency of designers, developers, and innovators, based in Victoria Highland, Lagos. We specialize in turning ideas into impactful digital solutions to help your business succeed.
           </p>
           <p className="p-first"><strong>ADDRESS</strong><br /><h5>Victoria Island, Lagos.</h5></p>
-          <p><strong>EMAIL</strong><br /><span>gracetechagency@gmail.com</span></p>
+          <p><strong>EMAIL</strong><br /><span>gogracetech@gmail.com</span></p>
           <p><strong>CALL NOW</strong><br /><span>+234 704 342 1913</span></p>
           <div className="nav-flex">
             <Link to="contact" className="nav__link"><AiOutlineTikTok className="nav-icon" /></Link>

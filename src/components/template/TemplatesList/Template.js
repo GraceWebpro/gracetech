@@ -12,39 +12,6 @@ import TemplateFetcher from './TemplateFetcher'
 //import AllCategories from './GraphicSection'
 import { db } from '../../../server/firebase'  // adjust path
 import { collection, getDocs } from "firebase/firestore"
-
-const categoryData = [
-    { 
-      name: 'Graphic Templates', 
-      count: 12, 
-      image: graphic
-    },
-    { 
-      name: 'Website Templates', 
-      count: 8, 
-      image: website
-    },
-    { 
-      name: 'App Templates', 
-      count: 5, 
-      image: appImg
-    },
-    { 
-      name: 'Figma Templates', 
-      count: 14, 
-      image: figma
-    },
-    { 
-      name: 'Bubble Templates', 
-      count: 7, 
-      image: bubble
-    },
-    { 
-      name: 'FlutterFlow Templates', 
-      count: 10, 
-      image: flutter
-    }
-  ];
   
 
 const Template = () => {
@@ -52,49 +19,56 @@ const Template = () => {
   const [totalTemplates, setTotalTemplates] = useState(0);
 
   useEffect(() => {
-    const fetchCounts = async () => {
+    const fetchData = async () => {
       try {
-        const snapshot = await getDocs(collection(db, "templates"));
-        const templates = snapshot.docs.map(doc => doc.data());
+        // Fetch templates
+        const templatesSnap = await getDocs(collection(db, "templates"));
+        const templates = templatesSnap.docs.map((doc) => doc.data());
 
-        // categories you care about
-        const categories = [
-          { name: 'Graphic Templates', image: graphic },
-          { name: 'Website Templates', image: website },
-          { name: 'App Templates', image: appImg },
-          { name: 'Figma Templates', image: figma },
-          { name: 'Bubble Templates', image: bubble },
-          { name: 'FlutterFlow Templates', image: flutter }
-        ];
-
-        // count docs per category
-        const updated = categories.map(cat => {
-          const count = templates.filter(t => t.category === cat.name).length;
-          return { ...cat, count };
+        // Count templates per category
+        const counts = {};
+        templates.forEach((t) => {
+          const cat = (t.category || "Uncategorized").trim();
+          counts[cat] = (counts[cat] || 0) + 1;
         });
 
-        setCategoryData(updated);
+        // Fetch category images from "categories" collection
+        const catSnap = await getDocs(collection(db, "categories"));
+        const categoryDocs = catSnap.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+
+        // Merge category images with counts
+        const mergedData = categoryDocs.map((cat) => ({
+          name: `${cat.name} Templates`,
+          count: counts[cat.name] || 0,
+          image: cat.image,
+        }));
+
+        setCategoryData(mergedData);
+        setTotalTemplates(templates.length);
       } catch (err) {
-        console.error("Error fetching templates:", err);
+        console.error("Error fetching template data:", err);
       }
     };
 
-    fetchCounts();
+    fetchData();
   }, []);
+
+
 
 
   return (
     <div className='template'>
         <div className='temp-bann'>
             <h1><span>Template</span> Assets & Templates</h1>
-            <p>With unlimited downloads of template assets and templates, we've got all the creative ammo you need to create something epic.</p>
+            <p style={{ color: "#ccc" }}>With unlimited downloads of template assets and templates, we've got all the creative ammo you need to create something epic.</p>
             <TemplateSearchSlider />
         </div>
 
         <div className='temp-cat'>
             <h4>Browse by category</h4>
-            <p>21,999,668 assets</p>
-            <p>{categoryData.reduce((sum, cat) => sum + cat.count, 0)} assets</p>
             <p>{totalTemplates} assets</p>
 
             <TemplateCarousel categories={categoryData} />

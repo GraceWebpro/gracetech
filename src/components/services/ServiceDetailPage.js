@@ -128,7 +128,7 @@ const ServiceDetailsPage = () => {
           </div> */}
         </div>
       </div>
-      <HomeContact style={{ marginTop: '0px'}} />
+      <HomeContact id="serv-det-cont" />
     </div>
   );
 };

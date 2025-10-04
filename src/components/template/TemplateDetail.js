@@ -110,26 +110,8 @@ function TemplateDetails() {
               </div>
             )}
           </div>
-        </div>
 
-        {/* Right Section */}
-        <div className="right-section">
-
-          <div className="cta-box">
-            <h2>Subscribe to Access</h2>
-            <p>Get unlimited access to premium templates.</p>
-            <button className="subscribe-btn">Subscribe Now</button>
-          </div>
-
-          <button className="collection-btn">Add to Collection</button>
-
-          <p className="signin-text">
-            Already have an account? <a href="/login">Sign in</a>
-          </p>
-        </div>
-      </div>
-
-      <div className="template-body">
+          <div className="template-body">
         <p className="description">{template.description}</p>
 
         <div className="info-grid">
@@ -218,15 +200,36 @@ function TemplateDetails() {
         */}
       </div>
 
+        </div>
+
+        {/* Right Section */}
+        <div className="right-section">
+
+          <div className="cta-box">
+            <h2>Subscribe to Access</h2>
+            <p>Get unlimited access to premium templates.</p>
+            <button className="subscribe-btn">Subscribe Now</button>
+          </div>
+
+          <button className="collection-btn">Add to Collection</button>
+
+          <p className="signin-text">
+            Already have an account? <a href="/login">Sign in</a>
+          </p>
+        </div>
+      </div>
+
+      
+
       <div className="template-section">
         <div className="section-header">
           <h2>Similar Templates</h2>
         </div>
-      <div className="template-grid">
+        <div className="section-template-grid">
 
         {similarTemplates.slice(0, 4).map(template => (
               <Link to={`/templates/${template.id}`} key={template.id} className="template-card-link">
-                <div className="template-card">
+                <div className="section-template-card">
                   <img src={template.thumbnail} alt={template.name} className='template-image' />
                   <div className="overlay">
                     <h4 className="template-title">{template.name}</h4>
@@ -239,6 +242,7 @@ function TemplateDetails() {
               </Link>
             ))}
       </div>
+
   </div>
 
       <style>{`

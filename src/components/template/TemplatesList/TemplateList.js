@@ -4,6 +4,9 @@ import { db } from '../../../server/firebase';
 import { collection, getDocs } from 'firebase/firestore';
 import './Template.css';
 import { FaFilter,FaEyeSlash, FaSort, FaEye, FaClock, FaFire } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+import { FaHeart, FaDownload } from 'react-icons/fa';
+import { Link } from "react-router-dom";
 
 const TemplateList = () => {
   const { slug } = useParams(); // Capture slug from URL like /template-list/graphic
@@ -79,7 +82,7 @@ const TemplateList = () => {
   return (
     <div className="template-list-container">
       <div className="temp-bann">
-        <h1><span>Templates</span>{slug?.charAt(0).toUpperCase() + slug?.slice(1)} Templates</h1>
+        <h1><span>Templates</span> List</h1>
         <p>Browse through the templates. Use filters or sort options to find what you need!</p>
       </div>
 
@@ -135,19 +138,31 @@ const TemplateList = () => {
 
 
 
-        <div className="template-grid">
+<div className="section-template-grid">
           {filteredTemplates.length > 0 ? (
             filteredTemplates.map(template => (
-              <div key={template.id} className="template-card">
-                <img src={template.thumbnail} alt={template.name} />
+              <Link to={`/templates/${template.id}`} key={template.id} className="section-template-card-link">
+                <div className="section-template-card">
+                    <img src={template.thumbnail} alt={template.title || "Template thumbnail"} className='section-template-image' />
+                    <div className="section-overlay">
+                        <h4 className="section-template-title">{template.name}</h4>
+                        <div className="section-icon-group">
+                        <FaHeart className="section-card-icon" />
+                        <FaDownload className="section-card-icon" />
+                        </div>
+                    </div>
+                  </div>
+
+                {/* <img src={template.thumbnail} alt={template.name} />
                 <h4>{template.name}</h4>
-                <p>{template.subCategory}</p>
-              </div>
+                <p>{template.subCategory}</p> */}
+              </Link>
             ))
           ) : (
             <p>No templates found.</p>
           )}
-        </div>
+        </div> 
+     
       </div>
     </div>
   );

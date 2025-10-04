@@ -223,7 +223,7 @@ const Courses = ({ currentUser, purchasedVideos }) => {
         </aside>
         )}
 
-        <div className="movie-grid" style={{ marginTop: '10px', padding: '15px'}}>
+        <div className="section-template-grid" style={{ marginTop: '10px', padding: '15px'}}>
                 {loading ? (
                 <p>Loading...</p>
                 ) : error ? (

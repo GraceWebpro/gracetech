@@ -616,6 +616,10 @@
   color: #ccc;
 }
 
+#serv-det-cont {
+  top: 60px !important;
+}
+
 /* Responsive */
 @media (max-width: 600px) {
   .faq-container h2 {

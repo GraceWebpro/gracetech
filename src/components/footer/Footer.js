@@ -21,9 +21,9 @@ const Footer = () => {
       <div className="footer-content">
         <div className="footer-content-column">
           <div className="footer-logo">
-            <a className="footer-logo-link" href="link">
+            <Link to="/" className="footer-logo-link">
               <img src={logo} alt='GraceTech' className='logo' width={170} height={120} />
-            </a>
+            </Link>
           </div>
           <div className="footer-menu">
             <h2 className="footer-menu-name"> Get Started</h2>
@@ -45,25 +45,25 @@ const Footer = () => {
             <h2 className="footer-menu-name"> Company</h2>
             <ul id="menu-company" className="footer-menu-list">
               <li className="menu-item menu-item-type-post_type menu-item-object-page">
-                <a href="cont">About Us</a>
+                <a href="#about">About Us</a>
               </li>
-              <li className="menu-item menu-item-type-taxonomy menu-item-object-category">
+              <Link to="/blog"><li className="menu-item menu-item-type-taxonomy menu-item-object-category">
                 <a href="new">Blog</a>
-              </li>
+              </li></Link>
               <li className="menu-item menu-item-type-post_type menu-item-object-page">
-                <a href="car">Testimonials</a>
+                <a href="#testimonials">Testimonials</a>
               </li>
             </ul>
           </div>
           <div className="footer-menu">
             <h2 className="footer-menu-name"> Legal</h2>
             <ul id="menu-legal" className="footer-menu-list">
-              <li className="menu-item menu-item-type-post_type menu-item-object-page menu-item-privacy-policy menu-item-170434">
+              <Link to="/privacy"><li className="menu-item menu-item-type-post_type menu-item-object-page menu-item-privacy-policy menu-item-170434">
                 <a href="priv">Privacy Policy</a>
-              </li>
-              <li className="menu-item menu-item-type-post_type menu-item-object-page">
+              </li></Link>
+              <Link to="/terms"><li className="menu-item menu-item-type-post_type menu-item-object-page">
                 <a href="terms">Terms of Use</a>
-              </li>
+              </li></Link>
             </ul>
           </div>
         </div>
@@ -72,19 +72,19 @@ const Footer = () => {
             <h2 className="footer-menu-name"> Quick Links</h2>
             <ul id="menu-quick-links" className="footer-menu-list">
               <li className="menu-item menu-item-type-custom menu-item-object-custom">
-                <a rel="noopener noreferrer" href="sup">Services</a>
+                <a rel="noopener noreferrer" href="#services">Services</a>
               </li>
-              <li className="menu-item menu-item-type-custom menu-item-object-custom">
+              <Link to="/portfolio"><li className="menu-item menu-item-type-custom menu-item-object-custom">
                 <a rel="noopener noreferrer" href="portfolio">Portfolio</a>
-              </li>
-              <li className="menu-item menu-item-type-post_type menu-item-object-page">
+              </li></Link>
+              <Link to="/templates"><li className="menu-item menu-item-type-post_type menu-item-object-page">
                 <a href="templates">Templates</a>
-              </li>
-              <li className="menu-item menu-item-type-post_type menu-item-object-page">
+              </li></Link>
+              <Link to="/courses"><li className="menu-item menu-item-type-post_type menu-item-object-page">
                 <a href="courses">Courses</a>
-              </li>
-              <li className="menu-item menu-item-type-post_type_archive menu-item-object-customer">
-                <a href="contact">Contct Us</a></li>
+              </li></Link>
+              <Link to="/contact"><li className="menu-item menu-item-type-post_type_archive menu-item-object-customer">
+                <a href="contact">Contct Us</a></li></Link>
               <li className="menu-item menu-item-type-post_type menu-item-object-page">
                 <a href="reviews">FAQ</a>
               </li>
@@ -95,7 +95,7 @@ const Footer = () => {
           <div className="footer-call-to-action">
             <h2 className="footer-call-to-action-title"> Let's Chat</h2>
             <p className="footer-call-to-action-description"> Got a question?</p>
-            <a className="footer-call-to-action-button button" href="book-a-call" target="_self"> Book a Call </a>
+            <Link to="/book-a-call"><a className="footer-call-to-action-button button" href="book-a-call" target="_self"> Book a Call </a></Link>
           </div>
         
         </div>

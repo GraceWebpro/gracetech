@@ -178,7 +178,6 @@
     flex-direction: column !important;
     align-items: center;
     justify-content: center;
-    padding: 0 30px;
   }
 
    
@@ -202,7 +201,7 @@
 
     .contact-left, 
     .contact form {
-        max-width: 100%;
+        width: 100%;
     }
 }
 
@@ -225,6 +224,10 @@
         .contact-left,
         .contact-div {
           width: 100% !important;
+        }
+
+        .contact {
+            padding: 0 20px;
         }
 }
 
@@ -507,7 +510,7 @@ height: fit-content;
        
       }
 
-      .de
+      
     
     
   
@@ -530,7 +533,8 @@ height: fit-content;
 
     .touch-h2 {
         font-size: 45px !important;
-       
+        margin-top: 60px;
+
       }
     .touch-left h2 {
         font-size: 15px !important;
@@ -572,7 +576,7 @@ height: fit-content;
 
 .contact-page-right {
     background: #131313;    
-    padding: 40px;
+    padding: 40px 20px;
     border-radius: 10px;
     width: 100%;
     
@@ -580,7 +584,7 @@ height: fit-content;
 
 .contact-left {
     background: #131313;
-    padding: 40px;
+    padding: 40px 20px;
     border-radius: 10px;
     width: 100%;
 }
@@ -606,3 +610,4 @@ height: fit-content;
     color: #a0a0a0;
     margin-bottom: 20px;
 }
+

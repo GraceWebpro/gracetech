@@ -57,15 +57,15 @@ const Contact = () => {
         <Col md={6} className='contact-left'>
           <h4>Don’t hesitate to reach out to us anytime.</h4>
           <div className='contact-div-display'>
-            <div className='about-div'>
+            <div className='about-div' style={{ marginTop: "30px" }}>
               <p><strong>Address</strong></p>
               <h5>Victoria Island, Lagos.</h5>
             </div>
-            <div className='about-div'>
+            <div className='about-div' style={{ marginTop: "20px" }}>
               <p><strong>Email</strong></p>
               <h5 className='mail'>gracetechagency@gmail.com</h5>
             </div>
-            <div className='about-div'>
+            <div className='about-div' style={{ marginTop: "20px" }}>
               <p><strong>Phone</strong></p>
               <h5>+234 704 343 1913</h5>
             </div>

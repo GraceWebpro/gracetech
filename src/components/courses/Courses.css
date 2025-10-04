@@ -789,3 +789,10 @@ li {
   border-radius: 5px;
   cursor: pointer;
 }
+
+.section-template-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  width: 100%;
+}
