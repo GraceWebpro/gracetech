@@ -53,7 +53,7 @@ function App() {
           <Route path="/portfolio" element={<Projects />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/templates" element={<Template />} />
-          <Route path="/courses" element={<Courses />} />
+          <Route path="/courses" element={ <Courses /> } />
           <Route path="/courses/:id" element={<CoursesPage />} />
 
           <Route path="/get-a-quote" element={<GetAQuote />} />

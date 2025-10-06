@@ -239,6 +239,7 @@ const UploadContent = () => {
   const [topic, setTopic] = useState('Web Design');
   const [difficulty, setDifficulty] = useState('Beginner');
   const [format, setFormat] = useState('Video');
+  const [category, setCategory] = useState('Video');
   const [price, setPrice] = useState(0);
   const [isFree, setIsFree] = useState(true);
   const [videoFile, setVideoFile] = useState(null);
@@ -313,6 +314,7 @@ const UploadContent = () => {
         description,
         topic,
         difficulty,
+        category,
         format,
         isFree,
         price: isFree ? 0 : Number(price),
@@ -335,6 +337,7 @@ const UploadContent = () => {
       setDescription('');
       setTopic('Web Design');
       setDifficulty('Beginner');
+      setCategory('')
       setFormat('Video');
       setPrice(0);
       setIsFree(true);
@@ -655,6 +658,9 @@ const UploadContent = () => {
 
         <label>Description</label>
         <textarea value={description} onChange={e => setDescription(e.target.value)} rows={4} />
+
+        <label>Category(lowercase) *</label>
+        <input type="text" value={category} onChange={e => setCategory(e.target.value)} required />
 
         <label>Topic</label>
         <select value={topic} onChange={e => setTopic(e.target.value)}>

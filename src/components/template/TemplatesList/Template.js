@@ -41,7 +41,7 @@ const Template = () => {
 
         // Merge category images with counts
         const mergedData = categoryDocs.map((cat) => ({
-          name: `${cat.name} Templates`,
+          name: `${cat.name} Templatesddc`,
           count: counts[cat.name] || 0,
           image: cat.image,
         }));

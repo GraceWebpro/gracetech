@@ -4,8 +4,11 @@ import { collection, query, where, getDocs, orderBy, limit, startAfter } from "f
 import './Courses.css'
 import { useLocation, useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 
 const PAGE_SIZE = 6;
+
+const categories = ["Figma", "Bubble", "HTML", "CSS", "FlutterFlow", "React"];
 
 const topics = [ 'Web Design', 'SEO', 'Development'];
 
@@ -16,6 +19,7 @@ const Courses = ({ currentUser, purchasedVideos }) => {
   const [courses, setCourses] = useState([]);
   const [filteredCourses, setFilteredCourses] = useState([]);
   const [searchKeyword, setSearchKeyword] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState("");
   const [filterTopic, setFilterTopic] = useState('');
   const [filterDifficulty, setFilterDifficulty] = useState('');
   const [filterFormat, setFilterFormat] = useState('');
@@ -29,54 +33,104 @@ const Courses = ({ currentUser, purchasedVideos }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const searchParams = new URLSearchParams(location.search);
-  const topicFromURL = searchParams.get("topic");
+  const topicFromURL = searchParams.get("categories");
   const [showFilters, setShowFilters] = useState(false);
   const [sortOption, setSortOption] = useState("relevant");
   const [error, setError] = useState(null);
+  const [hasMore, setHasMore] = useState(true);
+const [noMatchingCourseFound, setNoMatchingCourseFound] = useState(false);
+
+
 
   // Fetch initial page of courses
+  // const fetchCourses = async (loadMore = false) => {
+  //   setLoading(true);
+  //   setError(null);
+  
+  
+  //   try {
+  //     let baseQuery = collection(db, 'courses');
+  //     let q;
+
+  //     if (selectedCategory.length > 0 && selectedCategory.length <= 10) {
+  //       q = query(
+  //         baseQuery,
+  //         where("category", "in", selectedCategory.map(cat => cat.toLowerCase())),
+  //         orderBy("createdAt", "desc"),
+  //         ...(loadMore && lastVisible ? [startAfter(lastVisible)] : []),
+  //         limit(PAGE_SIZE)
+  //       );
+  //     } else {
+  //       q = query(
+  //         baseQuery,
+  //         orderBy("createdAt", "desc"),
+  //         ...(loadMore && lastVisible ? [startAfter(lastVisible)] : []),
+  //         limit(PAGE_SIZE)
+  //       );
+  //     }
+  
+  //     const snapshot = await getDocs(q);
+  //     const coursesList = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  //     setLastVisible(snapshot.docs[snapshot.docs.length - 1]);
+  //     setCourses(prev => loadMore ? [...prev, ...coursesList] : coursesList);
+  //     setLoading(false);
+  //   } catch (err) {
+  //     console.error("Error loading courses:", err);
+  //     setError("No matching course found.");
+  //     setLoading(false);
+  //   }
+  // };
+
   const fetchCourses = async (loadMore = false) => {
-    setLoading(true);
-    setError(null);
-  
-    let baseQuery = collection(db, 'courses');
-    let q;
-  
     try {
-      if (selectedTopic.length > 0 && selectedTopic.length <= 10) {
-        q = query(
-          baseQuery,
-          where("topic", "in", selectedTopic),
-          orderBy("createdAt", "desc"),
-          ...(loadMore && lastVisible ? [startAfter(lastVisible)] : []),
-          limit(PAGE_SIZE)
-        );
-      } else {
-        q = query(
-          baseQuery,
-          orderBy("createdAt", "desc"),
-          ...(loadMore && lastVisible ? [startAfter(lastVisible)] : []),
-          limit(PAGE_SIZE)
+      setLoading(true);
+  
+      let q = query(
+        collection(db, "courses"),
+        orderBy("createdAt", "desc"),
+        ...(loadMore && lastVisible ? [startAfter(lastVisible)] : []),
+        limit(PAGE_SIZE)
+      );
+  
+      const snapshot = await getDocs(q);
+  
+      let fetchedCourses = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+  
+      // 🔹 Filter client-side (case-insensitive)
+      if (selectedCategory && selectedCategory.length > 0) {
+        fetchedCourses = fetchedCourses.filter(course =>
+          selectedCategory.some(cat =>
+            (course.category || "").toLowerCase().includes(cat.toLowerCase())
+          )
         );
       }
   
-      const snapshot = await getDocs(q);
-      const coursesList = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      setLastVisible(snapshot.docs[snapshot.docs.length - 1]);
-      setCourses(prev => loadMore ? [...prev, ...coursesList] : coursesList);
-      setLoading(false);
-    } catch (err) {
-      console.error("Error loading courses:", err);
-      setError("No matching course available");
+      if (fetchedCourses.length === 0) {
+        setCourses([]);
+        setHasMore(false);
+        setNoMatchingCourseFound(true);
+      } else {
+        setNoMatchingCourseFound(false);
+        setCourses(loadMore ? [...courses, ...fetchedCourses] : fetchedCourses);
+        setLastVisible(snapshot.docs[snapshot.docs.length - 1]);
+        setHasMore(snapshot.docs.length === PAGE_SIZE);
+      }
+  
+    } catch (error) {
+      console.error("Error fetching courses:", error);
+      setNoMatchingCourseFound(true);
+    } finally {
       setLoading(false);
     }
   };
   
+  
   useEffect(() => {
     fetchCourses();
-  }, []);
-
-  const fetchMoreCourses = () => fetchCourses(true);
+  }, [selectedCategory]);
 
   useEffect(() => {
     const fetchTotalCount = async () => {
@@ -86,31 +140,11 @@ const Courses = ({ currentUser, purchasedVideos }) => {
   
     fetchTotalCount();
   }, []);
-  
 
-  useEffect(() => {
-    // If a category is selected from the URL, update the selectedCategories state
-    if (topicFromURL && !selectedTopic.includes(topicFromURL)) {
-      setSelectedTopic([topicFromURL]);
-    }
-  }, [topicFromURL]); // Dependency array added for categoryFromURL
+  const fetchMoreCourses = () => fetchCourses(true);
 
-  
-  
-
-  // Handle category checkbox change
-  const handleCategoryChange = (name) => {
-    setSelectedTopic((prev) =>
-      prev.includes(name)
-        ? prev.filter((t) => t !== name)
-        : [...prev, name]
-    );
-  };
-  
- 
-  
-  // Filter & search logic
-  useEffect(() => {
+   // Filter + Sort + search logic
+   useEffect(() => {
     let temp = [...courses];
 
     if (searchKeyword) {
@@ -124,6 +158,30 @@ const Courses = ({ currentUser, purchasedVideos }) => {
     setFilteredCourses(temp);
   }, [searchKeyword, filterTopic, filterDifficulty, filterFormat, courses]);
 
+
+  useEffect(() => {
+    if (topicFromURL && !selectedCategory.includes(topicFromURL)) {
+      setSelectedCategory([topicFromURL]);
+    }
+  }, [topicFromURL]);
+  
+  
+  
+
+  // Handle category checkbox change
+  const handleCategoryChange = (name) => {
+    const lower = name.toLowerCase();
+    setSelectedCategory((prev) =>
+      prev.includes(lower)
+        ? prev.filter((t) => t !== lower)
+        : [...prev, lower]
+    );
+  };
+  
+  
+ 
+  
+ 
   const handleMarkComplete = (courseId) => {
     setCompletedCourses(prev => ({ ...prev, [courseId]: !prev[courseId] }));
   };
@@ -136,7 +194,7 @@ const Courses = ({ currentUser, purchasedVideos }) => {
   };
 
   const clearFilters = () => {
-  setSelectedTopic([]);
+  setSelectedCategory([]);
 };
 
 
@@ -144,14 +202,14 @@ const Courses = ({ currentUser, purchasedVideos }) => {
     <div style={{ maxWidth: 1200, margin: '6rem auto', padding: '0 1rem' }}>
     
 
-
+      {/*  hero section */}
       <div className="movie-hero-section">
         <div className="movie-hero-content">
           <h1>Discover Courses</h1>
-          <p style={{ textAlign: 'center' }}>Browse through the courses. Use filters or sort options to find what you need!</p>
+          <p style={{ textAlign: 'center' }}>Browse, filter, sort your favorite tutorials easily!</p>
           <h4>
-            {selectedTopic.length > 0
-            ? `${selectedTopic.join(", ")} Courses`
+            {selectedCategory.length > 0
+            ? `${selectedCategory.join(", ")} Courses`
             : "All Courses"}
           </h4>
         
@@ -159,69 +217,105 @@ const Courses = ({ currentUser, purchasedVideos }) => {
       </div>
 
 
-      {/* Search and Filters */}
+      {/* Search, sort and Filters */}
       <div style={{ marginBottom: 20, display: 'block', flexWrap: 'wrap', gap: 10 }}>
         <input 
           type="search" 
           placeholder="Search tutorials..." 
           value={searchKeyword} 
           onChange={e => setSearchKeyword(e.target.value)} 
-          style={{ width: '100%', maxWidth: 400, padding: '8px' }}
+          style={{
+            width: "100%",
+            maxWidth: 400,
+            padding: "8px",
+            borderRadius: "6px",
+            border: "1px solid #444",
+            background: "#222",
+            color: "#fff",
+          }}
         />
 
+        {/* filter & sort */}
         <div className="template-actions">
-<div style={{ display: 'flex', gap: '20px'}}>
+          <div style={{ display: 'flex', gap: '20px'}}> 
             <button className="filter-toggle" onClick={() => setShowFilters(!showFilters)}>
             {showFilters ? 'Hide Filters' : 'Show Filters'}
             </button>
 
-            <button onClick={clearFilters} className="filter-toggle"   disabled={selectedTopic.length === 0}
->
+            <button onClick={clearFilters} className="filter-toggle"   disabled={selectedCategory.length === 0}
+            >
             Clear Filters
             </button>
-</div>
-            <div className="sort-dropdown">
-            <label htmlFor="sort-select">Sort by:</label>
-            <select value={filterTopic} onChange={e => setFilterTopic(e.target.value)} style={{ padding: 8 }}>
+          </div>
+          <div className="sort-dropdown">
+            <label htmlFor="sort-select" style={{ color: "#ddd" }}>Sort by:</label>
+            <select value={filterTopic} onChange={e => setFilterTopic(e.target.value)}   style={{
+              padding: "8px",
+              background: "#111",
+              color: "#fff",
+              borderRadius: "4px",
+              border: "1px solid #333",
+              marginLeft: "8px",
+            }}>
             <option value="">All Topics</option>
             {topics.map(t => <option key={t} value={t}>{t}</option>)}
             </select>
 
-            <select value={filterDifficulty} onChange={e => setFilterDifficulty(e.target.value)} style={{ padding: 8 }}>
+            <select value={filterDifficulty} onChange={e => setFilterDifficulty(e.target.value)}   style={{
+              padding: "8px",
+              background: "#111",
+              color: "#fff",
+              borderRadius: "4px",
+              border: "1px solid #333",
+              marginLeft: "8px",
+            }}>
             <option value="">All Difficulty</option>
             {difficulties.map(d => <option key={d} value={d}>{d}</option>)}
             </select>
 
-            <select value={filterFormat} onChange={e => setFilterFormat(e.target.value)} style={{ padding: 8 }}>
+            <select value={filterFormat} onChange={e => setFilterFormat(e.target.value)}   style={{
+              padding: "8px",
+              background: "#111",
+              color: "#fff",
+              borderRadius: "4px",
+              border: "1px solid #333",
+              marginLeft: "8px",
+            }}>
             <option value="">All Formats</option>
             {formats.map(f => <option key={f} value={f}>{f}</option>)}
             </select>
-        </div>
+          </div>
+        </div> 
       </div>
 
-       
-      </div>
 
-
-
+      {/* Main Layout */}
       <div className={`template-content ${showFilters ? 'with-filters' : 'no-filters'}`}>
+      
+      {/* Sidebar Categories */}
       {showFilters && (
         <aside className="filter" style={{ textAlign: 'left' }}>
             <h4 style={{ marginTop: '10px'}}>Categories</h4>
-            {topics.map((topic) => (
+            {categories.map((cat) => (
                 <div style={{ display: 'flex', }}>
-                    <label key={topic} className="category-item">
+                    <label key={cat} className="category-item" style={{
+                      cursor: "pointer",
+                    }}>
                         <input
                         type="checkbox"
-                        checked={selectedTopic.includes(topic)}
-                        onChange={() => handleCategoryChange(topic)}
+                        name="category"
+                        checked={selectedCategory.includes(cat.toLowerCase())}
+                        onChange={() => handleCategoryChange(cat)}
                         />
-                        <span style={{ marginTop: '-10px' }}>{topic}</span>
+                        <span style={{ marginTop: '-10px' }}>{cat}</span>
                     </label>
             </div>
             ))}
         </aside>
         )}
+
+
+
 
         <div className="section-template-grid" style={{ marginTop: '10px', padding: '15px'}}>
                 {loading ? (

@@ -230,7 +230,7 @@ function TemplateDetails() {
         {similarTemplates.slice(0, 4).map(template => (
               <Link to={`/templates/${template.id}`} key={template.id} className="template-card-link">
                 <div className="section-template-card">
-                  <img src={template.thumbnail} alt={template.name} className='template-image' />
+                  <img src={template.thumbnail} alt={template.name} className='section-template-image' />
                   <div className="overlay">
                     <h4 className="template-title">{template.name}</h4>
                     <div className="icon-group">

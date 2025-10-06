@@ -83,7 +83,7 @@ const TemplateList = () => {
     <div className="template-list-container">
       <div className="temp-bann">
         <h1><span>Templates</span> List</h1>
-        <p>Browse through the templates. Use filters or sort options to find what you need!</p>
+        <p style={{ color: "#ccc"}}>Browse through the templates. Use filters or sort options to find what you need!</p>
       </div>
 
       <div className="template-actions">

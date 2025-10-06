@@ -73,118 +73,136 @@ const CoursePage = () => {
     <div className="course-page">
       {/* Hero Section */}
 
- <div className="course-hero">
-      <div className="course-hero-left">
-        <p style={{ fontSize: '12px', color: 'blue', marginTop: '-10px' }}>Design <MdOutlineKeyboardArrowRight /> Figma UI UX Design </p>
-        <h1 className="course-title">{course.title}</h1>
-        <p className="course-subtitle">{course.description}Use Figma to get a job in UI Design, User Interface, User Experience design, UX Design & Web Design</p>
-        {/* Rating + Duration */}
-        <div style={{ fontSize: 13, color: '#ccc', marginBottom: 8 }}>
-                      ⭐ {course.rating ?? '4.5'} / 5 
-                    </div>
-                    <span>Created by <strong>{course.author?.name || 'Grace Wilson'}</strong></span>
-   
-                    {/* Price Label */}
-                    <div style={{ marginBottom: 10 }}>
-                      <span
-                        style={{
-                          padding: '4px 8px',
-                          borderRadius: 4,
-                          backgroundColor: course.isFree ? '#d4edda' : '#f8d7da',
-                          color: course.isFree ? '#155724' : '#721c24',
-                          fontSize: 13
-                        }}
-                      >
-                        {course.isFree ? 'Free' : 'Paid'}
-                      </span>
-                    </div>
-                
-
-        <div className="course-meta">
-          <span> • Last updated {new Date(course.createdAt?.seconds * 1000).toLocaleDateString()} English</span>
-          <p style={{ fontSize: 13, color: '#ccc', marginBottom: 8 }}>⏱ {course.duration ?? '1h 30m'} • {course.lessons ?? 10} lessons</p>
-        </div>
-
-        
-      </div>
-      <div className="course-hero-right">
-        <div className="video-thumbnail-container" onClick={() => setShowModal(true)}>
-          <img src={course.thumbnailUrl || defaultThumbnail} alt="Course thumbnail" className="course-thumbnail" />
-          <div className="play-button">
-            <div className="play-icon">▶</div>
+      <div className="course-hero">
+        <div className="course-hero-left">
+          <p style={{ fontSize: '12px', color: '#20d9a1', marginTop: '-10px' }}>Design <MdOutlineKeyboardArrowRight /> Figma UI UX Design </p>
+          <h1 className="course-title" style={{ marginTop: '20px'}}>{course.title}</h1>
+          <p className="course-subtitle">{course.description}Use Figma to get a job in UI Design, User Interface, User Experience design, UX Design & Web Design</p>
+          {/* Rating + Duration */}
+          <div style={{ fontSize: 13, color: '#ccc', marginBottom: 8 }}>
+            ⭐ {course.rating ?? '4.5'} / 5 
           </div>
+          <span>By <strong>{course.author?.name || 'Grace Wilson'}</strong></span>
+    
+                      {/* Price Label */}
+                      <div style={{ margin: "10px 0" }}>
+                        <span
+                          style={{
+                            padding: '4px 8px',
+                            borderRadius: 4,
+                            backgroundColor: course.isFree ? '#d4edda' : '#f8d7da',
+                            color: course.isFree ? '#155724' : '#20d9a1',
+                            fontSize: 13
+                          }}
+                        >
+                          {course.isFree ? 'Free' : 'Paid'}
+                        </span>
+                      </div>
+                  
+
+          <div className="course-meta">
+            <span> • Last updated {new Date(course.createdAt?.seconds * 1000).toLocaleDateString()} English</span>
+            <p style={{ fontSize: 13, color: '#ccc', marginBottom: 8 }}>⏱ {course.duration ?? '1h 30m'} • {course.lessons ?? 10} lessons</p>
+          </div>
+
+          
         </div>
+        <div className="course-hero-right">
+          <div className="video-thumbnail-container" onClick={() => setShowModal(true)}>
+            <img src={course.thumbnailUrl || defaultThumbnail} alt="Course thumbnail" className="course-thumbnail" />
+            <div className="play-button">
+              <div className="play-icon">▶</div>
+            </div>
+          </div>
 
-        {/* Actions */}
-        <div className="course-actions">
-  {course.isFree ? (
-    <>
-      <Link to='/login'><button className="btn btn-primary">Enroll Now</button></Link>
+          {/* Actions */}
+          <div className="course-actions">
+            {course.isFree ? (
+              <>
+                <Link to='/login'><button className="btn btn-primary">Enroll Now</button></Link>
 
-      <div className="coupon-section">
-        <input
-          type="text"
-          placeholder="Enter coupon code"
-          value={coupon}
-          onChange={(e) => setCoupon(e.target.value)}
-        />
-        <button className="apply-coupon-button">Apply</button>
-      </div>
-
-      {/*<button className="subscribe-button">Subscribe</button>*/}
-    </>
-  ) : (
-    <>
-      <div className="course-price">₹{course.price}</div>
-      <button className="btn btn-primary">Buy Now</button>
-      <button className="btn btn-secondary">Add to Cart</button>
-    </>
-  )}
-</div>
-
-
-        {/* Modal */}
-        {showModal && (
-        <div className="video-modal-overlay" onClick={() => setShowModal(false)}>
-          <div className="video-modal-large" onClick={e => e.stopPropagation()}>
-            <button className="close-modal" onClick={() => setShowModal(false)}>×</button>
-            
-            <div className="modal-content-container">
-              {/* Left: Video */}
-              <div className="modal-left">
-                <div className="modal-video-wrapper">
-                  <iframe
-                    width="100%"
-                    height="100%"
-                    src={course.youtubeUrl.replace("watch?v=", "embed/")}
-                    title="Course Preview"
-                    frameBorder="0"
-                    allow="autoplay; encrypted-media"
-                    allowFullScreen
+                {/* <div className="coupon-section">
+                  <input
+                    type="text"
+                    placeholder="Enter coupon code"
+                    value={coupon}
+                    onChange={(e) => setCoupon(e.target.value)}
                   />
+                  <button className="apply-coupon-button">Apply</button>
+                </div> */}
+
+                {/*<button className="subscribe-button">Subscribe</button>*/}
+              </>
+            ) : (
+              <>
+                <div className="course-price">₹{course.price}</div>
+                <button className="btn btn-primary">Buy Now</button>
+                <button className="btn btn-secondary">Add to Cart</button>
+              </>
+            )}
+          </div>
+
+
+          {/* Modal */}
+          {showModal && (
+          <div className="video-modal-overlay" onClick={() => setShowModal(false)}>
+            <div className="video-modal-large" onClick={e => e.stopPropagation()}>
+              <button className="close-modal" onClick={() => setShowModal(false)}>×</button>
+              
+              <div className="modal-content-container">
+                {/* Left: Video */}
+                <div className="modal-left" style={{ flex: 1, display: "flex", justifyContent: "center", alignItems: "center" }}>
+                  <div className="modal-video-wrapper" style={{ width: "100%", height: "400px" }}>
+                    {course.youtubeUrl ? (
+                      <iframe
+                        width="100%"
+                        height="100%"
+                        src={course.youtubeUrl.includes("embed/")
+                          ? course.youtubeUrl
+                          : course.youtubeUrl.replace("watch?v=", "embed/")}
+                        title="Course Preview"
+                        frameBorder="0"
+                        allow="autoplay; encrypted-media"
+                        allowFullScreen
+                      />
+                    ) : course.videoUrl ? (
+                      <video
+                        width="100%"
+                        height="100%"
+                        controls
+                        autoPlay
+                        style={{ borderRadius: "10px" }}
+                      >
+                        <source src={course.videoUrl} type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
+                    ) : (
+                      <p style={{ color: "white" }}>No video available</p>
+                    )}
+                  </div>
+
                 </div>
-              </div>
 
-              {/* Right: Course Info */}
-              <div className="modal-right">
-                <h2>{course.title}</h2>
-                <p>{course.description}</p>
-                <p><strong>Instructor:</strong> {course.author?.name || 'Unknown'}</p>
-                <p><strong>Difficulty:</strong> {course.difficulty}</p>
-                <p><strong>Price:</strong> {course.isFree ? 'Free' : `₹${course.price}`}</p>
+                {/* Right: Course Info */}
+                <div className="modal-right">
+                  <h2>{course.title}</h2>
+                  <p>{course.description}</p>
+                  <p><strong>Instructor:</strong> {course.author?.name || 'Unknown'}</p>
+                  <p><strong>Difficulty:</strong> {course.difficulty}</p>
+                  <p><strong>Price:</strong> {course.isFree ? 'Free' : `₹${course.price}`}</p>
 
-                <div className="modal-actions">
-                  <button className="enroll-btn">Enroll Now</button>
-                  <button className="coupon-btn">Apply Coupon</button>
-                  <button className="subscribe-btn">Subscribe</button>
+                  <div className="modal-actions">
+                    <button className="enroll-btn">Enroll Now</button>
+                    <button className="coupon-btn">Apply Coupon</button>
+                    <button className="subscribe-btn">Subscribe</button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
 
-    </div>
+        </div>
     </div>
 
     <CourseTabs />
