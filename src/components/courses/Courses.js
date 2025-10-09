@@ -350,7 +350,9 @@ const [noMatchingCourseFound, setNoMatchingCourseFound] = useState(false);
                     {/* Title */}
                     <h3 style={{ fontSize: 18, margin: '0 0 8px 0', color: '#fff' }}>{course.title}</h3>
                 
-                    <p style={{ fontSize: 13, color: '#ccc' }}>{course.author}</p>
+                    <p style={{ fontSize: 13, color: '#ccc' }}>
+                      {course.author?.name || 'Unknown Author'}
+                    </p>
 
                     {/* Short Description */}
                     <p style={{ fontSize: 14, color: '#ccc', margin: '0 0 12px 0' }}>
@@ -368,6 +370,21 @@ const [noMatchingCourseFound, setNoMatchingCourseFound] = useState(false);
                         <span style={{ fontSize: 13, color: '#555' }}>{course.author.name}</span>
                       </div>
                     )}
+
+                    {course.author && (
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
+                        <img
+                          src={course.author.avatarUrl || '/default-avatar.png'}
+                          alt={course.author.name}
+                          style={{ width: '30px', height: '30px', borderRadius: '50%' }}
+                        />
+                        <div>
+                          <p style={{ margin: 0, color: '#fff', fontWeight: 'bold' }}>{course.author.name}</p>
+                          <p style={{ margin: 0, fontSize: '12px', color: '#ccc' }}>{course.author.bio}</p>
+                        </div>
+                      </div>
+                    )}
+                    */}
                 
                     {/* Rating + Duration */}
                     <div style={{ fontSize: 13, color: '#ccc', marginBottom: 8 }}>

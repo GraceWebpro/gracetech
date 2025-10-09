@@ -73,12 +73,19 @@ const CoursePage = () => {
     <div className="course-page">
       {/* Hero Section */}
 
+    
       <div className="course-hero">
+
+      
         <div className="course-hero-left">
-          <p style={{ fontSize: '12px', color: '#20d9a1', marginTop: '-10px' }}>Design <MdOutlineKeyboardArrowRight /> Figma UI UX Design </p>
+        <p className="course-category-desktop" style={{ fontSize: '12px', color: '#20d9a1', marginTop: '-10px' }}>
+          Design <MdOutlineKeyboardArrowRight /> Figma UI UX Design
+        </p>
+
           <h1 className="course-title" style={{ marginTop: '20px'}}>{course.title}</h1>
           <p className="course-subtitle">{course.description}Use Figma to get a job in UI Design, User Interface, User Experience design, UX Design & Web Design</p>
           {/* Rating + Duration */}
+          
           <div style={{ fontSize: 13, color: '#ccc', marginBottom: 8 }}>
             ⭐ {course.rating ?? '4.5'} / 5 
           </div>
@@ -108,6 +115,7 @@ const CoursePage = () => {
           
         </div>
         <div className="course-hero-right">
+       
           <div className="video-thumbnail-container" onClick={() => setShowModal(true)}>
             <img src={course.thumbnailUrl || defaultThumbnail} alt="Course thumbnail" className="course-thumbnail" />
             <div className="play-button">
@@ -136,8 +144,8 @@ const CoursePage = () => {
             ) : (
               <>
                 <div className="course-price">₹{course.price}</div>
-                <button className="btn btn-primary">Buy Now</button>
-                <button className="btn btn-secondary">Add to Cart</button>
+                <button className="course-btn course-btn-primary">Buy Now</button>
+                <button className="course-btn course-btn-secondary">Add to Cart</button>
               </>
             )}
           </div>
@@ -203,7 +211,7 @@ const CoursePage = () => {
         )}
 
         </div>
-    </div>
+      </div>
 
     <CourseTabs />
     <SimilarCourses />

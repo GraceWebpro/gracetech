@@ -17,6 +17,7 @@ const CourseTabs = () => {
   const [openSection, setOpenSection] = useState('FAQ'); // First section open by default
   const [reviews, setReviews] = useState([]);
   const [newReview, setNewReview] = useState({ name: '', rating: '', text: '' });
+  const [courses, setCourses] = useState([]);
 
   const courseOutline = [
     {
@@ -87,6 +88,14 @@ const CourseTabs = () => {
     }
   };
 
+  useEffect(() => {
+    const fetchCourses = async () => {
+      const querySnapshot = await getDocs(collection(db, "courses"));
+      const courseList = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+      setCourses(courseList);
+    };
+    fetchCourses();
+  }, []);
 
   return (
     <div className="tabs-container">
@@ -138,7 +147,24 @@ const CourseTabs = () => {
               <li><i className="feature-icon">✔</i> Product managers and developers wanting to learn design thinking</li>
             </ul>
 
-            <h3>Course Timeline</h3>
+            <h3>Course Content</h3>
+            {courses.map((course) => (
+        <div key={course.id}>
+          <h3>{course.title}</h3>
+          {course.sections.map((section, index) => (
+            <div key={index}>
+              <h4>{section.title}</h4>
+              <ul>
+                {section.lessons.map((lesson, i) => (
+                  <li key={i}>
+                    {lesson.title} – {lesson.duration}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      ))}
             {courseOutline.map((section, i) => (
               <div key={i} className="course-section">
                 <div

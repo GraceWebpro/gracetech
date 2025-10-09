@@ -250,6 +250,10 @@ const UploadContent = () => {
   const [authorAvatarUrl, setAuthorAvatarUrl] = useState('');
   const [uploadProgress, setUploadProgress] = useState(0);
   const [uploading, setUploading] = useState(false);
+  const [sectionTitle, setSectionTitle] = useState("");
+  const [sections, setSections] = useState([
+    { title: "", lessons: [{ title: "", duration: "" }] },
+  ]);
 
   const createSlug = (text) =>
   text
@@ -257,6 +261,32 @@ const UploadContent = () => {
     .trim()
     .replace(/[^a-z0-9]+/g, '-') // replace spaces/specials with hyphens
     .replace(/^-+|-+$/g, '');    // remove leading/trailing hyphens
+
+
+  // Add a new section
+  const addSection = () => {
+    setSections([...sections, { title: "", lessons: [{ title: "", duration: "" }] }]);
+  };
+
+   // Add a new lesson to a section
+   const addLesson = (sectionIndex) => {
+    const updatedSections = [...sections];
+    updatedSections[sectionIndex].lessons.push({ title: "", duration: "" });
+    setSections(updatedSections);
+  };
+
+  // Handle field changes
+  const handleSectionChange = (e, index) => {
+    const updated = [...sections];
+    updated[index].title = e.target.value;
+    setSections(updated);
+  };
+
+  const handleLessonChange = (e, sectionIndex, lessonIndex, field) => {
+    const updated = [...sections];
+    updated[sectionIndex].lessons[lessonIndex][field] = e.target.value;
+    setSections(updated);
+  };
 
 
   const handleFileChange = (e) => {
@@ -321,6 +351,8 @@ const UploadContent = () => {
         videoUrl,
         youtubeUrl: isFree ? youtubeUrl : '',
         thumbnailUrl,
+        sectionTitle,
+        sections,
         author: {
           name: authorName,
           bio: authorBio,
@@ -347,6 +379,8 @@ const UploadContent = () => {
       setAuthorName('');
       setAuthorBio('');
       setAuthorAvatarUrl('');
+      setSectionTitle("");
+      setSections([{ title: "", lessons: [{ title: "", duration: "" }] }]);
       setUploadProgress(0);
       setUploading(false);
     } catch (error) {
@@ -684,6 +718,62 @@ const UploadContent = () => {
           <option>Text</option>
           <option>PDF</option>
         </select>
+
+        <div style={{ marginBottom: "15px" }}>
+          <label>Course Title:</label>
+          <input
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder="e.g. Figma Essentials"
+            required
+            style={{ width: "100%", padding: "8px", borderRadius: "5px", border: "1px solid #444", background: "#222", color: "#fff" }}
+          />
+        </div>
+
+        {sections.map((section, sIndex) => (
+          <div key={sIndex} style={{ marginBottom: "25px", border: "1px solid #333", padding: "15px", borderRadius: "8px" }}>
+            <label>Section Title:</label>
+            <input
+              type="text"
+              value={section.title}
+              onChange={(e) => handleSectionChange(e, sIndex)}
+              placeholder="e.g. Getting Started with Figma"
+              required
+              style={{ width: "100%", padding: "8px", borderRadius: "5px", border: "1px solid #444", background: "#222", color: "#fff" }}
+            />
+
+            <h4 style={{ marginTop: "10px" }}>Lessons</h4>
+            {section.lessons.map((lesson, lIndex) => (
+              <div key={lIndex} style={{ marginBottom: "10px" }}>
+                <input
+                  type="text"
+                  placeholder="Lesson Title"
+                  value={lesson.title}
+                  onChange={(e) => handleLessonChange(e, sIndex, lIndex, "title")}
+                  required
+                  style={{ width: "60%", padding: "8px", marginRight: "10px", borderRadius: "5px", border: "1px solid #444", background: "#222", color: "#fff" }}
+                />
+                <input
+                  type="text"
+                  placeholder="Duration (e.g. 03:20)"
+                  value={lesson.duration}
+                  onChange={(e) => handleLessonChange(e, sIndex, lIndex, "duration")}
+                  required
+                  style={{ width: "30%", padding: "8px", borderRadius: "5px", border: "1px solid #444", background: "#222", color: "#fff" }}
+                />
+              </div>
+            ))}
+            <button type="button" onClick={() => addLesson(sIndex)} style={{ background: "#20d9a1", color: "#000", padding: "6px 10px", border: "none", borderRadius: "5px", cursor: "pointer" }}>
+              + Add Lesson
+            </button>
+          </div>
+        ))}
+
+        <button type="button" onClick={addSection} style={{ background: "#a435f0", color: "#fff", padding: "8px 12px", border: "none", borderRadius: "6px", cursor: "pointer", marginRight: "10px" }}>
+          + Add Section
+        </button>
+
 
         <label>
           <input type="checkbox" checked={isFree} onChange={e => setIsFree(e.target.checked)} />
