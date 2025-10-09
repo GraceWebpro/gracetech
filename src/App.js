@@ -31,6 +31,7 @@ import Courses from "./components/courses/Courses";
 import NavbarN from "./components/Navbar";
 import BookingPage from "./components/book/Booking";
 import CoursesPage from "./components/courses/CoursesPage";
+import UploadCourse from "./admin/uploadCourse/UploadCourse";
 
 function App() {
   const location = useLocation();
@@ -55,6 +56,7 @@ function App() {
           <Route path="/templates" element={<Template />} />
           <Route path="/courses" element={ <Courses /> } />
           <Route path="/courses/:id" element={<CoursesPage />} />
+          <Route path="/admin/upload-course" element={<UploadCourse />} />
 
           <Route path="/get-a-quote" element={<GetAQuote />} />
           <Route path="/blog" element={<ModernBlogPage />} />
