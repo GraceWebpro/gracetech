@@ -12,8 +12,8 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
   ];
 
   return (
-    <div className="sidebar">
-      <h3 className="sidebar-title">Plan Your Course</h3>
+    <div className="upl-sidebar">
+      <h3 className="upl-sidebar-title">Plan Your Course</h3>
       <ul>
         {tabs.map((tab) => (
           <li

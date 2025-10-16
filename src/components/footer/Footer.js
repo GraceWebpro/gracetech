@@ -44,15 +44,15 @@ const Footer = () => {
           <div className="footer-menu">
             <h2 className="footer-menu-name"> Company</h2>
             <ul id="menu-company" className="footer-menu-list">
-              <li className="menu-item menu-item-type-post_type menu-item-object-page">
-                <a href="#about">About Us</a>
-              </li>
+            <Link to="/#about"><li className="menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="about">About Us</a>
+              </li></Link>
               <Link to="/blog"><li className="menu-item menu-item-type-taxonomy menu-item-object-category">
                 <a href="new">Blog</a>
               </li></Link>
-              <li className="menu-item menu-item-type-post_type menu-item-object-page">
-                <a href="#testimonials">Testimonials</a>
-              </li>
+              <Link to="/#testimonials"><li className="menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="testimonials">Testimonials</a>
+              </li></Link>
             </ul>
           </div>
           <div className="footer-menu">
@@ -71,9 +71,9 @@ const Footer = () => {
           <div className="footer-menu">
             <h2 className="footer-menu-name"> Quick Links</h2>
             <ul id="menu-quick-links" className="footer-menu-list">
-              <li className="menu-item menu-item-type-custom menu-item-object-custom">
-                <a rel="noopener noreferrer" href="#services">Services</a>
-              </li>
+            <Link to="/#services"><li className="menu-item menu-item-type-custom menu-item-object-custom">
+                <a rel="noopener noreferrer" href="services">Services</a>
+              </li></Link>
               <Link to="/portfolio"><li className="menu-item menu-item-type-custom menu-item-object-custom">
                 <a rel="noopener noreferrer" href="portfolio">Portfolio</a>
               </li></Link>
@@ -85,9 +85,9 @@ const Footer = () => {
               </li></Link>
               <Link to="/contact"><li className="menu-item menu-item-type-post_type_archive menu-item-object-customer">
                 <a href="contact">Contct Us</a></li></Link>
-              <li className="menu-item menu-item-type-post_type menu-item-object-page">
+                <Link to="/services#faq"><li className="menu-item menu-item-type-post_type menu-item-object-page">
                 <a href="reviews">FAQ</a>
-              </li>
+              </li></Link>
             </ul>
           </div>
         </div>

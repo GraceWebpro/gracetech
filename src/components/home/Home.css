@@ -77,6 +77,8 @@
 }
 
 
+
+
 @media (min-width: 1280px) {
   .hero-img2 img {
     right: -28%;
@@ -506,6 +508,7 @@
   display: flex;
   justify-content: flex-start !important; 
   width: 100%;
+  gap: 20px;
 }
 
 

@@ -11,23 +11,24 @@ import './uploadCourse.css'
 
 const UploadCourse = () => {
   const [activeTab, setActiveTab] = useState("course-details");
+  const [courseId, setCourseId] = useState(null);
 
   const renderContent = () => {
     switch (activeTab) {
       case "course-details":
-        return <CourseDetails setActiveTab={setActiveTab} />;
+        return <CourseDetails  courseId={courseId} setActiveTab={setActiveTab} />;
       case "intended-learners":
-        return <IntendedLearners setActiveTab={setActiveTab} />;
+        return <IntendedLearners courseId={courseId} setActiveTab={setActiveTab} />;
       case "curriculum":
-        return <Curriculum setActiveTab={setActiveTab} />;
+        return <Curriculum courseId={courseId} setActiveTab={setActiveTab} />;
       case "course-landing-page":
-        return <LandingPage setActiveTab={setActiveTab} />;
+        return <LandingPage courseId={courseId} setActiveTab={setActiveTab} />;
       case "pricing":
-        return <Pricing setActiveTab={setActiveTab} />;
+        return <Pricing courseId={courseId} setActiveTab={setActiveTab} />;
       case "promotion":
-        return <Promotion setActiveTab={setActiveTab} />;
+        return <Promotion courseId={courseId} setActiveTab={setActiveTab} />;
       case "course-messages":
-        return <CourseMessage setActiveTab={setActiveTab} />;
+        return <CourseMessage courseId={courseId} setActiveTab={setActiveTab} />;
       default:
         return null;
     }

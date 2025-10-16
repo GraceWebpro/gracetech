@@ -46,12 +46,12 @@ body {
   font-weight: 600;
 }
 
-.btn-primary {
+.btns .btn-primary {
   background: linear-gradient(90deg, #6560FF, #3F94FF);
   color: white;
 }
 
-.btn-secondary {
+.btns .btn-secondary {
   background: transparent;
   border: 2px solid #3F94FF;
   color: #3F94FF;

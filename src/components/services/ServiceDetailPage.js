@@ -72,14 +72,14 @@ const ServiceDetailsPage = () => {
         <div className='serv-det-right'>
           <div className='touch-right serv-touch'>
             <h2>Service List</h2>
-            <Link to='/services/packaging'>
+            <Link to='/services/packaging-design'>
               <div className='touch-social serv-social'>
               
                   <span>Packaging Design</span>
                   <IoIosArrowForward className='touch-icon'/>
               </div>
               </Link>
-              <Link to='/services/branding'>
+              <Link to='/services/business-branding'>
 
               <div className='touch-social serv-social'>
                   <span>Business Branding</span>
@@ -100,14 +100,14 @@ const ServiceDetailsPage = () => {
                   <IoIosArrowForward className='touch-icon'/>
               </div>
               </Link>
-              <Link to='/services/seo'>
+              <Link to='/services/seo-optimization'>
 
               <div className='touch-social serv-social'>
                   <span>SEO Optimization</span>
                   <IoIosArrowForward className='touch-icon'/>
               </div>
               </Link>
-              <Link to='/services/social-media'>
+              <Link to='/services/social-media-management'>
 
               <div className='touch-social serv-social'>
                   <span>Social Media Management</span>

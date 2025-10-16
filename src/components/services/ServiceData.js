@@ -10,8 +10,9 @@ export const services = [
     { 
         name: 'Designer', 
         type: 'Packaging Design',
+        slug: 'designer',
         description: 'We provide top-notch branding services for businesses.', 
-        id: 'packaging',
+        id: 'packaging-design',
         image: packaging,
         process: [
             "Concept Development – Understand the project requirements and brainstorm ideas.",
@@ -29,7 +30,8 @@ export const services = [
         name: 'Branding', 
         type: 'Business Branding',
         description: 'We provide top-notch branding services for businesses.', 
-        id: 'branding',
+        id: 'business-branding',
+        slug: 'branding',
         image: branding,
         process: [
             "Research & Analysis – Understand the market, competitors, and target audience.",
@@ -48,6 +50,7 @@ export const services = [
         type: 'Web UI/UX Design',
         description: 'We provide top-notch branding services for businesses.', 
         id: 'ui-ux-design',
+        
         image: uiDesign,
         process: [
             "Research – Understand user needs, business goals, and market trends.",
@@ -85,7 +88,7 @@ export const services = [
         name: 'SEO Optimization', 
         type: 'Digital Marketing',
         description: 'Our SEO services help you rank higher on search engines.', 
-        id: 'seo',
+        id: 'seo-optimization',
         image: seo,
         process: [
             "Keyword Research – Identify relevant keywords your target audience uses to guide content and optimization.",
@@ -103,7 +106,7 @@ export const services = [
         name: 'Social',
         type: 'Social Media Management', 
         description: 'We manage your social media to grow your online presence.', 
-        id: 'social-media',
+        id: 'social-media-management',
         image: socImage,
         process: [
             "Strategy – Define goals, target audience, and platform approach.",

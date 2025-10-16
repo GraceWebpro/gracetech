@@ -53,7 +53,7 @@ const Pane = () => {
                 </div>
 
                 <div className='about-div' data-aos="fade-left" data-aos-duration="1000">
-                    <h5>Follow</h5>
+                    <h5>Follow / Subscribe</h5>
                     <Col sm={6} className='px-1 flex'>
                     <Link
                         to="contact"
@@ -63,14 +63,14 @@ const Pane = () => {
                     </Link>
                
                    
+                   
                     <Link
                         to="contact"
                         className="nav__link"
                         >
                         <IoLogoInstagram className='icon2'/> 
                     </Link>
-               
-                   
+
                     <Link
                         to="contact"
                         className="nav__link"

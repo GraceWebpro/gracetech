@@ -32,9 +32,11 @@ import NavbarN from "./components/Navbar";
 import BookingPage from "./components/book/Booking";
 import CoursesPage from "./components/courses/CoursesPage";
 import UploadCourse from "./admin/uploadCourse/UploadCourse";
+import ScrollToHashElement from "./components/ScrollToHashElement";
 
 function App() {
   const location = useLocation();
+
   const [user, setUser] = useState(null);
   // Determine if the current route is for the admin page
   const isAdminPage = location.pathname.startsWith('/admin');
@@ -44,6 +46,7 @@ function App() {
     
     <div className="App">
     <ScrollToTop />
+    <ScrollToHashElement />
       {/*<MouseCursor />*/}
 
       {!isAdminPage && (isTemplatePage ? <TemplateNavbar /> : <NavbarN />)}

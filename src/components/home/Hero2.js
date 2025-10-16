@@ -93,7 +93,7 @@ const HeroSection2 = () => {
            duration: 1.5,
          }}
         id="buttonss">
-          <Link to='/get-a-quote' className="btn primary">Get A Quote</Link>
+          <Link to='/get-a-quote' className="btn primary" style={{ marginRight: "20px"}}>Get A Quote</Link>
           <Link to="/portfolio" className="btn secondary">View Our Work</Link>
         </motion.div>
         

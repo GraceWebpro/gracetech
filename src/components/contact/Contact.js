@@ -18,7 +18,7 @@ const Contact = () => {
 
           <form
             ref={formRef}
-            action="https://formsubmit.co/gracetechagency@gmail.com" // Replace with your email
+            action="https://formsubmit.co/gogracetech@gmail.com" // Replace with your email
             method="POST"
           >
             {/* Disable captcha by default */}

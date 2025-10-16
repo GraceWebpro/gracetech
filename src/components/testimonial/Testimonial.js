@@ -52,7 +52,7 @@ useEffect(() => {
   const { name, quote, star, sector } = testimonials[activeIndex];
 
   return (
-    <div className='testimonials' onMouseEnter={() => setIsPaused(true)}
+    <div id='testimonials' className='testimonials' onMouseEnter={() => setIsPaused(true)}
     onMouseLeave={() => setIsPaused(false)}>
       <div className='test-h' style={{ display: 'flex', gap: '20px', alignItems: 'center', justifyContent:'center' }} data-aos="fade-down">
         <div className='test-bdr'></div>

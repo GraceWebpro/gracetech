@@ -53,8 +53,9 @@ const CourseDetails = ({ setActiveTab, courseId, setCourseId }) => {
       console.log("Course details saved:", newCourseId);
       setActiveTab("intended-learners");
     } catch (error) {
-      console.error("Error saving course:", error);
-      alert("Failed to save course details. Please try again.");
+      console.error("Error saving course:", error.message, error);
+alert("Failed to save course details. Reason: " + error.message);
+
     } finally {
       setLoading(false);
     }

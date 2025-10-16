@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { collection, addDoc, getDocs, query, serverTimestamp } from 'firebase/firestore';
 import { storage, db } from "../server/firebase"; // Ensure Firebase is properly set up
+import slugify from 'slugify';
 
 const UploadContent = () => {
   const [selectedMode, setSelectedMode] = useState('movie'); // 'movie', 'episode', or 'music'
@@ -30,6 +31,7 @@ const UploadContent = () => {
   const handleProjectUpload = async () => {
     if (!projectFile || !projectTitle || !projectCategory) return alert("Please select an image and enter a title and a category.");
 
+    const slug = slugify(title, { lower: true, strict: true })
     const techStacksArray = technologyStacks.split(',').map(item => item.trim());
     const keyFeaturesArray = keyFeatures.split(',').map(item => item.trim());
     const userBenefitsArray = userBenefits.split(',').map(item => item.trim());
@@ -57,6 +59,7 @@ const UploadContent = () => {
         await addDoc(collection(db, "projects"), {
           projectTitle,
           projectDescription,
+          slug,
           demoLink,
           githubLink,
           imageUrl: url,
