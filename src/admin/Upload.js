@@ -26,12 +26,17 @@ const UploadContent = () => {
   const [projectStartDate, setProjectStartDate] = useState('');
   const [projectEndDate, setProjectEndDate] = useState('');
   
+  const createSlug = (text) =>
+  text
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, '-') // replace spaces/specials with hyphens
+    .replace(/^-+|-+$/g, '');    // remove leading/trailing hyphens
 
 
   const handleProjectUpload = async () => {
     if (!projectFile || !projectTitle || !projectCategory) return alert("Please select an image and enter a title and a category.");
 
-    const slug = slugify(title, { lower: true, strict: true })
     const techStacksArray = technologyStacks.split(',').map(item => item.trim());
     const keyFeaturesArray = keyFeatures.split(',').map(item => item.trim());
     const userBenefitsArray = userBenefits.split(',').map(item => item.trim());
@@ -55,6 +60,7 @@ const UploadContent = () => {
         setIsProjectUploading(false);
       },
       async () => {
+        const slug = createSlug(title);
         const url = await getDownloadURL(uploadTask.snapshot.ref);
         await addDoc(collection(db, "projects"), {
           projectTitle,
@@ -193,6 +199,8 @@ const UploadContent = () => {
         ? parseFloat(form.price) * (1 - parseFloat(form.discount) / 100)
         : parseFloat(form.price);
   
+      const slug = createSlug(title);
+
       const newTemplate = {
         ...form,
         price: form.isFree ? 0 : parseFloat(form.price),
@@ -200,11 +208,12 @@ const UploadContent = () => {
         thumbnail: thumbnailUrl,
         tags: form.tags.split(",").map((tag) => tag.trim()),
         downloadsCount: 0,
+        slug,
         createdAt: serverTimestamp(),
         fileUrl: zipUrl,
         platformSupport: form.platformSupport.split(",").map((p) => p.trim()),
       };
-  
+
       await addDoc(collection(db, "templates"), newTemplate);
       alert("Template uploaded!");
   
@@ -257,13 +266,6 @@ const UploadContent = () => {
   const [sections, setSections] = useState([
     { title: "", lessons: [{ title: "", duration: "" }] },
   ]);
-
-  const createSlug = (text) =>
-  text
-    .toLowerCase()
-    .trim()
-    .replace(/[^a-z0-9]+/g, '-') // replace spaces/specials with hyphens
-    .replace(/^-+|-+$/g, '');    // remove leading/trailing hyphens
 
 
   // Add a new section

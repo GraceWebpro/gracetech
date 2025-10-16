@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import './Contact.css';
+import { Helmet } from "react-helmet-async";
 
 const Contact = () => {
   const formRef = useRef();
@@ -8,6 +9,15 @@ const Contact = () => {
 
   return (
     <section className='contact contact-page'>
+      <Helmet>
+        <title>Contact GraceTech</title>
+        <meta
+          name="description"
+          content="Get in touch with GraceTech for UI/UX design and web development projects."
+        />
+        <link rel="canonical" href="https://gracetech.vercel.app/contact" />
+      </Helmet>
+      
       <h2>Let's Start Something</h2>
       <h6 className='proj-title'>Home / Let's Start Something</h6>
 

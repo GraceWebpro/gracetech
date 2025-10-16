@@ -18,7 +18,7 @@ const TemplateSection = ({ subCategory }) => {
             </div>
             <div className="section-template-grid">
                 {subCategory.templates.slice(0, 4).map(template => (
-                <Link to={`/templates/${template.id}`} key={template.id} className="section-template-card-link">
+                <Link to={`/templates/${template.slug}`} key={template.id} className="section-template-card-link">
                     <div className="section-template-card">
                     <img src={template.thumbnail} alt={template.title || "Template thumbnail"} className='section-template-image' />
                     <div className="section-overlay">

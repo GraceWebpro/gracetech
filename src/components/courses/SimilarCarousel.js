@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import './Courses.css'; // You can create/rename CSS accordingly
+import { Link } from 'react-router-dom'
 
 const SimilarCoursesCarousel = ({ courses }) => {
   const carouselRef = useRef();
@@ -20,6 +21,7 @@ const SimilarCoursesCarousel = ({ courses }) => {
       <button className="arrow left" onClick={() => scroll('left')}>&#8249;</button>
       <div className="carousel" ref={carouselRef}>
         {courses.map((course, idx) => (
+        <Link to={`/courses/${course.slug}`} className="similar-blog-link">
           <div className="carousel-card" key={idx}>
             <div className="card-image">
               <img src={course.image} alt={course.title} />
@@ -30,6 +32,7 @@ const SimilarCoursesCarousel = ({ courses }) => {
               <span>{course.duration}</span>
             </div>
           </div>
+          </Link>
         ))}
       </div>
       <button className="arrow right" onClick={() => scroll('right')}>&#8250;</button>

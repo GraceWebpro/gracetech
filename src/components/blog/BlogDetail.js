@@ -2,19 +2,21 @@ import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { doc, getDoc, collection, query, where, getDocs, limit } from "firebase/firestore";
 import { db } from "../../server/firebase";
+import { Helmet } from "react-helmet-async";
 import './Blog.css';
 
 const BlogDetail = () => {
-  const { id } = useParams();
+  const { slug } = useParams();
   const [blog, setBlog] = useState(null);
   const [similarBlogs, setSimilarBlogs] = useState([]);
 
   useEffect(() => {
     const fetchBlog = async () => {
-      const docRef = doc(db, "blogs", id);
-      const docSnap = await getDoc(docRef);
+      const q = query(collection(db, "blogs"), where("slug", "==", slug));
+      const querySnapshot = await getDocs(q);
 
-      if (docSnap.exists()) {
+
+      if (querySnapshot.exists()) {
         const blogData = docSnap.data();
         setBlog(blogData);
         fetchSimilarBlogs(blogData.category, docSnap.id);
@@ -43,12 +45,21 @@ const BlogDetail = () => {
     };
 
     fetchBlog();
-  }, [id]);
+  }, [slug]);
 
   if (!blog) return <p>Loading...</p>;
 
   return (
     <div className="blog-detail">
+      <Helmet>
+        <title>{blog.title} | Blog</title>
+        <meta name="description" content={blog.description?.slice(0, 150)} />
+        <meta property="og:title" content={blog.title} />
+        <meta property="og:description" content={blog.description?.slice(0, 150)} />
+        <meta property="og:image" content={blog.imageUrl} />
+        <link rel="canonical" href={`https://yourdomain.com/blog/${blog.slug}`} />
+      </Helmet>
+
       <div className="back-link">
         <Link to="/blog">← Back to Blog</Link>
       </div>

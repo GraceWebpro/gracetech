@@ -150,6 +150,11 @@ width: 300px;
   
     .filter-toggle {
       margin-bottom: 10px;
+      font-size: 18px;
+    }
+
+    .course-view-more {
+      font-size: 14px !important;
     }
   
     .template-content.with-filters {

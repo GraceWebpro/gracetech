@@ -5,6 +5,7 @@ import './Courses.css'
 import { useLocation, useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import { useParams, useSearchParams } from 'react-router-dom';
+import { Helmet } from "react-helmet-async";
 
 const PAGE_SIZE = 6;
 
@@ -200,7 +201,14 @@ const [noMatchingCourseFound, setNoMatchingCourseFound] = useState(false);
 
   return (
     <div style={{ maxWidth: 1200, margin: '6rem auto', padding: '0 1rem' }}>
-    
+      <Helmet>
+        <title>Courses — Learn with GraceTech</title>
+        <meta
+          name="description"
+          content="Take online courses in UI/UX design and React web development with GraceTech."
+        />
+        <link rel="canonical" href="https://gracetech.vercel.app/courses" />
+      </Helmet>
 
       {/*  hero section */}
       <div className="movie-hero-section">
@@ -411,7 +419,7 @@ const [noMatchingCourseFound, setNoMatchingCourseFound] = useState(false);
                   <p style={{ fontSize: 13, color: '#ccc', marginBottom: 8 }}>⏱ {course.duration ?? '1h 30m'} • {course.lessons ?? 10} lessons</p>
                     {/* View Details Button */}
                     <button
-                      onClick={() => navigate(`/courses/${course.id}`)}
+                      onClick={() => navigate(`/courses/${course.slug}`)}
                       style={{
                         padding: '8px 12px',
                         borderRadius: 4,
@@ -423,6 +431,8 @@ const [noMatchingCourseFound, setNoMatchingCourseFound] = useState(false);
                         fontSize: 14,
                         marginBottom: 8
                       }}
+
+                      className='course-view-more'
                     >
                       View Course
                     </button>

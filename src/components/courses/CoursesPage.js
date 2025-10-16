@@ -12,7 +12,7 @@ import SimilarCoursesCarousel from './SimilarCarousel';
 import { Link } from 'react-router-dom'
 
 const CoursePage = () => {
-  const { id } = useParams();
+  const { slug } = useParams();
   const [course, setCourse] = useState(null);
   const [relatedCourses, setRelatedCourses] = useState([]);
   const [loading, setLoading] = useState(true); // ✅ Add loading state
@@ -22,8 +22,10 @@ const CoursePage = () => {
   useEffect(() => {
     const fetchCourseAndSimilar = async () => {
       try {
-        const docRef = doc(db, "courses", id);
-        const docSnap = await getDoc(docRef);
+
+        const q = query(collection(db, "courses"), where("slug", "==", slug));
+        const querySnapshot = await getDocs(q);
+
 
         if (docSnap.exists()) {
           const courseData = docSnap.data();
@@ -54,7 +56,7 @@ const CoursePage = () => {
     };
 
     fetchCourseAndSimilar();
-  }, [id]);
+  }, [slug]);
 
   const getYoutubeEmbedUrl = (url) => {
     try {

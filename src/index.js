@@ -6,14 +6,17 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { AuthProvider } from './server/AuthProvider';
 import smoothscroll from 'smoothscroll-polyfill';
+import { HelmetProvider } from 'react-helmet-async'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <Router>
-    <AuthProvider>
-    <App />
-    </AuthProvider>
-  </Router>
+  <HelmetProvider>
+    <Router>
+      <AuthProvider>
+        <App />
+      </AuthProvider>
+    </Router>
+  </HelmetProvider>
 
 );
 

@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 import { BsArrowRight } from "react-icons/bs";
 import './Project.css';
 import ProjectContact from "../contact/ProjectContact";
+import { Helmet } from "react-helmet-async";
 
 export function Projects() {
   const [projects, setProjects] = useState([]);
@@ -40,6 +41,15 @@ export function Projects() {
 
   return (
     <div className="project" id="project">
+     <Helmet>
+        <title>Portfolio — GraceTech</title>
+        <meta
+          name="description"
+          content="A showcase of my best UI/UX and web development projects, built with React, Firebase, and creativity."
+        />
+        <link rel="canonical" href="https://gracetech.vercel.app/portfolio" />
+      </Helmet>
+
       <TrackVisibility>
         {({ isVisible }) => (
           <div className={isVisible ? "animates__animated animate__slideInUp" : ""}>

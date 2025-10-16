@@ -3,7 +3,7 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../server/firebase";
 import { Link } from "react-router-dom";
 import './Blog.css';
-
+import { Helmet } from "react-helmet-async";
 
 const ModernBlogPage = () => {
 
@@ -29,6 +29,15 @@ const ModernBlogPage = () => {
 
   return (
     <div className="modern-blog" id='blog'>
+
+      <Helmet>
+        <title>Blog — GraceTech Insights</title>
+        <meta
+          name="description"
+          content="Design thoughts, React tutorials, and UI/UX tips from GraceTech."
+        />
+        <link rel="canonical" href="https://gracetech.vercel.app/blog" />
+      </Helmet>
       <h1 className="modern-heading">📝 Insights & Articles</h1>
       <div className="modern-grid">
         {blogs.map((post) => (
@@ -40,7 +49,7 @@ const ModernBlogPage = () => {
               <h2 className="modern-title">{post.title}</h2>
               <p className="modern-excerpt">{post.description}</p>
               <p className="modern-date">{post.date}</p>
-              <Link to={`/blog/${post.id}`} key={post.id}>
+              <Link to={`/blog/${post.slug}`} key={post.id}>
                 <button className="modern-btn">Read More →</button>
               </Link>            
             </div>

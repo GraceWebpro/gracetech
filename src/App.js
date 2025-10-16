@@ -33,6 +33,10 @@ import BookingPage from "./components/book/Booking";
 import CoursesPage from "./components/courses/CoursesPage";
 import UploadCourse from "./admin/uploadCourse/UploadCourse";
 import ScrollToHashElement from "./components/ScrollToHashElement";
+import NotFound from "./components/notFound/NotFound";
+import Privacy from "./components/PrivacyPolicy";
+import Terms from "./components/Terms";
+import CookieBanner from "./components/CookieBanner";
 
 function App() {
   const location = useLocation();
@@ -58,7 +62,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/templates" element={<Template />} />
           <Route path="/courses" element={ <Courses /> } />
-          <Route path="/courses/:id" element={<CoursesPage />} />
+          <Route path="/courses/:slug" element={<CoursesPage />} />
           <Route path="/admin/upload-course" element={<UploadCourse />} />
 
           <Route path="/get-a-quote" element={<GetAQuote />} />
@@ -67,9 +71,9 @@ function App() {
           <Route path="/book-a-call" element={<BookingPage />} />
 
           <Route path="/thank-you" element={<ThankYou />} />
-          <Route path="/project-details/:id" element={<ProjectDetails />} />
+          <Route path="/project-details/:slug" element={<ProjectDetails />} />
           <Route path="/services/:id" element={<ServiceDetailsPage />} />
-          <Route path="/blog/:id" element={<BlogDetail />} />
+          <Route path="/blog/:slug" element={<BlogDetail />} />
           <Route
             path="/download/:id"
             element={
@@ -78,7 +82,7 @@ function App() {
               </PrivateRoute>
             }
           />
-                  <Route path="/templates/:id" element={<TemplateDetails />} />
+                  <Route path="/templates/:slug" element={<TemplateDetails />} />
           <Route path="/template-list" element={<TemplateList />} />
 
 
@@ -92,8 +96,12 @@ function App() {
 
           
           {/* Redirect to home for unmatched routes */}
-          <Route path="*" element={<Navigate to="/" />} />
+          <Route path="*" element={<NotFound />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/terms" element={<Terms />} />
         </Routes>
+        <CookieBanner />
+
         {!isAdminPage && <Footer />}
             {/*<ScrollToTop />*/}
 

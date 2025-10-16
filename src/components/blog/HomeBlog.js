@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import './Blog.css'
-import { IoMailOutline } from "react-icons/io5";
-import { IoLocationOutline } from "react-icons/io5";
 import { BsArrowRight } from "react-icons/bs";
 import { Link } from 'react-router-dom';
 import blog from '../../assets/dummyImg.jpg';
@@ -105,6 +103,12 @@ const HomeBlog = () => {
         <div className='blog-line'></div>
 
         {blogs.map((blog, index) => (
+           <Link 
+           to={`/blog/${blog.slug}`} 
+           key={blog.id} 
+           className='blog-div-link' 
+           style={{ textDecoration: 'none', color: 'inherit' }}
+         >
           <div className='blog-div' data-aos="fade-left" data-aos-duration="1000" key={blog.id}>
             <div className='blog-cont-left' style={{ flexDirection: 'column' }}>
               <p><strong>{new Date(blog.date || blog.createdAt?.toDate()).toDateString()}</strong></p>
@@ -112,12 +116,15 @@ const HomeBlog = () => {
             </div>
 
             <div className='blog-cont-right'>
-              <img src={blog.imageUrl} alt='blog' className='blog-img' />
+              <img src={blog.imageUrl} alt={blog.title} className='blog-img' loading='lazy' />
               <div className='blog-icon-div'>
-                <IoEyeOutline className='blog-icon' />
+                <Link to={`/blog/${blog.slug}`} style={{ color: 'inherit' }}>
+                  <IoEyeOutline className='blog-icon' title="View Post" />
+                </Link>              
               </div>
             </div>
           </div>
+          </Link>
         ))}
       </div>
     </section>

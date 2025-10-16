@@ -8,7 +8,7 @@ import { useAuth } from "../../server/AuthProvider";
 import PayPalPayment from "../../payment/PaypalPayment"; // Adjust if needed
 
 function TemplateDetails() {
-  const { id } = useParams();
+  const { slug, id } = useParams();
   const [template, setTemplate] = useState(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -21,11 +21,13 @@ function TemplateDetails() {
   useEffect(() => {
     const fetchTemplate = async () => {
       try {
-        const docRef = doc(db, "templates", id);
-        const docSnap = await getDoc(docRef);
+        
   
-        if (docSnap.exists()) {
-          const data = docSnap.data();
+        const q = query(collection(db, "templates"), where("slug", "==", slug)); // 👈 query where slug matches
+        const querySnapshot = await getDocs(q);
+
+        if (querySnapshot.exists()) {
+          const data = querySnapshot.data();
           setTemplate(data);
   
           // Fetch similar templates
@@ -69,7 +71,7 @@ function TemplateDetails() {
     };
   
     fetchTemplate();
-  }, [id, currentUser]);
+  }, [slug, currentUser]);
   
 
   const handleDownloadClick = () => {
@@ -228,7 +230,7 @@ function TemplateDetails() {
         <div className="section-template-grid">
 
         {similarTemplates.slice(0, 4).map(template => (
-              <Link to={`/templates/${template.id}`} key={template.id} className="template-card-link">
+              <Link to={`/templates/${template.slug}`} key={template.id} className="template-card-link">
                 <div className="section-template-card">
                   <img src={template.thumbnail} alt={template.name} className='section-template-image' />
                   <div className="overlay">

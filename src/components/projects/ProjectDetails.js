@@ -1,12 +1,12 @@
 import { useParams } from 'react-router-dom';
 import React,{ useState, useEffect } from "react";
 import { db } from "../../server/firebase"; // Ensure correct Firestore import
-import { getDoc, doc } from "firebase/firestore";
+import { collection, query, where, getDocs } from "firebase/firestore";
 import { Link } from 'react-router-dom';
 import './ProjectsDetails.css'
 
 const ProjectDetails = () => {
-    const { id } = useParams(); // Get the projectId from the URL
+    const { slug } = useParams(); // Get the projectId from the URL
     const [project, setProject] = useState(null); // State to store project data
     const [loading, setLoading] = useState(true); // Loading state
     const [error, setError] = useState(null); // Error handling state
@@ -14,8 +14,8 @@ const ProjectDetails = () => {
     useEffect(() => {
         const fetchProject = async () => {
           try {
-            const docRef = doc(db, "projects", id); // Correct reference for Firebase 9+
-            const docSnapshot = await getDoc(docRef); // Use getDoc for single document fetch
+            const q = query(collection(db, "projects"), where("slug", "==", slug)); // 👈 query where slug matches
+            const docSnapshot = await getDoc(q); // Use getDoc for single document fetch
     
             if (docSnapshot.exists()) {
               setProject(docSnapshot.data()); // Set the project data in the state
@@ -30,7 +30,7 @@ const ProjectDetails = () => {
         };
     
         fetchProject();
-      }, [id]); // Re-run effect when projectId changess
+      }, [slug]); // Re-run effect when projectId changess
   
     if (loading) {
       return <p>Loading...</p>; // Show loading indicator
@@ -46,7 +46,7 @@ const ProjectDetails = () => {
   return (
     <div className="project-details">
       <h2>{project.title}</h2>
-      <img src={project.imageUrl} alt={project.title} className="project-main-image" />
+      <img src={project.imageUrl} alt={project.title} className="project-main-image" loading="lazy" />
       
       <h4>Project Description</h4>
       <p>{project.description}</p>

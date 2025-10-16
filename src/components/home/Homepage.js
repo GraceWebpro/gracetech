@@ -18,6 +18,8 @@ import CustomCursor from '../CustomCursor';
 import HeroSection2 from './Hero2';
 //import Banner2 from '../banner/Banner2';
 //import Meeting from '../projects/Meeting'
+import { Helmet } from "react-helmet-async";
+
 
 
 
@@ -43,18 +45,61 @@ const Homepage = () => {
       }, []);
     
     return (
-        <div style={{ marginTop: '60px' }}>
+      <div style={{ marginTop: '60px' }}>
+        <Helmet>
+          <title>GraceTech — UI/UX Designer & Web Developer</title>
+          <meta
+            name="description"
+            content="GraceTech creates modern web experiences using React, Firebase, and clean UI/UX design. Explore portfolio, templates, and tutorials."
+            />
+          <link rel="canonical" href="https://gracetech.vercel.app/" />
+
+          <script type="application/ld+json">
+            {JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              "name": "GraceTech",
+              "url": "https://gracetech.vercel.app",
+              "jobTitle": "UI/UX Designer & Web Developer",
+              "sameAs": [
+                "https://www.linkedin.com/in/yourusername",
+                "https://www.behance.net/yourprofile",
+                "https://twitter.com/yourusername"
+              ]
+            })}
+          </script>
+
+          {/* Open Graph (Facebook/LinkedIn preview) */}
+          <meta property="og:title" content="GraceTech — UI/UX Designer & Web Developer" />
+          <meta
+            property="og:description"
+            content="Explore my portfolio, UI/UX design work, and full React projects."
+          />
+          <meta property="og:url" content="https://gracetech.vercel.app/" />
+          <meta property="og:image" content="https://gracetech.vercel.app/og-preview.jpg" />
+
+          {/* Twitter Card */}
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:title" content="GraceTech — UI/UX Designer & Web Developer" />
+          <meta
+            name="twitter:description"
+            content="Modern React websites, UI/UX design, and tutorials by GraceTech."
+            />
+          <meta name="twitter:image" content="https://gracetech.vercel.app/og-preview.jpg" />
+        </Helmet>
+
+            <main>
+              <HeroSection2 /> 
+              <CustomCursor />
+              <About />
             
-            <HeroSection2 /> 
-            <CustomCursor />
-            <About />
-           
-            <Projects />
-            <ProjectContact />
-            <Services />
-            <WorkingProcess />
-            <Testimonial />
-            <HomeBlog />
+              <Projects />
+              <ProjectContact />
+              <Services />
+              <WorkingProcess />
+              <Testimonial />
+              <HomeBlog />
+            </main>
         </div>
     )
 };

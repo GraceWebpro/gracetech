@@ -12,7 +12,8 @@ import TemplateFetcher from './TemplateFetcher'
 //import AllCategories from './GraphicSection'
 import { db } from '../../../server/firebase'  // adjust path
 import { collection, getDocs } from "firebase/firestore"
-  
+import { Helmet } from "react-helmet-async";
+
 
 const Template = () => {
   const [categoryData, setCategoryData] = useState([]);
@@ -61,6 +62,15 @@ const Template = () => {
 
   return (
     <div className='template'>
+      <Helmet>
+        <title>Web Templates — GraceTech</title>
+        <meta
+          name="description"
+          content="Download or customize React web templates by GraceTech. Fast, clean, and ready to deploy."
+        />
+        <link rel="canonical" href="https://gracetech.vercel.app/templates" />
+      </Helmet>
+
         <div className='temp-bann'>
             <h1><span>Template</span> Assets & Templates</h1>
             <p style={{ color: "#ccc" }}>With unlimited downloads of template assets and templates, we've got all the creative ammo you need to create something epic.</p>

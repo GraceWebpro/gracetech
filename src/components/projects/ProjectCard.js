@@ -1,13 +1,12 @@
 import React, { useState, useEffect} from 'react';
 import defaultImg from '../../assets/dummyImg.jpg';
-import { GoArrowUpRight } from "react-icons/go";
 import { FiPlus } from "react-icons/fi";
 import { BsArrowUpRight } from "react-icons/bs";
 import { Link } from 'react-router-dom';
 
 
 
-const ProjectCard = ({ id, title, category, imageUrl, onEnlarge }) => {
+const ProjectCard = ({ slug, title, category, imageUrl, onEnlarge }) => {
   const [isMobile, setIsMobile] = useState(false);
   const [showOverlay, setShowOverlay] = useState(false);
 
@@ -26,7 +25,7 @@ const ProjectCard = ({ id, title, category, imageUrl, onEnlarge }) => {
   return (
     <div className='project-card2'  >
       <div className="proj-imgbx project-card" style={{ position: 'relative' }} onClick={handleCardClick}>
-        <img src={imageUrl || defaultImg} alt={title} className="img-fluid" width={350} height={300} />       
+        <img src={imageUrl || defaultImg} alt={title} className="img-fluid" width={350} height={300} loading="lazy" />       
         <div className={`proj-txtx ${isMobile && showOverlay ? 'show' : ''}`}>          {/*<h4>{title}</h4>
           <span>{category}</span>*/}
           <FiPlus className='proj-zoom'
@@ -47,7 +46,7 @@ const ProjectCard = ({ id, title, category, imageUrl, onEnlarge }) => {
          
         </div>
         <div className='icon-div'>
-        <Link to={`/project-details/${id}`} style={{ color: '#fff' }}>
+        <Link to={`/project-details/${slug}`} style={{ color: '#fff' }}>
 
           <BsArrowUpRight className='proj-det-btn' />
           </Link>
