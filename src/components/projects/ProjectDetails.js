@@ -3,6 +3,7 @@ import React,{ useState, useEffect } from "react";
 import { db } from "../../server/firebase"; // Ensure correct Firestore import
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { Link } from 'react-router-dom';
+import { BsArrowRight } from "react-icons/bs";
 import './ProjectsDetails.css'
 
 const ProjectDetails = () => {
@@ -15,12 +16,14 @@ const ProjectDetails = () => {
         const fetchProject = async () => {
           try {
             const q = query(collection(db, "projects"), where("slug", "==", slug)); // 👈 query where slug matches
-            const docSnapshot = await getDoc(q); // Use getDoc for single document fetch
+            const querySnapshot = await getDocs(q); // Use getDoc for single document fetch
     
-            if (docSnapshot.exists()) {
-              setProject(docSnapshot.data()); // Set the project data in the state
+            if (!querySnapshot.empty) {
+              // Take the first matched document
+              const doc = querySnapshot.docs[0];
+              setProject({ id: doc.id, ...doc.data() });
             } else {
-              setError('Project not found');
+              setError("Project not found");
             }
           } catch (error) {
             setError('Error fetching project data');
@@ -43,6 +46,7 @@ const ProjectDetails = () => {
     if (!project) {
       return <p>Project not found.</p>; // Handle when no project is found
     }
+    
   return (
     <div className="project-details">
       <h2>{project.title}</h2>
@@ -118,6 +122,11 @@ const ProjectDetails = () => {
         </a>
       </div>
     </div>
+
+    <Link to='/portfolio' className="click-more-btn">
+        <span>View More Projects</span>
+        <BsArrowRight />
+      </Link>
     </div>
   );
 };

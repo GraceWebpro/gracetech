@@ -110,8 +110,8 @@ export function Projects() {
         </Tab>
       </TabsPanel>
    
-      <Link to='/projects' className="click-more-btn">
-        <span>Click More</span>
+      <Link to='/portfolio' className="click-more-btn">
+        <span>View More</span>
         <BsArrowRight />
       </Link>
   

@@ -14,38 +14,41 @@ const BlogDetail = () => {
     const fetchBlog = async () => {
       const q = query(collection(db, "blogs"), where("slug", "==", slug));
       const querySnapshot = await getDocs(q);
-
-
-      if (querySnapshot.exists()) {
+  
+      if (!querySnapshot.empty) {
+        const docSnap = querySnapshot.docs[0];
         const blogData = docSnap.data();
         setBlog(blogData);
         fetchSimilarBlogs(blogData.category, docSnap.id);
+      } else {
+        console.log("No blog found for this slug");
       }
     };
-
+  
     const fetchSimilarBlogs = async (category, currentId) => {
       if (!category) return;
-
+  
       const q = query(
         collection(db, "blogs"),
         where("category", "==", category),
         limit(4)
       );
-
+  
       const querySnapshot = await getDocs(q);
       const blogs = [];
-
+  
       querySnapshot.forEach((doc) => {
         if (doc.id !== currentId) {
           blogs.push({ id: doc.id, ...doc.data() });
         }
       });
-
+  
       setSimilarBlogs(blogs);
     };
-
+  
     fetchBlog();
   }, [slug]);
+  
 
   if (!blog) return <p>Loading...</p>;
 
