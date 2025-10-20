@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { db } from '../../server/firebase'; // your firebase config file
-import { collection, query, where, getDocs, getDoc, doc, limit } from 'firebase/firestore';
+import { collection, query, where, getDocs, limit } from "firebase/firestore";
 import './Courses.css';
 import defaultThumbnail from '../../assets/fig.jpg'
 import CourseHero from './CourseHero';
@@ -25,13 +25,13 @@ const CoursePage = () => {
         // 1️⃣ Fetch the course using the slug
         const q = query(collection(db, "courses"), where("slug", "==", slug));
         const querySnapshot = await getDocs(q);
-  
+
         if (!querySnapshot.empty) {
           // 2️⃣ Get the first document
           const docSnap = querySnapshot.docs[0];
           const courseData = docSnap.data();
-          setCourse(courseData);
-  
+          setCourse({ id: docSnap.id, ...courseData });
+
           // 3️⃣ Fetch similar courses by category
           const similarQuery = query(
             collection(db, "courses"),
@@ -39,17 +39,17 @@ const CoursePage = () => {
             limit(5)
           );
           const similarSnapshot = await getDocs(similarQuery);
-  
+
           const similar = [];
           similarSnapshot.forEach((d) => {
             if (d.id !== docSnap.id) {
               similar.push({ id: d.id, ...d.data() });
             }
           });
-  
+
           setRelatedCourses(similar);
         } else {
-          console.log("No course found for this slug");
+          console.warn("No course found for this slug:", slug);
         }
       } catch (error) {
         console.error("Error fetching course:", error);
@@ -57,8 +57,8 @@ const CoursePage = () => {
         setLoading(false);
       }
     };
-  
-    fetchCourseAndSimilar();
+
+    if (slug) fetchCourseAndSimilar();
   }, [slug]);
   
 
