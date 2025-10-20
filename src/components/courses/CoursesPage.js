@@ -22,41 +22,45 @@ const CoursePage = () => {
   useEffect(() => {
     const fetchCourseAndSimilar = async () => {
       try {
-
+        // 1️⃣ Fetch the course using the slug
         const q = query(collection(db, "courses"), where("slug", "==", slug));
         const querySnapshot = await getDocs(q);
-
-
-        if (docSnap.exists()) {
+  
+        if (!querySnapshot.empty) {
+          // 2️⃣ Get the first document
+          const docSnap = querySnapshot.docs[0];
           const courseData = docSnap.data();
           setCourse(courseData);
-
-          // ✅ Fetch similar courses by category
-          const q = query(
+  
+          // 3️⃣ Fetch similar courses by category
+          const similarQuery = query(
             collection(db, "courses"),
             where("category", "==", courseData.category),
             limit(5)
           );
-          const querySnapshot = await getDocs(q);
-
+          const similarSnapshot = await getDocs(similarQuery);
+  
           const similar = [];
-          querySnapshot.forEach((docSnap) => {
-            if (docSnap.id !== id) {
-              similar.push({ id: docSnap.id, ...docSnap.data() });
+          similarSnapshot.forEach((d) => {
+            if (d.id !== docSnap.id) {
+              similar.push({ id: d.id, ...d.data() });
             }
           });
-
+  
           setRelatedCourses(similar);
+        } else {
+          console.log("No course found for this slug");
         }
       } catch (error) {
         console.error("Error fetching course:", error);
       } finally {
-        setLoading(false); // ✅ stop loading regardless of success/fail
+        setLoading(false);
       }
     };
-
+  
     fetchCourseAndSimilar();
   }, [slug]);
+  
 
   const getYoutubeEmbedUrl = (url) => {
     try {
