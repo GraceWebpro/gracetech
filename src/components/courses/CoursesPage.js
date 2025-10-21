@@ -22,34 +22,34 @@ const CoursePage = () => {
   useEffect(() => {
     const fetchCourseAndSimilar = async () => {
       try {
-        // 1️⃣ Fetch the course using the slug
-        const q = query(collection(db, "courses"), where("slug", "==", slug));
-        const querySnapshot = await getDocs(q);
-
-        if (!querySnapshot.empty) {
-          // 2️⃣ Get the first document
-          const docSnap = querySnapshot.docs[0];
-          const courseData = docSnap.data();
-          setCourse({ id: docSnap.id, ...courseData });
-
-          // 3️⃣ Fetch similar courses by category
+        // Fetch the course by slug
+        const courseQuery = query(collection(db, "courses"), where("slug", "==", slug));
+        const courseSnapshot = await getDocs(courseQuery);
+  
+        if (!courseSnapshot.empty) {
+          // Get the first matching course
+          const courseDoc = courseSnapshot.docs[0];
+          const courseData = courseDoc.data();
+          setCourse({ id: courseDoc.id, ...courseData });
+  
+          // Fetch similar courses
           const similarQuery = query(
             collection(db, "courses"),
             where("category", "==", courseData.category),
             limit(5)
           );
           const similarSnapshot = await getDocs(similarQuery);
-
-          const similar = [];
-          similarSnapshot.forEach((d) => {
-            if (d.id !== docSnap.id) {
-              similar.push({ id: d.id, ...d.data() });
+  
+          const similarCourses = [];
+          similarSnapshot.forEach((similarDoc) => {
+            if (similarDoc.id !== courseDoc.id) {
+              similarCourses.push({ id: similarDoc.id, ...similarDoc.data() });
             }
           });
-
-          setRelatedCourses(similar);
+  
+          setRelatedCourses(similarCourses);
         } else {
-          console.warn("No course found for this slug:", slug);
+          console.warn("No course found for slug:", slug);
         }
       } catch (error) {
         console.error("Error fetching course:", error);
@@ -57,9 +57,10 @@ const CoursePage = () => {
         setLoading(false);
       }
     };
-
+  
     if (slug) fetchCourseAndSimilar();
   }, [slug]);
+  
   
 
   const getYoutubeEmbedUrl = (url) => {
