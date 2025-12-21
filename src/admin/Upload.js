@@ -4,6 +4,7 @@ import { collection, addDoc, getDocs, query, serverTimestamp } from 'firebase/fi
 import { storage, db } from "../server/firebase"; // Ensure Firebase is properly set up
 import slugify from 'slugify';
 
+
 const UploadContent = () => {
   const [selectedMode, setSelectedMode] = useState('movie'); // 'movie', 'episode', or 'music'
   
@@ -145,7 +146,7 @@ const UploadContent = () => {
   }, [form.price, form.discount]);
 
   const handleTemplateUpload = async () => {
-    const requiredFields = ["title", "description", "subCategory", "usage", "techStack"];
+    const requiredFields = ["description", "subCategory", "usage", "techStack"];
     if (!form.isFree) {
       requiredFields.push("price");
     }
@@ -199,7 +200,7 @@ const UploadContent = () => {
         ? parseFloat(form.price) * (1 - parseFloat(form.discount) / 100)
         : parseFloat(form.price);
   
-      const slug = createSlug(title);
+        const slug = createSlug(form.title);
 
       const newTemplate = {
         ...form,
@@ -430,14 +431,18 @@ const UploadContent = () => {
                 />
                 </div>
 
+
                 <div className="input-group">
-                <input 
-                    type="text" 
-                    placeholder="Project Category" 
-                    value={projectCategory} 
-                    onChange={(e) => setProjectCategory(e.target.value)} 
+                  <select
+                    value={projectCategory}
+                    onChange={(e) => setProjectCategory(e.target.value)}
                     className="input-field"
-                />
+                  >
+                    <option value="">Select Project Category</option>
+                    <option value="UI Design">UI Design</option>
+                    <option value="UX Design">UX Design</option>
+                    <option value="AI Video">AI Video</option>
+                  </select>
                 </div>
 
 
@@ -562,7 +567,7 @@ const UploadContent = () => {
         <>
            <h2>Upload Template</h2>
             <div className="upload-form">
-                <input name="title" value={form.title} onChange={handleTemplateUpload} placeholder="Title" />
+                <input name="title" value={form.title} onChange={handleChange} placeholder="Title" />
                 
                 <select name="category" value={form.category} onChange={handleChange}>
                 <option value="UI">UI</option>
@@ -599,7 +604,7 @@ const UploadContent = () => {
                 
             
                 
-                <input name="discount" type="number" value={form.discount} onChange={handleChange} placeholder="Discount (%)" />
+                <input name="discount" type="number" value={form.discount} onChange={handleChange} placeholder="Discount" />
                 <input name="previewUrl" value={form.previewUrl} onChange={handleChange} placeholder="Preview Link (Figma/Bubble/etc)" />
                 <input name="creatorName" value={form.creatorName} onChange={handleChange} placeholder="Creator Name" />
 

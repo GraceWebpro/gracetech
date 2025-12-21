@@ -74,23 +74,23 @@ const BlogDetail = () => {
       <div className="blog-content">
         <h1 className="blog-title">{blog.title}</h1>
         <p className="blog-date">{blog.date}</p>
-        <p className="blog-text">
+        <div className="blog-text">
           {blog.description?.split('\n').map((line, index) => (
             <span key={index}>
               {line}
               <br /><br />
             </span>
           ))}
-        </p>
+        </div>
       </div>
 
       {similarBlogs.length > 0 && (
         <div className="similar-blogs">
-          <h2>More in {blog.category}</h2>
+          <h2 style={{ color: "#fff"}}>More in {blog.category}</h2>
           <div className="similar-blog-list">
             {similarBlogs.map((sim) => (
               <div key={sim.id} className="similar-blog-card">
-                <Link to={`/blog/${sim.id}`}>
+                <Link to={`/blog/${sim.slug}`}>
                   <img src={sim.imageUrl} alt={sim.title} />
                   <h3 className="modern-title">{sim.title}</h3>
                   <p className="modern-excerpt">{sim.description}</p>

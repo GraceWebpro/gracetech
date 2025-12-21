@@ -36,14 +36,14 @@ const Pane = () => {
                 <p data-aos="fade-up" data-aos-duration="1000">
                 At GraceTech, we create clean, user-focused digital experiences. Our team excels in design and development using tools like Figma, React, Bubble, FlutterFlow, and HTML, delivering impactful solutions from concept to launch.                </p>
                 <div className='about-div-display'>
-                <div className='about-div about-div2' data-aos="zoom-in-up" data-aos-duration="500">
+                {/* <div className='about-div about-div2' data-aos="zoom-in-up" data-aos-duration="500">
                   <p style={{ textAlign: "left" }}><strong>Address</strong> </p>
                   <h5>Victoria Island, Lagos.</h5>
 
-                </div>
+                </div> */}
                 <div className='about-div' data-aos="fade-left" data-aos-duration="1000">
                   <p style={{ textAlign: "left" }}><strong>Email</strong> </p>
-                  <h5 className='mail'>gracetechagency@gmail.com</h5>
+                  <h5 className='mail'>gogracetech@gmail.com</h5>
 
                 </div>
                 <div className='about-div' data-aos="fade-left" data-aos-duration="1000">

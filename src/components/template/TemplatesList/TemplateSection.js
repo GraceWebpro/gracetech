@@ -13,7 +13,7 @@ const TemplateSection = ({ subCategory }) => {
   return (
     <div className="template-section">
             <div className="section-header">
-                <h2>{subCategory.name} Templates</h2>
+                <h2 style={{ color: "#fff"}}>{subCategory.name} Templates</h2>
                 <button onClick={handleShowAllClick} className="section-show-all-btn">Show All</button>
             </div>
             <div className="section-template-grid">

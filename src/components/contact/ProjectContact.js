@@ -73,18 +73,18 @@ const ProjectContact = () => {
 
                     </div>
                     <div className='proj-cont-left' style={{ flexDirection: 'column' }}>
-                      <p><strong>Email</strong> </p>
-                      <h6>gracetechagency@gmail.com</h6>
+                      <p style={{ textAlign: "left"}}><strong>Email</strong> </p>
+                      <h6>gogracetech@gmail.com</h6>
                     </div>
                 </div>
                 <div className='meet-div' data-aos="fade-left" data-aos-duration="1000">
                     <div className='meet-icon-div'>
-                    <IoLocationOutline className='meet-icon'/>
+                    <IoLogoWhatsapp className='meet-icon'/>
 
                     </div>
                     <div className='proj-cont-left' style={{ flexDirection: 'column' }}>
-                      <p><strong>Location</strong> </p>
-                      <h6>Victoria Island, Lagos.</h6>
+                      <p style={{ textAlign: "left"}}><strong>WhatsApp</strong> </p>
+                      <h6>+234 704 342 1913</h6>
                     </div>
                 </div>
             </div>

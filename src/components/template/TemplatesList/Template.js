@@ -77,14 +77,14 @@ const Template = () => {
             <TemplateSearchSlider />
         </div>
 
-        <div className='temp-cat'>
+        <div className='temp-cat' style={{ padding: "0px 20px"}}>
             <h4>Browse by category</h4>
             <p>{totalTemplates} assets</p>
 
             <TemplateCarousel categories={categoryData} />
-        </div>
+        </div> 
 
-        <div>
+        <div style={{ padding: "0px 20px"}}>
           {/*<AllCategories />*/}
           <TemplateFetcher />
         </div>

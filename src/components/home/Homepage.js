@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 //import Banner from '../banner/Banner'
-import { Projects } from '../projects/HomeProjects';
+import { HomeProjects } from '../projects/HomeProjects';
 import HomeContact from '../contact/HomeContact';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -19,6 +19,7 @@ import HeroSection2 from './Hero2';
 //import Banner2 from '../banner/Banner2';
 //import Meeting from '../projects/Meeting'
 import { Helmet } from "react-helmet-async";
+import HomeFaq from '../services/HomeFAQ';
 
 
 
@@ -93,12 +94,12 @@ const Homepage = () => {
               <CustomCursor />
               <About />
             
-              <Projects />
-              <ProjectContact />
+              <HomeProjects />
               <Services />
               <WorkingProcess />
               <Testimonial />
               <HomeBlog />
+              <HomeFaq />
             </main>
         </div>
     )

@@ -42,7 +42,9 @@ const HeroSection2 = () => {
     <div className='overlayyy'>
 <div className='content22'>
       {/* Left Section */}
+      
       <div className='cont-left'>
+      <p style={{ color: "#fff" }}>✨ NEW: AI Video Creation — Now offering AI-powered videos for ads, tutorials, explainers & brand storytelling.</p>
       <motion.h1
           initial={{ opacity: 0, x: 80 }}
           animate={{ opacity: 1, x: 0 }}

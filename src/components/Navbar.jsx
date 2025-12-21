@@ -19,7 +19,7 @@ const menuItems = [
     name: 'Resources',
     dropdown: true,
     children: [
-      { name: 'Courses', path: '/courses' },
+      // { name: 'Courses', path: '/courses' },
       { name: 'Templates', path: '/templates' },
       { name: 'Blog', path: '/blog' },
     ],

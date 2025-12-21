@@ -1,5 +1,5 @@
 import React from 'react';
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db } from "../server/firebase"; // adjust this path based on your project
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
 
@@ -16,7 +16,8 @@ const PayPalPayment = ({ amount, template, user, onSuccess }) => {
       payerEmail: details.payer.email_address,
       payerName: `${details.payer.name.given_name} ${details.payer.name.surname}`,
       userId: user?.uid || null,
-      purchaseDate: new Date().toISOString(),
+      purchaseDate: serverTimestamp(),
+      status: details.status,    
     };
 
     try {
@@ -24,6 +25,7 @@ const PayPalPayment = ({ amount, template, user, onSuccess }) => {
       console.log("Payment saved to Firestore");
     } catch (error) {
       console.error("Error saving payment:", error);
+
     }
   };
   
@@ -51,9 +53,19 @@ const PayPalPayment = ({ amount, template, user, onSuccess }) => {
           return actions.order.capture().then((details) => {
             savePaymentDetails(details);
             onSuccess(details);
-            alert('Transaction completed by ' + details.payer.name.given_name);
+        
+            // Auto-download after successful payment
+            const link = document.createElement("a");
+            link.href = template.fileUrl;
+            link.download = `${template.name}.zip`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        
+            alert("Payment successful! Your download will start shortly.");
           });
         }}
+        
         onError={(err) => {
           console.error("PayPal Checkout Error", err);
         }}

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate, useLocation, } from "react-router-dom";
-import { doc, getDoc, query, collection, where, limit, getDocs } from "firebase/firestore";
+import { doc, addDoc, serverTimestamp, getDoc, query, collection, where, limit, getDocs } from "firebase/firestore";
 import { db } from "../../server/firebase";
 import { FaHeart, FaDownload } from 'react-icons/fa';
 import { Link } from "react-router-dom";
@@ -18,50 +18,53 @@ function TemplateDetails() {
   const { currentUser } = useAuth(); // optional if you're using authentication
 
 
+
+  const handleLoginRedirect = () => {
+    // Redirect to login page with redirect query param
+    navigate(`/login?redirect=${encodeURIComponent(location.pathname)}`);
+  };
+
   useEffect(() => {
     const fetchTemplate = async () => {
       try {
-        
-  
-        const q = query(collection(db, "templates"), where("slug", "==", slug)); // 👈 query where slug matches
+        // Query templates collection by slug
+        const q = query(collection(db, "templates"), where("slug", "==", slug));
         const querySnapshot = await getDocs(q);
-
-        if (querySnapshot.exists()) {
-          const data = querySnapshot.data();
-          setTemplate(data);
+  
+        if (!querySnapshot.empty) {
+          const docSnap = querySnapshot.docs[0];
+          const data = docSnap.data();
+          setTemplate({ id: docSnap.id, ...data });
   
           // Fetch similar templates
-          const q = query(
+          const simQuery = query(
             collection(db, "templates"),
             where("category", "==", data.category),
-            limit(5) // Adjust how many you want to show
+            limit(5)
           );
-  
-          const querySnapshot = await getDocs(q);
+          const simSnapshot = await getDocs(simQuery);
           const similar = [];
-          querySnapshot.forEach((doc) => {
-            if (doc.id !== id) {
+          simSnapshot.forEach((doc) => {
+            if (doc.id !== docSnap.id) {
               similar.push({ id: doc.id, ...doc.data() });
             }
           });
-  
           setSimilarTemplates(similar);
-
-        // ✅ Check if user has purchased this template
-        if (currentUser) {
-          const purchasesRef = collection(db, "purchases");
-          const purchaseQuery = query(
-            purchasesRef,
-            where("userId", "==", currentUser.uid),
-            where("templateId", "==", id)
-          );
-          const purchaseSnap = await getDocs(purchaseQuery);
-          if (!purchaseSnap.empty) {
-            setHasPurchasedTemplate(true);
+  
+          // Check if user has purchased this template
+          if (currentUser) {
+            const purchasesRef = collection(db, "purchases");
+            const purchaseQuery = query(
+              purchasesRef,
+              where("userId", "==", currentUser.uid),
+              where("templateId", "==", docSnap.id)
+            );
+            const purchaseSnap = await getDocs(purchaseQuery);
+            if (!purchaseSnap.empty) setHasPurchasedTemplate(true);
           }
-        }
+  
         } else {
-          console.log("No such document!");
+          console.log("No template found with this slug!");
         }
       } catch (error) {
         console.error("Error fetching template:", error);
@@ -72,6 +75,22 @@ function TemplateDetails() {
   
     fetchTemplate();
   }, [slug, currentUser]);
+  
+  useEffect(() => {
+    if (!currentUser) return;
+  
+    const checkPurchase = async () => {
+      const q = query(
+        collection(db, "payments"),
+        where("userId", "==", currentUser.uid),
+        where("templateId", "==", template.id)
+      );
+      const snap = await getDocs(q);
+      if (!snap.empty) setHasPurchasedTemplate(true);
+    };
+  
+    checkPurchase();
+  }, [currentUser, template]);
   
 
   const handleDownloadClick = () => {
@@ -149,7 +168,7 @@ function TemplateDetails() {
           </a>
         )}
 
-        {
+        {/* {
           template.isFree ? (
             // If the template is free, allow download regardless of login status
             <a
@@ -187,19 +206,62 @@ function TemplateDetails() {
               </button>
             )
           )
-        }
+        } */}
+
+          {template.isFree ? (
+            // Free template: allow download for everyone
+            <a href={template.fileUrl} download className="download-btn">
+              Download .zip
+            </a>
+          ) : currentUser ? (
+            hasPurchasedTemplate ? (
+              // Paid template: user already purchased
+              <a href={template.fileUrl} download className="download-btn">
+                Download .zip
+              </a>
+            ) : (
+              // Paid template: user logged in but hasn't purchased
+              <PayPalPayment
+              amount={template.price}
+              template={template}
+              user={currentUser}
+              onSuccess={async (details) => {
+                try {
+                  // Mark as purchased in state
+                  setHasPurchasedTemplate(true);
+            
+                  // Save purchase record to Firestore
+                  await addDoc(collection(db, "purchases"), {
+                    userId: currentUser.uid,
+                    templateId: template.id, // or template.slug if you prefer
+                    amount: template.price,
+                    createdAt: serverTimestamp(),
+                    paymentDetails: details, // optional, you can save PayPal response for reference
+                  });
+            
+                  alert("Payment successful! Download is now available.");
+                } catch (err) {
+                  console.error("Error saving purchase info:", err);
+                  alert("Payment succeeded, but failed to record purchase. Contact support.");
+                }
+              }}
+            />
+            )
+          ) : (
+            // Paid template: user not logged in
+            <button
+            onClick={handleLoginRedirect}
+            className="preview-btn"
+          >
+            Login to Purchase
+          </button>
+  
+          
+          )}
+
 
       </div>
-     {/*} <div className="cta-x">
-          <h2>Want to support?</h2>
-          <p>Help the creator by sharing or donating!</p>
-          <button className="subscribe-btn">Donate</button>
-        </div>
-
-        <p className="signin-text">
-          Want to comment? <a href="/login">Sign in</a>
-        </p>
-        */}
+     
       </div>
 
         </div>
@@ -225,7 +287,7 @@ function TemplateDetails() {
 
       <div className="template-section">
         <div className="section-header">
-          <h2>Similar Templates</h2>
+          <h2 style={{ color: "#fff"}}>Similar Templates</h2>
         </div>
         <div className="section-template-grid">
 
@@ -266,11 +328,13 @@ function TemplateDetails() {
         .info-grid h5 {
             font-size: 20px;
             margin-bottom: 10px;
-            margin-top: 30px
+            margin-top: 30px;
+
         }
 
         .info-grid p {
           font-sie: 15px;
+          color: #888;
         }
 
         .left-section {
@@ -365,6 +429,7 @@ function TemplateDetails() {
         .cta-box h2 {
           margin: 0;
           font-size: 20px;
+          color: #fff;
         }
 
         .cta-box p {
@@ -422,6 +487,7 @@ function TemplateDetails() {
           font-size: 16px;
           line-height: 1.6;
           margin-bottom: 24px;
+          color: #888;
         }
 
         .info-grid {

@@ -14,7 +14,7 @@ import { Helmet } from "react-helmet-async";
 
 export function Projects() {
   const [projects, setProjects] = useState([]);
-  const [uiDesignProjects, setUiDesignProjects] = useState([]);
+  const [aiVideoProjects, setAiVidoeProjects] = useState([]);
   const [uiUxDesignProjects, setUiUxDesignProjects] = useState([]);
   const [selectedProject, setSelectedProject] = useState(null);
 
@@ -29,8 +29,13 @@ export function Projects() {
         }));
 
         setProjects(projectList);
-        setUiDesignProjects(projectList.filter((p) => p.category === "UI Design"));
-        setUiUxDesignProjects(projectList.filter((p) => p.category === "UI/UX Design"));
+        setUiUxDesignProjects(
+          projectList.filter(
+            (p) => p.category === "UI Design" || p.category === "UX Design"
+          )
+        ); 
+        setAiVidoeProjects(projectList.filter((p) => p.category === "AI Video"));
+     
       } catch (error) {
         console.error("Error fetching projects:", error);
       }
@@ -84,30 +89,7 @@ export function Projects() {
 
         </Tab>
 
-        <Tab title="UI Tab" subtitle="All UI Design Projects" icon="fas fa-hourglass-start">
-          <div
-            id="project-container"
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-              gap: '30px',
-              padding: '0px',
-              justifyContent: 'center',
-              alignItems: 'center',
-              width: '100%'
-            }}
-          >
-            {uiDesignProjects.length > 0 ? (
-              uiDesignProjects.map((project, index) => (
-                <ProjectCard key={index} {...project} />
-              ))
-            ) : (
-              <p>No UI Design projects found.</p>
-            )}
-          </div>
-        </Tab>
-
-        <Tab title="UI/UX" subtitle="All UI/UX Design Projects">
+        <Tab title="UI/UX" subtitle="All UI Design Projects" icon="fas fa-hourglass-start">
           <div
             id="project-container"
             style={{
@@ -125,7 +107,30 @@ export function Projects() {
                 <ProjectCard key={index} {...project} />
               ))
             ) : (
-              <p>No UI/UX Design projects found.</p>
+              <p>No UI Design projects found.</p>
+            )}
+          </div>
+        </Tab>
+
+        <Tab title="AI Video" subtitle="All UI/UX Design Projects">
+          <div
+            id="project-container"
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+              gap: '30px',
+              padding: '0px',
+              justifyContent: 'center',
+              alignItems: 'center',
+              width: '100%'
+            }}
+          >
+            {aiVideoProjects.length > 0 ? (
+              aiVideoProjects.map((project, index) => (
+                <ProjectCard key={index} {...project} />
+              ))
+            ) : (
+              <p>No AI Video projects found.</p>
             )}
           </div>
         </Tab>

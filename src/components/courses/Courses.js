@@ -235,7 +235,8 @@ const [noMatchingCourseFound, setNoMatchingCourseFound] = useState(false);
           style={{
             width: "100%",
             maxWidth: 400,
-            padding: "8px",
+            height: "45px",
+            padding: "8px 12px",
             borderRadius: "6px",
             border: "1px solid #444",
             background: "#222",

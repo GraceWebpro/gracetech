@@ -14,10 +14,10 @@ const HomeContact = () => {
      <div className='touch-content'>
         <div className='touch-left'>
          
-              <h2>
-              Hello, we are Grace Wilson and the team of expert Website & User Interface Designers, based in London, committed to delivering exceptional digital experiences.                </h2>
+              {/* <h2>
+              Hello, we are Grace Wilson and the team of expert Website & User Interface Designers, based in London, committed to delivering exceptional digital experiences.                </h2> */}
 
-              <h3>gracetechagency@gmail.com</h3>
+              <h3>gogracetech@gmail.com</h3>
 
             
             

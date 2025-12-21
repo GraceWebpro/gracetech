@@ -36,31 +36,31 @@ const TemplateSearchSlider = () => {
 
       <div className="search-options">
         <div onClick={() => handleCategoryChange('HTML')} className={`search-option ${selectedCategory === 'HTML' ? 'active' : ''}`}>
-          <FaSearch /> HTML Template
+          {/* <FaSearch />  */}HTML Template
         </div>
         <div onClick={() => handleCategoryChange('Bubble')} className={`search-option ${selectedCategory === 'Bubble' ? 'active' : ''}`}>
-          <FaSearch /> Bubble Template
+           Bubble Template
         </div>
         <div onClick={() => handleCategoryChange('Figma')} className={`search-option ${selectedCategory === 'Figma' ? 'active' : ''}`}>
-          <FaSearch /> Figma Template
+          Figma Template
         </div>
         <div onClick={() => handleCategoryChange('HTML')} className={`search-option ${selectedCategory === 'HTML' ? 'active' : ''}`}>
-          <FaSearch /> React Template
+          React Template
         </div>
         <div onClick={() => handleCategoryChange('Bubble')} className={`search-option ${selectedCategory === 'Bubble' ? 'active' : ''}`}>
-          <FaSearch /> Graphic Template
+           Graphic Template
         </div>
         <div onClick={() => handleCategoryChange('Figma')} className={`search-option ${selectedCategory === 'Figma' ? 'active' : ''}`}>
-          <FaSearch /> Bootstrap Template
+          Bootstrap Template
         </div>
         <div onClick={() => handleCategoryChange('HTML')} className={`search-option ${selectedCategory === 'HTML' ? 'active' : ''}`}>
-          <FaSearch /> HTML Template
+        HTML Template
         </div>
         <div onClick={() => handleCategoryChange('Bubble')} className={`search-option ${selectedCategory === 'Bubble' ? 'active' : ''}`}>
-          <FaSearch /> Bubble Template
+          Bubble Template
         </div>
         <div onClick={() => handleCategoryChange('Figma')} className={`search-option ${selectedCategory === 'Figma' ? 'active' : ''}`}>
-          <FaSearch /> Figma Template
+           Figma Template
         </div>
       </div>
       </div>

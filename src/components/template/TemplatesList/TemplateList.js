@@ -159,7 +159,28 @@ const TemplateList = () => {
               </Link>
             ))
           ) : (
-            <p>No templates found.</p>
+            <div className="empty-state">
+              <img 
+                src="/no-templates.svg" 
+                alt="No templates" 
+                className="empty-state-img"
+              />
+
+              <h2>No Templates Available</h2>
+
+              <p>
+                We couldn’t find any templates for this category yet.
+                Try selecting another category or check back later.
+              </p>
+
+              <button 
+                className="empty-btn" 
+                onClick={() => window.location.href = '/templates'}
+              >
+                Browse All Templates
+              </button>
+            </div>
+
           )}
         </div> 
      

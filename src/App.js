@@ -37,6 +37,7 @@ import NotFound from "./components/notFound/NotFound";
 import Privacy from "./components/PrivacyPolicy";
 import Terms from "./components/Terms";
 import CookieBanner from "./components/CookieBanner";
+import UserRegister from "./components/userAuth/Register";
 
 function App() {
   const location = useLocation();
@@ -68,6 +69,8 @@ function App() {
           <Route path="/get-a-quote" element={<GetAQuote />} />
           <Route path="/blog" element={<ModernBlogPage />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<UserRegister /> } />
+
           <Route path="/book-a-call" element={<BookingPage />} />
 
           <Route path="/thank-you" element={<ThankYou />} />
