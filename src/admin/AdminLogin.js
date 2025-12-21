@@ -1,19 +1,40 @@
 import { useState } from "react";
-import { auth, loginWithEmail } from "../server/firebase";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import "./Admin.css"; // Import the CSS file
+import { doc, getDoc, getFirestore } from "firebase/firestore";
+import "./Admin.css";
 
 function AdminLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const db = getFirestore();
+  const auth = getAuth();
 
   const handleLogin = async () => {
+    if (!email || !password) return alert("Please enter email and password");
+    setLoading(true);
+
     try {
-      await loginWithEmail(email, password);
-      navigate("/admin/dashboard"); // Redirect to the admin dashboard
+      // 1️⃣ Sign in with Firebase Auth
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      // 2️⃣ Check if user exists in admins collection
+      const adminDoc = await getDoc(doc(db, "admins", user.uid));
+      if (!adminDoc.exists() || adminDoc.data().role !== "admin") {
+        alert("Access denied: You are not an admin");
+        return;
+      }
+
+      // ✅ Admin verified, redirect to dashboard
+      navigate("/admin/dashboard");
     } catch (error) {
-      alert(error.message);
+      console.error("Admin login error:", error);
+      alert(error.message || "Failed to login");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -33,7 +54,9 @@ function AdminLogin() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button onClick={handleLogin}>Login</button>
+        <button onClick={handleLogin} disabled={loading}>
+          {loading ? "Logging in..." : "Login"}
+        </button>
         <p>
           Don't have an account? <a href="/admin/register">Register</a>
         </p>

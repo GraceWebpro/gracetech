@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Component.css';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { IoMdApps } from "react-icons/io";
+import { IoMdPerson } from "react-icons/io";
 import { MdArrowDropDown } from "react-icons/md";
 import { IoLogoInstagram } from "react-icons/io";
 import { AiOutlineTikTok } from "react-icons/ai";
@@ -9,6 +9,10 @@ import { FaFacebook } from "react-icons/fa";
 import { AiOutlineClose } from "react-icons/ai";
 import logo from '../assets/my-logo2-removebg-preview (1).png'
 import { motion } from 'framer-motion';
+import { useAuth } from '../server/AuthProvider'
+import { logout, db } from '../server/firebase'
+import { doc, getDoc } from "firebase/firestore";
+
 
 const menuItems = [
   { name: 'Home', path: '/' },
@@ -32,6 +36,8 @@ const NavbarN = () => {
   const [resourcesOpen, setResourcesOpen] = useState(false);
   const [activeLink, setActiveLink] = useState('home');
   const [showInfoPanel, setShowInfoPanel] = useState(false);
+  const { currentUser } = useAuth();
+
 
   const toggleMobileMenu = () => setIsMobileOpen(!isMobileOpen);
   const closeMobileMenu = () => setIsMobileOpen(false);
@@ -55,6 +61,19 @@ const NavbarN = () => {
   
   const location = useLocation();
   const navigate = useNavigate();
+
+  const [userData, setUserData] = useState(null);
+
+useEffect(() => {
+  const fetchUserData = async () => {
+    if (currentUser) {
+      const docRef = doc(db, "users", currentUser.uid);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) setUserData(docSnap.data());
+    }
+  };
+  fetchUserData();
+}, [currentUser]);
 
   
 
@@ -157,11 +176,14 @@ const NavbarN = () => {
         <div className="navbar-hamburger" onClick={toggleMobileMenu}>
           ☰
         </div>
+        {/* Profile icon, only visible if logged in */}
+        {currentUser && (
         <div className={activeLink === 'contact' ? 'active nav__item' : 'nav__item'} id='book'>
           <span className="nav__link icon66" onClick={toggleInfoPanel}>
-            <IoMdApps className="icon6" />
+            <IoMdPerson className="icon6" />
           </span>
         </div>
+         )}
       </motion.div>
 
 
@@ -171,27 +193,46 @@ const NavbarN = () => {
         <button className="close-btn" id="info-close" onClick={toggleInfoPanel}>
           <AiOutlineClose className="icon6" />
         </button>
-        <div className="side-info">
-          <div className="logo">
-            <a href="#home" className="nav__logo2">
-              <p className="logo-txt">GraceTech</p>
-            </a>
-          </div>
-          <p className="abt">
-          We are GraceTech, a global agency of designers, developers, and innovators, based in Victoria Highland, Lagos. We specialize in turning ideas into impactful digital solutions to help your business succeed.
-          </p>
-          <p className="p-first"><strong>ADDRESS</strong><br /><h5>Victoria Island, Lagos.</h5></p>
-          <p><strong>EMAIL</strong><br /><span>gogracetech@gmail.com</span></p>
-          <p><strong>CALL NOW</strong><br /><span>+234 704 342 1913</span></p>
-          <div className="nav-flex">
-            <Link to="contact" className="nav__link"><AiOutlineTikTok className="nav-icon" /></Link>
-            <Link to="contact" className="nav__link"><IoLogoInstagram className="nav-icon" /></Link>
-            <Link to="contact" className="nav__link"><FaFacebook className="nav-icon" /></Link>
-          </div>
-          <Link to="contact" className="nav__link nav-btn side-btn" onClick={closeMobileMenu}>
-            Let's Connect
-          </Link>
-        </div>
+
+        {currentUser && (
+          <li className="profile-dropdown">
+            <span className="profile-toggle">
+              {/* You can use a profile icon here instead of text */}
+              <IoMdPerson className="icon6" />
+              {currentUser.displayName ? currentUser.displayName : 'My Profile'}
+            </span>
+              <ul className="prof-dropdown-menu">
+                <li>
+                  <Link 
+                    to={currentUser.role === 'admin' ? '/dashboard' : '/dashboard'} 
+                    onClick={toggleInfoPanel}
+                  >
+                    Dashboard
+                  </Link>
+                </li>
+                <li>
+                  <Link 
+                    to={currentUser.role === 'admin' ? '/settings' : '/dashboard'} 
+                    onClick={toggleInfoPanel}
+                  >
+                    Settings
+                  </Link>
+                </li>
+                <li>
+                  <button id='prof-logout'
+                    onClick={() => {
+                      logout();
+                     toggleInfoPanel();
+                    }}
+                  >
+                    Logout
+                  </button>
+                </li>
+              </ul>
+            
+          </li>
+        )}
+
       </div>
     </nav>
 

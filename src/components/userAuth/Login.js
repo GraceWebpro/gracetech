@@ -1,27 +1,36 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { loginWithEmail } from "../../server/firebase"; // Your login function
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
-  const location = useLocation(); // To get the redirect URL if available
+  const location = useLocation();
+  const auth = getAuth();
 
   const handleLogin = async () => {
+    if (!email || !password) return alert("Please enter both email and password");
+    setLoading(true);
+
     try {
-      await loginWithEmail(email, password);
+      // 1️⃣ Sign in with Firebase Auth
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
 
-      // Get the redirect path from query parameters (if any)
+      // ✅ User logged in successfully
+      alert("Login successful!");
+
+      // 2️⃣ Redirect to original page or homepage
       const redirectPath = new URLSearchParams(location.search).get("redirect");
-
-      if (redirectPath) {
-        navigate(redirectPath); // Redirect to the original action page
-      } else {
-        navigate("/"); // Redirect to homepage if no redirect URL
-      }
+      navigate(redirectPath || "/");
     } catch (error) {
-      alert(error.message); // Display any error messages from login failure
+      console.error("Login error:", error);
+      alert(error.message || "Failed to login");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -41,7 +50,9 @@ const Login = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button onClick={handleLogin}>Login</button>
+        <button onClick={handleLogin} disabled={loading}>
+          {loading ? "Logging in..." : "Login"}
+        </button>
         <p>
           Don't have an account? <a href="/register">Register</a>
         </p>

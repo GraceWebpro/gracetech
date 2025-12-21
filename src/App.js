@@ -38,6 +38,7 @@ import Privacy from "./components/PrivacyPolicy";
 import Terms from "./components/Terms";
 import CookieBanner from "./components/CookieBanner";
 import UserRegister from "./components/userAuth/Register";
+import UserDashboard from "./components/userDashboard/UserDashboard";
 
 function App() {
   const location = useLocation();
@@ -70,6 +71,7 @@ function App() {
           <Route path="/blog" element={<ModernBlogPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<UserRegister /> } />
+          <Route path="/dashboard" element={<UserDashboard /> } />
 
           <Route path="/book-a-call" element={<BookingPage />} />
 

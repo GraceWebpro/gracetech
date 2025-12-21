@@ -10,6 +10,7 @@ import user_4 from '../../assets/user_4.jpeg'
 import { Link } from 'react-router-dom';
 
 
+
 const rotatingWords = [
   'Web Development',
   'UI/UX Design',
@@ -37,6 +38,8 @@ const HeroSection2 = () => {
     return () => clearInterval(interval);
   }, []);
 
+
+
   return (
    <section className='hero22'>
     <div className='overlayyy'>
@@ -44,6 +47,7 @@ const HeroSection2 = () => {
       {/* Left Section */}
       
       <div className='cont-left'>
+     
       <p style={{ color: "#fff" }}>✨ NEW: AI Video Creation — Now offering AI-powered videos for ads, tutorials, explainers & brand storytelling.</p>
       <motion.h1
           initial={{ opacity: 0, x: 80 }}

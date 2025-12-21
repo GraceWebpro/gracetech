@@ -1,26 +1,17 @@
-// AuthContext.js
-import React, { createContext, useEffect, useState, useContext } from "react";
+// src/context/AuthContext.js
+import { createContext, useContext, useEffect, useState } from "react";
+import { auth } from "../server/firebase";
 import { onAuthStateChanged } from "firebase/auth";
-import { auth, db } from "./firebase";
-import { doc, getDoc } from "firebase/firestore";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-      setUser(currentUser);
-      if (currentUser) {
-        const adminRef = doc(db, "admins", currentUser.uid);
-        const adminSnap = await getDoc(adminRef);
-        setIsAdmin(adminSnap.exists());
-      } else {
-        setIsAdmin(false);
-      }
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setCurrentUser(user);
       setLoading(false);
     });
 
@@ -28,10 +19,11 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, isAdmin, loading }}>
-      {children}
+    <AuthContext.Provider value={{ currentUser, loading }}>
+      {!loading && children}
     </AuthContext.Provider>
   );
 };
 
+// Hook for convenience
 export const useAuth = () => useContext(AuthContext);

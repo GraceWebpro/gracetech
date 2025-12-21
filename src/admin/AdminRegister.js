@@ -1,43 +1,41 @@
 import { useState } from "react";
 import { auth, registerWithEmail } from "../server/firebase";
 import { useNavigate } from "react-router-dom";
-import { getFirestore, setDoc, addDoc, doc } from "firebase/firestore"; // Import required Firebase functions
-import "./Admin.css"; // Import the CSS file
+import { doc, setDoc, getFirestore } from "firebase/firestore";
+import "./Admin.css";
 
 function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false); // Loading state for feedback
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const db = getFirestore();
 
   const handleRegister = async () => {
-    setLoading(true); // Set loading to true when the registration starts
+    if (!email || !password) return alert("Please fill all fields");
+    setLoading(true);
     try {
-      // Register the user with email and password using Firebase Authentication
+      // 1️⃣ Register admin in Firebase Auth
       const userCredential = await registerWithEmail(email, password);
       const user = userCredential.user;
 
-      /* After successful registration, assign the 'admin' role
-      await setDoc(doc(db, "users", user.uid), {
-        email: user.email,
-        role: "admin", // Set the role to 'admin'
-      });*/
-
+      // 2️⃣ Add to admins collection
       await setDoc(doc(db, "admins", user.uid), {
-        isAdmin: true,
-        role: "admin",
+        uid: user.uid,
         email: user.email,
+        role: "admin",
+        createdAt: new Date(),
       });
-      
 
-      // Redirect to the admin dashboard after successful registration
+      alert("Admin registration successful!");
+
+      // 3️⃣ Redirect to admin dashboard
       navigate("/admin/dashboard");
     } catch (error) {
-      console.error(error);
-      alert(error.message || "An error occurred during registration.");
+      console.error("Admin registration error:", error);
+      alert(error.message || "Error during admin registration");
     } finally {
-      setLoading(false); // Set loading to false once registration completes
+      setLoading(false);
     }
   };
 
@@ -58,7 +56,7 @@ function Register() {
           onChange={(e) => setPassword(e.target.value)}
         />
         <button onClick={handleRegister} disabled={loading}>
-          {loading ? "Registering..." : "Register"} {/* Button text changes based on loading state */}
+          {loading ? "Registering..." : "Register"}
         </button>
         <p>
           Already have an account? <a href="/admin/login">Login</a>

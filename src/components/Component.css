@@ -303,3 +303,38 @@
       }
   }
   
+  .profile-toggle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;          /* vertically center icon + text */
+    justify-content: center;      /* center content horizontally */
+    gap: 6px;                     /* space between icon and text */
+    margin-top: 100px;              /* pushes it slightly down from the top */
+    cursor: pointer;
+  
+    font-size: 16px;
+    font-weight: 500;
+    color: #fff;                  /* adjust to your navbar color */
+  }
+  
+  .profile-toggle .icon6 {
+    font-size: 40px; 
+    border: 1px solid #ccc; 
+    border-radius: 50%; 
+    padding: 4px;           /* make profile icon slightly bigger */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .prof-dropdown-menu {
+    margin-top: 50px;
+  }
+
+  .prof-dropdown-menu li {
+    margin-bottom: 15px;
+  }
+
+  #prof-logout {
+    background: rgb(205, 5, 5) !important;
+  }

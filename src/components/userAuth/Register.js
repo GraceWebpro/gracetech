@@ -9,14 +9,17 @@ const UserRegister = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
   const location = useLocation();
+  const auth = getAuth();
 
   const handleRegister = async () => {
-    if (!name || !email || !password) return alert("Please fill all fields");
+    if (!name || !email || !password) {
+      return alert("Please fill all fields");
+    }
 
     setLoading(true);
-    const auth = getAuth();
 
     try {
       // 1️⃣ Create user in Firebase Auth
@@ -26,28 +29,23 @@ const UserRegister = () => {
       // 2️⃣ Update display name in Auth profile
       await updateProfile(user, { displayName: name });
 
-      // 3️⃣ Save user in Firestore
+      // 3️⃣ Save user in Firestore (users collection)
       await setDoc(doc(db, "users", user.uid), {
         uid: user.uid,
         name,
         email,
+        role: "user",
         createdAt: serverTimestamp(),
-        role: "user", // optional, can use "admin" for admin accounts
       });
 
       alert("Registration successful!");
 
-      // 4️⃣ Redirect to original page or homepage
+      // 4️⃣ Redirect to the original page or homepage
       const redirectPath = new URLSearchParams(location.search).get("redirect");
-      if (redirectPath) {
-        navigate(redirectPath);
-      } else {
-        navigate("/"); // homepage
-      }
-
+      navigate(redirectPath || "/");
     } catch (error) {
-      console.error("Registration error:", error);
-      alert(error.message);
+      console.error("User registration error:", error);
+      alert(error.message || "Failed to register");
     } finally {
       setLoading(false);
     }
