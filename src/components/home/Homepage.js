@@ -15,7 +15,7 @@ import Blog from '../blog/Blog';
 import HomeBlog from '../blog/HomeBlog';
 import HeroSection from './Hero';
 import CustomCursor from '../CustomCursor';
-import HeroSection2 from './Hero2';
+import HeroSection3 from './Hero3';
 //import Banner2 from '../banner/Banner2';
 //import Meeting from '../projects/Meeting'
 import { Helmet } from "react-helmet-async";
@@ -90,8 +90,12 @@ const Homepage = () => {
         </Helmet>
 
             <main>
-              <HeroSection2 /> 
+              <HeroSection3 /> 
               <CustomCursor />
+              <h1 className="text-4xl font-bold text-red-500">
+  Tailwind Test
+</h1>
+
               <About />
             
               <HomeProjects />

@@ -1,0 +1,123 @@
+/* .hero {
+    padding: 6rem 2rem;
+    text-align: center;
+  }
+  
+  .title {
+    font-size: 3rem;
+    font-weight: 700;
+  }
+  
+  .title span {
+    color: #7d52fd; /* brand purple *
+  }
+  
+  .subtitle {
+    margin-top: 1rem;
+    color: #d0cfd3;
+    font-size: 1.1rem;
+  }
+   */
+
+
+/* Navbar container */
+.navbar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  padding: 1rem 1.25rem;
+  justify-content: space-between;
+  z-index: 1000;
+  transition: background 0.3s ease, backdrop-filter 0.3s ease;
+}
+
+/* Background when scrolled */
+.navbar.scrolled {
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(12px);
+}
+
+/* Navbar inner wrapper */
+.navbar-inner {
+  max-width: 1320px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Logo wrapper */
+.logo-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+}
+
+/* Gradient text for logo */
+.logo {
+  font-size: 1.5rem; /* 24px */
+  font-weight: bold;
+  background: linear-gradient(to right, #ffffff, #7d52fd); /* purple → cyan */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: opacity 0.3s ease;
+}
+
+.logo:hover {
+  opacity: 0.8;
+}
+
+/* Desktop nav links */
+.nav-links {
+  display: none; /* hide by default for mobile */
+  gap: 2rem;
+}
+
+.nav-links button {
+  font-size: 0.975rem; /* 14px */
+  font-weight: 500;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.765);
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.nav-links button.active,
+.nav-links button:hover {
+  color: white;
+}
+
+/* CTA button */
+.cta-button {
+  display: none; /* hide by default on mobile */
+  padding: 0.675rem 1.5rem; /* 14px 24px */
+  border-radius: 12px;
+  background: white;
+  color: #151022;
+  font-weight: 600;
+  border: 1px solid #ffffff;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.cta-button:hover {
+  opacity: 0.9;
+  background: linear-gradient(to right, #7d52fd, #151022);
+  color: white;
+}
+
+/* Responsive for desktop */
+@media (min-width: 768px) {
+  .nav-links {
+    display: flex;
+    align-items: center;
+  }
+
+  .cta-button {
+    display: inline-flex;
+    align-items: center;
+  }
+}

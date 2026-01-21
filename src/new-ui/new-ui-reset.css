@@ -1,0 +1,10 @@
+.new-ui-root {
+  background-color: #151022;
+  min-height: 100vh;
+  font-family: "Inter", sans-serif;
+}
+
+/* ONLY affect new UI */
+.new-ui-root .ui * {
+  box-sizing: border-box;
+}

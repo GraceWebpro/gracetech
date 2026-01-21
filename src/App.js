@@ -39,6 +39,8 @@ import Terms from "./components/Terms";
 import CookieBanner from "./components/CookieBanner";
 import UserRegister from "./components/userAuth/Register";
 import UserDashboard from "./components/userDashboard/UserDashboard";
+import NewLayout from "./new-ui/NewLayout";
+import NewHome from "./new-ui/NewHome";
 
 function App() {
   const location = useLocation();
@@ -47,6 +49,7 @@ function App() {
   // Determine if the current route is for the admin page
   const isAdminPage = location.pathname.startsWith('/admin');
   const isTemplatePage = location.pathname.startsWith("/templates");
+  const isNewUI = location.pathname.startsWith("/new");
 
   return (
     
@@ -55,11 +58,14 @@ function App() {
     <ScrollToHashElement />
       {/*<MouseCursor />*/}
 
-      {!isAdminPage && (isTemplatePage ? <TemplateNavbar /> : <NavbarN />)}
+      {!isAdminPage && !isNewUI && (
+        isTemplatePage ? <TemplateNavbar /> : <NavbarN />
+      )}
 
       <Routes>
           {/* Public routes */}
           <Route path="/" element={<Homepage />} />
+          
           <Route path="/portfolio" element={<Projects />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/templates" element={<Template />} />
@@ -104,6 +110,16 @@ function App() {
           <Route path="*" element={<NotFound />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
+
+          {/* New UI preview */}
+          <Route
+            path="/new"
+            element={
+              <NewLayout>
+                <NewHome />
+              </NewLayout>
+            }
+          />
         </Routes>
         <CookieBanner />
 

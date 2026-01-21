@@ -11,6 +11,7 @@ import { FaFacebook } from "react-icons/fa";
 import call from '../../assets/meet.png'
 import { IoMailOutline } from "react-icons/io5";
 import { IoLocationOutline } from "react-icons/io5";
+import emailjs from '@emailjs/browser';
 
 
 
@@ -37,23 +38,37 @@ const ProjectContact = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setButtonText("Sending...");
-        let response = await fetch("http://localhost:5000/contact", {
-            method: "POST",
-            headers: {
-                "Content-Type": "Application/json;charset=utf-8",
+      
+        try {
+          await emailjs.send(
+            "service_nnrou8o",
+            "template_l2yg57v",
+            {
+              first_name: formDetails.firstName,
+              last_name: formDetails.lastName,
+              email: formDetails.email,
+              phone: formDetails.phone,
+              message: formDetails.message,
             },
-            body: JSON.stringify(formDetails),
-        });
-        setButtonText("Send");
-        let result = response.json();
-        setFormDetails(formInitialDetails);
-        if(result.code === 200) {
-            setStatus({ success: true, message: "Message sent successfully"});
-        } else {
-            setStatus({ success: false, message: "Something went wrong, please try again later."});
+            "V8YbTK6Cu4MlPG6Q0"
+          );
+      
+          setStatus({
+            success: true,
+            message: "Message sent successfully 🎉"
+          });
+      
+          setFormDetails(formInitialDetails);
+        } catch (error) {
+          setStatus({
+            success: false,
+            message: "Failed to send message. Please try again."
+          });
         }
-    }
-
+      
+        setButtonText("Send");
+      };
+      
   return (
     <section className='meeting' id='connect'>
         
@@ -90,6 +105,11 @@ const ProjectContact = () => {
             </div>
         </div>
         <img src={call} alt='call' className='meet-img'/>
+        {status.message && (
+  <p className={status.success ? "success" : "error"}>
+    {status.message}
+  </p>
+)}
     </section>
   )
 }
