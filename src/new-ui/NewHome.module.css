@@ -105,8 +105,9 @@
 
 .cta-button:hover {
   opacity: 0.9;
-  background: linear-gradient(to right, #7d52fd, #151022);
-  color: white;
+  background: linear-gradient(to right, #7d52fd, #ffffff);
+  color: black;
+  border: none;
 }
 
 /* Responsive for desktop */
@@ -121,3 +122,5 @@
     align-items: center;
   }
 }
+
+

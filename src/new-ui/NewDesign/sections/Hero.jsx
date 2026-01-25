@@ -1,12 +1,34 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { motion } from 'framer-motion'
 import { ChevronDown, Star } from 'lucide-react';
 import { SiReact, SiNextdotjs, SiTailwindcss, SiNodedotjs, SiMongodb } from 'react-icons/si';
 import { STATS } from '../../utils/constants';
 import { scrollToSection } from '../../hooks/useScrollSpy';
 import FadeIn from '../animations/FadeIn';
 import RadialGradient from '../backgrounds/RadialGradient';
+import { Link } from 'react-router-dom';
+import HowWeWork from './HowWeWork';
+
+
+const rotatingWords = [
+  'Web Development',
+  'UI/UX Design',
+  'Brand Strategy',
+  'SEO Optimization',
+  'AI-Powered Videos',
+  'Interactive Web Apps'
+];
 
 function Hero() {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex((prev) => (prev + 1) % rotatingWords.length);
+    }, 2000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section className='relative min-h-screen flex items-center overflow-hidden bg-black'>
       <RadialGradient variant="hero" />
@@ -23,15 +45,28 @@ function Hero() {
               >                
                 <Star className='w-4 h-4 text-white fill-white' />
                 <span className='text-xs md:text-sm text-white tracking-[1.2px]'>
-                  Title
-                </span>
+                NEW: AI-Powered Videos for Ads, Tutorials & Brand Stories.                </span>
               </div>
             </FadeIn>
 
             <FadeIn delay={100}>
-              <h1 className='text-6xl md:text-5xl lg:text-6xl font-normal text-white mb-6 leading-tight'>
-                React.js Developer portfolio
-              </h1>
+              <div className="text-white leading-tight">
+                {/* Brand line */}
+                <h1 className="text-3xl md:text-3xl lg:text-4xl font-normal text-white mb-6 leading-tight">
+                  GraceTech Builds
+                </h1>
+
+                {/* Rotating headline */}
+                <motion.h2
+                  key={index}
+                  className="text-5xl md:text-5xl lg:text-6 font-bold highlight"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  {rotatingWords[index]}
+                </motion.h2>
+              </div>
             </FadeIn>
 
             <FadeIn delay={200}>
@@ -41,15 +76,44 @@ function Hero() {
             </FadeIn>
 
             <FadeIn delay={300}>
-              <button
-              onClick={() => scrollToSection('contact')}
-              className='inline-flex items-center gap-0 mb-12 group'
-              >
-                <div className='relative z-10 bg-white text-[#212121] rounded-[17px] px-[26px] py-[13px] text-base font-medium border border-white'>
-                  Get In Touch
-                </div>
-              </button>
+              <div className="flex flex-wrap items-center gap-4 mb-8">
+
+                {/* Primary CTA */}
+                <Link
+                  to="/get-a-quote"
+                  className="
+                    px-[26px] py-[13px]
+                    rounded-[17px]
+                    text-base font-medium
+                    text-black
+                    bg-gradient-to-r from-[#7d52fd] to-[#ffffff]
+                    hover:opacity-90
+                    transition
+                  "
+                >
+                  Get A Quote
+                </Link>
+
+                {/* Secondary CTA */}
+                <Link
+                  to="/portfolio"
+                  className="
+                    px-[26px] py-[13px]
+                    rounded-[17px]
+                    text-base font-medium
+                    text-white
+                    border border-white/40
+                    hover:bg-white hover:text-[#212121]
+                    transition
+                  "
+                >
+                  View Our Work
+                </Link>
+
+              </div>
             </FadeIn>
+
+              <HowWeWork videoId="js4QJqYyyFs?si=92nRy3ixNwwgMZDg" />
 
             <FadeIn delay={400}>
               <div className='grid grid-cols-2 md:grid-cols-4 gap-10 max-w-full'>
@@ -72,7 +136,7 @@ function Hero() {
           {/* right column - developer image */}
           <FadeIn delay={200}>
             <div className='relative'>
-            <div className='relative overflow-hidden rounded-2xl aspect-4/5 max-w-[500px] max-h-[70vh] ml-auto group'>
+            <div className='relative overflow-hidden rounded-2xl aspect-4/5 max-w-[400px] max-h-[75vh] ml-auto group'>
                 <div className='absolute inset-0 rounded-2xl overflow-hidden '>
                   <div className='absolute inset-[-3px] bg-gradient-to-r from-primary/20 via-primary/10 to-primary animate-spin-slow rounded-2xl'></div>
                 </div>
@@ -107,8 +171,8 @@ function Hero() {
 
       {/* Scroll indicator */}
       <button
-        onCanPlay={() => scrollToSection('about')}
-        className='absolute buttom-8 left-1/2 -translate-x-1/2 animate-bounce'
+        onClick={() => scrollToSection('about')}
+        className='absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce z-1000 cursor-pointer'
       >
         <ChevronDown className='w-8 h-8 text-primary' />
       </button>

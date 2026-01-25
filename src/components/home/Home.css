@@ -418,6 +418,7 @@
   width: 90%;
   max-width: 700px;
   outline: none;
+  z-index: 10000;
 }
 
 .video-overlay {
@@ -427,7 +428,7 @@
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.75);
-  z-index: 999;
+  z-index: 9999;
 }
 
 

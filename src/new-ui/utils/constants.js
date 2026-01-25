@@ -5,6 +5,13 @@ export const STATS = [
     {label: 'Client satisfaction', value: '98%' }
 ];
 
+export const SOCIAL_LINKS = {
+    github: "https://github.com",
+    linkedin: "https://linkedin.com",
+    twitter: "https://twitter.com",
+    dribble: "https://dribble.com",
+}
+
 export const ABOUT_STATS = [
     { label: 'Happy Clients', value: '45+' },
     { label: 'Code Commits', value: '2.5k+' },

@@ -2,7 +2,7 @@ import { useState } from "react";
 import './App.css';
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 //import ScrollToTop from './components/ScrollToTop';
-import Navbar from './components/navbar/Navbar';
+// import Navbar from './components/navbar/Navbar';
 import Homepage from './components/home/Homepage';
 import AdminLogin from './admin/AdminLogin';
 import Footer from './components/footer/Footer';
@@ -41,6 +41,7 @@ import UserRegister from "./components/userAuth/Register";
 import UserDashboard from "./components/userDashboard/UserDashboard";
 import NewLayout from "./new-ui/NewLayout";
 import NewHome from "./new-ui/NewHome";
+import Navbar from "./new-ui/NewDesign/layout/Navbar";
 
 function App() {
   const location = useLocation();
@@ -59,12 +60,15 @@ function App() {
       {/*<MouseCursor />*/}
 
       {!isAdminPage && !isNewUI && (
-        isTemplatePage ? <TemplateNavbar /> : <NavbarN />
+        isTemplatePage ? <TemplateNavbar /> : <Navbar />
       )}
 
       <Routes>
           {/* Public routes */}
-          <Route path="/" element={<Homepage />} />
+          {/* <Route path="/" element={<Homepage />} /> */}
+          <Route path="/" element={<NewHome />} />
+          <Route path="/old-home" element={<Homepage />} /> 
+
           
           <Route path="/portfolio" element={<Projects />} />
           <Route path="/contact" element={<Contact />} />
