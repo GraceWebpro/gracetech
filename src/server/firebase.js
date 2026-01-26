@@ -33,7 +33,7 @@ export const storage = getStorage(app);
 const provider = new GoogleAuthProvider();
 
 // Google Login
-const loginWithGoogle = async () => {
+export const loginWithGoogle = async () => {
   try {
     await signInWithPopup(auth, provider);
   } catch (error) {
