@@ -7,26 +7,24 @@ const Skills = () => {
 
     // Categories skills
     const skillCategories = {
-        'Frontend': [
-          skills.find(s => s.name === 'React.js'),
-          skills.find(s => s.name === 'JavaScript'),
-          skills.find(s => s.name === 'TypeScript'),
-          skills.find(s => s.name === 'Next.js'),
-          skills.find(s => s.name === 'Tailwind CSS'),
-          skills.find(s => s.name === 'Redux'),
+        'Product Interfaces': [
+            skills.find(s => s.name === 'React.js'),
+            skills.find(s => s.name === 'Next.js'),
+            skills.find(s => s.name === 'TypeScript'),
+            skills.find(s => s.name === 'Tailwind CSS'),
         ].filter(Boolean),
       
-        'Backend & APIs': [
-          skills.find(s => s.name === 'Node.js'),
-          skills.find(s => s.name === 'REST APIs'),
+        'Application Logic': [
+            skills.find(s => s.name === 'Node.js'),
+            skills.find(s => s.name === 'REST APIs'),
         ].filter(Boolean),
 
-        "Tools & Others": [
-            skills.find(s => s.name === "Git & GitHub"),
-            skills.find(s => s.name === "Responsive Design"),
-            skills.find(s => s.name === "Figma"),
-            skills.find(s => s.name === "Vite"),
-        ].filter(Boolean),
+        'Design & Workflow': [
+            skills.find(s => s.name === 'Figma'),
+            skills.find(s => s.name === 'UI Systems'),
+            skills.find(s => s.name === 'Git'),
+            skills.find(s => s.name === 'Responsive Design'),
+          ].filter(Boolean),
       };
 
     //   get proficiency percentage
@@ -62,13 +60,13 @@ const Skills = () => {
             <div className="text-center mb-16">
                 <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/30 rounded-full mb-6">
                     <Icons.Sparkles className='w-4 h-4 text-primary' />
-                    <span className='text-sm text-primary font-medium'>My Expertise</span>
+                    <span className='text-sm text-primary font-medium'>Core Capabilities</span>
                 </div>
-                <h2 className="text-4xl lg:text-5xl font-normal text-white mb-4">
-                    Skills & Technologies
+                <h2 className="text-4xl lg:text-5xl font-normal text-white mb-4 text">
+                    Skills, Tools & Systems
                 </h2>
                 <p className="text-lg text-white/60 max-w-2xl mx-auto">
-                    A comprehensive overview of my technical skills and proficiency level
+                 The tools and systems used to design, build, and ship clear, scalable digital products.
                 </p>
             </div>
         </FadeIn>

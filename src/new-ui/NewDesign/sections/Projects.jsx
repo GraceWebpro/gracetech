@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { collection, getDocs, orderBy, query } from "firebase/firestore";
+import { collection, getDocs, orderBy, query, limit } from "firebase/firestore";
 import { db } from "../../../server/firebase";
 import { Briefcase, Sparkles, Target, Globe, Palette, Zap, ChevronLeft, ChevronRight } from 'lucide-react';
 import ProjectCard from "../ui/ProjectCard2";
 import FadeIn from '../animations/FadeIn';
+import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import './work.css'
 
 const Projects = () => {
@@ -14,13 +16,15 @@ const Projects = () => {
     const [activeCategory, setActiveCategory] = useState('All')
     const [currentIndex, setCurrentIndex] = useState(0);
     const scrollContainerRef = useRef(null);
+    const [cardsPerView, setCardsPerView] = useState(3);
 
     useEffect(() => {
         const fetchProjects = async () => {
           try {
             const q = query(
               collection(db, "projects"),
-              orderBy("timestamp", "desc")
+              orderBy("timestamp", "desc"),
+              limit(6)
             );
       
             const snapshot = await getDocs(q);
@@ -52,6 +56,19 @@ const Projects = () => {
       
         fetchProjects();
       }, []);
+
+      useEffect(() => {
+        const updateCardsPerView = () => {
+          if (window.innerWidth < 768) setCardsPerView(1);
+          else if (window.innerWidth < 1024) setCardsPerView(2);
+          else setCardsPerView(3);
+        };
+      
+        updateCardsPerView(); // initial
+        window.addEventListener('resize', updateCardsPerView);
+      
+        return () => window.removeEventListener('resize', updateCardsPerView);
+      }, []);
       
 
       const filteredProjects =
@@ -60,6 +77,24 @@ const Projects = () => {
         : projects.filter(project =>
             project.categories === activeCategory); 
     
+        const dotCount = Math.max(0, filteredProjects.length - cardsPerView + 1);
+
+        useEffect(() => {
+            const container = scrollContainerRef.current;
+            if (!container) return;
+          
+            const onScroll = () => {
+              const maxScrollLeft = container.scrollWidth - container.clientWidth;
+              const index = Math.round(
+                (container.scrollLeft / maxScrollLeft) * (dotCount - 1)
+              );
+              setCurrentIndex(index);
+            };
+          
+            container.addEventListener('scroll', onScroll, { passive: true });
+            return () => container.removeEventListener('scroll', onScroll);
+          }, [dotCount]);
+
         // resel carousel when category changes
         const handleCategoryChange = (category) => {
             setActiveCategory(category);
@@ -70,28 +105,46 @@ const Projects = () => {
             }
         };
 
+
         const scrollToIndex = (index) => {
+            if (!scrollContainerRef.current) return;
+          
+            const container = scrollContainerRef.current;
+            const maxScrollLeft = container.scrollWidth - container.clientWidth;
+          
+            const targetScroll =
+              (maxScrollLeft / (dotCount - 1 || 1)) * index;
+          
+            container.scrollTo({
+              left: targetScroll,
+              behavior: 'smooth',
+            });
+          
             setCurrentIndex(index);
-            if (scrollContainerRef.current) {
-                const container = scrollContainerRef.current;
-                const cardWidth = container.offsetWidth /3;
-                container.scrollTo({
-                    left: cardWidth * index,
-                    behavior: 'smooth'
-                });
-            }
-        };
+          };
+          
+          
+
+        // const nextSlide = () => {
+        //     const maxIndex = Math.max(0, filteredProjects.length - 3);
+        //     const newIndex = Math.min(currentIndex + 1, maxIndex);
+        //     scrollToIndex(newIndex);
+        // }
+
+        // const prevSlide = () => {
+        //     const newIndex = Math.max(currentIndex - 1, 0);
+        //     scrollToIndex(newIndex);
+        // };
 
         const nextSlide = () => {
-            const maxIndex = Math.max(0, filteredProjects.length - 3);
-            const newIndex = Math.min(currentIndex + 1, maxIndex);
-            scrollToIndex(newIndex);
-        }
-
-        const prevSlide = () => {
-            const newIndex = Math.max(currentIndex - 1, 0);
-            scrollToIndex(newIndex);
-        };
+            scrollToIndex(Math.min(currentIndex + 1, dotCount - 1));
+          };
+          
+          const prevSlide = () => {
+            scrollToIndex(Math.max(currentIndex - 1, 0));
+          };
+          
+          
 
         // Category icons mapping
         const categoryIcons = {
@@ -121,10 +174,10 @@ const Projects = () => {
                         <span className="text-sm text-primary font-medium">My Work</span>
                     </div>
                     <h2 className="text-4xl lg:text-5xl font-normal text-white mb-4">
-                        Featured Projects
+                        Selected Work
                     </h2>
                     <p className="text-lg text-white/60 max-w-2xl mx-auto text-center">
-                        Showcasing my best work and achievements
+                    A few examples of systems designed and built for clarity, scale, and impact.
                     </p>
                 </div>
             </FadeIn>
@@ -171,12 +224,18 @@ const Projects = () => {
                     <div 
                         ref={scrollContainerRef}
                         className="overflow-x-auto scroll-smooth snap-x snap-mandatory hide-scrollbar">
-                            <div className="flex gap-4 pb-4 mx-auto">
+                            <div className="flex pb-4">
                                 {filteredProjects.map((project, index) => (
                                     <div 
                                         key={project.id}
-                                        className="w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] shrink-0 snap-start"
-                                        >
+                                        className="
+                                        shrink-0 snap-start
+                                        px-2
+                                        w-[85vw]
+                                        sm:w-[80vw]
+                                        md:w-1/2
+                                        lg:w-1/3
+                                      ">
                                         <ProjectCard project={project} />
                                     </div>
                                 ))}
@@ -184,7 +243,8 @@ const Projects = () => {
                     </div>
 
                     {/* navigation arrows */}
-                    {filteredProjects.length > 3 && (
+                    {filteredProjects.length > cardsPerView && (
+
                         <>
                             <button 
                                 onClick={prevSlide} 
@@ -197,7 +257,7 @@ const Projects = () => {
 
                             <button 
                                 onClick={nextSlide} 
-                                disabled={currentIndex >= filteredProjects.length - 3}
+                                disabled={currentIndex >= dotCount - 1}
                                 className='flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 lg:-translate-x-4 items-center justify-center w-10 h-10 lg:w-12 lg:h-12 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full hover:bg-white/20 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed z-16'
                                 aria-label='Next projects'
                             >
@@ -207,24 +267,47 @@ const Projects = () => {
                     )}
 
                     {/* navigation bots */}
-                    {filteredProjects.length > 3 && (
-                        <div className="carousel-dots">
-                            {Array.from({ length: Math.max(0, filteredProjects.length - 2)}).map((_, index) => (
-                                <button
-                                    key={index}
-                                    onClick={() => scrollToIndex(index)}
-                                    className={`transition-all duration-300 rounded-full ${index === currentIndex
-                                        ? 'bg-primary w-6 h-2'
-                                        : 'bg-white/30 w-2 h-2 hover:bg-white/50'
-                                    }`}
-                                    aria-label={`Go to slide ${index + 1}`}
-                                />
-
-                            ))}
-                        </div>
+                    {filteredProjects.length > cardsPerView && (
+                    <div className="carousel-dots">
+                        {Array.from({ length: dotCount }).map((_, index) => (
+                        <button
+                            key={index}
+                            onClick={() => scrollToIndex(index)}
+                            className={`transition-all duration-300 rounded-full ${
+                            index === currentIndex
+                                ? 'bg-primary w-6 h-2'
+                                : 'bg-white/30 w-2 h-2 hover:bg-white/50'
+                            }`}
+                            aria-label={`Go to slide ${index + 1}`}
+                        />
+                        ))}
+                    </div>
                     )}
+
+                    {/* view more */}
+                    <div className="view-work-link">
+                        <Link
+                            to="/projects"
+                            className="
+                                group flex items-center gap-2
+                                text-sm font-medium text-white/70
+                                hover:text-white transition-colors
+                            "
+                        >
+                            View more projects
+                            <ArrowRight
+                                className="
+                                w-4 h-4
+                                translate-x-0 group-hover:translate-x-1
+                                transition-transform
+                                "
+                            />
+                        </Link>
+                    </div>
                 </div>
             </FadeIn>
+
+            
         </div>
 
        

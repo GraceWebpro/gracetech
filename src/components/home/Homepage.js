@@ -20,6 +20,8 @@ import HeroSection3 from './Hero3';
 //import Meeting from '../projects/Meeting'
 import { Helmet } from "react-helmet-async";
 import HomeFaq from '../services/HomeFAQ';
+import NavbarN from '../Navbar';
+import Footer from '../footer/Footer';
 
 
 
@@ -90,6 +92,7 @@ const Homepage = () => {
         </Helmet>
 
             <main>
+            <NavbarN />
               <HeroSection3 /> 
               <CustomCursor />
               <h1 className="text-4xl font-bold text-red-500">
@@ -104,6 +107,7 @@ const Homepage = () => {
               <Testimonial />
               <HomeBlog />
               <HomeFaq />
+              <Footer />
             </main>
         </div>
     )

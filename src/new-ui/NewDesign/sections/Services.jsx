@@ -3,6 +3,7 @@ import { services } from '../../data/ServiceData'
 import * as Icons from 'lucide-react'
 import { Wrench } from 'lucide-react'
 import FadeIn from '../animations/FadeIn'
+import { Link } from "react-router-dom";
 import "./work.css"
 
 const Services = () => {
@@ -28,13 +29,13 @@ const Services = () => {
                 <div className="text-center mb-16">
                     <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/30 rounded-full mb-8">
                         <Wrench className='w-4 h-4 text-primary' />
-                        <span className="text-sm text-primary font-medium tracking-wider uppercase">What I Offer</span>
+                        <span className="text-sm text-primary font-medium tracking-wider uppercase">What We Do</span>
                     </div>
                     <h2 className="text-4xl lg:text-5xl font-normal text-white mg-4 max-w-2xl mx-auto">
-                        Built for innovations. Designed for results.
+                        Turning Ideas into Impact
                     </h2>
                     <p className="text-lg text-white/60 max-w-xl mx-auto text-center">
-                        Comprehensive solutions to transform your ideas into exceptional digital experience.
+                        Practical, smart solutions designed to help you achieve your goals efficiently and effectively.
                     </p>
                 </div>
             </FadeIn>
@@ -45,18 +46,20 @@ const Services = () => {
 
                     return (
                     <FadeIn key={service.id} delay={100 + index * 100}>
-                        <div className="service-card">
-                        <div className="icon-wrapper">
-                            <IconComponent className="service-icon" />
-                        </div>
+                        <Link to={`/services/${service.id}`}>
+                            <div className="service-card">
+                                <div className="icon-wrapper">
+                                    <IconComponent className="service-icon" />
+                                </div>
 
-                        <div className="service-content">
-                            <h3 className="service-title">{service.name}</h3>
-                            <p className="service-description">{service.description}</p>
-                        </div>
+                                <div className="service-content">
+                                    <h3 className="service-title">{service.name}</h3>
+                                    <p className="service-description">{service.description}</p>
+                                </div>
 
-                        <div className="service-overlay" />
-                        </div>
+                                <div className="service-overlay" />
+                            </div>
+                        </Link>
                     </FadeIn>
                     );
                 })}
@@ -67,24 +70,26 @@ const Services = () => {
                     const IconComponent = Icons[service.icon] || Icons.Code2;
                     return (
                         <FadeIn key={service.id} delay={300 + index * 100}>
-                            <div className="group relative bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-primary/30 transition-all duration-300 h-full service-card2">
-                                <div className="mb-4">
-                                    <div className="icon-box">
-                                        <IconComponent className="icon" />
+                            <Link to={`/services/${service.id}`}>
+                                <div className="group relative bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-primary/30 transition-all duration-300 h-full service-card2">
+                                    <div className="mb-4">
+                                        <div className="icon-box">
+                                            <IconComponent className="icon" />
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div>
-                                    <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-[#b99fff] transition-colors duration-300">
-                                        {service.name}
-                                    </h3>
-                                    <p className="text-sm text-white/60 leading-relaxed line-clamp-3">
-                                        {service.description}
-                                    </p>
-                                </div>
+                                    <div>
+                                        <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-[#b99fff] transition-colors duration-300">
+                                            {service.name}
+                                        </h3>
+                                        <p className="text-sm text-white/60 leading-relaxed line-clamp-3">
+                                            {service.description}
+                                        </p>
+                                    </div>
 
-                                <div className="absolute inset-0 bg-gradient-to-br from-primary/0 to-primary/0 group-hover:from-primary/5 group-hover:to-primary/5 rounded-2xl transition-all duration-300 pointer-events-none" />
-                            </div>
+                                    <div className="absolute inset-0 bg-gradient-to-br from-primary/0 to-primary/0 group-hover:from-primary/5 group-hover:to-primary/5 rounded-2xl transition-all duration-300 pointer-events-none" />
+                                </div>
+                            </Link>
                         </FadeIn>
                     )
                 })}

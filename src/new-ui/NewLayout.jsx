@@ -1,6 +1,7 @@
 import React from "react";
 import "./new-ui-reset.css"; // optional, we’ll add later
 import Navbar from "./NewDesign/layout/Navbar";
+import Footer from "./NewDesign/layout/Footer";
 
 const NewLayout = ({ children }) => {
   return ( 
@@ -14,6 +15,8 @@ const NewLayout = ({ children }) => {
           {children}
         </div>
       </div>
+
+      <Footer />
 
     </div>
   )

@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import {Code, Menu, X} from 'lucide-react'
 import { NAV_LINKS } from '../../utils/constants'
+import { Link } from "react-router-dom";
 import { useScrollSpy, scrollToSection } from '../../hooks/useScrollSpy'
 import styles from '../../NewHome.module.css'
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Navbar = () => {
+    const navigate = useNavigate();
+    const location = useLocation();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
     const activeSection = useScrollSpy(NAV_LINKS.map(link => link.id));
@@ -20,9 +24,15 @@ const Navbar = () => {
     }, []);
 
     const handleNavclick = (sectionId) => {
+      setIsMenuOpen(false);
+    
+      if (location.pathname !== "/") {
+        navigate("/", { state: { scrollTo: sectionId } });
+      } else {
         scrollToSection(sectionId);
-        setIsMenuOpen(false);
+      }
     };
+    
 
   return (
     <>
@@ -34,25 +44,25 @@ const Navbar = () => {
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         >
           <Code className="w-6 h-6 text-primary" />
-          <span className={styles.logo}>GraceTech</span>
+          <Link to='/'><span className={styles.logo}>GraceTech</span></Link>
         </div>
 
         {/* Desktop Nav */}
         <div className={styles['nav-links']}>
           {NAV_LINKS.map(link => (
-            <button
-              key={link.id}
-              onClick={() => scrollToSection(link.id)}
-              className={activeSection === link.id ? 'active' : ''}
-            >
+           <button
+           key={link.id}
+           onClick={() => handleNavclick(link.id)}
+           className={activeSection === link.id ? 'active' : ''}
+          >
               {link.label}
             </button>
           ))}
         </div>
 
         {/* CTA */}
-        <button
-          onClick={() => scrollToSection('contact')}
+        <Link to='/book-a-call'><button
+          
           className={styles['cta-button']}
         >
           Book a Call
@@ -65,7 +75,7 @@ const Navbar = () => {
         aria-expanded={isMenuOpen}
         >
             {isMenuOpen ? <X className='w-6 h-6' /> : <Menu className='w-6 h-6' /> }
-        </button>
+        </button></Link>
         </div>
 
       {/* mobile menu */}
@@ -83,10 +93,10 @@ const Navbar = () => {
                         {link.label}
                     </button>
                 ))}
-                <button onClick={() => handleNavclick('contact')}
+                <Link to="/book-a-call"><button
                 className='w-full px-7 py-2 bg-white text-[#212121] font-medium text-base rounded-[17px] border border-white hover:bg-white/90 transition-all duration-300 mt-2' >
                     Book a call
-                </button>
+                </button></Link>
 
                 
             </div>

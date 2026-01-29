@@ -78,7 +78,7 @@ const Contact = () => {
     
     
   return (
-   <section id='contact' className='relative py-20 bg-black overflow-hidden'>
+   <section className='relative py-20 bg-black overflow-hidden'>
         <div className="absolute inset-0 overflow-hidden">
             <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 opacity-20 rounded-full blur-3xl" />
             <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-primary/20 opacity-20 rounded-full blur-3xl" />
@@ -153,10 +153,16 @@ const Contact = () => {
                                         placeholder='Tell me about your project...' />
                             </div>
 
-                            <button type='submit' className='w-full px-6 py-3 bg-gradient-to-r from-primary/10 to-primary text-white font-medium rounded-xl hover:shadow-2xl hover:shadow-primary/30 transition-all duration-300 flex items-center justify-center gap-2'>
+                            {/* <button type='submit' className='w-full px-6 py-3 bg-gradient-to-r from-primary/10 to-primary/30 text-white font-medium rounded-xl hover:shadow-2xl hover:shadow-primary/30 transition-all duration-300 flex items-center justify-center gap-2'>
                                 <span>Send Message</span>
                                 <Send className='w-5 h-5 group-hover:translate-x-1 transition-transform duration-300' />
+                            </button> */}
+
+                            <button type="submit" className="send-button">
+                            <span>Send Message</span>
+                            <Send className="send-icon" />
                             </button>
+
 
                            
                         </form>
@@ -176,52 +182,55 @@ const Contact = () => {
                         </div>
 
                         <div className="space-y-4">
-                            <div className="">
-                                <div className="">
-                                    <div className="">
-                                        <Mail className='' />
+                            <div className="group relative bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-primary/30 transition-all duration-300">
+                                <div className="flex items-start gap-4">
+                                    <div className="p-3 bg-gradient-to-br from-primary/20 to-primary/20 border border-primary/30 rounded-xl">
+                                        <Mail className='w-6 h-6 text-primary' />
                                     </div>
-                                    <div className="">
-                                        <p className="">Email</p>
+                                    <div className="flex-1">
+                                        <p className="text-sm text-white/60 mb-1">Email</p>
                                         <a href='mailto:gogracetech@gmail.com'
-                                        className=''
+                                        className='text-white hover:text-secondary transition-colors font-medium'
                                         >
                                             gogracetech@gmail.com
                                         </a>
                                     </div>
                                 </div>
 
-                                <div>
-                                    <div>
-                                        <div>
-                                            <MessageSquare className='' />
+                                <div className="absolute inset-0 bg-gradient-to-br from-primary/0 to-primary/0 group-hover:from-primary/5 group-hover:to-primary/5 group-hover:to-primary/5 rounded-2xl transition-all duration-300 pointer-events-none" />
+                            </div>
+                            <div className="group relative bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-primary/30 transition-all duration-300">
+                                <div className="flex items-start gap-4">
+                                    <div className="p-3 bg-gradient-to-br from-primary/20 to-primary/20 border border-primary/30 rounded-xl">
+                                            <MessageSquare className='w-6 h-6 text-primary' />
                                         </div>
 
-                                        <div className="">
-                                            <p className="">Call/WhatsApp</p>
-                                            <p className="">+234 704 342 1913</p>
+                                        <div className="flex-1">
+                                            <p className="text-sm text-white/60 mb-1">Call/WhatsApp</p>
+                                            <p className="text-white font-medium">+234 704 342 1913</p>
                                         </div>
                                     </div>
-                                </div>
+                                <div />
                             </div>
                         </div>
 
                         <div>
-                            <p className="">Connect with me</p>
-                            <div className="">
-                                {Object.entries(SOCIAL_LINKS).slice(0, 3).map((platform, url) => {
-                                    const Icon = socialIcons[platform];
+                            <p className="text-sm text-white/60 mb-4">Connect with me</p>
+                            <div className="flex gap-4">
+                                {Object.entries(SOCIAL_LINKS).slice(0, 3).map(([platform, url]) => {
+                                    const Icon = socialIcons[platform.toLowerCase()]; // ensure lowercase match
                                     return Icon ? (
                                         <a key={platform}
                                         href={url}
                                         target='_blank'
                                         rel='noopener noreferrer'
-                                        className=''>
-                                            <Icon className="" />
+                                        className='p-4 bg-white/5 rounded-xl border border-white/10 hover:bg-white/10 hover:border-primary/50 hover:scale-110 transition-all duration-300 group'>
+                                            <Icon className="w-6 h-6 text-white/60 group-hover:text-primary transition-colors" />
                                         </a>
                                     ) : null;
                                 })}
                             </div>
+
                         </div>
                     </div>
                 </FadeIn>
@@ -233,3 +242,5 @@ const Contact = () => {
 }
 
 export default Contact
+
+

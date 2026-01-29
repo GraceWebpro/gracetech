@@ -59,7 +59,7 @@ const Testimonials = () => {
                         Trusted by forward-thinking teams
                     </h2>
 
-                    <p className="text-lg text-white/60 max-w-xl mx-auto">
+                    <p className="text-lg text-white/60 max-w-xl mx-auto text-center">
                         Empowering clients with design-driven, high-quality solutions built for success.
                     </p>
                 </div>
@@ -69,7 +69,7 @@ const Testimonials = () => {
                 <div className="relative">
                     <div 
                         ref={scrollContainerRef}
-                        className="overflow-x-auto overflow-y-hidden scroll-smooth"
+                        className="overflow-x-auto overflow-y-hidden scroll-smooth hide-scrollbar"
                         style={{ scrollSnapType: 'x mandatory' }}
                     >
                         <div className="flex">
@@ -137,7 +137,7 @@ const Testimonials = () => {
                         </div>
                     </div>
 
-                    <div className="flex items-center justify-center gap-2 mt-10">
+                    <div className="carousel-dots">
                         {testimonials.map((_, index) => (
                             <button key={index}
                             onClick={() => scrollToIndex(index)}

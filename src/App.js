@@ -5,19 +5,21 @@ import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 // import Navbar from './components/navbar/Navbar';
 import Homepage from './components/home/Homepage';
 import AdminLogin from './admin/AdminLogin';
-import Footer from './components/footer/Footer';
+// import Footer from './components/footer/Footer';
+import Footer from "./new-ui/NewDesign/layout/Footer";
 import ProtectedRoute from './server/protectedRoute';
 import AdminDashboard from './admin/AdminDashboard';
 import Register from './admin/AdminRegister';
 //import MouseCursor from "./components/home/MouseCursor";
 import { Projects } from "./components/projects/Projects";
-import ScrollToTop from "./components/ScrollToTopPage";
-import Contact from "./components/contact/Contact";
-import GetAQuote from "./components/quote/Quote";
+// import ScrollToTop from "./components/ScrollToTopPage";
+import ScrollToTop from "./new-ui/NewDesign/animations/ScrollToTop";
+import Contact from "./new-ui/NewDesign/sections/Contact";
+import GetAQuote from "./new-ui/NewDesign/sections/quote/Quote";
 import ProjectDetails from "./components/projects/ProjectDetails";
 import TemplateTabs from "./components/template/Templates";
 import ThankYou from "./components/quote/ThankYou";
-import ServiceDetailsPage from "./components/services/ServiceDetailPage";
+import ServiceDetailsPage from "./new-ui/NewDesign/sections/ServiceDetailPage";
 import ModernBlogPage from "./components/blog/Blog";
 import BlogDetail from "./components/blog/BlogDetail";
 import PrivateRoute from "./server/PrivateRoute";
@@ -42,6 +44,7 @@ import UserDashboard from "./components/userDashboard/UserDashboard";
 import NewLayout from "./new-ui/NewLayout";
 import NewHome from "./new-ui/NewHome";
 import Navbar from "./new-ui/NewDesign/layout/Navbar";
+import ProjectsPage from "./new-ui/NewDesign/sections/ProjectsPage";
 
 function App() {
   const location = useLocation();
@@ -67,10 +70,10 @@ function App() {
           {/* Public routes */}
           {/* <Route path="/" element={<Homepage />} /> */}
           <Route path="/" element={<NewHome />} />
-          <Route path="/old-home" element={<Homepage />} /> 
+          {/* <Route path="/old-home" element={<Homepage />} />  */}
 
           
-          <Route path="/portfolio" element={<Projects />} />
+          <Route path="/projects" element={<ProjectsPage />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/templates" element={<Template />} />
           <Route path="/courses" element={ <Courses /> } />
@@ -117,17 +120,18 @@ function App() {
 
           {/* New UI preview */}
           <Route
-            path="/new"
+            path="/old-home"
             element={
-              <NewLayout>
-                <NewHome />
-              </NewLayout>
+              // <NewLayout>
+              //   <NewHome />
+              // </NewLayout>
+              <Homepage />
             }
           />
         </Routes>
         <CookieBanner />
 
-        {!isAdminPage && <Footer />}
+        {!isAdminPage && !isNewUI && <Footer />}
             {/*<ScrollToTop />*/}
 
     </div>

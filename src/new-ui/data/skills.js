@@ -17,19 +17,19 @@ export const skills =[
         id: 3,
         name: 'TypeScript',
         icons: 'Code2',
-        level: 'advanced',
+        level: 'Advanced',
         experience: '2+ years'
     },
     {
         id: 4,
         name: 'Next.js',
         icons: 'Code2',
-        level: 'advanced',
+        level: 'Advanced',
         experience: '3+ years'
     },
     {
         id: 5,
-        name: 'tailwind.css',
+        name: 'Tailwind CSS',
         icons: 'Code2',
         level: 'Expert',
         experience: '3+ years'
@@ -50,14 +50,14 @@ export const skills =[
     },
     {
         id: 8,
-        name: 'Redux',
+        name: 'UI Systems',
         icons: 'Code2',
         level: 'Advanced',
         experience: '2+ years'
     },
     {
         id: 9,
-        name: 'REST API',
+        name: 'REST APIs',
         icons: 'Code2',
         level: 'Advanced',
         experience: '3+ years'
@@ -78,7 +78,7 @@ export const skills =[
     },
     {
         id: 12,
-        name: 'Vite',
+        name: 'Git',
         icons: 'Code2',
         level: 'Advanced',
         experience: '1+ years'

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { Sparkles, Box, Rocket, Layers, Gauge } from 'lucide-react'
+import { Sparkles, Box, Rocket, Layers, Gauge, ArrowRight } from 'lucide-react'
 import { SiReact, SiTailwindcss, SiFigma, SiNodedotjs } from 'react-icons/si';
 import { FaRobot, FaCubes } from 'react-icons/fa'; // For Veo3 AI
 import { ABOUT_STATS } from '../../utils/constants';
 import FadeIn from '../animations/FadeIn';
 import RadialGradient from '../backgrounds/RadialGradient';
+import { Link } from 'react-router-dom'
 
 const About = () => {
 
@@ -61,7 +62,7 @@ const About = () => {
                                     <div className="text-3xl font-normal text-white mb-2 font-mono">
                                         {stat.value}
                                     </div>
-                                    <p className="text-sm text-white/60 leading-snug">
+                                    <p className="text-sm text-white/60 leading-snug" style={{ marginLeft: '2px'}}>
                                         {stat.label}
                                     </p>
                                 </div>
@@ -70,11 +71,19 @@ const About = () => {
                     </FadeIn>
 
                     <FadeIn delay={400}>
-                        <button onClick={() => window.open('_blank')} 
-                        className="inline-flex items-center gap-3 bg-white hover:bg-white/90 text-black rounded-full px-8 py-4 text-base font-medium transition-all duration-300 w-fit group">
-                            <Rocket className='w-5 h-5 group-hover:translate-y-0.5 transition-transform duration-300' />
-                            Start a Project
-                        </button>
+                        <div style={{ display: 'inline-flex', flexDirection: 'column', gap: '10px'}}>
+                        <span className="text-sm text-white/70 text-left">
+                            Have a project in mind?
+                        </span>
+
+                        <Link to='/get-a-quote'>
+                            <button onClick={() => window.open('_blank')} 
+                                className=" inline-flex items-center gap-3 bg-white hover:bg-white/90 text-black rounded-full px-8 py-4 text-base font-medium transition-all duration-300 w-fit group">
+                            Get A Quote
+                            <ArrowRight className="w-5 h-5 opacity-70 group-hover:translate-x-0.5 transition-transform duration-300" />
+
+                        </button></Link>
+                        </div>
                     </FadeIn>
                 </div>
 

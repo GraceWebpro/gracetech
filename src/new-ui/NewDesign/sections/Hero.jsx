@@ -71,8 +71,7 @@ function Hero() {
 
             <FadeIn delay={200}>
               <p className='text-lg text-white/70 max-w-[550px] mb-6'>
-                Building modern, scalable web applications with React, Javascript, and cutting-edge technologies. transforming ideas into exceptional digital experience
-              </p>
+              We design and build high-performance digital products — from interactive web apps to AI-powered content — for modern brands.              </p>
             </FadeIn>
 
             <FadeIn delay={300}>
@@ -91,12 +90,12 @@ function Hero() {
                     transition
                   "
                 >
-                  Get A Quote
+                  Start A Project
                 </Link>
 
                 {/* Secondary CTA */}
                 <Link
-                  to="/portfolio"
+                  to="/projects"
                   className="
                     px-[26px] py-[13px]
                     rounded-[17px]
@@ -122,7 +121,7 @@ function Hero() {
                     <div className='text-2xl font-normal text-primary mb-[8px] font-mono'>
                       {stat.value}
                     </div>
-                    <p className='text-sm text-white leading-snug'>
+                    <p className='text-sm text-white leading-snug' style={{ marginLeft: '2px'}}>
                       {stat.label}
                     </p>
                   </div>
