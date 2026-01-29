@@ -81,13 +81,16 @@ function Hero() {
                 <Link
                   to="/get-a-quote"
                   className="
-                    px-[26px] py-[13px]
-                    rounded-[17px]
-                    text-base font-medium
-                    text-black
-                    bg-gradient-to-r from-[#7d52fd] to-[#ffffff]
-                    hover:opacity-90
-                    transition
+                  px-[26px] py-[13px]
+                  max-[355px]:px-[18px]
+                  max-[355px]:py-[10px]
+                  rounded-[17px]
+                  text-base font-medium
+                  text-black
+                  bg-gradient-to-r from-[#7d52fd] to-[#ffffff]
+                  hover:opacity-90
+                  transition
+                  whitespace-nowrap
                   "
                 >
                   Start A Project
@@ -97,13 +100,16 @@ function Hero() {
                 <Link
                   to="/projects"
                   className="
-                    px-[26px] py-[13px]
-                    rounded-[17px]
-                    text-base font-medium
-                    text-white
-                    border border-white/40
-                    hover:bg-white hover:text-[#212121]
-                    transition
+                  px-[26px] py-[13px]
+                  max-[355px]:px-[18px]
+                  max-[355px]:py-[10px]
+                  rounded-[17px]
+                  text-base font-medium
+                  text-white
+                  border border-white/40
+                  hover:bg-white hover:text-[#212121]
+                  transition
+                  whitespace-nowrap
                   "
                 >
                   View Our Work

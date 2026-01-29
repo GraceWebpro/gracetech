@@ -5,11 +5,9 @@ import { scrollToSection } from '../../hooks/useScrollSpy'
 import FadeIn from '../animations/FadeIn'
 import { Github, TwitterX } from 'react-bootstrap-icons'
 import { SiLinkedin } from 'react-icons/si'
-//import MailchimpForm from '../newsletter/MailchimpForm'
 import './Footer.css'
 import { IoIosCall } from "react-icons/io";
 import { Link } from 'react-router-dom'
-// import logo from '../../assets/my-logo3-removebg-preview.png'
 import styles from '../../NewHome.module.css'
 import {Code} from 'lucide-react'
 import { useNavigate, useLocation } from "react-router-dom";
