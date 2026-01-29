@@ -18,7 +18,7 @@ import Contact from "./new-ui/NewDesign/sections/Contact";
 import GetAQuote from "./new-ui/NewDesign/sections/quote/Quote";
 import ProjectDetails from "./components/projects/ProjectDetails";
 import TemplateTabs from "./components/template/Templates";
-import ThankYou from "./components/quote/ThankYou";
+import ThankYou from "./new-ui/NewDesign/sections/quote/ThankYou";
 import ServiceDetailsPage from "./new-ui/NewDesign/sections/ServiceDetailPage";
 import ModernBlogPage from "./components/blog/Blog";
 import BlogDetail from "./components/blog/BlogDetail";

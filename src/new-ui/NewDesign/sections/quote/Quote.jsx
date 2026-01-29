@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import emailjs from '@emailjs/browser';
+import StatusPopup from '../../ui/StatusPopup';
 
 const GetAQuote = () => {
   const navigate = useNavigate();
@@ -52,23 +53,22 @@ const GetAQuote = () => {
     try {
       await emailjs.send(
         "service_nnrou8o",   // Replace with your EmailJS service ID
-        "template_l2yg57v",  // Replace with your EmailJS template ID
+        "template_f90yfbq",  // Replace with your EmailJS template ID
         {
           full_name: formData.fullName,
           email: formData.email,
-          phone: formData.phone,
-          company: formData.company,
-          services: formData.services.join(', '),
-          budget: formData.budget,
-          timeline: formData.timeline,
+          phone: formData.phone || 'N/A',
+          company: formData.company || 'N/A',
+          services: formData.services.join(', ') || 'N/A',
+          budget: formData.budget || 'N/A',
+          timeline: formData.timeline || 'N/A',
           description: formData.description
         },
         "V8YbTK6Cu4MlPG6Q0"    // Replace with your EmailJS public key
       );
       toast.success('Quote submitted successfully!', { autoClose: 2000 });
 
-      setStatus("Message sent successfully 🎉");
-      
+      setStatus("Your quote request has been sent successfully! 🎉");      
       formRef.current.reset();
       setFormData({
         fullName: '',
@@ -80,6 +80,8 @@ const GetAQuote = () => {
         timeline: '',
         description: ''
       });
+      navigate('/thank-you');
+
     } catch (error) {
       console.error(error);
       setStatus("Failed to send message. Please try again.");
@@ -141,6 +143,12 @@ const GetAQuote = () => {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-16 mt-12">
+       {/* Popup */}
+       <StatusPopup
+        message={status}
+        success={status.includes("successfully")}
+        onClose={() => setStatus('')}
+      />
      <div className="text-center mb-12">
       <h1 className="text-4xl md:text-4xl font-semibold text-white mb-4">
         Start Your Project or Get a Quote
@@ -149,6 +157,7 @@ const GetAQuote = () => {
         Share your ideas, project details, or service needs, and we’ll get back to you promptly via WhatsApp with next steps and a personalized quote.
       </p>
     </div>
+
 
       <form ref={formRef} className="bg-white/5 border border-white/10 rounded-2xl p-8 space-y-6 shadow-lg" onSubmit={handleSubmit}>
         <input

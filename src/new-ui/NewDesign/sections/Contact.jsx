@@ -1,11 +1,11 @@
 import React, { useState, useRef } from 'react'
-import { Mail, MapPin, Linkedin, Twitter, Send, MessageSquare } from 'lucide-react'
-import { PERSONAL_INFO, SOCIAL_LINKS } from '../../utils/constants'
+import { Mail, Send, MessageSquare } from 'lucide-react'
+import { SOCIAL_LINKS } from '../../utils/constants'
 import FadeIn from '../animations/FadeIn'
 import { Github, TwitterX } from 'react-bootstrap-icons'
 import { SiLinkedin } from 'react-icons/si'
 import emailjs from '@emailjs/browser';
-
+import StatusPopup from '../ui/StatusPopup'
 
 const Contact = () => {
 
@@ -48,17 +48,16 @@ const Contact = () => {
         "service_nnrou8o",   // Replace with your EmailJS service ID
         "template_l2yg57v",  // Replace with your EmailJS template ID
         {
-          first_name: formRef.current.firstName.value,
-          last_name: formRef.current.lastName.value,
-          email: formRef.current.email.value,
-          phone: formRef.current.phone.value,
-          message: formRef.current.message.value,
-        },
+            name: formData.name,
+            email: formData.email,
+            message: formData.message
+          },
         "V8YbTK6Cu4MlPG6Q0"    // Replace with your EmailJS public key
       );
 
-      setStatus("Message sent successfully 🎉");
-      formRef.current.reset();
+      setStatus("Message sent successfully! 🎉");
+      setFormData({ name: '', email: '', message: '' });
+
     } catch (error) {
       console.error(error);
       setStatus("Failed to send message. Please try again.");
