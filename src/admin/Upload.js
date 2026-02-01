@@ -104,22 +104,24 @@ const UploadContent = () => {
 
   const [form, setForm] = useState({
     title: "",
-    category: "UI/UX",
-    techStack: "Figma",
-    subCategory: "",
+    category: "figma", // react | bubble | figma | html
+    techStacks: "", // comma separated input
     description: "",
     usage: "",
+  
+    pricingType: "free", // free | premium
     price: "",
     discount: 0,
-    isFree: true,
+  
     previewUrl: "",
-    fileUrl: "",
     license: "Personal & Commercial",
     featured: false,
-    creatorName: "TemplateHub",
-    platformSupport: "",
+    creatorName: "GraceTech",
+  
+    platformSupport: "", // comma separated
     tags: "",
   });
+  
 
   const [thumbnail, setThumbnail] = useState(null);
   const [zipFile, setZipFile] = useState(null);
@@ -136,6 +138,17 @@ const UploadContent = () => {
     });
   };
 
+  const handleArrayChange = (e, field) => {
+    const { value, checked } = e.target;
+  
+    setForm((prev) => ({
+      ...prev,
+      [field]: checked
+        ? [...prev[field], value]        // add
+        : prev[field].filter(v => v !== value) // remove
+    }));
+  };
+  
   useEffect(() => {
     if (form.price && form.discount) {
       const price = parseFloat(form.price);
@@ -146,8 +159,8 @@ const UploadContent = () => {
   }, [form.price, form.discount]);
 
   const handleTemplateUpload = async () => {
-    const requiredFields = ["description", "subCategory", "usage", "techStack"];
-    if (!form.isFree) {
+    const requiredFields = ["description", "category", "usage", "techStacks"];
+    if (form.pricingType === "premium") {
       requiredFields.push("price");
     }
     const isEmpty = requiredFields.some((field) => !form[field]);
@@ -202,40 +215,71 @@ const UploadContent = () => {
   
         const slug = createSlug(form.title);
 
-      const newTemplate = {
-        ...form,
-        price: form.isFree ? 0 : parseFloat(form.price),
-        discount: parseFloat(form.discount),
-        thumbnail: thumbnailUrl,
-        tags: form.tags.split(",").map((tag) => tag.trim()),
-        downloadsCount: 0,
-        slug,
-        createdAt: serverTimestamp(),
-        fileUrl: zipUrl,
-        platformSupport: form.platformSupport.split(",").map((p) => p.trim()),
-      };
-
+        const newTemplate = {
+          title: form.title,
+          description: form.description,
+          usage: form.usage,
+        
+          category: form.category,
+        
+          techStacks: form.techStacks
+            .split(",")
+            .map((t) => t.trim()),
+        
+          pricingType: form.pricingType,
+        
+          price:
+            form.pricingType === "free"
+              ? 0
+              : parseFloat(form.price),
+        
+          discount: parseFloat(form.discount) || 0,
+        
+          previewUrl: form.previewUrl,
+          downloadUrl: zipUrl, // renamed
+        
+          thumbnail: thumbnailUrl,
+        
+          tags: form.tags
+            .split(",")
+            .map((tag) => tag.trim()),
+        
+          platformSupport: form.platformSupport
+            .split(",")
+            .map((p) => p.trim()),
+        
+          license: form.license,
+          featured: form.featured,
+          creatorName: form.creatorName,
+        
+          downloadsCount: 0,
+        
+          slug,
+          createdAt: serverTimestamp(),
+        };
       await addDoc(collection(db, "templates"), newTemplate);
       alert("Template uploaded!");
   
       setForm({
         title: "",
-        category: "UI/UX",
-        techStack: "Figma",
-        subCategory: "",
+        category: "figma",
+        techStacks: "",
         description: "",
         usage: "",
+      
+        pricingType: "free",
         price: "",
         discount: 0,
-        isFree: true,
+      
         previewUrl: "",
-        fileUrl: "",
         license: "Personal & Commercial",
         featured: false,
-        creatorName: "TemplateHub",
+        creatorName: "GraceTech",
+      
         platformSupport: "",
         tags: "",
       });
+      
       setThumbnail(null);
       setThumbnailProgress(0);
       setZipProgress(0);
@@ -564,133 +608,185 @@ const UploadContent = () => {
       )}
 
       {selectedMode === 'template' && (
-        <>
-           <h2>Upload Template</h2>
-            <div className="upload-form">
-                <input name="title" value={form.title} onChange={handleChange} placeholder="Title" />
-                
-                <select name="category" value={form.category} onChange={handleChange}>
-                <option value="UI">UI</option>
-                <option value="UI/UX">UI/UX</option>
-                </select>
-                
-                <select name="techStack" value={form.techStack} onChange={handleChange}>
-                <option value="Figma">Figma</option>
-                <option value="Bubble">Bubble</option>
-                <option value="Flutterflow">Flutterflow</option>
-                <option value="React">React</option>
-                <option value="HTML">HTML</option>
-                </select>
-                <div className="checkbox-group">
-                <label className="checkbox-item">
-                    <input type="checkbox" name="isFree" checked={form.isFree} onChange={handleChange} />
-                    Free Template
-                </label>
+        <div className="max-w-4xl mx-auto p-8 bg-white rounded-2xl shadow-lg space-y-10">
 
-                <label className="checkbox-item">
-                    <input type="checkbox" name="featured" checked={form.featured} onChange={handleChange} />
-                    Featured Template
-                </label>
-                </div>
-
-                {!form.isFree && (
-                <input name="price" type="number" value={form.price} onChange={handleChange} placeholder="Price (USD)" />
-                )}
-                <input name="subCategory" value={form.subCategory} onChange={handleChange} placeholder="Subcategory (e.g. E-commerce)" />
-                <input name="usage" value={form.usage} onChange={handleChange} placeholder="Use case (e.g. landing page)" />
-                <textarea name="description" value={form.description} onChange={handleChange} placeholder="Template description" />
-                <input name="platformSupport" value={form.platformSupport} onChange={handleChange} placeholder="Platform Support (comma separated)" />
-                <input name="tags" value={form.tags} onChange={handleChange} placeholder="Tags (comma separated)" />
-                
-            
-                
-                <input name="discount" type="number" value={form.discount} onChange={handleChange} placeholder="Discount" />
-                <input name="previewUrl" value={form.previewUrl} onChange={handleChange} placeholder="Preview Link (Figma/Bubble/etc)" />
-                <input name="creatorName" value={form.creatorName} onChange={handleChange} placeholder="Creator Name" />
-
-                <select name="license" value={form.license} onChange={handleChange}>
-                <option value="Personal & Commercial">Personal & Commercial</option>
-                <option value="Personal Only">Personal Only</option>
-                <option value="Commercial Only">Commercial Only</option>
-                </select>
-
-                <label>Upload Thumbnail</label>
-                <input type="file" accept="image/*" onChange={(e) => setThumbnail(e.target.files[0])} />
-
-                <label>Upload .zip File</label>
-                <input type="file" accept=".zip" onChange={(e) => setZipFile(e.target.files[0])} />
-
-                
-                {loading && (
-                <>
-                    <label>Thumbnail Upload Progress</label>
-                    <progress value={thumbnailProgress} max="100"></progress>
-                    
-                    <label>Zip File Upload Progress</label>
-                    <progress value={zipProgress} max="100"></progress>
-                </>
-                )}
-
-                <button onClick={handleTemplateUpload} disabled={loading}>
-                {loading ? "Uploading..." : "Upload Template"}
-                </button>
+        <h2 className="text-2xl font-bold">Upload Template</h2>
+      
+        {/* ========== BASIC INFO ========== */}
+        <section className="space-y-4">
+          <h3 className="font-semibold text-gray-700">Basic Info</h3>
+      
+          <input
+            name="title"
+            value={form.title}
+            onChange={handleChange}
+            placeholder="Template Title"
+            className="input"
+          />
+      
+          <textarea
+            name="description"
+            value={form.description}
+            onChange={handleChange}
+            placeholder="Template description"
+            className="input h-28"
+          />
+      
+          <input
+            name="usage"
+            value={form.usage}
+            onChange={handleChange}
+            placeholder="Use case (Landing page, Dashboard, Store...)"
+            className="input"
+          />
+        </section>
+      
+      
+        {/* ========== CATEGORY / TECH ========== */}
+        <section className="space-y-4">
+          <h3 className="font-semibold text-gray-700">Category</h3>
+      
+          <div className="grid grid-cols-2 gap-4">
+            <select name="category" value={form.category} onChange={handleChange} className="input">
+              <option>UI</option>
+              <option>UI/UX</option>
+            </select>
+      
+            <select name="techStack" value={form.techStack} onChange={handleChange} className="input">
+              <option>Figma</option>
+              <option>React</option>
+              <option>Bubble</option>
+              <option>HTML</option>
+              <option>Flutterflow</option>
+            </select>
+          </div>
+      
+          <input
+            name="subCategory"
+            value={form.subCategory}
+            onChange={handleChange}
+            placeholder="Sub category (Ecommerce, Portfolio...)"
+            className="input"
+          />
+        </section>
+      
+      
+        {/* ========== PLATFORM SUPPORT (Checkbox array) ========== */}
+        <section>
+          <h3 className="font-semibold text-gray-700 mb-3">Platform Support</h3>
+      
+          <div className="flex flex-wrap gap-4">
+            {["Figma","React","Bubble","HTML","Flutterflow"].map(p => (
+              <label key={p} className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  value={p}
+                  onChange={(e) => handleArrayChange(e, "platformSupport")}
+                />
+                {p}
+              </label>
+            ))}
+          </div>
+        </section>
+      
+      
+        {/* ========== PRICING ========== */}
+        <section className="space-y-4">
+          <h3 className="font-semibold text-gray-700">Pricing</h3>
+      
+          <div className="flex gap-6">
+            <label className="flex items-center gap-2">
+              <input type="checkbox" name="isFree" checked={form.isFree} onChange={handleChange} />
+              Free
+            </label>
+      
+            <label className="flex items-center gap-2">
+              <input type="checkbox" name="featured" checked={form.featured} onChange={handleChange} />
+              Featured
+            </label>
+          </div>
+      
+          {!form.isFree && (
+            <div className="grid grid-cols-2 gap-4">
+              <input
+                name="price"
+                type="number"
+                placeholder="Price"
+                value={form.price}
+                onChange={handleChange}
+                className="input"
+              />
+      
+              <input
+                name="discount"
+                type="number"
+                placeholder="Discount %"
+                value={form.discount}
+                onChange={handleChange}
+                className="input"
+              />
             </div>
-
-            <style>
-                {`
-                .upload-container {
-                    max-width: 600px;
-                    margin: auto;
-                    padding: 20px;
-                    font-family: 'Segoe UI', sans-serif;
-                    background: #f9f9f9;
-                    border-radius: 10px;
-                    box-shadow: 0 0 10px rgba(0,0,0,0.05);
-                }
-                h2 {
-                    text-align: center;
-                    color: #333;
-                }
-                .upload-form {
-                    display: flex;
-                    flex-direction: column;
-                    gap: 15px;
-                }
-                .upload-form input,
-                .upload-form select,
-                .upload-form textarea {
-                    padding: 12px;
-                    font-size: 16px;
-                    border: 1px solid #ccc;
-                    border-radius: 6px;
-                    outline: none;
-                    transition: 0.3s;
-                }
-                .upload-form input:focus,
-                .upload-form select:focus,
-                .upload-form textarea:focus {
-                    border-color: #4a90e2;
-                    box-shadow: 0 0 5px rgba(74, 144, 226, 0.3);
-                }
-                .upload-form button {
-                    padding: 12px;
-                    background-color: #4a90e2;
-                    color: white;
-                    border: none;
-                    font-size: 16px;
-                    cursor: pointer;
-                    border-radius: 6px;
-                    transition: background 0.3s;
-                }
-                .upload-form button:hover {
-                    background-color: #357ABD;
-                }
-                .upload-form label {
-                    font-weight: bold;
-                }
-                `}
-            </style>
-        </>
+          )}
+      
+          {!form.isFree && (
+            <p className="text-sm text-gray-500">
+              Final Price: ${discountedPrice}
+            </p>
+          )}
+        </section>
+      
+      
+        {/* ========== TAGS (checkbox style) ========== */}
+        <section>
+          <h3 className="font-semibold text-gray-700 mb-3">Tags</h3>
+      
+          <div className="flex flex-wrap gap-4">
+            {["ui/ux","dashboard","store","landing","admin","portfolio"].map(tag => (
+              <label key={tag} className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  value={tag}
+                  onChange={(e) => handleArrayChange(e, "tags")}
+                />
+                {tag}
+              </label>
+            ))}
+          </div>
+        </section>
+      
+      
+        {/* ========== LINKS ========== */}
+        <section className="space-y-4">
+          <h3 className="font-semibold text-gray-700">Links</h3>
+      
+          <input
+            name="previewUrl"
+            value={form.previewUrl}
+            onChange={handleChange}
+            placeholder="Live Preview URL"
+            className="input"
+          />
+        </section>
+      
+      
+        {/* ========== FILES ========== */}
+        <section className="space-y-4">
+          <h3 className="font-semibold text-gray-700">Files</h3>
+              <p>Thumbnail</p>
+          <input type="file" accept="image/*" onChange={(e)=>setThumbnail(e.target.files[0])} placeholder='thumbnail' />
+          <p>Images/Screenshots</p>
+          <input type="file" accept=".zip" onChange={(e)=>setZipFile(e.target.files[0])} placeholder='images' />
+        </section>
+      
+      
+        <button
+          onClick={handleTemplateUpload}
+          className="w-full bg-black text-white py-3 rounded-xl hover:opacity-90"
+        >
+          Upload Template
+        </button>
+      </div>
+      
       )}
 
       {selectedMode === 'course' && (

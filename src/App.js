@@ -24,8 +24,8 @@ import ModernBlogPage from "./components/blog/Blog";
 import BlogDetail from "./components/blog/BlogDetail";
 import PrivateRoute from "./server/PrivateRoute";
 import DownloadPage from "./components/template/DownloadPage";
-import TemplateNavbar from "./components/template/TemplateNavbar";
-import Template from "./components/template/TemplatesList/Template";
+// import TemplateNavbar from "./components/template/TemplateNavbar";
+// import Template from "./components/template/TemplatesList/Template";
 import TemplateDetails from "./components/template/TemplateDetail";
 import Login from './components/userAuth/Login'
 import TemplateList from './components/template/TemplatesList/TemplateList'
@@ -45,6 +45,7 @@ import NewLayout from "./new-ui/NewLayout";
 import NewHome from "./new-ui/NewHome";
 import Navbar from "./new-ui/NewDesign/layout/Navbar";
 import ProjectsPage from "./new-ui/NewDesign/sections/ProjectsPage";
+import Templates from "./new-ui/NewDesign/sections/Templates";
 
 function App() {
   const location = useLocation();
@@ -63,7 +64,7 @@ function App() {
       {/*<MouseCursor />*/}
 
       {!isAdminPage && !isNewUI && (
-        isTemplatePage ? <TemplateNavbar /> : <Navbar />
+        <Navbar />
       )}
 
       <Routes>
@@ -75,7 +76,7 @@ function App() {
           
           <Route path="/projects" element={<ProjectsPage />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/templates" element={<Template />} />
+          <Route path="/templates" element={<Templates />} />
           <Route path="/courses" element={ <Courses /> } />
           <Route path="/courses/:slug" element={<CoursesPage />} />
           <Route path="/admin/upload-course" element={<UploadCourse />} />
