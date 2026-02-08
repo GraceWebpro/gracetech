@@ -110,7 +110,7 @@ const UploadContent = () => {
     usage: "",
   
     pricingType: "free", // free | premium
-    price: "",
+    priceUSD: "",
     discount: 0,
   
     previewUrl: "",
@@ -268,7 +268,7 @@ const UploadContent = () => {
         usage: "",
       
         pricingType: "free",
-        price: "",
+        priceUSD: "",
         discount: 0,
       
         previewUrl: "",
@@ -712,7 +712,7 @@ const UploadContent = () => {
                 name="price"
                 type="number"
                 placeholder="Price"
-                value={form.price}
+                value={form.priceUSD}
                 onChange={handleChange}
                 className="input"
               />

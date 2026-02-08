@@ -1,7 +1,45 @@
 import { Link } from "react-router-dom";
+import { doc, updateDoc, increment, setDoc, serverTimestamp } from "firebase/firestore";
+import { db } from "../../../server/firebase";
+import { formatNairaFromUSD } from "../../utils/currency";
 
-const TemplateCard = ({ template }) => {
+const TemplateCard = ({ template, user }) => {
   const isFree = template.isFree;
+
+ 
+
+  const handleFreeDownload = async (template, user) => {
+    if (!template.downloadUrl) return alert("File not available.");
+
+    try {
+      // Increment the global downloadsCount
+      await updateDoc(doc(db, "templates", template.id), {
+        downloadsCount: increment(1),
+      });
+
+      // Optional: track the download in the "downloads" collection for analytics
+      await setDoc(doc(db, "downloads", `${Date.now()}_${template.id}`), {
+        templateId: template.id,
+        templateName: template.title,
+        downloadUrl: template.downloadUrl,
+        downloadDate: serverTimestamp(),
+        isFree: true,
+        userId: user?.uid || null, // null for guests
+      });
+
+      // Trigger the download
+      const link = document.createElement("a");
+      link.href = template.downloadUrl;
+      link.download = `${template.title}.zip`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (err) {
+      console.error("Download failed:", err);
+      alert("Download failed. Try again.");
+    }
+  };
+
 
   return (
     <Link
@@ -68,9 +106,17 @@ const TemplateCard = ({ template }) => {
   {/* downloads */}
   {template.downloadsCount > 0 && (
     <p className="text-xs text-white/40 mt-3">
-      🔥 {template.downloadsCount} downloads
+      🔥 {template.downloadsCount || 0} total downloads
     </p>
   )}
+
+      
+        {!isFree && (
+          <div className="text-md text-white/80 mt-4 mb-2" style={{ alignItems: 'left'}}>
+            {formatNairaFromUSD(template.priceUSD)}{" "}
+            <span className="text-xs opacity-60">(${template.priceUSD})</span>
+          </div>
+        )}
 
   {/* spacer pushes buttons to bottom */}
   <div className="flex-1" />
@@ -89,20 +135,28 @@ const TemplateCard = ({ template }) => {
 
     {/* Download or Buy */}
     {isFree ? (
-            <a
-        href={template.fileUrl}
-        download
-      className="flex-1 py-2 text-center rounded-lg font-medium bg-primary text-black hover:opacity-90 transition"
-    >
-      Download
-    </a>
+      <button
+        onClick={(e) => {
+          e.preventDefault(); // stop the parent Link from navigating
+          handleFreeDownload(template, user);
+        }}
+        className="bg-green-500 hover:bg-green-600 text-black py-2 px-4 rounded-xl"
+      >
+        Download
+      </button>
       ) : (
         <Link
-          to={`/templates/${template.slug}`}
-          className="flex-1 py-2 text-center rounded-lg font-medium bg-primary text-black hover:opacity-90 transition"
-          >
-          ${template.price} Buy Now
-        </Link>
+        to={`/templates/${template.slug}`}
+        className="flex-1 py-2 rounded-lg font-medium bg-primary text-black hover:opacity-90 transition flex flex-col items-center justify-center"
+      >
+       
+         {/* OPTIONAL USD MICRO TEXT */}
+         
+        <span className="font-semibold"><span className="text-[13px] opacity-60">
+                (${template.priceUSD})
+              </span> Buy Now</span>
+      </Link>
+      
       )}
   </div>
   

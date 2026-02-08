@@ -1,10 +1,10 @@
 import { useEffect, useState, useMemo } from "react";
 import { collection, getDocs, query, orderBy } from "firebase/firestore";
-import { db } from "../../../server/firebase";
+import { db } from "../../../../server/firebase";
 
-import FadeIn from "../animations/FadeIn";
-import TemplateCard from "../ui/TemplateCard";
-import TemplatePreviewModal from "../ui/TemplatePreviewModal";
+import FadeIn from "../../animations/FadeIn";
+import TemplateCard from "../../ui/TemplateCard";
+import TemplatePreviewModal from "../../ui/TemplatePreviewModal";
 import { Package } from "lucide-react";
 
 const Templates = () => {
@@ -183,7 +183,7 @@ const Templates = () => {
                 key={tab}
                 onClick={() => setCategory(tab)}
                 style={{ marginRight: '20px'}}
-                className={`px-4 py-2 gap-4 rounded-lg capitalize ${
+                className={`px-4 py-2 gap-4 rounded-lg mb-2 capitalize ${
                   category === tab
                     ? "bg-primary text-black"
                     : "bg-white/5 text-white/60"

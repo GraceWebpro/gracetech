@@ -19,9 +19,10 @@ export const ABOUT_STATS = [
 ];
 
 export const NAV_LINKS = [
-    { id: 'about', label: 'About' },
-    { id: 'services', label: 'Services' },
-    { id: 'Templates', label: 'Templates' },
-    { id: 'projects', label: 'Projects' },
-    { id: 'contact', label: 'Contact' },
-]
+    { id: "about", label: "About", type: "section" },
+    { id: "services", label: "Services", type: "section" },
+    { id: "templates", label: "Templates", type: "route", path: "/templates" },
+    { id: "projects", label: "Projects", type: "section" },
+    { id: "contact", label: "Contact", type: "section" },
+];
+  

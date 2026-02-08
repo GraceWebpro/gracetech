@@ -12,6 +12,13 @@ module.exports = {
         display: ["Urbanist", "sans-serif"],
       },
     },
+    screens: {
+      sm: '640px',
+      md: '768px',
+      lgx: '992px',   // 👈 NEW BREAKPOINT
+      lg: '1024px',
+      xl: '1280px',
+    },
   },
   plugins: [],
 };

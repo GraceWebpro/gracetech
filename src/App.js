@@ -26,7 +26,7 @@ import PrivateRoute from "./server/PrivateRoute";
 import DownloadPage from "./components/template/DownloadPage";
 // import TemplateNavbar from "./components/template/TemplateNavbar";
 // import Template from "./components/template/TemplatesList/Template";
-import TemplateDetails from "./components/template/TemplateDetail";
+// import TemplateDetails from "./components/template/TemplateDetail";
 import Login from './components/userAuth/Login'
 import TemplateList from './components/template/TemplatesList/TemplateList'
 import Courses from "./components/courses/Courses";
@@ -40,12 +40,13 @@ import Privacy from "./components/PrivacyPolicy";
 import Terms from "./components/Terms";
 import CookieBanner from "./components/CookieBanner";
 import UserRegister from "./components/userAuth/Register";
-import UserDashboard from "./components/userDashboard/UserDashboard";
 import NewLayout from "./new-ui/NewLayout";
 import NewHome from "./new-ui/NewHome";
 import Navbar from "./new-ui/NewDesign/layout/Navbar";
 import ProjectsPage from "./new-ui/NewDesign/sections/ProjectsPage";
-import Templates from "./new-ui/NewDesign/sections/Templates";
+import Templates from "./new-ui/NewDesign/sections/templates/Templates";
+import TemplateDetails from "./new-ui/NewDesign/sections/templates/TemplateDetails";
+import UserDashboard from "./new-ui/NewDesign/sections/dashboard/UserDashboard";
 
 function App() {
   const location = useLocation();
@@ -53,8 +54,11 @@ function App() {
   const [user, setUser] = useState(null);
   // Determine if the current route is for the admin page
   const isAdminPage = location.pathname.startsWith('/admin');
+  const isUserDashboard = location.pathname.startsWith('/dashboard');
   const isTemplatePage = location.pathname.startsWith("/templates");
   const isNewUI = location.pathname.startsWith("/new");
+  const isUserLogin = location.pathname.startsWith('/login');
+  const isUserRegister = location.pathname.startsWith('/register');
 
   return (
     
@@ -63,7 +67,7 @@ function App() {
     <ScrollToHashElement />
       {/*<MouseCursor />*/}
 
-      {!isAdminPage && !isNewUI && (
+      {!isAdminPage && !isUserDashboard && !isNewUI && !isUserLogin && !isUserRegister && (
         <Navbar />
       )}
 
@@ -132,7 +136,7 @@ function App() {
         </Routes>
         <CookieBanner />
 
-        {!isAdminPage && !isNewUI && <Footer />}
+        {!isAdminPage && !isNewUI && !isUserDashboard && !isUserLogin && !isUserRegister && <Footer />}
             {/*<ScrollToTop />*/}
 
     </div>
