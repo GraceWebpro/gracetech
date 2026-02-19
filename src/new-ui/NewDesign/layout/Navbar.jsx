@@ -5,6 +5,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useScrollSpy, scrollToSection } from '../../hooks/useScrollSpy';
 import { useAuth } from '../../../server/AuthProvider';
 import { getAuth, signOut } from "firebase/auth";
+import BrandLogo from '../../../assets/brand-logo.png'
 import styles from '../../NewHome.module.css';
 
 const Navbar = () => {
@@ -57,7 +58,7 @@ const Navbar = () => {
           className={styles['logo-wrapper']}
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         >
-          <Code className="w-6 h-6 text-primary" />
+          <img src={BrandLogo} alt='brand-logo' className={styles['brand-logo']} />
           <Link to='/'><span className={styles.logo}>GraceTech</span></Link>
         </div>
 

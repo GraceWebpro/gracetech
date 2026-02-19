@@ -36,8 +36,8 @@ import CoursesPage from "./components/courses/CoursesPage";
 import UploadCourse from "./admin/uploadCourse/UploadCourse";
 import ScrollToHashElement from "./components/ScrollToHashElement";
 import NotFound from "./components/notFound/NotFound";
-import Privacy from "./components/PrivacyPolicy";
-import Terms from "./components/Terms";
+import Privacy from "./new-ui/legal/Privacy";
+import Terms from "./new-ui/legal/Terms";
 import CookieBanner from "./components/CookieBanner";
 import UserRegister from "./components/userAuth/Register";
 import NewLayout from "./new-ui/NewLayout";
@@ -47,6 +47,8 @@ import ProjectsPage from "./new-ui/NewDesign/sections/ProjectsPage";
 import Templates from "./new-ui/NewDesign/sections/templates/Templates";
 import TemplateDetails from "./new-ui/NewDesign/sections/templates/TemplateDetails";
 import UserDashboard from "./new-ui/NewDesign/sections/dashboard/UserDashboard";
+import Refund from "./new-ui/legal/Refund";
+import License from "./new-ui/legal/License";
 
 function App() {
   const location = useLocation();
@@ -122,6 +124,8 @@ function App() {
           <Route path="*" element={<NotFound />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
+          <Route path="/refund-policy" element={<Refund />} />
+          <Route path="/license" element={<License />} />
 
           {/* New UI preview */}
           <Route

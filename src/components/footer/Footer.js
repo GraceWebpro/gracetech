@@ -63,7 +63,16 @@ const Footer = () => {
               </li></Link>
               <Link to="/terms"><li className="menu-item menu-item-type-post_type menu-item-object-page">
                 <a href="terms">Terms of Use</a>
-              </li></Link>
+              </li>
+              </Link>
+              <Link to="/refund-policy"><li className="menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="terms">Refund</a>
+              </li>
+              </Link>
+              <Link to="/license"><li className="menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="terms">License</a>
+              </li>
+              </Link>
             </ul>
           </div>
         </div>

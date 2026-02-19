@@ -1,28 +1,15 @@
 import React from "react";
 import { Helmet } from "react-helmet-async";
+import LegalLayout from "./LegalLayout";
 
 const Privacy = () => {
   return (
-    <main style={{
-      padding: " 120px 30px",
-      alignItems: "left",
-      display: "block",
-      justifyContent: "left",
+    <LegalLayout title="Privacy Policy" className='mt-1'> 
 
-    }} className="max-w-4xl mx-auto px-6 py-12 text-gray-800 leading-relaxed privacy-policy">
-      <Helmet>
-        <title>Privacy Policy — GraceTech</title>
-        <meta
-          name="description"
-          content="Read GraceTech’s privacy policy on how we collect, use, and protect your data responsibly."
-        />
-        <link rel="canonical" href="https://gracetech.vercel.app/privacy" />
-      </Helmet>
-
-      <h1 className="text-3xl font-bold mb-4">Privacy Policy</h1>
+      {/* <h1 className="text-3xl font-bold mb-4">Privacy Policy</h1> */}
       <p style={{
         marginTop: "30px",
-      }} className="mb-6 text-gray-700">
+      }} className="mb-6">
         At GraceTech, we respect your privacy and are committed to protecting
         your personal information. This Privacy Policy explains how we collect,
         use, and safeguard your data when you visit our website.
@@ -32,14 +19,18 @@ const Privacy = () => {
       <p className="mb-4">
         We may collect personal information such as your name, email address, or
         other contact details when you voluntarily provide them, for example via
-        contact forms or course sign-ups.
+        register, contact forms or purchase.
       </p>
 
       <h3 style={{ textAlign: "left", marginTop: "20px" }} className="text-2xl font-semibold mb-2">How We Use Your Information</h3>
       <p className="mb-4">
         Your information is used solely to provide better service — including
-        communication, updates about projects or courses, and improving our
-        website experience.
+        communication, process transactions, provide downloads, improve services, and communicate important updates.
+      </p>
+
+      <h3 style={{ textAlign: "left", marginTop: "20px" }} className="text-2xl font-semibold mb-2">Payment Information</h3>
+      <p className="mb-4">
+        Payments are handled by secure third-party providers. We do not store credit card or financial information.
       </p>
 
       <h3 style={{ textAlign: "left", marginTop: "20px" }} className="text-2xl font-semibold mb-2">Data Security</h3>
@@ -76,7 +67,7 @@ const Privacy = () => {
       <p className="mt-8 text-gray-600">
         Last updated: <strong>October 2025</strong>
       </p>
-    </main>
+    </LegalLayout>
   );
 };
 

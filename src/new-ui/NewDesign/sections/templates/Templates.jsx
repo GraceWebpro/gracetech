@@ -8,46 +8,6 @@ import TemplatePreviewModal from "../../ui/TemplatePreviewModal";
 import { Package } from "lucide-react";
 
 const Templates = () => {
-  // const [search, setSearch] = useState("");
-  // const [category, setCategory] = useState("all");
-  // const [pricing, setPricing] = useState("all");
-  // const [preview, setPreview] = useState(null);
-
-  // const templates = [
-  //   {
-  //     id: 1,
-  //     title: "Startup SaaS Landing",
-  //     category: "react",
-  //     type: "free",
-  //     image: "/templates/saas.png",
-  //     price: 0
-  //   },
-  //   {
-  //     id: 2,
-  //     title: "Bubble Marketplace App",
-  //     category: "bubble",
-  //     type: "premium",
-  //     image: "/templates/bubble.png",
-  //     price: 29
-  //   },
-  //   {
-  //     id: 3,
-  //     title: "Figma Portfolio Kit",
-  //     category: "figma",
-  //     type: "premium",
-  //     image: "/templates/figma.png",
-  //     price: 15
-  //   }
-  // ];
-
-  // const filtered = templates.filter(t => {
-  //   return (
-  //     (category === "all" || t.category === category) &&
-  //     (pricing === "all" || t.type === pricing) &&
-  //     t.title.toLowerCase().includes(search.toLowerCase())
-  //   );
-  // });
-
   const [templates, setTemplates] = useState([]);
   const [loading, setLoading] = useState(true);
 

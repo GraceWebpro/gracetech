@@ -10,6 +10,7 @@ import { IoIosCall } from "react-icons/io";
 import { Link } from 'react-router-dom'
 import styles from '../../NewHome.module.css'
 import {Code} from 'lucide-react'
+import BrandLogo from '../../../assets/brand-logo.png'
 import { useNavigate, useLocation } from "react-router-dom";
 
 const Footer = () => {
@@ -48,7 +49,7 @@ const Footer = () => {
                   className={styles['logo-wrapper']}
                   onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                 >
-                  <Code className="w-6 h-6 text-primary" />
+                  <img src={BrandLogo} alt='brand-logo' className={styles['brand-logo']} />
                   <Link to='/'><span className={styles.logo}>GraceTech</span></Link>
                 </div>
                 <div className="footer-menu">

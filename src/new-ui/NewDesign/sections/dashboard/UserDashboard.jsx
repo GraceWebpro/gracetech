@@ -5,6 +5,7 @@ import { db } from "../../../../server/firebase";
 import { useAuth } from "../../../../server/AuthProvider";
 import { Navigate, Link } from "react-router-dom";
 import { getAuth, signOut } from "firebase/auth";
+import { formatNairaFromUSD } from "../../../utils/currency";
 import {
   LayoutDashboard,
   ShoppingBag,
@@ -270,7 +271,7 @@ const Dashboard = () => {
               />
               <StatCard
                 title="Total Spent"
-                value={`₦${totalSpent.toLocaleString()}`}
+                value={formatNairaFromUSD(totalSpent)}
                 icon={<LayoutDashboard />}
                 onClick={() => {
                   setTab("orders");         // Switch to Orders tab
@@ -358,7 +359,7 @@ const Dashboard = () => {
                     {orders.map(order => (
                       <tr key={order.id} className="border-t border-white/10 hover:bg-white/5">
                         <td className="p-4">{order.templateName}</td>
-                        <td className="text-center">₦{order.amountPaid}</td>
+                        <td className="text-center">{formatNairaFromUSD(order.amountPaid)}</td>
                         <td className="text-center">
                           {order.purchaseDate?.toDate ? order.purchaseDate.toDate().toLocaleDateString() : "N/A"}
                         </td>
