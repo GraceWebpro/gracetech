@@ -52,18 +52,18 @@ const Templates = () => {
 
       // tech stack filter (React / Bubble / Figma etc)
       const matchesCategory =
-      category === "all" ||
-      t.category?.toLowerCase() === category;
-    
+        category === "all" ||
+        t.category?.toLowerCase() === category;
+            
       // pricing filter
       const matchesPricing =
         pricing === "all" ||
-        (pricing === "free" && t.isFree) ||
-        (pricing === "premium" && !t.isFree);
-
-      return matchesSearch && matchesCategory && matchesPricing;
-    });
-  }, [templates, search, category, pricing]);
+        (pricing === "free" && t.versions?.free?.available) ||
+        (pricing === "premium" &&
+          ((t.versions?.pro?.available) || (t.versions?.figma?.available)));
+            return matchesSearch && matchesCategory && matchesPricing;
+          });
+        }, [templates, search, category, pricing]);
 
 
   return (

@@ -102,33 +102,57 @@ const UploadContent = () => {
     );
   };
 
+  // Templates Function
   const [form, setForm] = useState({
     title: "",
     category: "figma", // react | bubble | figma | html
-    techStacks: "", // comma separated input
+    techStacks: "", // comma separated
     description: "",
     usage: "",
-  
-    pricingType: "free", // free | premium
-    priceUSD: "",
-    discount: 0,
-  
     previewUrl: "",
     license: "Personal & Commercial",
     featured: false,
     creatorName: "GraceTech",
-  
     platformSupport: "", // comma separated
     tags: "",
+  
+    // PRICING & VERSIONS
+    versions: {
+      free: {
+        label: "Free",
+        available: false,
+        price: 0,
+        features: ""
+      },
+      pro: {
+        label: "Pro",
+        available: false,
+        price: "",
+        features: ""
+      },
+      figma: {
+        label: "Figma",
+        available: false,
+        price: "",
+        features: ""
+      }
+    },
+    discount: 0, // applies only to pro or figma
+    bundle: { available: false, price: "" } // optional bundle
   });
+
+  
   
 
-  const [thumbnail, setThumbnail] = useState(null);
-  const [zipFile, setZipFile] = useState(null);
-  const [loading, setLoading] = useState(false);
+  // Separate file states
+const [thumbnail, setThumbnail] = useState(null);
+const [freeZip, setFreeZip] = useState(null);
+const [proZip, setProZip] = useState(null);
+const [figmaFile, setFigmaFile] = useState(null);
+const [loading, setLoading] = useState(false);
+const [progress, setProgress] = useState({ thumbnail: 0, free: 0, pro: 0, figma: 0 });
   const [discountedPrice, setDiscountedPrice] = useState(0);
-  const [thumbnailProgress, setThumbnailProgress] = useState(0);
-  const [zipProgress, setZipProgress] = useState(0);
+  
   
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -159,133 +183,111 @@ const UploadContent = () => {
   }, [form.price, form.discount]);
 
   const handleTemplateUpload = async () => {
-    const requiredFields = ["description", "category", "usage", "techStacks"];
-    if (form.pricingType === "premium") {
-      requiredFields.push("price");
-    }
-    const isEmpty = requiredFields.some((field) => !form[field]);
-
-    if (isEmpty || !thumbnail || !zipFile) {
-      return alert("Please fill all required fields and upload a thumbnail.");
-    }
+    if (!form.title || !form.description || !thumbnail) return alert("Fill required fields and upload thumbnail.");
   
     setLoading(true);
+  
     try {
-      // Upload thumbnail
-      const thumbnailRef = ref(storage, `thumbnails/${Date.now()}_${thumbnail.name}`);
-      const thumbnailUploadTask = uploadBytesResumable(thumbnailRef, thumbnail);
-      
-      const thumbnailUrl = await new Promise((resolve, reject) => {
-        thumbnailUploadTask.on(
-          "state_changed",
-          (snapshot) => {
-            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            setThumbnailProgress(progress.toFixed(0));
+      // 1️⃣ Upload thumbnail
+      const thumbRef = ref(storage, `thumbnails/${Date.now()}_${thumbnail.name}`);
+      const thumbSnap = await uploadBytesResumable(thumbRef, thumbnail);
+      const thumbnailUrl = await getDownloadURL(thumbSnap.ref);
+  
+      // 2️⃣ Helper to upload a zip/file
+      const uploadFile = async (file, type) => {
+        if (!file) return null;
+        const fileRef = ref(storage, `templateFiles/${type}_${Date.now()}_${file.name}`);
+        const uploadTask = uploadBytesResumable(fileRef, file);
+  
+        return new Promise((resolve, reject) => {
+          uploadTask.on(
+            "state_changed",
+            (snapshot) => {
+              const prog = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+              setProgress((prev) => ({ ...prev, [type]: prog.toFixed(0) }));
+            },
+            reject,
+            async () => {
+              const url = await getDownloadURL(uploadTask.snapshot.ref);
+              resolve(url);
+            }
+          );
+        });
+      };
+  
+      // 3️⃣ Upload versions separately
+      const freeUrl = await uploadFile(freeZip, "free");
+      const proUrl = await uploadFile(proZip, "pro");
+      const figmaUrl = await uploadFile(figmaFile, "figma");
+  
+      // 4️⃣ Build Firestore object
+      const slug = createSlug(form.title);
+      const templateData = {
+        title: form.title,
+        description: form.description,
+        usage: form.usage,
+        category: form.category,
+        techStacks: form.techStacks.split(",").map((t) => t.trim()),
+        previewUrl: form.previewUrl,
+        thumbnail: thumbnailUrl,
+        tags: form.tags.split(",").map((t) => t.trim()),
+        platformSupport: form.platformSupport.split(",").map((p) => p.trim()),
+        license: form.license,
+        featured: form.featured,
+        creatorName: form.creatorName,
+        downloadsCount: 0,
+        slug,
+        createdAt: serverTimestamp(),
+        versions: {
+          free: {
+            label: form.versions.free.label,
+            available: !!freeUrl,
+            downloadUrl: freeUrl,
+            price: 0,
+            features: form.versions.free.features
+              ? form.versions.free.features.split(",").map(f => f.trim())
+              : []
           },
-          reject,
-          async () => {
-            const url = await getDownloadURL(thumbnailUploadTask.snapshot.ref);
-            resolve(url);
-          }
-        );
-      });
-  
-      // Upload zip file
-      const zipRef = ref(storage, `templateFiles/${Date.now()}_${zipFile.name}`);
-      const zipUploadTask = uploadBytesResumable(zipRef, zipFile);
-  
-      const zipUrl = await new Promise((resolve, reject) => {
-        zipUploadTask.on(
-          "state_changed",
-          (snapshot) => {
-            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            setZipProgress(progress.toFixed(0));
+          pro: {
+            label: form.versions.pro.label,
+            available: !!proUrl,
+            downloadUrl: proUrl,
+            price: proUrl ? parseFloat(form.versions.pro.price) : 0,
+            features: form.versions.pro.features
+              ? form.versions.pro.features.split(",").map(f => f.trim())
+              : []
           },
-          reject,
-          async () => {
-            const url = await getDownloadURL(zipUploadTask.snapshot.ref);
-            resolve(url);
+          figma: {
+            label: form.versions.figma.label,
+            available: !!figmaUrl,
+            downloadUrl: figmaUrl,
+            price: figmaUrl ? parseFloat(form.versions.figma.price) : 0,
+            features: form.versions.figma.features
+              ? form.versions.figma.features.split(",").map(f => f.trim())
+              : []
           }
-        );
-      });
+        },
+        bundle: {
+          available: form.bundle.available,
+          price: parseFloat(form.bundle.price) || 0,
+          files: ["pro", "figma"] // only paid files
+        }
+      };
   
-      const discountedPrice = form.price && form.discount
-        ? parseFloat(form.price) * (1 - parseFloat(form.discount) / 100)
-        : parseFloat(form.price);
+      await addDoc(collection(db, "templates"), templateData);
+      alert("Template uploaded successfully!");
   
-        const slug = createSlug(form.title);
-
-        const newTemplate = {
-          title: form.title,
-          description: form.description,
-          usage: form.usage,
-        
-          category: form.category,
-        
-          techStacks: form.techStacks
-            .split(",")
-            .map((t) => t.trim()),
-        
-          pricingType: form.pricingType,
-        
-          price:
-            form.pricingType === "free"
-              ? 0
-              : parseFloat(form.price),
-        
-          discount: parseFloat(form.discount) || 0,
-        
-          previewUrl: form.previewUrl,
-          downloadUrl: zipUrl, // renamed
-        
-          thumbnail: thumbnailUrl,
-        
-          tags: form.tags
-            .split(",")
-            .map((tag) => tag.trim()),
-        
-          platformSupport: form.platformSupport
-            .split(",")
-            .map((p) => p.trim()),
-        
-          license: form.license,
-          featured: form.featured,
-          creatorName: form.creatorName,
-        
-          downloadsCount: 0,
-        
-          slug,
-          createdAt: serverTimestamp(),
-        };
-      await addDoc(collection(db, "templates"), newTemplate);
-      alert("Template uploaded!");
-  
-      setForm({
-        title: "",
-        category: "figma",
-        techStacks: "",
-        description: "",
-        usage: "",
-      
-        pricingType: "free",
-        priceUSD: "",
-        discount: 0,
-      
-        previewUrl: "",
-        license: "Personal & Commercial",
-        featured: false,
-        creatorName: "GraceTech",
-      
-        platformSupport: "",
-        tags: "",
-      });
-      
+      // Reset form & files
+      setForm({ ...form, title: "", description: "", techStacks: "", previewUrl: "", tags: "", platformSupport: "", featured: false });
       setThumbnail(null);
-      setThumbnailProgress(0);
-      setZipProgress(0);
+      setFreeZip(null);
+      setProZip(null);
+      setFigmaFile(null);
+      setProgress({ thumbnail: 0, free: 0, pro: 0, figma: 0 });
+  
     } catch (err) {
       console.error(err);
-      alert("Upload failed.");
+      alert("Upload failed");
     } finally {
       setLoading(false);
     }
@@ -693,46 +695,154 @@ const UploadContent = () => {
         {/* ========== PRICING ========== */}
         <section className="space-y-4">
           <h3 className="font-semibold text-gray-700">Pricing</h3>
-      
-          <div className="flex gap-6">
-            <label className="flex items-center gap-2">
-              <input type="checkbox" name="isFree" checked={form.isFree} onChange={handleChange} />
-              Free
-            </label>
-      
-            <label className="flex items-center gap-2">
-              <input type="checkbox" name="featured" checked={form.featured} onChange={handleChange} />
-              Featured
-            </label>
+
+          {/* Free Version */}
+          <div className="flex items-center gap-2">
+            <input
+              type="checkbox"
+              checked={form.versions.free.available}
+              onChange={(e) =>
+                setForm({
+                  ...form,
+                  versions: { ...form.versions, free: { ...form.versions.free, available: e.target.checked } }
+                })
+              }
+            />
+            <span>Free Version</span>
+
+            {form.versions.free.available && (
+              <textarea
+                placeholder="Free Features (comma separated)"
+                value={form.versions.free.features}
+                onChange={(e) =>
+                  setForm({
+                    ...form,
+                    versions: {
+                      ...form.versions,
+                      free: {
+                        ...form.versions.free,
+                        features: e.target.value
+                      }
+                    }
+                  })
+                }
+                className="input h-20"
+              />
+            )}
           </div>
-      
-          {!form.isFree && (
-            <div className="grid grid-cols-2 gap-4">
+
+          {/* Pro Version */}
+          <div className="flex flex-col gap-2">
+            <label className="flex items-center gap-2">
               <input
-                name="price"
+                type="checkbox"
+                checked={form.versions.pro.available}
+                onChange={(e) =>
+                  setForm({
+                    ...form,
+                    versions: { ...form.versions, pro: { ...form.versions.pro, available: e.target.checked } }
+                  })
+                }
+              />
+              <span>Pro Version</span>
+            </label>
+
+            {form.versions.pro.available && (
+              <>
+                <input
+                  type="number"
+                  placeholder="Pro Price"
+                  value={form.versions.pro.price}
+                  onChange={(e) =>
+                    setForm({
+                      ...form,
+                      versions: {
+                        ...form.versions,
+                        pro: {
+                          ...form.versions.pro,
+                          price: e.target.value
+                        }
+                      }
+                    })
+                  }
+                  className="input"
+                />
+
+                <textarea
+                  placeholder="Pro Features (comma separated)"
+                  value={form.versions.pro.features}
+                  onChange={(e) =>
+                    setForm({
+                      ...form,
+                      versions: {
+                        ...form.versions,
+                        pro: {
+                          ...form.versions.pro,
+                          features: e.target.value
+                        }
+                      }
+                    })
+                  }
+                  className="input h-20"
+                />
+              </>
+            )}
+          </div>
+
+          {/* Figma Version */}
+          <div className="flex flex-col gap-2">
+            <label className="flex items-center gap-2">
+              <input
+                type="checkbox"
+                checked={form.versions.figma.available}
+                onChange={(e) =>
+                  setForm({
+                    ...form,
+                    versions: { ...form.versions, figma: { ...form.versions.figma, available: e.target.checked } }
+                  })
+                }
+              />
+              <span>Figma Design</span>
+            </label>
+
+            {form.versions.figma.available && (
+              <input
                 type="number"
-                placeholder="Price"
-                value={form.priceUSD}
-                onChange={handleChange}
+                placeholder="Figma Price"
+                value={form.versions.figma.price}
+                onChange={(e) =>
+                  setForm({
+                    ...form,
+                    versions: { ...form.versions, figma: { ...form.versions.figma, price: e.target.value } }
+                  })
+                }
                 className="input"
               />
-      
+            )}
+          </div>
+
+          {/* Bundle */}
+          <div className="flex flex-col gap-2 mt-2">
+            <label className="flex items-center gap-2">
               <input
-                name="discount"
+                type="checkbox"
+                checked={form.bundle.available}
+                onChange={(e) => setForm({ ...form, bundle: { ...form.bundle, available: e.target.checked } })}
+              />
+              <span>Bundle (Pro + Figma)</span>
+            </label>
+
+            {form.bundle.available && (
+              <input
                 type="number"
-                placeholder="Discount %"
-                value={form.discount}
-                onChange={handleChange}
+                placeholder="Bundle Price"
+                value={form.bundle.price}
+                onChange={(e) => setForm({ ...form, bundle: { ...form.bundle, price: e.target.value } })}
                 className="input"
               />
-            </div>
-          )}
-      
-          {!form.isFree && (
-            <p className="text-sm text-gray-500">
-              Final Price: ${discountedPrice}
-            </p>
-          )}
+            )}
+            
+          </div>
         </section>
       
       
@@ -770,13 +880,38 @@ const UploadContent = () => {
       
       
         {/* ========== FILES ========== */}
-        <section className="space-y-4">
+
+        <section>
           <h3 className="font-semibold text-gray-700">Files</h3>
-              <p>Thumbnail</p>
-          <input type="file" accept="image/*" onChange={(e)=>setThumbnail(e.target.files[0])} placeholder='thumbnail' />
-          <p>Images/Screenshots</p>
-          <input type="file" accept=".zip" onChange={(e)=>setZipFile(e.target.files[0])} placeholder='images' />
+
+          <p>Thumbnail</p>
+          <input type="file" accept="image/*" onChange={(e) => setThumbnail(e.target.files[0])} />
+
+          <p>Free Version (optional)</p>
+          <input type="file" accept=".zip" onChange={(e) => setFreeZip(e.target.files[0])} />
+
+          <p>Pro Version</p>
+          <input type="file" accept=".zip" onChange={(e) => setProZip(e.target.files[0])} />
+
+          <p>Figma Design (optional)</p>
+          <input type="file" accept=".zip" onChange={(e) => setFigmaFile(e.target.files[0])} />
         </section>
+
+<section>
+  <label>
+    <input type="checkbox" checked={form.bundle.available} onChange={(e) => setForm({...form, bundle: {...form.bundle, available: e.target.checked}})} />
+    Enable Bundle (Pro + Figma)
+  </label>
+  {form.bundle.available && (
+    <input
+      type="number"
+      placeholder="Bundle Price"
+      value={form.bundle.price}
+      onChange={(e) => setForm({...form, bundle: {...form.bundle, price: e.target.value}})}
+      className="input"
+    />
+  )}
+</section>
       
       
         <button

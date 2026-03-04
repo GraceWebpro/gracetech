@@ -43,6 +43,8 @@ const TemplateDetails = () => {
         const docSnap = snap.docs[0];
         const data = { id: docSnap.id, ...docSnap.data() };        
         console.log("Fetched template:", data);
+        // Ensure versions object exists
+        data.versions = data.versions || {}; 
         setTemplate(data);
       }
     };
@@ -87,8 +89,9 @@ const TemplateDetails = () => {
   };
 
   /* ================= PAYMENT SUCCESS ================= */
-  const handlePaymentSuccess = async (details) => {
-    if (!template.downloadUrl || !user) return;
+  const handlePaymentSuccess = async (details, versionKey, paymentDetails) => {
+    const version = template.versions[versionKey];
+    if (!version?.downloadUrl || !user) return;
   
     // 1️⃣ Increment global downloads count
     await updateDoc(doc(db, "templates", template.id), {
@@ -101,57 +104,79 @@ const TemplateDetails = () => {
     }));
   
     // 2️⃣ Save in downloads collection for this user
-    await setDoc(doc(db, "downloads", `${user.uid}_${template.id}`), {
+    await setDoc(doc(db, "downloads", `${user.uid}_${template.id}_${versionKey}`), {
       userId: user.uid,
       templateId: template.id,
       templateName: template.title,
-      downloadUrl: template.downloadUrl,
+      downloadUrl: version.downloadUrl,
       downloadDate: serverTimestamp(),
       isFree: false,
-      paymentDetails: details,
+      version: versionKey,
+      paymentDetails
     });
   
     // 3️⃣ Trigger download
     const link = document.createElement("a");
-    link.href = template.downloadUrl;
-    link.download = `${template.title}.zip`;
+    link.href = version.downloadUrl;
+    link.download = `${template.title}-${versionKey}.zip`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
   
-    alert("Payment successful! Your download should start now.");
+    alert(`Payment successful! Your ${versionKey} download should start now.`);
   };
   
 
-
-  const handleFreeDownload = async () => {
-    if (!template.downloadUrl) {
-      alert("Template file not available.");
-      return;
-    }
+  const handlePaidDownload = async (versionKey, paymentDetails) => {
+    const version = template.versions[versionKey];
+    if (!version?.downloadUrl || !user) return;
   
-    await increaseDownloadCount();
-
-    // Update local state so the UI updates instantly
-    setTemplate(prev => ({
-      ...prev,
-      downloadsCount: (prev.downloadsCount || 0) + 1,
-    }));
-
-    // Optional: log in downloads collection for analytics
-    await setDoc(doc(db, "downloads", `${Date.now()}_${template.id}`), {
+    await updateDoc(doc(db, "templates", template.id), {
+      downloadsCount: increment(1)
+    });
+  
+    await setDoc(doc(db, "downloads", `${user.uid}_${template.id}_${versionKey}`), {
+      userId: user.uid,
       templateId: template.id,
       templateName: template.title,
-      downloadUrl: template.downloadUrl,
+      downloadUrl: version.downloadUrl,
+      downloadDate: serverTimestamp(),
+      isFree: false,
+      version: versionKey,
+      paymentDetails
+    });
+  
+    const link = document.createElement("a");
+    link.href = version.downloadUrl;
+    link.download = `${template.title}-${versionKey}.zip`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  
+    alert(`Payment successful! Your ${versionKey} download should start now.`);
+  };
+
+
+  const handleFreeDownload = async () => {
+    const freeVersion = template.versions.free;
+    if (!freeVersion?.downloadUrl) return alert("Free template not available.");
+  
+    await increaseDownloadCount();
+  
+    // Optional analytics
+    await setDoc(doc(db, "downloads", `${Date.now()}_${template.id}_free`), {
+      templateId: template.id,
+      templateName: template.title,
+      downloadUrl: freeVersion.downloadUrl,
       downloadDate: serverTimestamp(),
       isFree: true,
-      userId: user?.uid || null, // null for guests
+      userId: user?.uid || null,
+      version: "free"
     });
-
-   // Trigger download
+  
     const link = document.createElement("a");
-    link.href = template.downloadUrl;
-    link.download = `${template.title}.zip`;
+    link.href = freeVersion.downloadUrl;
+    link.download = `${template.title}-free.zip`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -166,8 +191,14 @@ const TemplateDetails = () => {
       ...(Array.isArray(template.images) ? template.images : [])
     ].filter(Boolean);
     
-    const isFree = !template.priceUSD || template.priceUSD === 0;
- 
+    const hasFree = template.versions.free?.available;
+    const hasPro = template.versions.pro?.available;
+    const hasFigma = template.versions.figma?.available;
+    const hasBundle = template.versions.bundle?.available;
+    
+    const proPrice = template.versions.pro?.priceUSD || 0;
+    const figmaPrice = template.versions.figma?.priceUSD || 0;
+    const bundlePrice = template.versions.bundle?.priceUSD || 0; 
   return (
     <div className="bg-[#0b0b0b] text-white min-h-screen">
 
@@ -241,7 +272,94 @@ const TemplateDetails = () => {
             <p className="text-white/70 leading-relaxed">
               {template.description}
             </p>
-          </div>
+
+            {hasFree && (
+              <div className="border rounded-xl p-6 space-y-4">
+                <h3 className="text-lg font-semibold">
+                  {free.label}
+                </h3>
+
+                <p className="text-2xl font-bold">
+                  Free
+                </p>
+
+                <ul className="space-y-2">
+                  {free.features?.map((feature, index) => (
+                    <li key={index} className="text-sm text-gray-600">
+                      ✔ {feature}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {hasPro && (
+              <div className="border rounded-xl p-6 space-y-4">
+                <h3 className="text-lg font-semibold">
+                  {pro.label}
+                </h3>
+
+                <p className="text-2xl font-bold">
+                  ${pro.price}
+                </p>
+
+                <ul className="space-y-2">
+                  {pro.features?.map((feature, index) => (
+                    <li key={index} className="text-sm text-gray-600">
+                      ✔ {feature}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {Object.entries(versions).map(([key, version]) => {
+              if (!version.available) return null;
+
+              return (
+                <div key={key} className="border rounded-xl p-6 space-y-4">
+                  <h3 className="text-lg font-semibold">
+                    {version.label}
+                  </h3>
+
+                  <p className="text-2xl font-bold">
+                    {version.price === 0 ? "Free" : `$${version.price}`}
+                  </p>
+
+                  <ul className="space-y-2">
+                    {version.features?.map((feature, index) => (
+                      <li key={index} className="text-sm text-gray-600">
+                        ✔ {feature}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              );
+            })}
+
+            <div className="grid md:grid-cols-3 gap-6">
+              {Object.entries(versions).map(([key, version]) =>
+                version.available && (
+                  <div key={key} className="border rounded-xl p-6">
+                    <h3 className="font-bold">{version.label}</h3>
+                    <p className="text-xl">
+                      {version.price === 0 ? "Free" : `$${version.price}`}
+                    </p>
+
+                    <ul className="mt-4 space-y-2">
+                      {version.features?.map((feature, i) => (
+                        <li key={i}>✔ {feature}</li>
+                      ))}
+                    </ul>
+
+                    <button className="mt-4 w-full bg-black text-white py-2 rounded-lg">
+                      {version.price === 0 ? "Download Free" : "Buy Now"}
+                    </button>
+                  </div>
+                )
+              )}
+            </div>
+                      </div>
         </div>
 
         {/* ================= RIGHT – BUY CARD ================= */}
@@ -251,7 +369,7 @@ const TemplateDetails = () => {
             <h1 className="text-2xl font-bold">{template.title}</h1>
 
             {/* PRICE / FREE LABEL */}
-            {isFree ? (
+            {hasFree ? (
               <div className="text-2xl font-bold text-green-400">
                 Free Template
               </div>
@@ -259,22 +377,37 @@ const TemplateDetails = () => {
               <div className="text-3xl font-extrabold text-primary">
                 {formatNairaFromUSD(template.priceUSD)}
               </div>
+
+              
             )}
 
             <div className="text-sm text-white/50">
               {template.downloadsCount || 0} total downloads
             </div>
 
-            {!isFree && (
-              <div className="text-sm text-white/80 mt-4 mb-2">
-                {formatNairaFromUSD(template.priceUSD)}{" "}
-                <span className="text-xs opacity-60">(${template.priceUSD})</span>
+           {/* PRICE / VERSIONS */}
+          <div className="space-y-2 mt-4">
+            {hasFree && <div className="text-green-400 font-bold">Free</div>}
+            {hasFigma && (
+              <div className="text-white/80">
+                Figma: ${figmaPrice} ({formatNairaFromUSD(figmaPrice)})
               </div>
             )}
+            {hasPro && (
+              <div className="text-white/80">
+                Pro: ${proPrice} ({formatNairaFromUSD(proPrice)})
+              </div>
+            )}
+            {hasBundle && (
+              <div className="text-white/80 font-semibold">
+                Complete: ${bundlePrice} ({formatNairaFromUSD(bundlePrice)})
+              </div>
+            )}
+          </div>
 
 
             {/* ACTION AREA */}
-            {isFree ? (
+            {hasFree ? (
               <button
                 onClick={handleFreeDownload}
                 className="w-full py-3 rounded-xl bg-green-500 hover:bg-green-600 text-black font-semibold transition"

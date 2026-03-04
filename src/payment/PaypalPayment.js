@@ -4,8 +4,9 @@ import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db } from "../server/firebase"; // adjust path if needed
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
-const PayPalPayment = ({ amount, template, user, onSuccess }) => {
+const PayPalPayment = ({ amount, template, user, version = "pro", onSuccess }) => {
   const clientId = process.env.REACT_APP_PAYPAL_CLIENT_ID;
+  const selectedVersion = template.versions?.[version];
 
   if (!clientId) {
     console.error("PayPal client ID is missing in .env");
@@ -13,15 +14,16 @@ const PayPalPayment = ({ amount, template, user, onSuccess }) => {
   }
 
   if (!user?.uid) return <p>Please log in to make a payment.</p>;
-  if (!template?.downloadUrl) return <p>Template file not available.</p>;
+  if (!selectedVersion?.downloadUrl) return <p>Template file not available.</p>;
 
   // Save payment to Firestore
   const savePaymentDetails = async (details) => {
     const paymentData = {
       templateId: template.id,
       templateName: template.title,
-      amountPaid: template.priceUSD,
-      fileUrl: template.fileUrl || template.downloadUrl,
+      amountPaid: selectedVersion.price,
+      fileUrl: selectedVersion.downloadUrl,
+      version, // save the purchased version
       transactionId: details.id,
       payerEmail: details.payer.email_address,
       payerName: `${details.payer.name.given_name} ${details.payer.name.surname}`,
@@ -48,13 +50,13 @@ const PayPalPayment = ({ amount, template, user, onSuccess }) => {
 
       if (onSuccess) onSuccess(details);
 
-      // Auto-download template
-      const link = document.createElement("a");
-      link.href = template.downloadUrl;
-      link.setAttribute("download", `${template.title}.zip`);
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+     // Auto-download after payment
+    const link = document.createElement("a");
+    link.href = selectedVersion.downloadUrl;
+    link.setAttribute("download", `${template.title}-${version}.zip`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
 
       alert("Payment successful! Your download will start shortly.");
     } catch (error) {
@@ -73,14 +75,14 @@ const PayPalPayment = ({ amount, template, user, onSuccess }) => {
           label: "paypal",
         }}
         createOrder={(data, actions) => {
-          if (!template?.priceUSD) return alert("Price not available");
+          if (!selectedVersion?.price) return alert("Price not available");
 
           return actions.order.create({
             purchase_units: [
               {
                 amount: {
                   currency_code: "USD",
-                  value: template.priceUSD.toFixed(2)
+                  value: selectedVersion.price.toFixed(2)
                 }
               }
             ],
