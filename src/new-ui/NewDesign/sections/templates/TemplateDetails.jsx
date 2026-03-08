@@ -16,6 +16,7 @@ import PayPalPayment from "../../../../payment/PaypalPayment";
 import { useAuth } from "../../../../server/AuthProvider";
 import TemplateCard from "../../ui/TemplateCard";
 import { formatNairaFromUSD } from "../../../utils/currency";
+import { backendUpsellConfig } from "../../../../config/backendUpsell";
 
 const TemplateDetails = () => {
   const { slug } = useParams();
@@ -26,7 +27,9 @@ const TemplateDetails = () => {
   const [showLicense, setShowLicense] = useState(false);
   const [preview, setPreview] = useState(null);
   const { currentUser: user, loading } = useAuth();
+  const [showModal, setShowModal] = useState(false);
 
+  
   /* ================= FETCH TEMPLATE ================= */
   useEffect(() => {
     if (!slug) return;
@@ -182,6 +185,10 @@ const TemplateDetails = () => {
     document.body.removeChild(link);
   };
   
+
+  const tech = template.category?.[0]; // or category if you prefer
+  
+  const backendInfo = backendUpsellConfig[tech];
 
   if (!template)
     return <div className="p-20 text-center text-white">Loading...</div>;
@@ -358,8 +365,36 @@ const TemplateDetails = () => {
                   </div>
                 )
               )}
+
+              {backendInfo && (
+                <div className="mt-12 border rounded-2xl p-6 bg-gray-50">
+                  <h3 className="text-xl font-bold">
+                    Need Backend Integration?
+                  </h3>
+
+                  <p className="mt-2 text-gray-600">
+                    Starting from ${backendInfo.startingPrice}
+                  </p>
+
+                  <ul className="mt-4 space-y-2">
+                    {backendInfo.features.map((feature, index) => (
+                      <li key={index}>✔ {feature}</li>
+                    ))}
+                  </ul>
+
+                  <button onClick={() => setShowModal(true)} className="mt-6 bg-black text-white px-6 py-3 rounded-xl">
+                    Request Backend Setup
+                  </button>
+                </div>
+              )}
+
+              <BackendRequestModal
+                  isOpen={showModal}
+                  onClose={() => setShowModal(false)}
+                  template={template}
+                />
             </div>
-                      </div>
+            </div>
         </div>
 
         {/* ================= RIGHT – BUY CARD ================= */}
@@ -481,6 +516,8 @@ const TemplateDetails = () => {
           </div>
         </div>
       )}
+
+    
     </div>
   );
 };
