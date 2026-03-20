@@ -65,7 +65,7 @@ function Hero() {
               </motion.h2>
             </FadeIn>
 
-            <FadeIn delay={200} className='w-full'>
+            <FadeIn delay={200} className='w-full flex'>
               <p className="
                 text-base sm:text-lg
                 text-white/70
@@ -125,7 +125,7 @@ function Hero() {
               </div>
             </FadeIn>
 
-              <HowWeWork videoId="js4QJqYyyFs?si=92nRy3ixNwwgMZDg" />
+            <HowWeWork videoId="js4QJqYyyFs?si=92nRy3ixNwwgMZDg" />
 
             <FadeIn delay={400}>
               <div className='grid grid-cols-2 md:grid-cols-4 gap-10 max-w-full'>

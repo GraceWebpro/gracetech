@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
-import { collection, addDoc, getDocs, query, serverTimestamp } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { storage, db } from "../server/firebase"; // Ensure Firebase is properly set up
-import slugify from 'slugify';
 import { uploadToR2 } from "../new-ui/utils/r2Upload";
 
 
@@ -207,51 +206,38 @@ const [loading, setLoading] = useState(false);
   
     try {
       // ------------------- Helper: Upload file to R2 with progress -------------------
-      const uploadToR2WithProgress = (file, type) =>
-        new Promise(async (resolve, reject) => {
-          try {
-            const res = await fetch("http://localhost:5000/get-signed-url", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ fileName: file.name, contentType: file.type, slug }),
-            });
-            const data = await res.json();
-  
-            const xhr = new XMLHttpRequest();
-            xhr.open("PUT", data.signedUrl);
-            xhr.setRequestHeader("Content-Type", file.type);
-  
-            xhr.upload.onprogress = (event) => {
-              if (event.lengthComputable) {
-                const prog = Math.round((event.loaded / event.total) * 100);
-                setProgress((prev) => ({ ...prev, [type]: prog }));
-              }
-            };
-  
-            xhr.onload = () => resolve(data.publicUrl);
-            xhr.onerror = () => reject("Upload failed");
-  
-            xhr.send(file);
-          } catch (err) {
-            reject(err);
-          }
-        });
+      
   
       // ------------------- Upload thumbnail -------------------
-      const thumbnailUrl = await uploadToR2WithProgress(thumbnail, "thumbnail");
-  
+      const thumbnailUrl = await uploadToR2(thumbnail, slug, (p) =>
+      setProgress((prev) => ({ ...prev, thumbnail: p }))
+      );  
       // ------------------- Upload additional images -------------------
       const imageUrls = [];
       for (let i = 0; i < images.length; i++) {
-        const imgUrl = await uploadToR2WithProgress(images[i], `images-${i}`);
+        const imgUrl = await uploadToR2(images[i], `images-${i}`);
         imageUrls.push(imgUrl);
       }
   
       // ------------------- Upload versions -------------------
-      const freeUrl = freeZip ? await uploadToR2WithProgress(freeZip, "free") : null;
-      const proUrl = proZip ? await uploadToR2WithProgress(proZip, "pro") : null;
-      const figmaUrl = figmaFile ? await uploadToR2WithProgress(figmaFile, "figma") : null;
-  
+      const freeUrl = freeZip
+      ? await uploadToR2(freeZip, slug, (p) =>
+          setProgress((prev) => ({ ...prev, free: p }))
+        )
+      : null;
+
+    const proUrl = proZip
+      ? await uploadToR2(proZip, slug, (p) =>
+          setProgress((prev) => ({ ...prev, pro: p }))
+        )
+      : null;
+
+    const figmaUrl = figmaFile
+      ? await uploadToR2(figmaFile, slug, (p) =>
+          setProgress((prev) => ({ ...prev, figma: p }))
+        )
+      : null;
+
       // ------------------- Build Firestore object -------------------
       const templateData = {
         title: form.title,
