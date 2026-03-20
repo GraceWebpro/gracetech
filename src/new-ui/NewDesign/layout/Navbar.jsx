@@ -103,7 +103,6 @@ const Navbar = () => {
                 {user.displayName?.charAt(0).toUpperCase() || user.email.charAt(0).toUpperCase()}
               </div>
               {/* Username hidden on mobile */}
-              <span className="username text-white">{user.displayName || user.email}</span>
 
               {/* Dropdown */}
               {userMenuOpen && (
@@ -136,7 +135,7 @@ const Navbar = () => {
           {/* Mobile menu toggle */}
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className='lgx:hidden p-4 text-white hover:text-white/80 transition-colors'
+          className='lgx:hidden p-4 text-white hover:text-white/80 mr-[-10px] transition-colors'
           aria-label='menu'
           aria-expanded={isMenuOpen}
         >

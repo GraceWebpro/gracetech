@@ -17,6 +17,7 @@ import { useAuth } from "../../../../server/AuthProvider";
 import TemplateCard from "../../ui/TemplateCard";
 import { formatNairaFromUSD } from "../../../utils/currency";
 import { backendUpsellConfig } from "../../../../config/backendUpsell";
+import BackendRequestModal from "../../ui/BackendRequestModal";
 
 const TemplateDetails = () => {
   const { slug } = useParams();
@@ -54,6 +55,7 @@ const TemplateDetails = () => {
 
     fetchTemplate();
   }, [slug]);
+
 
   /* ================= SIMILAR ================= */
   useEffect(() => {
@@ -148,6 +150,8 @@ const TemplateDetails = () => {
       version: versionKey,
       paymentDetails
     });
+
+    const ext = version.downloadUrl.endsWith(".fig") ? ".fig" : ".zip";
   
     const link = document.createElement("a");
     link.href = version.downloadUrl;
@@ -176,6 +180,8 @@ const TemplateDetails = () => {
       userId: user?.uid || null,
       version: "free"
     });
+
+    const ext = freeVersion.downloadUrl.endsWith(".fig") ? ".fig" : ".zip";
   
     const link = document.createElement("a");
     link.href = freeVersion.downloadUrl;
@@ -186,12 +192,20 @@ const TemplateDetails = () => {
   };
   
 
-  const tech = template.category?.[0]; // or category if you prefer
   
-  const backendInfo = backendUpsellConfig[tech];
-
   if (!template)
     return <div className="p-20 text-center text-white">Loading...</div>;
+
+    const tech = template?.techStack; // or category if you prefer
+  
+  const backendInfo = backendUpsellConfig?.[tech];
+
+  const versions = template.versions || {};
+
+  const free = versions.free || {};
+  const pro = versions.pro || {};
+  const figma = versions.figma || {};
+  const bundle = versions.bundle || {};
 
     const galleryImages = [
       template.thumbnail,
@@ -206,6 +220,14 @@ const TemplateDetails = () => {
     const proPrice = template.versions.pro?.priceUSD || 0;
     const figmaPrice = template.versions.figma?.priceUSD || 0;
     const bundlePrice = template.versions.bundle?.priceUSD || 0; 
+
+    const parseFeatures = (features) => {
+      if (!features) return [];
+      if (Array.isArray(features)) return features;
+    
+      return features.split(",").map((f) => f.trim());
+    };
+    
   return (
     <div className="bg-[#0b0b0b] text-white min-h-screen">
 
@@ -280,6 +302,52 @@ const TemplateDetails = () => {
               {template.description}
             </p>
 
+            {template.features && (
+              <div>
+                <h3 className="text-xl font-semibold mt-8">Key Features</h3>
+                <ul className="mt-4 space-y-2 text-white/70">
+                  {template.features.split(",").map((f, i) => (
+                    <li key={i}>✔ {f.trim()}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {template.useCases && (
+              <div>
+                <h3 className="text-xl font-semibold mt-8">Use Cases</h3>
+                <ul className="mt-4 space-y-2 text-white/70">
+                  {template.useCases.split(",").map((u, i) => (
+                    <li key={i}>• {u.trim()}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {template.technologies && (
+              <div>
+                <h3 className="text-xl font-semibold mt-8">Technologies Used</h3>
+                <div className="flex flex-wrap gap-2 mt-3">
+                  {template.technologies.split(",").map((t, i) => (
+                    <span key={i} className="bg-white/10 px-3 py-1 rounded-lg text-sm">
+                      {t.trim()}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {template.pages && (
+              <div>
+                <h3 className="text-xl font-semibold mt-8">Pages Included</h3>
+                <ul className="mt-4 space-y-2 text-white/70">
+                  {template.pages.split(",").map((p, i) => (
+                    <li key={i}>✔ {p.trim()}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
             {hasFree && (
               <div className="border rounded-xl p-6 space-y-4">
                 <h3 className="text-lg font-semibold">
@@ -291,8 +359,7 @@ const TemplateDetails = () => {
                 </p>
 
                 <ul className="space-y-2">
-                  {free.features?.map((feature, index) => (
-                    <li key={index} className="text-sm text-gray-600">
+                {parseFeatures(free.features).map((feature, index) => (                    <li key={index} className="text-sm text-gray-600">
                       ✔ {feature}
                     </li>
                   ))}
@@ -310,9 +377,12 @@ const TemplateDetails = () => {
                   ${pro.price}
                 </p>
 
+                <span className="bg-primary text-black text-xs px-2 py-1 rounded">
+  Most Popular
+</span>
+
                 <ul className="space-y-2">
-                  {pro.features?.map((feature, index) => (
-                    <li key={index} className="text-sm text-gray-600">
+                {parseFeatures(pro.features).map((feature, index) => (                    <li key={index} className="text-sm text-gray-600">
                       ✔ {feature}
                     </li>
                   ))}
@@ -334,7 +404,10 @@ const TemplateDetails = () => {
                   </p>
 
                   <ul className="space-y-2">
-                    {version.features?.map((feature, index) => (
+                  {(Array.isArray(version.features)
+  ? version.features
+  : version.features?.split(",")
+)?.map((feature, index) => (
                       <li key={index} className="text-sm text-gray-600">
                         ✔ {feature}
                       </li>
@@ -354,7 +427,10 @@ const TemplateDetails = () => {
                     </p>
 
                     <ul className="mt-4 space-y-2">
-                      {version.features?.map((feature, i) => (
+                    {(Array.isArray(version.features)
+                        ? version.features
+                        : version.features?.split(",")
+                      )?.map((feature, i) => (
                         <li key={i}>✔ {feature}</li>
                       ))}
                     </ul>

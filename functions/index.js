@@ -22,17 +22,36 @@ const logger = require("firebase-functions/logger");
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 const nodemailer = require("nodemailer");
+const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
 
 admin.initializeApp();
 
+const db = admin.firestore();
+
+// EMAIL SETUP
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
     user: "your-email@gmail.com",
-    pass: "your-app-password"
+    pass: "your-app-password",
   }
 });
 
+// R2 CONFIG
+const r2 = new S3Client({
+  region: "auto",
+  endpoint: `https://${functions.config().r2.account}.r2.cloudflarestorage.com`,
+  credentials: {
+    accessKeyId: functions.config().r2.key,
+    secretAccessKey: functions.config().r2.secret,
+  },
+});
+
+const bucketName = functions.config().r2.bucket;
+
+
+
+// EMAIL FUNCTION
 exports.sendBackendRequestEmail = functions.firestore
   .document("backendRequests/{requestId}")
   .onCreate(async (snap) => {
@@ -41,7 +60,7 @@ exports.sendBackendRequestEmail = functions.firestore
 
     const mailOptions = {
       from: "Marketplace",
-      to: "your-email@gmail.com",
+      to: "gogracetech@gmail.com",
       subject: "New Backend Integration Request",
       html: `
         <h2>New Backend Request</h2>
@@ -55,4 +74,26 @@ exports.sendBackendRequestEmail = functions.firestore
     };
 
     return transporter.sendMail(mailOptions);
+  });
+
+  // R2 UPLOAD FUNCTION/
+  exports.uploadToR2 = functions.https.onCall(async (data, context) => {
+
+    const { fileName, fileData, contentType } = data;
+  
+    const buffer = Buffer.from(fileData, "base64");
+  
+    const command = new PutObjectCommand({
+      Bucket: bucketName,
+      Key: fileName,
+      Body: buffer,
+      ContentType: contentType,
+    });
+  
+    await r2.send(command);
+  
+    return {
+      success: true,
+      url: `https://${functions.config().r2.account}.r2.cloudflarestorage.com/${bucketName}/${fileName}`
+    };
   });

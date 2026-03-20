@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
-import { db } from "@/firebase";
+import { db } from "../../../server/firebase";
 
 export default function BackendRequestModal({
   isOpen,
@@ -30,6 +30,7 @@ export default function BackendRequestModal({
         ...form,
         templateId: template.id,
         templateName: template.title,
+        templateSlug: template.slug,
         createdAt: serverTimestamp(),
         status: "new"
       });

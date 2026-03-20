@@ -11,13 +11,13 @@ const TemplateCard = ({ template, user }) => {
   const hasFigma = versions.figma?.available;
   const hasBundle = versions.bundle?.available;
  
-  const proPrice = versions.pro?.price || 0;
-  const figmaPrice = versions.figma?.price || 0;
-  const bundlePrice = versions.bundle?.price || 0;
+  const proPrice = versions.pro?.priceUSD || 0;
+  const figmaPrice = versions.figma?.priceUSD || 0;
+  const bundlePrice = versions.bundle?.priceUSD || 0;
 
   const handleFreeDownload = async (type) => {
     const version = versions[type];
-    if (!version?.fileUrl) return alert("File not available.");
+    if (!version?.downloadUrl) return alert("File not available.");
   
     try {
       await updateDoc(doc(db, "templates", template.id), {
@@ -27,16 +27,16 @@ const TemplateCard = ({ template, user }) => {
       await setDoc(doc(db, "downloads", `${Date.now()}_${template.id}`), {
         templateId: template.id,
         templateName: template.title,
-        downloadUrl: version.fileUrl,
+        downloadUrl: version.downloadUrl,
         version: type,
         downloadDate: serverTimestamp(),
         userId: user?.uid || null,
       });
   
       const link = document.createElement("a");
-      link.href = version.fileUrl;
-      link.download = `${template.title}_${type}.zip`;
-      document.body.appendChild(link);
+      link.href = version.downloadUrl;
+      const ext = type === "figma" ? ".fig" : ".zip";
+      link.download = `${template.title}_${type}${ext}`;      document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
     } catch (err) {
@@ -44,6 +44,14 @@ const TemplateCard = ({ template, user }) => {
       alert("Download failed. Try again.");
     }
   };
+
+  const prices = [
+    hasPro ? proPrice : null,
+    hasFigma ? figmaPrice : null,
+    hasBundle ? bundlePrice : null,
+  ].filter(Boolean);
+  
+  const startingPrice = prices.length ? Math.min(...prices) : null;
 
 
   return (
@@ -85,29 +93,29 @@ const TemplateCard = ({ template, user }) => {
         {hasFree ? "Free" : "Premium" }
         </span> */}
         {/* ================= VERSION BADGES ================= */}
-<div className="absolute top-0 left-3 flex gap-2">
-  {hasFree && (
-    <span className="bg-green-500 text-black text-[11px] font-semibold tracking-wide uppercase
-            px-3 py-1 rounded-full
-            shadow-md border border-green-400/40">
-      Free
-    </span>
-  )}
+        <div className="absolute top-0 left-3 flex gap-2">
+          {hasFree && (
+            <span className="bg-green-500 text-black text-[11px] font-semibold tracking-wide uppercase
+                    px-3 py-1 rounded-full
+                    shadow-md border border-green-400/40">
+              Free
+            </span>
+          )}
 
-  {hasPro && (
-    <span className="bg-primary text-black text-[11px] font-semibold tracking-wide uppercase
-            px-3 py-1 rounded-full
-            shadow-md border border-primary/40">
-      Premium
-    </span>
-  )}
+          {hasPro && (
+            <span className="bg-primary text-black text-[11px] font-semibold tracking-wide uppercase
+                    px-3 py-1 rounded-full
+                    shadow-md border border-primary/40">
+              Premium
+            </span>
+          )}
 
-  {hasBundle && (
-    <span className="bg-purple-500 text-black text-[11px] font-semibold px-2 py-1 rounded-full shadow-md border border-purple-400/40">
-      Complete
-    </span>
-  )}
-</div>
+          {hasBundle && (
+            <span className="bg-purple-500 text-black text-[11px] font-semibold px-2 py-1 rounded-full shadow-md border border-purple-400/40">
+              Complete
+            </span>
+          )}
+        </div>
         
         
         
@@ -138,6 +146,12 @@ const TemplateCard = ({ template, user }) => {
           </p>
         </div>
 
+        {startingPrice && (
+          <span className="text-xs opacity-60">
+            From ${startingPrice}
+          </span>
+        )}
+
         {/* downloads count */}
         {template.downloadsCount > 0 && (
           <p className="text-xs text-white/60 mt-3 text-left">
@@ -157,6 +171,12 @@ const TemplateCard = ({ template, user }) => {
               <span className="chip font-semibold">Complete — ${bundlePrice}</span>
             )}
           </div>
+
+          {hasFree && hasPro && (
+            <span className="text-xs text-white/60">
+              Free and premium version available
+            </span>
+          )}
 
         {/* spacer pushes buttons to bottom */}
         <div className="flex-1" />
@@ -178,7 +198,7 @@ const TemplateCard = ({ template, user }) => {
             <button
               onClick={(e) => {
                 e.preventDefault(); // stop the parent Link from navigating
-                handleFreeDownload(template, user);
+                handleFreeDownload("free");
               }}
               className="bg-green-500 hover:bg-green-600 text-black py-2 px-4 rounded-xl"
             >

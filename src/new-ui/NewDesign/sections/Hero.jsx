@@ -50,40 +50,44 @@ function Hero() {
             </FadeIn>
 
             <FadeIn delay={100}>
-              <div className="text-white leading-tight">
-                {/* Brand line */}
-                <h1 className="text-3xl md:text-3xl lg:text-4xl font-normal text-white mb-6 leading-tight">
-                  GraceTech Builds
-                </h1>
+              <h1 className="font-normal mb-5 text-[clamp(1.2rem,3vw,2.2rem)]">
+                GraceTech Builds
+              </h1>
 
-                {/* Rotating headline */}
-                <motion.h2
-                  key={index}
-                  className="text-5xl md:text-5xl lg:text-6 font-bold highlight"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  {rotatingWords[index]}
-                </motion.h2>
-              </div>
+              <motion.h2
+                key={index}
+                className="font-bold highlight text-[clamp(2rem,6vw,3.8rem)]"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5 }}
+              >
+                {rotatingWords[index]}
+              </motion.h2>
             </FadeIn>
 
-            <FadeIn delay={200}>
-              <p className='text-lg text-white/70 max-w-[550px] mb-6'>
-              We design and build high-performance digital products — from interactive web apps to AI-powered content — for modern brands.              </p>
+            <FadeIn delay={200} className='w-full'>
+              <p className="
+                text-base sm:text-lg
+                text-white/70
+                max-w-[550px]
+                mb-6
+                leading-relaxed
+              ">
+                We design and build high-performance digital products — from interactive web apps to AI-powered content — for modern brands.
+              </p>
             </FadeIn>
 
             <FadeIn delay={300}>
-              <div className="flex flex-wrap items-center gap-4 mb-8">
+              <div className="flex items-center gap-3 mb-8 flex-nowrap">
 
                 {/* Primary CTA */}
                 <Link
                   to="/get-a-quote"
                   className="
-                  px-[26px] py-[13px]
-                  max-[355px]:px-[18px]
-                  max-[355px]:py-[10px]
+                  px-6 py-3
+                  max-[400px]:px-4
+                  max-[400px]:py-2
+                  max-[400px]:text-sm
                   rounded-[17px]
                   text-base font-medium
                   text-black
@@ -91,6 +95,7 @@ function Hero() {
                   hover:opacity-90
                   transition
                   whitespace-nowrap
+                  shrink
                   "
                 >
                   Start A Project
@@ -100,9 +105,10 @@ function Hero() {
                 <Link
                   to="/projects"
                   className="
-                  px-[26px] py-[13px]
-                  max-[355px]:px-[18px]
-                  max-[355px]:py-[10px]
+                  px-6 py-3
+                  max-[400px]:px-4
+                  max-[400px]:py-2
+                  max-[400px]:text-sm
                   rounded-[17px]
                   text-base font-medium
                   text-white
@@ -110,6 +116,7 @@ function Hero() {
                   hover:bg-white hover:text-[#212121]
                   transition
                   whitespace-nowrap
+                  shrink
                   "
                 >
                   View Our Work

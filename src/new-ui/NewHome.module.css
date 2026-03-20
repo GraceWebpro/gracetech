@@ -19,7 +19,7 @@
 
 /* Navbar inner wrapper */
 .navbar-inner {
-  max-width: 1320px;
+  max-width: 1440px;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -41,12 +41,14 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   transition: opacity 0.3s ease;
+  margin-left: -10px;
 }
 
 .brand-logo {
   font-size: 20px;
   width: 70px;
   height: 50px;
+  margin-left: -5px;
 }
 .logo:hover {
   opacity: 0.8;
@@ -116,4 +118,29 @@
 
 }
 
+/* Tablet */
+@media (max-width: 768px) {
+  .brand-logo {
+    width: 60px;
+   
+  height: 40px;
+  margin-left: -20px;
 
+  }
+
+  
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .brand-logo {
+    width: 60px;
+  }
+}
+
+/* Very small screens */
+@media (max-width: 360px) {
+  .brand-logo {
+    width: 60px;
+  }
+}

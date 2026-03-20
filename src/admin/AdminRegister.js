@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { auth, registerWithEmail } from "../server/firebase";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { doc, setDoc, getFirestore } from "firebase/firestore";
 import "./Admin.css";
+import BrandLogo from '../assets/brand-logo.png'
+import styles from '../new-ui/NewHome.module.css'
 
 function Register() {
   const [email, setEmail] = useState("");
@@ -49,7 +51,7 @@ function Register() {
           className={styles['logo-wrapper']}
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         >
-          <Code className="w-6 h-6 text-primary" style={{ marginLeft: '20px'}} />
+          <img src={BrandLogo} alt="brand-logo" className="w-6 h-6 text-primary" style={{ marginLeft: '20px'}} />
           <Link to='/'><span className={styles.logo}>GraceTech</span></Link>
         </div>
       </div>

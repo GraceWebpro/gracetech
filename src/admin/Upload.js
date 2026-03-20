@@ -3,6 +3,8 @@ import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { collection, addDoc, getDocs, query, serverTimestamp } from 'firebase/firestore';
 import { storage, db } from "../server/firebase"; // Ensure Firebase is properly set up
 import slugify from 'slugify';
+import { uploadToR2 } from "../new-ui/utils/r2Upload";
+
 
 
 const UploadContent = () => {
@@ -105,16 +107,19 @@ const UploadContent = () => {
   // Templates Function
   const [form, setForm] = useState({
     title: "",
+    usecaseIntro: "",
     category: "figma", // react | bubble | figma | html
     techStacks: "", // comma separated
     description: "",
-    usage: "",
+    useCases: "",
     previewUrl: "",
     license: "Personal & Commercial",
     featured: false,
     creatorName: "GraceTech",
     platformSupport: "", // comma separated
     tags: "",
+    isFree: false,
+    pages: "",
   
     // PRICING & VERSIONS
     versions: {
@@ -146,14 +151,21 @@ const UploadContent = () => {
 
   // Separate file states
 const [thumbnail, setThumbnail] = useState(null);
+const [images, setImages] = useState([]);
 const [freeZip, setFreeZip] = useState(null);
 const [proZip, setProZip] = useState(null);
 const [figmaFile, setFigmaFile] = useState(null);
 const [loading, setLoading] = useState(false);
-const [progress, setProgress] = useState({ thumbnail: 0, free: 0, pro: 0, figma: 0 });
   const [discountedPrice, setDiscountedPrice] = useState(0);
   
-  
+  const [progress, setProgress] = useState({
+    thumbnail: 0,
+    images: 0,
+    free: 0,
+    pro: 0,
+    figma: 0
+  });
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setForm({
@@ -183,59 +195,84 @@ const [progress, setProgress] = useState({ thumbnail: 0, free: 0, pro: 0, figma:
   }, [form.price, form.discount]);
 
   const handleTemplateUpload = async () => {
-    if (!form.title || !form.description || !thumbnail) return alert("Fill required fields and upload thumbnail.");
+    if (!form.title || !form.description || !thumbnail)
+      return alert("Fill required fields and upload thumbnail.");
   
     setLoading(true);
   
+    const slug = createSlug(form.title);
+  
+    // Reset progress
+    setProgress({ thumbnail: 0, free: 0, pro: 0, figma: 0, images: 0 });
+  
     try {
-      // 1️⃣ Upload thumbnail
-      const thumbRef = ref(storage, `thumbnails/${Date.now()}_${thumbnail.name}`);
-      const thumbSnap = await uploadBytesResumable(thumbRef, thumbnail);
-      const thumbnailUrl = await getDownloadURL(thumbSnap.ref);
+      // ------------------- Helper: Upload file to R2 with progress -------------------
+      const uploadToR2WithProgress = (file, type) =>
+        new Promise(async (resolve, reject) => {
+          try {
+            const res = await fetch("http://localhost:5000/get-signed-url", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ fileName: file.name, contentType: file.type, slug }),
+            });
+            const data = await res.json();
   
-      // 2️⃣ Helper to upload a zip/file
-      const uploadFile = async (file, type) => {
-        if (!file) return null;
-        const fileRef = ref(storage, `templateFiles/${type}_${Date.now()}_${file.name}`);
-        const uploadTask = uploadBytesResumable(fileRef, file);
+            const xhr = new XMLHttpRequest();
+            xhr.open("PUT", data.signedUrl);
+            xhr.setRequestHeader("Content-Type", file.type);
   
-        return new Promise((resolve, reject) => {
-          uploadTask.on(
-            "state_changed",
-            (snapshot) => {
-              const prog = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-              setProgress((prev) => ({ ...prev, [type]: prog.toFixed(0) }));
-            },
-            reject,
-            async () => {
-              const url = await getDownloadURL(uploadTask.snapshot.ref);
-              resolve(url);
-            }
-          );
+            xhr.upload.onprogress = (event) => {
+              if (event.lengthComputable) {
+                const prog = Math.round((event.loaded / event.total) * 100);
+                setProgress((prev) => ({ ...prev, [type]: prog }));
+              }
+            };
+  
+            xhr.onload = () => resolve(data.publicUrl);
+            xhr.onerror = () => reject("Upload failed");
+  
+            xhr.send(file);
+          } catch (err) {
+            reject(err);
+          }
         });
-      };
   
-      // 3️⃣ Upload versions separately
-      const freeUrl = await uploadFile(freeZip, "free");
-      const proUrl = await uploadFile(proZip, "pro");
-      const figmaUrl = await uploadFile(figmaFile, "figma");
+      // ------------------- Upload thumbnail -------------------
+      const thumbnailUrl = await uploadToR2WithProgress(thumbnail, "thumbnail");
   
-      // 4️⃣ Build Firestore object
-      const slug = createSlug(form.title);
+      // ------------------- Upload additional images -------------------
+      const imageUrls = [];
+      for (let i = 0; i < images.length; i++) {
+        const imgUrl = await uploadToR2WithProgress(images[i], `images-${i}`);
+        imageUrls.push(imgUrl);
+      }
+  
+      // ------------------- Upload versions -------------------
+      const freeUrl = freeZip ? await uploadToR2WithProgress(freeZip, "free") : null;
+      const proUrl = proZip ? await uploadToR2WithProgress(proZip, "pro") : null;
+      const figmaUrl = figmaFile ? await uploadToR2WithProgress(figmaFile, "figma") : null;
+  
+      // ------------------- Build Firestore object -------------------
       const templateData = {
         title: form.title,
+        usecaseIntro: form.usecaseIntro,
         description: form.description,
-        usage: form.usage,
+        useCases: form.useCases,
         category: form.category,
         techStacks: form.techStacks.split(",").map((t) => t.trim()),
         previewUrl: form.previewUrl,
         thumbnail: thumbnailUrl,
-        tags: form.tags.split(",").map((t) => t.trim()),
-        platformSupport: form.platformSupport.split(",").map((p) => p.trim()),
+        images: imageUrls,
+        tags: form.tags.split(",").map((t) => t.trim()).filter(Boolean),
+        platformSupport: typeof form.platformSupport === "string"
+        ? form.platformSupport.split(",").map((p) => p.trim())
+        : form.platformSupport,        
         license: form.license,
         featured: form.featured,
+        pages: form.pages,
         creatorName: form.creatorName,
         downloadsCount: 0,
+        isFree: form.isFree,
         slug,
         createdAt: serverTimestamp(),
         versions: {
@@ -245,8 +282,8 @@ const [progress, setProgress] = useState({ thumbnail: 0, free: 0, pro: 0, figma:
             downloadUrl: freeUrl,
             price: 0,
             features: form.versions.free.features
-              ? form.versions.free.features.split(",").map(f => f.trim())
-              : []
+              ? form.versions.free.features.split(",").map((f) => f.trim())
+              : [],
           },
           pro: {
             label: form.versions.pro.label,
@@ -254,8 +291,8 @@ const [progress, setProgress] = useState({ thumbnail: 0, free: 0, pro: 0, figma:
             downloadUrl: proUrl,
             price: proUrl ? parseFloat(form.versions.pro.price) : 0,
             features: form.versions.pro.features
-              ? form.versions.pro.features.split(",").map(f => f.trim())
-              : []
+              ? form.versions.pro.features.split(",").map((f) => f.trim())
+              : [],
           },
           figma: {
             label: form.versions.figma.label,
@@ -263,31 +300,52 @@ const [progress, setProgress] = useState({ thumbnail: 0, free: 0, pro: 0, figma:
             downloadUrl: figmaUrl,
             price: figmaUrl ? parseFloat(form.versions.figma.price) : 0,
             features: form.versions.figma.features
-              ? form.versions.figma.features.split(",").map(f => f.trim())
-              : []
-          }
+              ? form.versions.figma.features.split(",").map((f) => f.trim())
+              : [],
+          },
         },
         bundle: {
           available: form.bundle.available,
           price: parseFloat(form.bundle.price) || 0,
-          files: ["pro", "figma"] // only paid files
-        }
+          files: ["pro", "figma"],
+        },
       };
   
       await addDoc(collection(db, "templates"), templateData);
+  
       alert("Template uploaded successfully!");
   
-      // Reset form & files
-      setForm({ ...form, title: "", description: "", techStacks: "", previewUrl: "", tags: "", platformSupport: "", featured: false });
+      // ------------------- Reset form -------------------
+      setForm({
+        title: "",
+        description: "",
+        usecaseIntro: "",
+        useCases: "",
+        category: "",
+        techStacks: "",
+        previewUrl: "",
+        tags: "",
+        platformSupport: "",
+        license: "",
+        featured: false,
+        pages: "",
+        creatorName: "",
+        versions: {
+          free: { label: "", features: "" },
+          pro: { label: "", features: "", price: "" },
+          figma: { label: "", features: "", price: "" },
+        },
+        bundle: { available: false, price: 0 },
+      });
       setThumbnail(null);
+      setImages([]);
       setFreeZip(null);
       setProZip(null);
       setFigmaFile(null);
-      setProgress({ thumbnail: 0, free: 0, pro: 0, figma: 0 });
-  
+      setProgress({});
     } catch (err) {
       console.error(err);
-      alert("Upload failed");
+      alert("Upload failed: " + err);
     } finally {
       setLoading(false);
     }
@@ -631,22 +689,37 @@ const [progress, setProgress] = useState({ thumbnail: 0, free: 0, pro: 0, figma:
             value={form.description}
             onChange={handleChange}
             placeholder="Template description"
-            className="input h-28"
+            className="input h-48"
           />
       
+        
+        </section>
+
+        {/* ========== USE CASES ========== */}
+        <section className="space-y-4">
+          <h3 className="font-semibold text-gray-700">Use Cases</h3>
+
           <input
-            name="usage"
-            value={form.usage}
+            name="usecaseIntro"
+            value={form.usecaseIntro}
             onChange={handleChange}
-            placeholder="Use case (Landing page, Dashboard, Store...)"
+            placeholder="UseCases paragraph"
             className="input"
+          />
+
+          <textarea
+            name="useCases"
+            value={form.useCases}
+            onChange={handleChange}
+            placeholder="Restaurants, food delivery startups, cafes, food trucks..."
+            className="input h-28"
           />
         </section>
       
       
         {/* ========== CATEGORY / TECH ========== */}
         <section className="space-y-4">
-          <h3 className="font-semibold text-gray-700">Category</h3>
+          <h3 className="font-semibold text-gray-700">Category & Technologies</h3>
       
           <div className="grid grid-cols-2 gap-4">
             <select name="category" value={form.category} onChange={handleChange} className="input">
@@ -678,7 +751,7 @@ const [progress, setProgress] = useState({ thumbnail: 0, free: 0, pro: 0, figma:
           <h3 className="font-semibold text-gray-700 mb-3">Platform Support</h3>
       
           <div className="flex flex-wrap gap-4">
-            {["Figma","React","Bubble","HTML","Flutterflow"].map(p => (
+            {["Web","Desktop","Table","Mobile"].map(p => (
               <label key={p} className="flex items-center gap-2">
                 <input
                   type="checkbox"
@@ -689,6 +762,19 @@ const [progress, setProgress] = useState({ thumbnail: 0, free: 0, pro: 0, figma:
               </label>
             ))}
           </div>
+        </section>
+
+        {/* ========== PAGES INCLUDED ========== */}
+        <section className="space-y-4">
+          <h3 className="font-semibold text-gray-700">Pages Included</h3>
+
+          <textarea
+            name="pages"
+            value={form.pages}
+            onChange={handleChange}
+            placeholder="Homepage, Menu, Cart, Contact page..."
+            className="input h-20"
+          />
         </section>
       
       
@@ -712,7 +798,7 @@ const [progress, setProgress] = useState({ thumbnail: 0, free: 0, pro: 0, figma:
 
             {form.versions.free.available && (
               <textarea
-                placeholder="Free Features (comma separated)"
+                placeholder="Free Key Features (comma separated)"
                 value={form.versions.free.features}
                 onChange={(e) =>
                   setForm({
@@ -849,20 +935,20 @@ const [progress, setProgress] = useState({ thumbnail: 0, free: 0, pro: 0, figma:
         {/* ========== TAGS (checkbox style) ========== */}
         <section>
           <h3 className="font-semibold text-gray-700 mb-3">Tags</h3>
-      
-          <div className="flex flex-wrap gap-4">
-            {["ui/ux","dashboard","store","landing","admin","portfolio"].map(tag => (
-              <label key={tag} className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  value={tag}
-                  onChange={(e) => handleArrayChange(e, "tags")}
-                />
-                {tag}
-              </label>
-            ))}
-          </div>
-        </section>
+
+            <textarea
+              type="text"
+              name="tags"
+              value={form.tags}
+              onChange={handleChange}
+              placeholder="react template, restaurant website, food ordering template, tailwind css"
+              className="input w-full h-48"
+            />
+
+            <p className="text-xs text-gray-500 mt-2">
+              Separate tags with commas.
+            </p>
+          </section>
       
       
         {/* ========== LINKS ========== */}
@@ -886,6 +972,14 @@ const [progress, setProgress] = useState({ thumbnail: 0, free: 0, pro: 0, figma:
 
           <p>Thumbnail</p>
           <input type="file" accept="image/*" onChange={(e) => setThumbnail(e.target.files[0])} />
+
+          <p>Preview Images</p>
+          <input
+            type="file"
+            accept="image/*"
+            multiple
+            onChange={(e) => setImages([...e.target.files])}
+          />
 
           <p>Free Version (optional)</p>
           <input type="file" accept=".zip" onChange={(e) => setFreeZip(e.target.files[0])} />
@@ -913,7 +1007,75 @@ const [progress, setProgress] = useState({ thumbnail: 0, free: 0, pro: 0, figma:
   )}
 </section>
       
-      
+  {/* ================== UPLOAD PROGRESS ================== */}
+  <div className="mt-6 space-y-4">
+    <h3 className="font-semibold text-lg">Upload Progress</h3>
+
+    {/* Thumbnail */}
+    {progress.thumbnail >= 0 && (
+      <div>
+        <p className="text-sm">Thumbnail: {progress.thumbnail}%</p>
+        <div className="w-full bg-gray-700 rounded h-2">
+          <div
+            className="bg-green-500 h-2 rounded"
+            style={{ width: `${progress.thumbnail}%` }}
+          />
+        </div>
+      </div>
+    )}
+
+    {/* Images */}
+    {images.map((img, i) => progress[`images-${i}`] >= 0 && (
+      <div key={i}>
+        <p className="text-sm">Image {i + 1}: {progress[`images-${i}`]}%</p>
+        <div className="w-full bg-gray-700 rounded h-2">
+          <div
+            className="bg-blue-500 h-2 rounded"
+            style={{ width: `${progress[`images-${i}`]}%` }}
+          />
+        </div>
+      </div>
+    ))}
+
+    {/* Free version */}
+    {progress.free >= 0 && (
+      <div>
+        <p className="text-sm">Free Version: {progress.free}%</p>
+        <div className="w-full bg-gray-700 rounded h-2">
+          <div
+            className="bg-yellow-500 h-2 rounded"
+            style={{ width: `${progress.free}%` }}
+          />
+        </div>
+      </div>
+    )}
+
+    {/* Pro version */}
+    {progress.pro >= 0 && (
+      <div>
+        <p className="text-sm">Pro Version: {progress.pro}%</p>
+        <div className="w-full bg-gray-700 rounded h-2">
+          <div
+            className="bg-red-500 h-2 rounded"
+            style={{ width: `${progress.pro}%` }}
+          />
+        </div>
+      </div>
+    )}
+
+    {/* Figma version */}
+    {progress.figma >= 0 && (
+      <div>
+        <p className="text-sm">Figma Version: {progress.figma}%</p>
+        <div className="w-full bg-gray-700 rounded h-2">
+          <div
+            className="bg-purple-500 h-2 rounded"
+            style={{ width: `${progress.figma}%` }}
+          />
+        </div>
+      </div>
+    )}
+  </div>
         <button
           onClick={handleTemplateUpload}
           className="w-full bg-black text-white py-3 rounded-xl hover:opacity-90"

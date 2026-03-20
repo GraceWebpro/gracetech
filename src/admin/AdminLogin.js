@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { doc, getDoc, getFirestore } from "firebase/firestore";
 import "./Admin.css";
+import styles from '../new-ui/NewHome.module.css'
+import BrandLogo from '../assets/brand-logo.png'
 
 function AdminLogin() {
   const [email, setEmail] = useState("");
@@ -39,9 +41,8 @@ function AdminLogin() {
   };
 
   return (
-    <div style={{ padding: '20px'}} className="w-full max-w-md bg-[#1c142f] rounded-2xl shadow-2xl flex flex-col items-center font-urbanist">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-[#151022] px-4 py-4">
 
-      <div className="min-h-screen flex flex-col items-center justify-center bg-[#151022] px-4 py-4">
       
       {/* Top brand header */}
       <div className="mb-12 flex items-center justify-center w-full">
@@ -49,13 +50,14 @@ function AdminLogin() {
           className={styles['logo-wrapper']}
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         >
-          <Code className="w-6 h-6 text-primary" style={{ marginLeft: '20px'}} />
+          <img src={BrandLogo} alt="brand-logo" className="w-6 h-6 text-primary" style={{ marginLeft: '20px'}} />
           <Link to='/'><span className={styles.logo}>GraceTech</span></Link>
         </div>
       </div>
 
       {/* Login card */}
-        
+      <div style={{ padding: '20px'}} className="w-full max-w-md bg-[#1c142f] rounded-2xl shadow-2xl flex flex-col items-center font-urbanist">
+
         <h2 className="text-white text-2xl font-semibold mb-6">Admin Login</h2>
 
         <input
