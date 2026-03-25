@@ -1,33 +1,30 @@
-// r2Upload.js
-
-const API_URL = import.meta.env.VITE_API_URL;
-
-/**
- * Upload a file to Cloudflare R2 using signed URL
- * @param {File} file
- * @param {string} slug
- * @param {(progress: number) => void} [onProgress]
- * @returns {Promise<string>} public URL
- */
-export const uploadToR2 = async (file, slug, onProgress) => {
-  if (!file) throw new Error("File is required");
-  if (!slug) throw new Error("Slug is required");
+export const uploadToR2 = async (file, fileName, onProgress) => {
+  if (!file) throw new Error("No file provided");
 
   try {
-    // ------------------- 1️⃣ Get signed URL -------------------
-    const res = await fetch(`${API_URL}/get-signed-url`, {
+    // ------------------- 1️⃣ Get Signed URL from YOUR EXPRESS SERVER -------------------
+    const res = await fetch("http://localhost:5000/get-signed-url", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        fileName: file.name,
+        fileName: fileName,
         contentType: file.type || "application/octet-stream",
-        slug,
+        slug: "uploads", // you can pass dynamic slug if needed
       }),
     });
 
-    const data = await res.json();
+    // 👇 Handle non-JSON errors properly
+    const text = await res.text();
+    let data;
+
+    try {
+      data = JSON.parse(text);
+    } catch (err) {
+      console.error("❌ RAW RESPONSE:", text);
+      throw new Error("Server did not return valid JSON");
+    }
 
     if (!res.ok) {
       throw new Error(data.error || "Failed to get signed URL");
@@ -37,25 +34,26 @@ export const uploadToR2 = async (file, slug, onProgress) => {
       throw new Error("Invalid response from server");
     }
 
-    // ------------------- 2️⃣ Upload file -------------------
+    // ------------------- 2️⃣ Upload file directly to R2 -------------------
     return await new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
 
       xhr.open("PUT", data.signedUrl);
+
       xhr.setRequestHeader(
         "Content-Type",
         file.type || "application/octet-stream"
       );
 
       // ✅ Progress tracking
-      xhr.upload.onprogress = (event) => {
-        if (event.lengthComputable && onProgress) {
-          const percent = Math.round((event.loaded / event.total) * 100);
+      xhr.upload.onprogress = (e) => {
+        if (e.lengthComputable && onProgress) {
+          const percent = Math.round((e.loaded / e.total) * 100);
           onProgress(percent);
         }
       };
 
-      // ✅ Success / failure handling
+      // ✅ Success
       xhr.onload = () => {
         if (xhr.status === 200 || xhr.status === 204) {
           resolve(data.publicUrl);
@@ -66,14 +64,23 @@ export const uploadToR2 = async (file, slug, onProgress) => {
         }
       };
 
+      // ❌ Network error
       xhr.onerror = () => {
         reject(new Error("Network error during upload"));
       };
 
+      // ❌ Timeout
+      xhr.ontimeout = () => {
+        reject(new Error("Upload timed out"));
+      };
+
+      xhr.timeout = 1000 * 60 * 5;
+
       xhr.send(file);
     });
+
   } catch (error) {
-    console.error("R2 UPLOAD ERROR:", error);
+    console.error("❌ R2 UPLOAD ERROR:", error);
     throw error;
   }
 };

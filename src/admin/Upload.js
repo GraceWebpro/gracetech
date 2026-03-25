@@ -194,105 +194,141 @@ const [loading, setLoading] = useState(false);
   }, [form.price, form.discount]);
 
   const handleTemplateUpload = async () => {
-    if (!form.title || !form.description || !thumbnail)
-      return alert("Fill required fields and upload thumbnail.");
+    if (!form.title || !form.description || !thumbnail) {
+      alert("Fill required fields and upload thumbnail.");
+      return;
+    }
   
     setLoading(true);
   
     const slug = createSlug(form.title);
   
-    // Reset progress
-    setProgress({ thumbnail: 0, free: 0, pro: 0, figma: 0, images: 0 });
+    setProgress({
+      thumbnail: 0,
+      free: 0,
+      pro: 0,
+      figma: 0,
+      images: {},
+    });
   
     try {
-      // ------------------- Helper: Upload file to R2 with progress -------------------
-      
+      // ------------------- Helper to preserve extension -------------------
+      const getFileName = (file, label) => {
+        const ext = file.name.split(".").pop(); // 👈 get extension
+        return `${slug}-${label}.${ext}`;
+      };
   
       // ------------------- Upload thumbnail -------------------
-      const thumbnailUrl = await uploadToR2(thumbnail, slug, (p) =>
-      setProgress((prev) => ({ ...prev, thumbnail: p }))
-      );  
-      // ------------------- Upload additional images -------------------
-      const imageUrls = [];
-      for (let i = 0; i < images.length; i++) {
-        const imgUrl = await uploadToR2(images[i], `images-${i}`);
-        imageUrls.push(imgUrl);
-      }
+      const thumbnailUrl = await uploadToR2(
+        thumbnail,
+        getFileName(thumbnail, "thumbnail"),
+        (p) => setProgress((prev) => ({ ...prev, thumbnail: p }))
+      );
+  
+      // ------------------- Upload images -------------------
+      const imageUrls = await Promise.all(
+        (images || []).map((img, i) =>
+          uploadToR2(
+            img,
+            getFileName(img, `image-${i}`),
+            (p) =>
+              setProgress((prev) => ({
+                ...prev,
+                images: { ...prev.images, [i]: p },
+              }))
+          )
+        )
+      );
   
       // ------------------- Upload versions -------------------
       const freeUrl = freeZip
-      ? await uploadToR2(freeZip, slug, (p) =>
-          setProgress((prev) => ({ ...prev, free: p }))
-        )
-      : null;
-
-    const proUrl = proZip
-      ? await uploadToR2(proZip, slug, (p) =>
-          setProgress((prev) => ({ ...prev, pro: p }))
-        )
-      : null;
-
-    const figmaUrl = figmaFile
-      ? await uploadToR2(figmaFile, slug, (p) =>
-          setProgress((prev) => ({ ...prev, figma: p }))
-        )
-      : null;
-
-      // ------------------- Build Firestore object -------------------
+        ? await uploadToR2(
+            freeZip,
+            getFileName(freeZip, "free"),
+            (p) => setProgress((prev) => ({ ...prev, free: p }))
+          )
+        : null;
+  
+      const proUrl = proZip
+        ? await uploadToR2(
+            proZip,
+            getFileName(proZip, "pro"),
+            (p) => setProgress((prev) => ({ ...prev, pro: p }))
+          )
+        : null;
+  
+      const figmaUrl = figmaFile
+        ? await uploadToR2(
+            figmaFile,
+            getFileName(figmaFile, "figma"),
+            (p) => setProgress((prev) => ({ ...prev, figma: p }))
+          )
+        : null;
+  
+      // ------------------- Firestore -------------------
       const templateData = {
         title: form.title,
-        usecaseIntro: form.usecaseIntro,
+        usecaseIntro: form.usecaseIntro || "",
         description: form.description,
-        useCases: form.useCases,
-        category: form.category,
-        techStacks: form.techStacks.split(",").map((t) => t.trim()),
-        previewUrl: form.previewUrl,
+        useCases: form.useCases || "",
+        category: form.category || "",
+        techStacks: form.techStacks
+          ? form.techStacks.split(",").map((t) => t.trim())
+          : [],
+        previewUrl: form.previewUrl || "",
         thumbnail: thumbnailUrl,
         images: imageUrls,
-        tags: form.tags.split(",").map((t) => t.trim()).filter(Boolean),
-        platformSupport: typeof form.platformSupport === "string"
-        ? form.platformSupport.split(",").map((p) => p.trim())
-        : form.platformSupport,        
-        license: form.license,
-        featured: form.featured,
-        pages: form.pages,
-        creatorName: form.creatorName,
+        tags: form.tags
+          ? form.tags.split(",").map((t) => t.trim()).filter(Boolean)
+          : [],
+        platformSupport:
+          typeof form.platformSupport === "string"
+            ? form.platformSupport.split(",").map((p) => p.trim())
+            : form.platformSupport || [],
+        license: form.license || "",
+        featured: !!form.featured,
+        pages: form.pages || "",
+        creatorName: form.creatorName || "",
         downloadsCount: 0,
-        isFree: form.isFree,
+        isFree: !!form.isFree,
         slug,
         createdAt: serverTimestamp(),
+  
         versions: {
           free: {
-            label: form.versions.free.label,
+            label: form.versions?.free?.label || "",
             available: !!freeUrl,
             downloadUrl: freeUrl,
             price: 0,
-            features: form.versions.free.features
+            features: form.versions?.free?.features
               ? form.versions.free.features.split(",").map((f) => f.trim())
               : [],
           },
           pro: {
-            label: form.versions.pro.label,
+            label: form.versions?.pro?.label || "",
             available: !!proUrl,
             downloadUrl: proUrl,
-            price: proUrl ? parseFloat(form.versions.pro.price) : 0,
-            features: form.versions.pro.features
+            price: proUrl ? parseFloat(form.versions.pro.price) || 0 : 0,
+            features: form.versions?.pro?.features
               ? form.versions.pro.features.split(",").map((f) => f.trim())
               : [],
           },
           figma: {
-            label: form.versions.figma.label,
+            label: form.versions?.figma?.label || "",
             available: !!figmaUrl,
             downloadUrl: figmaUrl,
-            price: figmaUrl ? parseFloat(form.versions.figma.price) : 0,
-            features: form.versions.figma.features
+            price: figmaUrl
+              ? parseFloat(form.versions.figma.price) || 0
+              : 0,
+            features: form.versions?.figma?.features
               ? form.versions.figma.features.split(",").map((f) => f.trim())
               : [],
           },
         },
+  
         bundle: {
-          available: form.bundle.available,
-          price: parseFloat(form.bundle.price) || 0,
+          available: !!form.bundle?.available,
+          price: parseFloat(form.bundle?.price) || 0,
           files: ["pro", "figma"],
         },
       };
@@ -301,7 +337,7 @@ const [loading, setLoading] = useState(false);
   
       alert("Template uploaded successfully!");
   
-      // ------------------- Reset form -------------------
+      // reset...
       setForm({
         title: "",
         description: "",
@@ -323,6 +359,7 @@ const [loading, setLoading] = useState(false);
         },
         bundle: { available: false, price: 0 },
       });
+  
       setThumbnail(null);
       setImages([]);
       setFreeZip(null);
@@ -330,8 +367,8 @@ const [loading, setLoading] = useState(false);
       setFigmaFile(null);
       setProgress({});
     } catch (err) {
-      console.error(err);
-      alert("Upload failed: " + err);
+      console.error("UPLOAD ERROR:", err);
+      alert("Upload failed: " + err.message);
     } finally {
       setLoading(false);
     }
@@ -737,7 +774,7 @@ const [loading, setLoading] = useState(false);
           <h3 className="font-semibold text-gray-700 mb-3">Platform Support</h3>
       
           <div className="flex flex-wrap gap-4">
-            {["Web","Desktop","Table","Mobile"].map(p => (
+            {["Web","Desktop","Tablet","Mobile"].map(p => (
               <label key={p} className="flex items-center gap-2">
                 <input
                   type="checkbox"

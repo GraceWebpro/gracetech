@@ -29,7 +29,7 @@ const About = () => {
             <div className='grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-20'>
                 {/* left column content */}
                 <div className='flex flex-col gap-12 items-start'>
-                    <div className='flex flex-col gap-8'>
+                    <div className='flex flex-col gap-2'>
                         <FadeIn delay={60}>
                             <div className='inline-flex self-start items-center gap-2.5 px-5 py-2.5 border border-primary/30 bg-primary/10 rounded-full'>
                                 <Box className='w-4 h-4 text-primary' />
@@ -55,7 +55,7 @@ const About = () => {
                     </div>
 
                     <FadeIn delay={300}>
-                        <div className="grid grid-cols-3 gap-8">
+                        <div className="grid grid-cols-3 gap-8 mt-[-30px]">
                             {ABOUT_STATS.map((stat, index) => (
                                 <div key={index} className="relative pl-4" >
                                     <div className="absolute -left-4 top-0 w-1 h-full bg-gradient-to-b from-primary via-primary/50 to-primary/20 rounded-full"></div>

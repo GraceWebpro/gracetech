@@ -1,7 +1,10 @@
 // utils/currency.js
-export const USD_TO_NGN = 1550;
+export const formatNairaFromUSD = (usd) => {
+  const rate = 1600; // your conversion rate
 
+  const amount = Number(usd);
 
-export const formatNairaFromUSD = (priceUSD) => {
-  return `₦${(priceUSD * USD_TO_NGN).toLocaleString()}`;
+  if (!amount || isNaN(amount)) return "₦0";
+
+  return `₦${(amount * rate).toLocaleString()}`;
 };

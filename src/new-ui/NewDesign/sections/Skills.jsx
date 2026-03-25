@@ -65,7 +65,7 @@ const Skills = () => {
                 <h2 className="text-4xl lg:text-5xl font-normal text-white mb-4 text">
                     Skills, Tools & Systems
                 </h2>
-                <p className="text-lg text-white/60 max-w-2xl mx-auto">
+                <p className="text-lg text-white/60 text-center max-w-2xl mx-auto">
                  The tools and systems used to design, build, and ship clear, scalable digital products.
                 </p>
             </div>

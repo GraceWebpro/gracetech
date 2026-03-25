@@ -29,7 +29,10 @@ const TemplateDetails = () => {
   const [preview, setPreview] = useState(null);
   const { currentUser: user, loading } = useAuth();
   const [showModal, setShowModal] = useState(false);
-
+  const [showPayment, setShowPayment] = useState(false);
+  
+  const [selectedVersion, setSelectedVersion] = useState(null);
+  const [selectedPrice, setSelectedPrice] = useState(0);
   
   /* ================= FETCH TEMPLATE ================= */
   useEffect(() => {
@@ -163,6 +166,8 @@ const TemplateDetails = () => {
     alert(`Payment successful! Your ${versionKey} download should start now.`);
   };
 
+  
+
 
   const handleFreeDownload = async () => {
     const freeVersion = template.versions.free;
@@ -191,7 +196,7 @@ const TemplateDetails = () => {
     document.body.removeChild(link);
   };
   
-
+ 
   
   if (!template)
     return <div className="p-20 text-center text-white">Loading...</div>;
@@ -217,9 +222,10 @@ const TemplateDetails = () => {
     const hasFigma = template.versions.figma?.available;
     const hasBundle = template.versions.bundle?.available;
     
-    const proPrice = template.versions.pro?.priceUSD || 0;
-    const figmaPrice = template.versions.figma?.priceUSD || 0;
-    const bundlePrice = template.versions.bundle?.priceUSD || 0; 
+  
+    const proPrice = Number(template?.versions?.pro?.price) || 0;
+const figmaPrice = Number(template?.versions?.figma?.price) || 0;
+const bundlePrice = Number(template?.bundle?.price) || 0;
 
     const parseFeatures = (features) => {
       if (!features) return [];
@@ -227,7 +233,31 @@ const TemplateDetails = () => {
     
       return features.split(",").map((f) => f.trim());
     };
+
+    const displayPrice =
+      selectedPrice > 0
+        ? selectedPrice
+        : hasBundle
+        ? bundlePrice
+        : hasPro
+        ? proPrice
+        : hasFigma
+        ? figmaPrice
+        : 0;
+
+    const handleSelectVersion = (key) => {
+      const version = versions[key];
     
+      if (!version) return;
+    
+      setSelectedVersion(key);
+      setSelectedPrice(Number(version.price || 0));
+    };
+    
+    const whatsappLink = `https://wa.me/2347043421913?text=${encodeURIComponent(
+      `Hi, I want to buy ${template?.title} - ${selectedVersion?.toUpperCase()} version for $${selectedPrice}`
+    )}`;
+
   return (
     <div className="bg-[#0b0b0b] text-white min-h-screen">
 
@@ -242,7 +272,7 @@ const TemplateDetails = () => {
               src={galleryImages[currentImg]}
               alt={template.title}
               className="w-full h-[300px]
-              rounded-3xl
+              rounded-xl
               shadow-2xl
               sm:h-[380px]
               md:h-[450px]
@@ -297,7 +327,7 @@ const TemplateDetails = () => {
 
 
           <div className="space-y-6 mt-10">
-            <h2 className="text-2xl font-semibold">About this template</h2>
+            <h2 className="text-2xl text-white font-semibold">About this template</h2>
             <p className="text-white/70 leading-relaxed">
               {template.description}
             </p>
@@ -348,129 +378,77 @@ const TemplateDetails = () => {
               </div>
             )}
 
-            {hasFree && (
-              <div className="border rounded-xl p-6 space-y-4">
-                <h3 className="text-lg font-semibold">
-                  {free.label}
-                </h3>
+<div
+  key={key}
+  onClick={() => handleSelectVersion(key)}
+  className={`
+    relative cursor-pointer rounded-2xl p-6 space-y-4 transition-all duration-300
 
-                <p className="text-2xl font-bold">
-                  Free
-                </p>
+    border
+    ${
+      selectedVersion === key
+        ? "border-primary bg-white/[0.03] scale-[1.03] shadow-[0_0_30px_rgba(125,82,253,0.25)]"
+        : "border-white/10 hover:border-white/30"
+    }
+  `}
+>             {Object.entries(versions).map(([key, version]) => {
+                if (!version?.available) return null;
 
-                <ul className="space-y-2">
-                {parseFeatures(free.features).map((feature, index) => (                    <li key={index} className="text-sm text-gray-600">
-                      ✔ {feature}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
+                const features = Array.isArray(version.features)
+                  ? version.features
+                  : version.features?.split(",") || [];
 
-            {hasPro && (
-              <div className="border rounded-xl p-6 space-y-4">
-                <h3 className="text-lg font-semibold">
-                  {pro.label}
-                </h3>
+                return (
+                  <div
+                    key={key}
+                    className="border border-white/10 bg-[#161616] rounded-2xl p-6 space-y-4"
+                  >
+                    {/* Title */}
+                    <h3 className="text-lg font-semibold text-white">
+                      {version.label || key}
+                    </h3>
 
-                <p className="text-2xl font-bold">
-                  ${pro.price}
-                </p>
-
-                <span className="bg-primary text-black text-xs px-2 py-1 rounded">
-  Most Popular
-</span>
-
-                <ul className="space-y-2">
-                {parseFeatures(pro.features).map((feature, index) => (                    <li key={index} className="text-sm text-gray-600">
-                      ✔ {feature}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-
-            {Object.entries(versions).map(([key, version]) => {
-              if (!version.available) return null;
-
-              return (
-                <div key={key} className="border rounded-xl p-6 space-y-4">
-                  <h3 className="text-lg font-semibold">
-                    {version.label}
-                  </h3>
-
-                  <p className="text-2xl font-bold">
-                    {version.price === 0 ? "Free" : `$${version.price}`}
-                  </p>
-
-                  <ul className="space-y-2">
-                  {(Array.isArray(version.features)
-  ? version.features
-  : version.features?.split(",")
-)?.map((feature, index) => (
-                      <li key={index} className="text-sm text-gray-600">
-                        ✔ {feature}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              );
-            })}
-
-            <div className="grid md:grid-cols-3 gap-6">
-              {Object.entries(versions).map(([key, version]) =>
-                version.available && (
-                  <div key={key} className="border rounded-xl p-6">
-                    <h3 className="font-bold">{version.label}</h3>
-                    <p className="text-xl">
-                      {version.price === 0 ? "Free" : `$${version.price}`}
+                    {/* Price */}
+                    <p className="text-2xl font-bold text-primary">
+                      {version.price === 0
+                        ? "Free"
+                        : `$${Number(version.price || 0)}`}
                     </p>
 
-                    <ul className="mt-4 space-y-2">
-                    {(Array.isArray(version.features)
-                        ? version.features
-                        : version.features?.split(",")
-                      )?.map((feature, i) => (
-                        <li key={i}>✔ {feature}</li>
+                    {/* Badge (optional) */}
+                    {key === "pro" && (
+                      <span className="inline-block bg-primary text-black text-xs px-2 py-1 rounded">
+                        Most Popular
+                      </span>
+                    )}
+
+                    {/* Features */}
+                    <ul className="space-y-2">
+                      {features.map((feature, index) => (
+                        <li key={index} className="text-sm text-white/70">
+                          ✔ {feature}
+                        </li>
                       ))}
                     </ul>
 
-                    <button className="mt-4 w-full bg-black text-white py-2 rounded-lg">
+                    {/* Button */}
+                    <button
+                      onClick={() => {
+                        if (version.price === 0) {
+                          handleFreeDownload();
+                        } else {
+                          handleSelectVersion(key);
+                        }
+                      }}
+                      className="mt-4 w-full bg-white text-black py-2 rounded-lg font-medium hover:opacity-90 transition"
+                    >
                       {version.price === 0 ? "Download Free" : "Buy Now"}
                     </button>
                   </div>
-                )
-              )}
-
-              {backendInfo && (
-                <div className="mt-12 border rounded-2xl p-6 bg-gray-50">
-                  <h3 className="text-xl font-bold">
-                    Need Backend Integration?
-                  </h3>
-
-                  <p className="mt-2 text-gray-600">
-                    Starting from ${backendInfo.startingPrice}
-                  </p>
-
-                  <ul className="mt-4 space-y-2">
-                    {backendInfo.features.map((feature, index) => (
-                      <li key={index}>✔ {feature}</li>
-                    ))}
-                  </ul>
-
-                  <button onClick={() => setShowModal(true)} className="mt-6 bg-black text-white px-6 py-3 rounded-xl">
-                    Request Backend Setup
-                  </button>
-                </div>
-              )}
-
-              <BackendRequestModal
-                  isOpen={showModal}
-                  onClose={() => setShowModal(false)}
-                  template={template}
-                />
+                );
+              })}
             </div>
-            </div>
+          </div>
         </div>
 
         {/* ================= RIGHT – BUY CARD ================= */}
@@ -486,7 +464,9 @@ const TemplateDetails = () => {
               </div>
             ) : (
               <div className="text-3xl font-extrabold text-primary">
-                {formatNairaFromUSD(template.priceUSD)}
+                {displayPrice === 0
+                  ? "Free"
+                  : formatNairaFromUSD(displayPrice)}
               </div>
 
               
@@ -496,28 +476,11 @@ const TemplateDetails = () => {
               {template.downloadsCount || 0} total downloads
             </div>
 
-           {/* PRICE / VERSIONS */}
-          <div className="space-y-2 mt-4">
-            {hasFree && <div className="text-green-400 font-bold">Free</div>}
-            {hasFigma && (
-              <div className="text-white/80">
-                Figma: ${figmaPrice} ({formatNairaFromUSD(figmaPrice)})
-              </div>
-            )}
-            {hasPro && (
-              <div className="text-white/80">
-                Pro: ${proPrice} ({formatNairaFromUSD(proPrice)})
-              </div>
-            )}
-            {hasBundle && (
-              <div className="text-white/80 font-semibold">
-                Complete: ${bundlePrice} ({formatNairaFromUSD(bundlePrice)})
-              </div>
-            )}
-          </div>
+         
 
 
             {/* ACTION AREA */}
+           {/* ACTION AREA */}
             {hasFree ? (
               <button
                 onClick={handleFreeDownload}
@@ -526,12 +489,60 @@ const TemplateDetails = () => {
                 Download Free
               </button>
             ) : (
-              <PayPalPayment
-                amount={template?.priceUSD}
-                template={template}
-                user={user}
-                onSuccess={handlePaymentSuccess}
-              />
+              <div className="space-y-3">
+
+              {/* 💳 CARD BUTTON */}
+              {!hasFree && !selectedVersion && (
+                <p className="text-sm text-yellow-400">
+                  Please select a version to continue
+                </p>
+              )}
+
+              {selectedVersion && selectedPrice > 0 && (
+                <div className="gap-3">
+                {/* 💬 WHATSAPP BUTTON */}
+                <a
+                  href={whatsappLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block w-full text-center py-3 rounded-xl border border-green-500 text-green-400 hover:bg-green-500 hover:text-black transition"
+                >
+                  Pay via WhatsApp
+                </a>
+                
+                {!showPayment && (
+                  <button
+                    onClick={() => setShowPayment(true)}
+                    className="w-full py-3 rounded-xl mt-5 bg-primary text-white font-semibold hover:opacity-90 transition"
+                  >
+                    Pay with Card
+                  </button>
+                )}
+                
+
+                {/* 💳 PAYMENT COMPONENT (ONLY AFTER CLICK) */}
+                {showPayment && (
+                  <PayPalPayment
+                    amount={
+                      hasBundle
+                        ? bundlePrice
+                        : hasPro
+                        ? proPrice
+                        : hasFigma
+                        ? figmaPrice
+                        : 0
+                    }
+                    template={template}
+                    user={user}
+                    onSuccess={handlePaymentSuccess}
+                  />
+                )}
+                </div>
+              )}
+
+                
+
+              </div>
             )}
 
             {/* LICENSE */}
@@ -555,7 +566,7 @@ const TemplateDetails = () => {
 
       {/* ================= SIMILAR ================= */}
       <div className="max-w-7xl mx-auto px-6 pb-24">
-        <h2 className="text-2xl font-semibold mb-8">Similar Templates</h2>
+        <h2 className="text-2xl text-white font-semibold mb-8">Similar Templates</h2>
 
         <div className="grid md:grid-cols-3 gap-8">
           {similar.map(t => (

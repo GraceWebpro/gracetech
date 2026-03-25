@@ -1,43 +1,23 @@
-/**
- * Import function triggers from their respective submodules:
- *
- * const {onCall} = require("firebase-functions/v2/https");
- * const {onDocumentWritten} = require("firebase-functions/v2/firestore");
- *
- * See a full list of supported triggers at https://firebase.google.com/docs/functions
- */
-
-const {onRequest} = require("firebase-functions/v2/https");
-const logger = require("firebase-functions/logger");
-
-// Create and deploy your first functions
-// https://firebase.google.com/docs/functions/get-started
-
-// exports.helloWorld = onRequest((request, response) => {
-//   logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
-
-
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 const nodemailer = require("nodemailer");
 const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
+const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
 
 admin.initializeApp();
 
 const db = admin.firestore();
 
-// EMAIL SETUP
+// -------------------- EMAIL SETUP --------------------
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
     user: "your-email@gmail.com",
     pass: "your-app-password",
-  }
+  },
 });
 
-// R2 CONFIG
+// -------------------- R2 CONFIG --------------------
 const r2 = new S3Client({
   region: "auto",
   endpoint: `https://${functions.config().r2.account}.r2.cloudflarestorage.com`,
@@ -49,13 +29,10 @@ const r2 = new S3Client({
 
 const bucketName = functions.config().r2.bucket;
 
-
-
-// EMAIL FUNCTION
+// -------------------- EMAIL FUNCTION --------------------
 exports.sendBackendRequestEmail = functions.firestore
   .document("backendRequests/{requestId}")
   .onCreate(async (snap) => {
-
     const data = snap.data();
 
     const mailOptions = {
@@ -70,30 +47,52 @@ exports.sendBackendRequestEmail = functions.firestore
         <p><strong>Budget:</strong> ${data.budget}</p>
         <p><strong>Deadline:</strong> ${data.deadline}</p>
         <p><strong>Message:</strong> ${data.message}</p>
-      `
+      `,
     };
 
     return transporter.sendMail(mailOptions);
   });
 
-  // R2 UPLOAD FUNCTION/
-  exports.uploadToR2 = functions.https.onCall(async (data, context) => {
+// -------------------- SIGNED URL FUNCTION (FIXED) --------------------
+exports.getUploadUrl = functions.https.onCall(async (data, context) => {
+  try {
+    const { fileName, fileType } = data;
 
-    const { fileName, fileData, contentType } = data;
-  
-    const buffer = Buffer.from(fileData, "base64");
-  
+    if (!fileName || !fileType) {
+      throw new functions.https.HttpsError(
+        "invalid-argument",
+        "Missing fileName or fileType"
+      );
+    }
+
+    // Clean filename
+    const safeFileName = fileName
+      .toLowerCase()
+      .replace(/\s+/g, "-")
+      .replace(/[^a-z0-9.-]/g, "");
+
+    const key = `uploads/${Date.now()}_${safeFileName}`;
+
     const command = new PutObjectCommand({
       Bucket: bucketName,
-      Key: fileName,
-      Body: buffer,
-      ContentType: contentType,
+      Key: key,
+      ContentType: fileType,
     });
-  
-    await r2.send(command);
-  
+
+    const signedUrl = await getSignedUrl(r2, command, {
+      expiresIn: 60 * 15, // 15 mins
+    });
+
     return {
-      success: true,
-      url: `https://${functions.config().r2.account}.r2.cloudflarestorage.com/${bucketName}/${fileName}`
+      url: signedUrl,
+      publicUrl: `https://pub-${functions.config().r2.account}.r2.dev/${key}`,
     };
-  });
+  } catch (error) {
+    console.error("SIGNED URL ERROR:", error);
+
+    throw new functions.https.HttpsError(
+      "internal",
+      "Failed to generate upload URL"
+    );
+  }
+});
