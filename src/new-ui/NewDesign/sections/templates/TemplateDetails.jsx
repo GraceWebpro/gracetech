@@ -378,20 +378,7 @@ const bundlePrice = Number(template?.bundle?.price) || 0;
               </div>
             )}
 
-<div
-  key={key}
-  onClick={() => handleSelectVersion(key)}
-  className={`
-    relative cursor-pointer rounded-2xl p-6 space-y-4 transition-all duration-300
-
-    border
-    ${
-      selectedVersion === key
-        ? "border-primary bg-white/[0.03] scale-[1.03] shadow-[0_0_30px_rgba(125,82,253,0.25)]"
-        : "border-white/10 hover:border-white/30"
-    }
-  `}
->             {Object.entries(versions).map(([key, version]) => {
+           {Object.entries(versions).map(([key, version]) => {
                 if (!version?.available) return null;
 
                 const features = Array.isArray(version.features)
@@ -400,9 +387,19 @@ const bundlePrice = Number(template?.bundle?.price) || 0;
 
                 return (
                   <div
-                    key={key}
-                    className="border border-white/10 bg-[#161616] rounded-2xl p-6 space-y-4"
-                  >
+                  key={key}
+                  onClick={() => handleSelectVersion(key)}
+                  className={`
+                    relative cursor-pointer rounded-2xl p-6 space-y-4 transition-all duration-300
+                
+                    border
+                    ${
+                      selectedVersion === key
+                        ? "border-primary bg-white/[0.03] scale-[1.03] shadow-[0_0_30px_rgba(125,82,253,0.25)]"
+                        : "border-white/10 hover:border-white/30"
+                    }
+                  `}
+                >  
                     {/* Title */}
                     <h3 className="text-lg font-semibold text-white">
                       {version.label || key}
@@ -433,7 +430,8 @@ const bundlePrice = Number(template?.bundle?.price) || 0;
 
                     {/* Button */}
                     <button
-                      onClick={() => {
+                      onClick={(e) => {
+                        e.stopPropagation();
                         if (version.price === 0) {
                           handleFreeDownload();
                         } else {
@@ -447,7 +445,6 @@ const bundlePrice = Number(template?.bundle?.price) || 0;
                   </div>
                 );
               })}
-            </div>
           </div>
         </div>
 
