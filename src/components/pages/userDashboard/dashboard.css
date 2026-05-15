@@ -1,0 +1,418 @@
+/* ===== DASHBOARD LAYOUT ===== */
+.dashboard {
+    display: flex;
+    min-height: 100vh;
+    background: #0b0b0b;
+    color: white;
+  }
+  
+  /* ===== SIDEBAR ===== */
+  .dashboard aside {
+    width: 260px;
+    background: #0b0b0b;
+    border-right: 1px solid rgba(255,255,255,0.1);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  aside h2 {
+    opacity: 0.85;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+  }
+
+  .soft-divider {
+    height: 1px;
+    width: 100%;
+    max-width: 520px;
+    margin-top: 18px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      rgba(255,255,255,0.08),
+      transparent
+    );
+    margin-bottom: 20px;
+  }
+  
+  /* ===== MOBILE SIDEBAR ===== */
+  @media (max-width: 768px) {
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+      z-index: 1001;
+    }
+  
+    .sidebar.open {
+      transform: translateX(0);
+    }
+  }
+  
+  /* ===== HEADER (MOBILE ONLY) ===== */
+  .mobile-header {
+    display: none;
+  }
+  
+  @media (max-width: 768px) {
+    .mobile-header {
+      display: flex;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 56px;
+      background: #0b0b0b;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      z-index: 40;
+    }
+  }
+  
+  /* ===== BACKDROP ===== */
+  .backdrop {
+    display: none;
+  }
+  
+  @media (max-width: 768px) {
+    .backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 1000;
+      display: block;
+    }
+  }
+  
+  /* ===== MAIN CONTENT ===== */
+  .dashboard-main {
+    flex: 1;
+    padding: 32px;
+    margin-top: 40px;
+  }
+  
+  @media (max-width: 768px) {
+    .dashboard-main {
+      padding-top: 80px; /* space for mobile header */
+    }
+  }
+  
+
+  /* ===== STAT CARDS GRID ===== */
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr; /* mobile: 1 column */
+  gap: 24px; /* same as gap-6 */
+  margin-bottom: 40px; /* same as mb-10 */
+}
+
+/* Tablet & Desktop */
+@media (min-width: 768px) {
+  .stats-grid {
+    grid-template-columns: repeat(3, 1fr); /* 3 columns */
+  }
+}
+
+/* ===== STAT CARD ===== */
+.stat-card {
+  background: linear-gradient(135deg, #1f2933, #111827);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.stat-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+}
+
+.stat-card-title {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.55);
+  margin-bottom: 6px;
+}
+
+.stat-card-value {
+  font-size: 22px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.stat-card-icon {
+  opacity: 0.35;
+  font-size: 28px;
+}
+
+.stat-card * {
+  user-select: none;
+}
+
+
+/* ===== SIDEBAR BUTTON ===== */
+.sidebar-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 12px 16px;
+  border-radius: 14px;
+  border: none;
+  background: transparent;
+
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 14px;
+  cursor: pointer;
+
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+.sidebar-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+}
+
+/* Active state */
+.sidebar-btn.active {
+  background: linear-gradient(to right, #ffffff, #7d52fd); /* purple → cyan */
+  color: #000000;
+}
+
+/* Icon styling */
+.sidebar-icon {
+  display: flex;
+  opacity: 0.9;
+}
+
+.sidebar-btn.active .sidebar-icon {
+  opacity: 1;
+}
+
+.page-subtitle {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.55);
+  margin-bottom: 15px;
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-greeting {
+  animation: fadeSlideIn 0.6s ease-out forwards;
+}
+
+.last-login {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 28px;
+}
+
+.topbar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 20px;
+  z-index: 50;
+}
+
+.user-chip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255,255,255,0.05);
+  padding: 6px 10px;
+  border-radius: 999px;
+  pointer-events: auto;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(to right, #ffffff, #7d52fd); /* purple → cyan */
+  color: #000;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.username {
+  font-size: 13px;
+  color: white;
+  white-space: nowrap;
+}
+
+
+/* Sidebar */
+.dashboard aside {
+  z-index: 1000;
+}
+
+/* Mobile header */
+.mobile-header {
+  z-index: 900;
+}
+
+/* Backdrop */
+.backdrop {
+  z-index: 800;
+}
+
+/* Main */
+.dashboard-main {
+  position: relative;
+  z-index: 1;
+}
+
+.mobile-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 56px;
+  background: #0b0b0b;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.menu-btn {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+/* .cancel-btn {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: -100px;
+  margin-right: -70px;
+} */
+
+.mobile-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(to right, #ffffff, #7d52fd); /* purple → cyan */
+  color: #000;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .mobile-header {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .dashboard-main {
+    padding-top: 72px;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-main {
+    flex: 1 1 100%;
+    width: 100%;
+    padding: 16px;
+    margin-left: 0;
+    padding-top: 80px; /* space for mobile header */
+  }
+}
+
+.user-menu {
+  position: absolute;
+  top: 60px;
+  right: 20px;
+  background: #111;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.user-menu button {
+  display: block;
+  width: 100%;
+  padding: 10px 16px;
+  background: none;
+  border: none;
+  color: #fff;
+  text-align: left;
+  cursor: pointer;
+  z-index: 10000;
+}
+
+.user-menu button:hover {
+  background: rgba(255,255,255,0.08);
+}
+
+
+.activity-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 9999px;
+
+  display: grid;
+  place-items: center;
+
+  flex-shrink: 0;
+
+  /* fixes SVG optical imbalance */
+}
+
+.activity-icon svg {
+  width: 18px;
+  height: 18px;
+  display: block;
+
+  /* optical centering tweak */
+  transform: translateY(-0.5px);
+}
+
+.activity-icon.purchase {
+  background: rgba(34, 197, 94, 0.1);
+  color: rgb(74, 222, 128);
+}
+
+.activity-icon.download {
+  background: rgba(59, 130, 246, 0.1);
+  color: rgb(96, 165, 250);
+}
+
+.activity-icon svg[data-icon="download"] {
+  transform: translateY(-0.5px) translateX(0.5px);
+}

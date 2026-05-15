@@ -1,0 +1,25 @@
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: ["./index.html", "./src/**/*.{js,jsx}"],
+  theme: {
+    extend: {
+      colors: {
+        primary: "#7d52fd",
+        primarySoft: "#9d8bff",
+        dark: "#151022",
+      },
+      fontFamily: {
+        display: ["Urbanist", "sans-serif"],
+      },
+    },
+    screens: {
+      sm: '640px',
+      md: '768px',
+      lgx: '992px',   // 👈 NEW BREAKPOINT
+      lg: '1024px',
+      xl: '1280px',
+    },
+  },
+  plugins: [],
+};
+

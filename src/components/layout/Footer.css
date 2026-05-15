@@ -1,0 +1,310 @@
+
+/* second css */
+a {
+    color: #fff;
+    text-decoration: none;
+  }
+  .pg-footer {
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  
+  .footer {
+    /* background: linear-gradient(175deg, #000000 0%, #2e2e60 40%, #5f39ff 75%, #20d9a1 100%); */
+    color: #fff;
+    background: black;
+    height: fit-content;
+  }
+  .footer-wave-svg {
+      background-color: transparent;
+      display: block;
+      height: 30px;
+      position: relative;
+      top: -1px;
+      width: 100%;
+  }
+  .footer-wave-path {
+      fill: #fffff2;
+  }
+  
+  .footer-content {
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 1230px;
+      padding: 40px 15px 20px;
+      position: relative;
+      height: fit-content;
+  }
+  
+  .footer-content-column {
+      box-sizing: border-box;
+      float: left;
+      padding-left: 10px;
+      padding-right: 10px;
+      width: 100%;
+      color: #fff;
+  }
+  
+  .footer-content-column ul li a {
+    color: #fff;
+    opacity: 70%;
+    text-decoration: none;
+    font-size: 14px;
+  }
+
+  .footer-content-column ul li a:hover {
+    color: var(--tj-color-theme-primary);
+  }
+  
+  .footer-logo-link {
+      display: inline-block;
+  }
+
+  .logo {
+    font-size: 10px;
+  }
+
+  .footer-menu {
+      margin-top: 30px;
+  }
+  
+  .footer-menu-name {
+      color: #fffff2;
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: .1em;
+      line-height: 18px;
+      margin-bottom: 0;
+      margin-top: 0;
+      text-transform: uppercase;
+      text-align: left;
+  }
+  .footer-menu-list {
+      list-style: none;
+      margin-bottom: 0;
+      margin-top: 10px;
+      padding-left: 0;
+      text-align: left;
+  }
+  .footer-menu-list li {
+      margin-top: 0px;
+  }
+  
+  .footer-call-to-action-description {
+      color: #fffff2;
+      margin-top: 10px;
+      margin-bottom: 10px;
+  }
+  
+  .button:last-of-type {
+      margin-right: 0;
+  }
+
+  .footer-call-to-action {
+      margin-top: 30px;
+      text-align: left;
+  }
+  .footer-call-to-action-title {
+      color: #fffff2;
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: .1em;
+      line-height: 18px;
+      margin-bottom: 0;
+      margin-top: 0;
+      text-transform: uppercase;
+      text-align: left;
+  }
+  .footer-call-to-action-link-wrapper {
+      margin-bottom: 0;
+      margin-top: 10px;
+      color: #fff;
+      text-decoration: none;
+  }
+  .footer-call-to-action-link-wrapper a {
+      color: #fff;
+      text-decoration: none;
+  }
+  
+  
+  
+  
+  
+  .footer-social-links {
+      bottom: 0;
+      height: 54px;
+      position: absolute;
+      right: 0;
+      width: 236px;
+  }
+  
+  .footer-social-amoeba-svg {
+      height: 54px;
+      left: 0;
+      display: block;
+      position: absolute;
+      top: 0;
+      width: 236px;
+  }
+  
+  .footer-social-amoeba-path {
+      fill: #7d52fd;
+  }
+  
+  .footer-social-link.linkedin {
+      height: 26px;
+      left: 3px;
+      top: 11px;
+      width: 26px;
+  }
+  
+  .footer-social-link {
+      display: block;
+      padding: 10px;
+      position: absolute;
+  }
+  
+  .hidden-link-text {
+      position: absolute;
+      clip: rect(1px 1px 1px 1px);
+      clip: rect(1px,1px,1px,1px);
+      -webkit-clip-path: inset(0px 0px 99.9% 99.9%);
+      clip-path: inset(0px 0px 99.9% 99.9%);
+      overflow: hidden;
+      height: 1px;
+      width: 1px;
+      padding: 0;
+      border: 0;
+      top: 50%;
+  }
+  
+  .footer-social-icon-svg {
+      display: block;
+      height: 25px;
+  }
+  
+  .footer-social-icon-path {
+      fill: #ffffff;
+      transition: fill .2s;
+  }
+  
+  .footer-social-link.twitter {
+      height: 28px;
+      left: 62px;
+      top: 3px;
+      width: 28px;
+  }
+  
+  .footer-social-link.youtube {
+      height: 54px;
+      left: 123px;
+      top: 12px;
+      width: 24px;
+  }
+  
+  .footer-social-link.github {
+      height: 44px;
+      left: 175px;
+      top: 7px;
+      width: 34px;
+  }
+  
+  .footer-copyright {
+    background: linear-gradient(to right, #000000, #7d52fd); /* purple → cyan */
+    color: #fff;
+      padding: 12px 30px;
+    text-align: center;
+    height: 40px;
+  }
+  
+  .footer-copyright-wrapper {
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 1200px;
+      
+  }
+  
+  .footer-copyright-text {
+    color: #fff;
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 18px;
+      margin-bottom: 0;
+      margin-top: 0;
+  }
+  
+  .footer-copyright-link {
+      color: #fff;
+      text-decoration: none;
+  }
+  
+  
+  
+  
+  
+  
+  
+  /* Media Query For different screens */
+  @media (min-width:320px) and (max-width:479px)  { /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */
+    .footer-content {
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 1230px;
+      padding: 40px 15px 1050px;
+      position: relative;
+    }
+  }
+  @media (min-width:480px) and (max-width:599px)  { /* smartphones, Android phones, landscape iPhone */
+    .footer-content {
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 1230px;
+      padding: 40px 15px 1050px;
+      position: relative;
+    }
+  }
+  @media (min-width:600px) and (max-width: 800px)  { /* portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android) */
+    .footer-content {
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 1230px;
+      padding: 40px 15px 1050px;
+      position: relative;
+    }
+  }
+  @media (min-width:801px)  { /* tablet, landscape iPad, lo-res laptops ands desktops */
+  
+  }
+  @media (min-width:1025px) { /* big landscape tablets, laptops, and desktops */
+  
+  }
+  @media (min-width:1281px) { /* hi-res laptops and desktops */
+  
+  }
+  
+  
+  
+  
+  @media (min-width: 760px) {
+    .footer-content {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 1230px;
+        padding: 40px 15px 450px;
+        position: relative;
+    }
+  
+    .footer-wave-svg {
+        height: 50px;
+    }
+  
+    .footer-content-column {
+        width: 24.99%;
+    }
+  }
+  @media (min-width: 568px) {
+    /* .footer-content-column {
+        width: 49.99%;
+    } */
+  }
+  
