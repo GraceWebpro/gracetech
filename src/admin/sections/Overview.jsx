@@ -17,51 +17,114 @@ const Overview = ({ tab, setTab }) => {
   });
 
   const [activities, setActivities] = useState([]);
-
+  const [showAllActivities, setShowAllActivities] = useState(false);
   /* ================= FETCH DATA ================= */
   useEffect(() => {
-    const fetchData = async () => {
-      const [templates, courses, projects, orders, downloads] = await Promise.all([
-        supabase.from("templates").select("*", { count: "exact", head: true }),
-        supabase.from("courses").select("*", { count: "exact", head: true }),
-        supabase.from("projects").select("*", { count: "exact", head: true }),
-        supabase.from("payments").select("*").order("created_at", { ascending: false }),
-        supabase.from("downloads").select("*").order("created_at", { ascending: false }),
-      ]);
+  const fetchData = async () => {
+  try {
+    const [
+      templatesCount,
+      coursesCount,
+      projectsCount,
+      templates,
+      projects,
+      courses,
+      payments,
+      downloads,
+    ] = await Promise.all([
 
-      setStats({
-        templates: templates.count || 0,
-        courses: courses.count || 0,
-        projects: projects.count || 0,
-        orders: orders.data?.length || 0,
-        downloads: downloads.data?.length || 0,
-      });
+      // COUNTS
+      supabase.from("templates").select("*", { count: "exact", head: true }),
+      supabase.from("courses").select("*", { count: "exact", head: true }),
+      supabase.from("projects").select("*", { count: "exact", head: true }),
 
-      const activityList = [
-        ...(templates.data || []).map(o => ({
-          id: o.id,
-          type: "purchase",
-          label: `Purchased ${o.template_name}`,
-          date: o.created_at,
-        })),
-        ...(courses.data || []).map(d => ({
-          id: d.id,
-          type: "download",
-          label: `Downloaded ${d.template_name}`,
-          date: d.created_at,
-        })),
-        ...(projects.data || []).map(d => ({
-          id: d.id,
-          type: "download",
-          label: `Downloaded ${d.template_name}`,
-          date: d.created_at,
-        })),
-      ]
-        .sort((a, b) => new Date(b.date) - new Date(a.date))
-        .slice(0, 5);
+      // ACTIVITY DATA
+      supabase
+        .from("templates")
+        .select("*")
+        .order("created_at", { ascending: false })
+        .limit(5),
 
-      setActivities(activityList);
-    };
+      supabase
+        .from("projects")
+        .select("*")
+        .order("created_at", { ascending: false })
+        .limit(5),
+
+      supabase
+        .from("courses")
+        .select("*")
+        .order("created_at", { ascending: false })
+        .limit(5),
+
+      supabase
+        .from("payments")
+        .select("*")
+        .order("created_at", { ascending: false })
+        .limit(5),
+
+      supabase
+        .from("downloads")
+        .select("*")
+        .order("created_at", { ascending: false })
+        .limit(5),
+    ]);
+
+    // STATS
+    setStats({
+      templates: templatesCount.count || 0,
+      courses: coursesCount.count || 0,
+      projects: projectsCount.count || 0,
+      orders: payments.data?.length || 0,
+      downloads: downloads.data?.length || 0,
+    });
+
+    // ACTIVITIES
+    const activityList = [
+
+      ...(templates.data || []).map((item) => ({
+        id: item.id,
+        type: "template",
+        label: `Uploaded template "${item.title}"`,
+        date: item.created_at,
+      })),
+
+      ...(projects.data || []).map((item) => ({
+        id: item.id,
+        type: "project",
+        label: `Uploaded project "${item.title}"`,
+        date: item.created_at,
+      })),
+
+      ...(courses.data || []).map((item) => ({
+        id: item.id,
+        type: "course",
+        label: `Uploaded course "${item.title}"`,
+        date: item.created_at,
+      })),
+
+      ...(payments.data || []).map((item) => ({
+        id: item.id,
+        type: "purchase",
+        label: `New purchase for "${item.template_name}"`,
+        date: item.created_at,
+      })),
+
+      ...(downloads.data || []).map((item) => ({
+        id: item.id,
+        type: "download",
+        label: `Downloaded "${item.template_name}"`,
+        date: item.created_at,
+      })),
+    ]
+      .sort((a, b) => new Date(b.date) - new Date(a.date))
+
+    setActivities(activityList);
+
+  } catch (error) {
+    console.error("Overview fetch error:", error);
+  }
+};
 
     fetchData();
   }, []);
@@ -122,8 +185,17 @@ const Overview = ({ tab, setTab }) => {
 
       {/* ================= ACTIVITY ================= */}
       <div className="mt-10">
-        <h2 className="text-xl font-semibold mb-4">Recent Activity</h2>
+      <div className="flex items-center justify-between px-6 pt-6">
 
+        <h2 className="text-xl font-semibold mb-4">Recent Activity</h2>
+        {activities.length > 5 && (
+    <button
+      onClick={() => setShowAllActivities(!showAllActivities)}
+      className="text-sm text-primary hover:text-white transition"
+    >
+      {showAllActivities ? "Show Less" : "See All"}
+    </button>
+  )}</div>
         <div className="rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-md">
 
           {activities.length === 0 ? (
@@ -133,7 +205,10 @@ const Overview = ({ tab, setTab }) => {
           ) : (
             <ul className="divide-y divide-white/5">
 
-              {activities.map(a => (
+              {(showAllActivities
+                ? activities
+                : activities.slice(0, 5)
+              ).map(a => (
                 <li
                   key={a.id}
                   className="flex items-center gap-4 px-6 py-4 hover:bg-white/5 transition"
