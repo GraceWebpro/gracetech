@@ -57,7 +57,7 @@ const Sidebar = ({ tab, setTab, sidebarOpen, setSidebarOpen  }) => {
         icon={<FolderKanban size={18} />}
         label="Projects"
         onClick={() => setTab("projects")}
-      />    
+      />
 
       <Btn
         active={tab === "courses"}

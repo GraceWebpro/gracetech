@@ -49,7 +49,7 @@ const Settings = () => {
       .eq("id", admin.id);
 
     if (error) {
-      alert("Update failed");
+      alert("Update failed, no name field in Admin table.");
       console.error(error);
     } else {
       alert("Profile updated successfully");
