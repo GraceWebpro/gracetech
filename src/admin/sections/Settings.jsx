@@ -56,7 +56,7 @@ const Settings = () => {
     }
   };
 
-  if (loading) return <p className="text-white">Loading...</p>;
+  if (loading) return <p className="text-white mt-4">Loading...</p>;
 
   return (
     <div>
