@@ -7,6 +7,8 @@ import TemplateCard from "../../ui/TemplateCard";
 import { formatNairaFromUSD } from "../../utils/currency";
 // import BackendRequestModal from "../../ui/BackendRequestModal";
 import HomeContact from "../../sections/HomeContact";
+import BuyButton from "../../ui/BuyButton";
+import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
 
 const TemplateDetails = () => {
   const { slug } = useParams();
@@ -21,8 +23,28 @@ const TemplateDetails = () => {
   const [loading, setLoading] = useState(true);
   const [selectedVersion, setSelectedVersion] = useState(null);
   const [selectedPrice, setSelectedPrice] = useState(0);
+  const [paymentLoading, setPaymentLoading] = useState(false);
 
   const { currentUser: user } = useAuth();
+
+
+  const nairaAmount = selectedPrice * 1600;
+
+  const handleFlutterPayment = useFlutterwave({
+    public_key: process.env.REACT_APP_FLW_PUBLIC_KEY,    
+    tx_ref: Date.now().toString(),
+    amount: nairaAmount,
+    currency: "NGN",
+    payment_options: "card,banktransfer,ussd",
+    customer: {
+      email: user?.email || "guest@example.com",
+      name: user?.user_metadata?.full_name || "Guest User",
+    },
+    customizations: {
+      title: template?.title,
+      description: selectedVersion + " version purchase",
+    },
+  });
 
     /* ================= FETCH SINGLE TEMPLATE ================= */
     useEffect(() => {
@@ -64,6 +86,11 @@ const TemplateDetails = () => {
     
         setTemplate(formatted);
         setLoading(false);
+        console.log({
+          amount: nairaAmount,
+          selectedPrice,
+          key: import.meta.env.VITE_FLW_PUBLIC_KEY,
+        });
       };
     
       fetchTemplate();
@@ -190,7 +217,7 @@ const displayPrice =
       // save download
       await supabase.from("downloads").insert([
         {
-          user_id: user.id,
+          user_id: user?.id || null,
           template_id: template.id,
           template_name: template.title,
           download_url: version.downloadUrl,
@@ -217,11 +244,22 @@ const displayPrice =
     /* ================= SELECT VERSION ================= */
     const handleSelectVersion = (key) => {
       const version = template.versions?.[key];
+    
       if (!version) return;
-  
+    
+      const cleanPrice = parseFloat(
+        String(version.price).replace(/[^0-9.]/g, "")
+      );
+    
+      console.log("Selected:", key);
+      console.log("Raw price:", version.price);
+      console.log("Clean price:", cleanPrice);
+    
       setSelectedVersion(key);
-      setSelectedPrice(Number(version.price || 0));
+      setSelectedPrice(cleanPrice);
     };
+
+    
     
 
     if (loading) {
@@ -533,6 +571,8 @@ const displayPrice =
                 </p>
               )}
 
+
+
               {selectedVersion && selectedPrice > 0 && (
                 <div className="gap-3">
                 {/* 💬 WHATSAPP BUTTON */}
@@ -544,34 +584,50 @@ const displayPrice =
                 >
                   Pay via WhatsApp
                 </a>
+
                 
                 {!showPayment && (
-                  <button
-                    onClick={() => setShowPayment(true)}
-                    className="w-full py-3 rounded-xl mt-5 bg-primary text-white font-semibold hover:opacity-90 transition"
-                  >
-                    Pay with Card
-                  </button>
+               <button
+                  onClick={() => {
+                    setPaymentLoading(true);
+
+                    handleFlutterPayment({
+                      callback: async (response) => {
+                        console.log(response);
+
+                        setPaymentLoading(false);
+
+                        if (response.status === "successful") {
+                          await handlePaymentSuccess({
+                            transaction_id: response.transaction_id,
+                          });
+                        }
+
+                        closePaymentModal();
+                      },
+
+                      onClose: () => {
+                        setPaymentLoading(false);
+                        console.log("Payment closed");
+                      },
+                    });
+                  }}
+                  disabled={paymentLoading}
+                  className="w-full py-3 rounded-xl mt-5 bg-primary text-white font-semibold hover:opacity-90 transition disabled:opacity-60 disabled:cursor-not-allowed"
+                >
+                  {paymentLoading ? (
+                    <div className="flex items-center justify-center gap-2">
+                      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                      Processing...
+                    </div>
+                  ) : (
+                    "Pay with Card"
+                  )}
+                </button>
                 )}
                 
 
-                {/* 💳 PAYMENT COMPONENT (ONLY AFTER CLICK) */}
-                {showPayment && (
-                  <PayPalPayment
-                    amount={
-                      hasBundle
-                        ? bundlePrice
-                        : hasPro
-                        ? proPrice
-                        : hasFigma
-                        ? figmaPrice
-                        : 0
-                    }
-                    template={template}
-                    user={user}
-                    onSuccess={handlePaymentSuccess}
-                  />
-                )}
+                
                 </div>
               )}
 
