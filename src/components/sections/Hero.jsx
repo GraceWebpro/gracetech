@@ -36,7 +36,7 @@ function Hero() {
   )}`;
 
   return (
-    <section className='relative min-h-screen flex items-center overflow-hidden bg-black'>
+    <section className='relative min-h-screen flex items-center overflow-hidden bg-black mt-8'>
       <RadialGradient variant="hero" />
 
       {/* Content Conatiner */}
@@ -133,7 +133,7 @@ function Hero() {
               </div>
             </FadeIn>
 
-            <HowWeWork videoId="js4QJqYyyFs?si=92nRy3ixNwwgMZDg" />
+            <HowWeWork videoId="YNI-A8GMX7E?si=rTXDaq-z1RcPtZKA" />
 
             <FadeIn delay={400}>
               <div className='grid grid-cols-2 md:grid-cols-4 gap-10 max-w-full'>
@@ -164,7 +164,7 @@ function Hero() {
                 {/* Image container */}
                 <div className='relative rounded-2xl overflow-hidden m-[1px] h-[calc(100%-2px)]'>
                   <img 
-                    src='/images/developer2.jpeg'
+                    src='/images/My_Hero.jpeg'
                     alt='Developer at work'
                     className='w-full h-full object-cover'
                   />

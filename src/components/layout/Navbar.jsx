@@ -5,7 +5,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useScrollSpy, scrollToSection } from '../hooks/useScrollSpy';
 import { useAuth } from '../../config/AuthProvider';
 import { getAuth, signOut } from "firebase/auth";
-import BrandLogo from '../../assets/brand-logo.png'
+import BrandLogo from '../../assets/logo2.png'
 import styles from '../NewHome.module.css';
 
 const Navbar = () => {
@@ -74,9 +74,15 @@ const hireMeWhatsAppLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURICom
           className={styles['logo-wrapper']}
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         >
-          <img src={BrandLogo} alt='brand-logo' className={styles['brand-logo']} />
+          <Link to='/'><img src={BrandLogo} alt='brand-logo' className={styles['brand-logo']} /></Link>
+          {/* <div className={styles['brand-text']}>
+
           <Link to='/'><span className={styles.logo}>GraceTech</span></Link>
+          <p>BUILD <span>•</span> INNOVATE <span>•</span> ELEVATE</p>
+</div> */}
         </div>
+
+
 
         {/* Desktop Nav */}
         {/* ================= DESKTOP NAV ================= */}

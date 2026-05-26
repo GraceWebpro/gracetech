@@ -8,7 +8,7 @@ import './Footer.css'
 import { IoIosCall } from "react-icons/io";
 import { Link } from 'react-router-dom'
 import styles from '../NewHome.module.css'
-import BrandLogo from '../../assets/brand-logo.png'
+import BrandLogo from '../../assets/logo2.png'
 import { useNavigate, useLocation } from "react-router-dom";
 
 const Footer = () => {
@@ -47,8 +47,8 @@ const Footer = () => {
                   className={styles['logo-wrapper']}
                   onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                 >
-                  <img src={BrandLogo} alt='brand-logo' className={styles['brand-logo']} />
-                  <Link to='/'><span className={styles.logo}>GraceTech</span></Link>
+                  <Link to='/'><img src={BrandLogo} alt='brand-logo' className={styles['brand-logo']} /></Link>
+                  {/* <Link to='/'><span className={styles.logo}>GraceTech</span></Link> */}
                 </div>
                 <div className="footer-menu">
                   <h2 className="footer-menu-name"> Get Started</h2>

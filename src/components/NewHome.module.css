@@ -45,12 +45,18 @@
   margin-left: -10px;
 }
 
-.brand-logo {
-  font-size: 20px;
+ /* .brand-logo {
+  font-size: 40px;
   width: 70px;
   height: 50px;
   margin-left: -15px;
+}  */
+
+.brand-logo {
+  width: 200px;
+  height: 60px;
 }
+
 .logo:hover {
   opacity: 0.8;
 }
@@ -123,11 +129,8 @@
 /* Tablet */
 @media (max-width: 768px) {
   .brand-logo {
-    width: 60px;
-   
-  height: 40px;
-  margin-left: -20px;
-
+    width: 150px;
+    height: 50px;
   }
 
   
@@ -144,5 +147,52 @@
 @media (max-width: 360px) {
   .brand-logo {
     width: 60px;
+  }
+}
+
+
+/* navbar brand */
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+
+
+
+
+.brand-text p span {
+  color: #8b5cf6;
+}
+
+.brand-text p {
+  margin: 3px 0 0;
+
+  font-size: 10px;
+  letter-spacing: 2px;
+  font-weight: 600;
+
+  color: #cfcfcf;
+}
+
+/* responsive */
+
+@media (max-width: 768px) {
+  .logo-box {
+    width: 48px;
+    height: 48px;
+    font-size: 22px;
+  }
+
+  .brand-text h1 {
+    font-size: 24px;
+  }
+
+  .brand-text p {
+    font-size: 8px;
+    letter-spacing: 2px;
   }
 }
