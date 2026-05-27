@@ -171,7 +171,7 @@ const hireMeWhatsAppLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURICom
 
 
         {/* Right-side CTA / User */}
-        <div className="topbar-right flex items-center relative">
+        <div className="topbar-right flex items-center gap-0 md:gap-4 relative">
           {/* Logged-in vs Logged-out */}
           {/* {user ? (
             <div
