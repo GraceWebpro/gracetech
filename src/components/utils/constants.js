@@ -16,7 +16,7 @@ export const STATS = [
 export const SOCIAL_LINKS = {
     tiktok: "https://www.tiktok.com/@gracetechie",
     instagram: "https://www.instagram.com/gracetechie_/",
-    twitter: "https://twitter.com",
+    facebook: "https://web.facebook.com/gracetechie/",
     dribble: "https://dribble.com",
 }
 

@@ -3,7 +3,7 @@ import { Mail, Send, MessageSquare } from 'lucide-react'
 import { SOCIAL_LINKS } from '../utils/constants'
 import FadeIn from '../animations/FadeIn'
 import { ImLinkedin } from "react-icons/im";
-import { FaInstagramSquare, FaTwitterSquare, FaTiktok } from "react-icons/fa";
+import { FaInstagramSquare, FaTwitterSquare, FaTiktok, FaFacebook } from "react-icons/fa";
 import emailjs from '@emailjs/browser';
 import StatusPopup from '../ui/StatusPopup'
 
@@ -72,7 +72,7 @@ const Contact = () => {
   const socialIcons = {
     tiktok: FaTiktok,
     instagram: FaInstagramSquare,
-    twitter: FaTwitterSquare,
+    facebook: FaFacebook,
   };
     
     
