@@ -376,13 +376,13 @@ const hireMeWhatsAppLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURICom
           </div>
 
           {/* ───────── LOGIN (LOGGED OUT ONLY) ───────── */}
-          {!user && (
+          {/* {!user && (
             <Link to="/book-a-call" onClick={() => setIsMenuOpen(false)}>
               <button className="w-full px-4 py-3 rounded-lg mt-4 border border-white/20 text-white/80 hover:text-white hover:border-white transition">
                 Book a Call 
               </button>
             </Link>
-          )}
+          )} */}
 
           {/* ───────── PRIMARY CTA ───────── */}
           {/* <a  href={hireMeWhatsAppLink}
