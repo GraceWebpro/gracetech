@@ -261,7 +261,7 @@ const hireMeWhatsAppLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURICom
           isMenuOpen ? 'max-h-[90vh] opacity-100' : 'max-h-0 opacity-0'
         }`}
       >
-        <div className="bg-black/95 backdrop-blur-lg border-t border-white/10 px-5 py-6 space-y-6">
+        <div className="bg-black/75 backdrop-blur-lg w-full border-t border-white/30 px-5 py-6 space-y-6">
 
           {/* ───────── USER SECTION (LOGGED IN) ───────── */}
           {user && (
@@ -385,13 +385,19 @@ const hireMeWhatsAppLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURICom
           )}
 
           {/* ───────── PRIMARY CTA ───────── */}
-          <a  href={hireMeWhatsAppLink}
+          {/* <a  href={hireMeWhatsAppLink}
             target="_blank"
             rel="noopener noreferrer" onClick={() => setIsMenuOpen(false)}>
             <button className="w-full px-4 py-3 rounded-xl bg-gradient-to-r from-white to-primary text-black font-semibold mt-4">
               Hire Me
             </button>
-          </a>
+          </a> */}
+
+          <Link to="/book-a-call" onClick={() => setIsMenuOpen(false)}>
+          <button className="w-full px-4 py-3 rounded-xl bg-gradient-to-r from-white to-primary text-black font-semibold mt-4 mb-4">
+                Book a Call 
+              </button>
+            </Link>
 
         </div>
       </div>
