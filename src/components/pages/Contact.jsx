@@ -110,10 +110,10 @@ const Contact = () => {
 
             <div className="grid md:grid-cols-2 gap-12">
                 <FadeIn delay={100}>
-                    <div className="bg-white/5 border border-white/10 rounded-2xl p-8">
+                    <div className="bg-white/5 border border-white/10 rounded-2xl p-4">
                         <form onSubmit={handleSubmit} className='space-y-6'>
                             <div>
-                                <label htmlFor="name" className="block text-sm font-medium text-white/60 mb-2">
+                                <label htmlFor="name">
                                     Name
                                 </label>
                                 <input type="text"

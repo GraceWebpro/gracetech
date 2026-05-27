@@ -159,7 +159,7 @@ const GetAQuote = () => {
     </div>
 
 
-      <form ref={formRef} className="bg-white/5 border border-white/10 rounded-2xl p-8 space-y-6 shadow-lg" onSubmit={handleSubmit}>
+      <form ref={formRef} className="bg-white/5 border border-white/10 rounded-2xl p-4 space-y-6 shadow-lg" onSubmit={handleSubmit}>
         <input
           type="text"
           name="fullName"
