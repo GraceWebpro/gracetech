@@ -96,7 +96,7 @@ function Hero() {
                   max-[400px]:px-4
                   max-[400px]:py-2
                   max-[400px]:text-sm
-                  rounded-[17px]
+                  rounded-xl
                   text-base font-medium
                   text-black
                   bg-gradient-to-r from-[#7d52fd] to-[#ffffff]
@@ -117,7 +117,7 @@ function Hero() {
                   max-[400px]:px-4
                   max-[400px]:py-2
                   max-[400px]:text-sm
-                  rounded-[17px]
+                  rounded-xl
                   text-base font-medium
                   text-white
                   border border-white/40

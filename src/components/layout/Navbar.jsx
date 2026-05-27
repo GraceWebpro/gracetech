@@ -171,7 +171,7 @@ const hireMeWhatsAppLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURICom
 
 
         {/* Right-side CTA / User */}
-        <div className="topbar-right flex items-center gap-3 relative">
+        <div className="topbar-right flex items-center relative">
           {/* Logged-in vs Logged-out */}
           {/* {user ? (
             <div
@@ -226,7 +226,19 @@ const hireMeWhatsAppLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURICom
             href={hireMeWhatsAppLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="px-5 py-3 rounded-xl text-black font-medium bg-white shadow-lg hover:scale-[1.02] transition"          >
+            className="
+              px-3 py-2
+              sm:px-4 sm:py-2
+              md:px-5 md:py-3
+              rounded-xl
+              text-black
+              font-medium
+              bg-white
+              shadow-lg
+              hover:scale-[1.02]
+              transition
+            "
+          >
             Hire Me
           </a>
 
