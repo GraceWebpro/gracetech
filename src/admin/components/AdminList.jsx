@@ -51,6 +51,7 @@ const AdminList = ({ data = [], type, onEdit, onDelete }) => {
                   item.image_url ||
                   "https://via.placeholder.com/80"
                 }
+                loading="lazy"
                 alt=""
                 className="w-16 h-12 object-contain rounded-lg"
               />

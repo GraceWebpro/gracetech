@@ -41,7 +41,7 @@ const SimilarTemplates = ({ category, currentId }) => {
             to={`/templates/${item.slug}`}
             className="bg-white/5 border border-white/10 rounded-2xl overflow-hidden hover:bg-white/10 transition"
           >
-            <img src={item.thumbnail} className="h-40 w-full object-cover" />
+            <img src={item.thumbnail} loading="lazy" className="h-40 w-full object-cover" />
             <div className="p-4">
               <p className="text-sm">{item.title}</p>
             </div>

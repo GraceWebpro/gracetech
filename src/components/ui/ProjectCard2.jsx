@@ -18,7 +18,7 @@ const ProjectCard = ({ project, onRequestSimilar }) => {
   return (
     <div className="project-card">
       <div className="project-image-container">
-        <img src={image_url} alt={title} className="w-full h-auto object-contain object-top transition-transform duration-500 hover:scale-105" />
+        <img src={image_url} loading="lazy" alt={title} className="w-full h-auto object-contain object-top transition-transform duration-500 hover:scale-105" />
         <div className="project-image-overlay"></div>
 
         <div className="project-buttons">

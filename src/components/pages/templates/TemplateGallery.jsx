@@ -12,6 +12,7 @@ const TemplateGallery = ({ images = [] }) => {
       <div className="rounded-2xl overflow-hidden border border-white/10 bg-white/5">
         <img
           src={images[active]}
+          loading="lazy"
           className="w-full h-[420px] object-cover"
         />
       </div>
@@ -22,6 +23,7 @@ const TemplateGallery = ({ images = [] }) => {
           <img
             key={i}
             src={img}
+            loading="lazy"
             onClick={() => setActive(i)}
             className={`w-20 h-16 rounded-lg cursor-pointer border ${
               active === i

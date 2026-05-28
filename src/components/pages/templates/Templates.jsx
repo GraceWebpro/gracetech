@@ -5,6 +5,8 @@ import FadeIn from "../../animations/FadeIn";
 import TemplateCard from "../../ui/TemplateCard";
 import TemplatePreviewModal from "../../ui/TemplatePreviewModal";
 import { Package } from "lucide-react";
+import SEO from "../../seo/SEO";
+import { orgSchema } from "../../seo/schema/schema";
 
 const Templates = () => {
   const [templates, setTemplates] = useState([]);
@@ -85,6 +87,14 @@ const Templates = () => {
   }, [templates, search, category, pricing]);
 
   return (
+    <>
+     <SEO
+        title="Website Templates | GraceTechie"
+        description="Browse premium website templates for businesses and creators."
+        keywords="templates, react templates, website design"
+        url="https://gracetechie.com.ng/templates"
+        image="https://gracetechie.com.ng/og-image.png"
+      />
     <div className="min-h-screen bg-[#0b0b0f] text-white px-6 py-20 mt-10">
 
       {/* ================= HEADER ================= */}
@@ -184,6 +194,7 @@ const Templates = () => {
         />
       )}
     </div>
+    </>
   );
 };
 

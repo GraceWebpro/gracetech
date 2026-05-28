@@ -1,5 +1,6 @@
 // src/pages/BookingPage.js
 import React, { useEffect } from 'react';
+import SEO from '../seo/SEO';
 
 const BookingPage = () => {
   useEffect(() => {
@@ -25,6 +26,14 @@ const BookingPage = () => {
   }, []);
 
   return (
+    <>
+    <SEO
+        title="Book a Session | GraceTechie"
+        description="Schedule a consultation for your website or app project."
+        keywords="book developer, consultation, web design booking"
+        url="https://gracetechie.com.ng/booking"
+        image="https://gracetechie.com.ng/og-image.png"
+      />
     <div style={{ marginTop: '80px' }}>
       <h2 className='text-center mb-[-30px]'>Book a Session</h2>
       <div
@@ -32,6 +41,7 @@ const BookingPage = () => {
         style={{ minWidth: '320px', height: '700px' }}
       ></div>
     </div>
+    </>
   );
 };
 

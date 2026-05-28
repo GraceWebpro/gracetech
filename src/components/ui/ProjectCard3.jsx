@@ -23,6 +23,7 @@ const ProjectCard = ({ project }) => {
       <div className="relative overflow-hidden rounded-2xl">
         <img
           src={image_url}
+          loading="lazy"
           alt={title}
           className="w-full h-[220px] object-cover transition-transform duration-500 group-hover:scale-105"
         />

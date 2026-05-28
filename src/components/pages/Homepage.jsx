@@ -9,6 +9,8 @@ import Projects from '../sections/Projects';
 import Services from '../sections/Services';
 import Testimonials from '../sections/Testimonials';
 import HomeContact from '../sections/HomeContact';
+import SEO from '../seo/SEO';
+import { orgSchema } from '../seo/schema/schema';
 
 const Homepage = () => {
     const location = useLocation();
@@ -33,6 +35,15 @@ const Homepage = () => {
     }, [location]);
 
   return (
+    <>
+     <SEO
+        title="GraceTechie | Web Development & Digital Solutions"
+        description="We build modern websites, apps, and digital products."
+        keywords="web development, react developer, websites in nigeria"
+        url="https://gracetechie.com.ng"
+        image="https://gracetechie.com.ng/og-image.png"
+        schema={orgSchema}
+      />
     <div className='min-h-screen bg-black'>
         <main>
             <Hero />
@@ -44,6 +55,7 @@ const Homepage = () => {
             <HomeContact />
         </main>
     </div>
+    </>
   )
 }
 

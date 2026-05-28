@@ -4,6 +4,7 @@ import { services } from "../data/ServiceData";
 import FAQ from "../ui/FAQ";
 import { ArrowRight } from "lucide-react";
 import { ShieldCheck } from "lucide-react";
+import SEO from "../seo/SEO";
 
 const ServiceDetailsPage = () => {
   const { id } = useParams();
@@ -29,6 +30,13 @@ const getWhatsAppLink = (plan) =>
   }
 
   return (
+    <>
+    <SEO
+        title={`${serviceDetails.title} | GraceTechie`}
+        description={serviceDetails.description}
+        url={`https://gracetechie.com.ng/services/${serviceDetails.slug}`}
+        image={serviceDetails.image}
+      />
     <div className="bg-[#0b0b0b] text-white min-h-screen">
 
       {/* ================= HERO ================= */}
@@ -283,6 +291,7 @@ const getWhatsAppLink = (plan) =>
       </div>
 
     </div>
+    </>
   );
 };
 

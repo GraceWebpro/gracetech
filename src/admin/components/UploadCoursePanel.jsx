@@ -237,7 +237,7 @@ const UploadCoursePanel = ({ course, mode, onSuccess }) => {
       {/* THUMBNAIL */}
       <div>
         <p>Thumbnail</p>
-        {existingThumbnail && <img src={existingThumbnail} className="w-32 rounded mb-2" />}
+        {existingThumbnail && <img src={existingThumbnail} loading="lazy" className="w-32 rounded mb-2" />}
         <input 
           type="file" 
           onChange={(e) => setThumbnailFile(e.target.files[0])} 

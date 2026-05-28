@@ -85,6 +85,7 @@ const TemplateCard = ({ template, user }) => {
           <img
             src={template.thumbnail}
             alt={template.title}
+            loading="lazy"
             className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
           />
 

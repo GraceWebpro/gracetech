@@ -47,7 +47,7 @@ const Footer = () => {
                   className={styles['logo-wrapper']}
                   onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                 >
-                  <Link to='/'><img src={BrandLogo} alt='brand-logo' className={styles['brand-logo']} /></Link>
+                  <Link to='/'><img src={BrandLogo} loading="lazy" alt='brand-logo' className={styles['brand-logo']} /></Link>
                   {/* <Link to='/'><span className={styles.logo}>GraceTech</span></Link> */}
                 </div>
                 <div className="footer-menu">

@@ -7,6 +7,7 @@ const TemplatePreviewModal = ({ template, onClose }) => {
           <img
             src={template.image}
             alt={template.name}
+            loading="lazy"
             className="rounded-lg mb-4"
           />
   

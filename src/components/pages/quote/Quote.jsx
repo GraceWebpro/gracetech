@@ -4,6 +4,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import emailjs from '@emailjs/browser';
 import StatusPopup from '../../ui/StatusPopup';
+import SEO from '../../seo/SEO';
 
 const GetAQuote = () => {
   const navigate = useNavigate();
@@ -142,6 +143,14 @@ const GetAQuote = () => {
   // };
 
   return (
+    <>
+    <SEO
+        title="Get a Quote | GraceTechie"
+        description="Request pricing for your web or app development project."
+        keywords="web development pricing, quote website"
+        url="https://gracetechie.com.ng/get-a-quote"
+        image="https://gracetechie.com.ng/og-image.png"
+      />
     <div className="max-w-4xl mx-auto px-4 py-16 mt-12">
        {/* Popup */}
        <StatusPopup
@@ -261,6 +270,7 @@ const GetAQuote = () => {
 
       <ToastContainer />
     </div>
+    </>
   );
 };
 

@@ -6,6 +6,7 @@ import { ImLinkedin } from "react-icons/im";
 import { FaInstagramSquare, FaTwitterSquare, FaTiktok, FaFacebook } from "react-icons/fa";
 import emailjs from '@emailjs/browser';
 import StatusPopup from '../ui/StatusPopup'
+import SEO from '../seo/SEO';
 
 const Contact = () => {
 
@@ -77,6 +78,14 @@ const Contact = () => {
     
     
   return (
+    <>
+     <SEO
+        title="Contact GraceTechie"
+        description="Get in touch for website development and tech services."
+        keywords="contact developer, hire web developer"
+        url="https://gracetechie.com.ng/contact"
+        image="https://gracetechie.com.ng/og-image.png"
+      />
    <section className='relative py-20 bg-black overflow-hidden'>
         <div className="absolute inset-0 overflow-hidden">
             <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 opacity-20 rounded-full blur-3xl" />
@@ -237,6 +246,7 @@ const Contact = () => {
         </div>
 
    </section>
+   </>
   )
 }
 

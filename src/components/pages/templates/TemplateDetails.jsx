@@ -9,6 +9,8 @@ import { formatNairaFromUSD } from "../../utils/currency";
 import HomeContact from "../../sections/HomeContact";
 import BuyButton from "../../ui/BuyButton";
 import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
+import SEO from "../../seo/SEO";
+import { templateFAQSchema, templateSchema } from "../../seo/schema/templateSchema";
 
 const TemplateDetails = () => {
   const { slug } = useParams();
@@ -271,6 +273,14 @@ const displayPrice =
     }   
 
   return (
+    <>
+      <SEO
+        title={`${template.title} | GraceTechie Templates`}
+        description={template.description}
+        url={`https://gracetechie.com.ng/templates/${template.slug}`}
+        image={template.image}
+        schema={templateFAQSchema(template)}
+      />
     <div className="bg-[#0b0b0b] text-white min-h-screen no-scrollbar">
 
       <div className="max-w-7xl mx-auto px-6 py-20 grid lg:grid-cols-3 gap-14">
@@ -283,6 +293,7 @@ const displayPrice =
             <img
               src={galleryImages[currentImg]}
               alt={template.title}
+              loading="lazy"
               className="w-full h-[300px]
               rounded-xl
               shadow-2xl
@@ -325,6 +336,7 @@ const displayPrice =
               <img
                 key={i}
                 src={img}
+                loading="lazy"
                 onClick={() => setCurrentImg(i)}
                 alt="preview"
                 className={`w-28 h-20 rounded-xl cursor-pointer object-cover border-2 transition-all duration-200
@@ -707,6 +719,7 @@ const displayPrice =
 <HomeContact />
     
     </div>
+    </>
   );
 };
 

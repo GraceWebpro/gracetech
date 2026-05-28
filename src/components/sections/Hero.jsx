@@ -165,6 +165,7 @@ function Hero() {
                 <div className='relative rounded-2xl overflow-hidden m-[1px] h-[calc(100%-2px)]'>
                   <img 
                     src='/images/My_Hero.jpeg'
+                    loading="lazy"
                     alt='Developer at work'
                     className='w-full h-full object-cover'
                   />

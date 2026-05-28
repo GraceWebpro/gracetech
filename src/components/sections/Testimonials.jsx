@@ -84,6 +84,7 @@ const Testimonials = () => {
                                             <div className="relative w-full md:w-1/3">
                                                 <div className="relative h-72 rounded-2xl overflow-hidden">
                                                     <img src={testimonial.testImg}
+                                                    loading="lazy"
                                                     alt={testimonial.name}
                                                     className='w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300' />
 

@@ -5,9 +5,18 @@ import { Wrench } from 'lucide-react'
 import FadeIn from '../animations/FadeIn'
 import { Link } from "react-router-dom";
 import "./work.css"
+import SEO from '../seo/SEO'
 
 const Services = () => {
   return (
+    <>
+     <SEO
+        title="Web Development Services | GraceTechie"
+        description="We build websites, SaaS products, and custom digital solutions."
+        keywords="web development, react developer, software agency"
+        url="https://gracetechie.com.ng/#services"
+        image="https://gracetechie.com.ng/og-image.png"
+      />
     <section id='services' className='relative py-20 bg-black overflow-hidden'>
         <div className="absolute inset-0 overflow-hidden">
             <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 opacity-20 rounded-full blur-3xl" />
@@ -96,6 +105,7 @@ const Services = () => {
             </div>
         </div>
     </section>
+    </>
   )
 }
 

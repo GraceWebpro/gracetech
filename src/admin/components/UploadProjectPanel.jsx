@@ -209,7 +209,7 @@ console.log("PROJECT ID:", project?.id);
       <div>
         <p className="text-sm mb-1">Thumbnail</p>
         {existingThumbnail && (
-          <img src={existingThumbnail} alt="" className="w-32 mb-2 rounded" />
+          <img src={existingThumbnail} loading="lazy" alt="" className="w-32 mb-2 rounded" />
         )}
         <input
           type="file"
