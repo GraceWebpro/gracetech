@@ -80,7 +80,7 @@ const Contact = () => {
   return (
     <>
      <SEO
-        title="Contact GraceTechie"
+        title="Contact | GraceTechie"
         description="Get in touch for website development and tech services."
         keywords="contact developer, hire web developer"
         url="https://www.gracetechie.com.ng/contact"

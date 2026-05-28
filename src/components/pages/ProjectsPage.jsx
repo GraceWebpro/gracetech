@@ -3,6 +3,7 @@ import { supabase } from "../../config/supabase";
 import { Briefcase, Target, Globe, Palette, Zap } from 'lucide-react';
 import ProjectCard from "../ui/ProjectCard2";
 import FadeIn from '../animations/FadeIn';
+import SEO from '../seo/SEO';
 
 const ProjectsPage = () => {
   const [projects, setProjects] = useState([]);
@@ -79,6 +80,14 @@ const ProjectsPage = () => {
       : projects.filter(project => project.categories === activeCategory);
 
   return (
+    <>
+    <SEO
+        title="Projects | GraceTechie"
+        description="Real projects built to solve real problems — with clarity, purpose, and measurable impact."
+        keywords="projects, ui-ux-design, website design"
+        url="https://www.gracetechie.com.ng/projects"
+        image="https://www.gracetechie.com.ng/og-image.png"
+      />
     <section className="relative py-20 bg-black min-h-screen overflow-hidden">
       {/* Background accents */}
       <div className="absolute inset-0 overflow-hidden">
@@ -154,6 +163,7 @@ const ProjectsPage = () => {
         )}
       </div>
     </section>
+    </>
   );
 };
 
