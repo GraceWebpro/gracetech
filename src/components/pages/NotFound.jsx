@@ -3,7 +3,7 @@ import { ArrowLeft, Home, Search } from "lucide-react";
 
 const NotFound = () => {
   return (
-    <div className="min-h-screen bg-[#0b0b0b] text-white flex items-center justify-center px-6 relative overflow-hidden">
+    <div className="min-h-screen bg-[#0b0b0b] text-white flex items-center justify-center px-6 relative overflow-hidden pt-24 md:pt-2">
 
       {/* BACKGROUND GLOW */}
       <div className="absolute w-[500px] h-[500px] bg-primary/20 blur-[120px] rounded-full top-[-100px] left-[-100px]" />
@@ -12,7 +12,7 @@ const NotFound = () => {
       <div className="relative z-10 text-center max-w-xl">
 
         {/* BIG 404 */}
-        <h1 className="text-[100px] md:text-[140px] font-extrabold leading-none bg-gradient-to-r from-white to-primary">
+        <h1 className="text-[100px] md:text-[140px] font-extrabold leading-none">
           404
         </h1>
 
