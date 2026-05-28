@@ -34,7 +34,7 @@ const getWhatsAppLink = (plan) =>
     <SEO
         title={`${serviceDetails.title} | GraceTechie`}
         description={serviceDetails.description}
-        url={`https://gracetechie.com.ng/services/${serviceDetails.slug}`}
+        url={`https://www.gracetechie.com.ng/services/${serviceDetails.slug}`}
         image={serviceDetails.image}
       />
     <div className="bg-[#0b0b0b] text-white min-h-screen">

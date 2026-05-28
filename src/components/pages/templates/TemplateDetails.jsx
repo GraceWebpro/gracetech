@@ -277,7 +277,7 @@ const displayPrice =
       <SEO
         title={`${template.title} | GraceTechie Templates`}
         description={template.description}
-        url={`https://gracetechie.com.ng/templates/${template.slug}`}
+        url={`https://www.gracetechie.com.ng/templates/${template.slug}`}
         image={template.image}
         schema={templateFAQSchema(template)}
       />

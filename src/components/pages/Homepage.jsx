@@ -40,8 +40,8 @@ const Homepage = () => {
         title="GraceTechie | Web Development & Digital Solutions"
         description="We build modern websites, apps, and digital products."
         keywords="web development, react developer, websites in nigeria"
-        url="https://gracetechie.com.ng"
-        image="https://gracetechie.com.ng/og-image.png"
+        url="https://www.gracetechie.com.ng"
+        image="https://www.gracetechie.com.ng/og-image.png"
         schema={orgSchema}
       />
     <div className='min-h-screen bg-black'>

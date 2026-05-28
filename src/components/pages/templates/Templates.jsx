@@ -92,8 +92,8 @@ const Templates = () => {
         title="Website Templates | GraceTechie"
         description="Browse premium website templates for businesses and creators."
         keywords="templates, react templates, website design"
-        url="https://gracetechie.com.ng/templates"
-        image="https://gracetechie.com.ng/og-image.png"
+        url="https://www.gracetechie.com.ng/templates"
+        image="https://www.gracetechie.com.ng/og-image.png"
       />
     <div className="min-h-screen bg-[#0b0b0f] text-white px-6 py-20 mt-10">
 

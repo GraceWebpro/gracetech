@@ -14,8 +14,8 @@ const Services = () => {
         title="Web Development Services | GraceTechie"
         description="We build websites, SaaS products, and custom digital solutions."
         keywords="web development, react developer, software agency"
-        url="https://gracetechie.com.ng/#services"
-        image="https://gracetechie.com.ng/og-image.png"
+        url="https://www.gracetechie.com.ng/#services"
+        image="https://www.gracetechie.com.ng/og-image.png"
       />
     <section id='services' className='relative py-20 bg-black overflow-hidden'>
         <div className="absolute inset-0 overflow-hidden">

@@ -83,8 +83,8 @@ const Contact = () => {
         title="Contact GraceTechie"
         description="Get in touch for website development and tech services."
         keywords="contact developer, hire web developer"
-        url="https://gracetechie.com.ng/contact"
-        image="https://gracetechie.com.ng/og-image.png"
+        url="https://www.gracetechie.com.ng/contact"
+        image="https://www.gracetechie.com.ng/og-image.png"
       />
    <section className='relative py-20 bg-black overflow-hidden'>
         <div className="absolute inset-0 overflow-hidden">
