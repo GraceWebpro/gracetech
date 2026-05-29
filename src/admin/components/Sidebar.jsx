@@ -66,7 +66,12 @@ const Sidebar = ({ tab, setTab, sidebarOpen, setSidebarOpen  }) => {
         onClick={() => setTab("courses")}
       />
 
-  
+      <Btn
+        active={tab === "blogs"}
+        icon={<BookOpen size={18} />}
+        label="blogs"
+        onClick={() => setTab("blogs")}
+      />
 
       <Btn
         active={tab === "settings"}

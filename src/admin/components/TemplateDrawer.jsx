@@ -3,6 +3,7 @@ import TemplateForm from "./TemplateForm";
 import UploadTemplatePanel from "./UploadTemplatePanel";
 import UploadProjectPanel from "./UploadProjectPanel";
 import UploadCoursePanel from "./UploadCoursePanel";
+import UploadBlogPanel from "./UploadBlogPanel";
 
 const TemplateDrawer = ({ open, onClose, template, mode, refresh, type }) => {
   return (
@@ -69,6 +70,19 @@ const TemplateDrawer = ({ open, onClose, template, mode, refresh, type }) => {
                   onClose();
                 }}
               />
+            )}
+
+            {/* 🧠 BLOG (NEW) */} 
+            {type === "blogs" && ( 
+              <UploadBlogPanel 
+                blog={template} 
+                mode={mode} 
+                onClose={onClose} 
+                onSuccess={() => { 
+                  refresh(); 
+                  onClose(); 
+                }} 
+              /> 
             )}
           </motion.div>
         </>

@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { supabase } from "../config/supabase";
 import styles from "../components/NewHome.module.css";
 import { Code } from "lucide-react";
+import logo from '../assets/brandLogo.png'
 
 const AdminLogin = () => {
   const [email, setEmail] = useState("");
@@ -73,9 +74,9 @@ const AdminLogin = () => {
             window.scrollTo({ top: 0, behavior: "smooth" })
           }
         >
-          <Code
-            className="w-6 h-6 text-primary"
-            style={{ marginLeft: "20px" }}
+          <img src={logo}
+            className="w-8 h-8 text-primary"
+            style={{ marginLeft: "20px", marginRight: "20px" }}
           />
           <Link to="/">
             <span className={styles.logo}>GraceTech</span>

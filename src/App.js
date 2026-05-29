@@ -24,6 +24,8 @@ import Terms from './components/legal/Terms';
 import Refund from './components/legal/Refund';
 import License from "./components/legal/License";
 import NotFound from "./components/pages/NotFound";
+import BlogList from "./components/pages/BlogList";
+import BlogDetails from "./components/pages/BlogDetails";
 
 function App() {
   const location = useLocation();
@@ -55,6 +57,8 @@ function App() {
         <Route path="/templates" element={<Templates />} />
         <Route path="/templates/:slug" element={<TemplateDetails />} />
         <Route path="/services/:id" element={<ServiceDetailsPage />} />
+        <Route path="/blog" element={<BlogList />} />
+        <Route path="/blog/:slug" element={<BlogDetails />} />
         <Route path="/thank-you" element={<ThankYou />} />
 
         {/* Auth */}

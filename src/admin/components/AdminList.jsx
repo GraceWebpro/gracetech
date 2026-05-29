@@ -6,6 +6,7 @@ const AdminList = ({ data = [], type, onEdit, onDelete }) => {
     templates: "template",
     projects: "project",
     courses: "course",
+    blogs: "blog",
   };
 
   // EMPTY STATE
@@ -14,6 +15,7 @@ const AdminList = ({ data = [], type, onEdit, onDelete }) => {
       templates: "Upload Template",
       projects: "Add Project",
       courses: "Add Course",
+      blogs: "Add Blog",
     };
 
     return (
@@ -49,6 +51,7 @@ const AdminList = ({ data = [], type, onEdit, onDelete }) => {
                 src={
                   item.thumbnail ||
                   item.image_url ||
+                  item.featured_image ||
                   "https://via.placeholder.com/80"
                 }
                 loading="lazy"

@@ -6,6 +6,7 @@ import Overview from "./sections/Overview";
 import Templates from "./sections/Templates";
 import Courses from "./sections/Courses";
 import Projects from "./sections/Projects";
+import BlogManager from "./sections/Blogs";
 import Settings from "./sections/Settings";
 import { Menu } from "lucide-react";
 
@@ -50,6 +51,8 @@ const AdminDashboard = () => {
         return <Courses />;
       case "projects":
         return <Projects />;
+      case "blogs":
+        return <BlogManager />;
       case "settings":
         return <Settings />;
       default:
