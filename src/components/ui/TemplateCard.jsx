@@ -182,8 +182,6 @@ const TemplateCard = ({ template, user }) => {
           )}
         </div>
 
-        <p>{template.previewUrl}</p>
-
         <div className="flex-1" />
 
         <div
