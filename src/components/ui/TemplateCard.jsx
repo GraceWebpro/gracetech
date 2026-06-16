@@ -208,7 +208,7 @@ const TemplateCard = ({ template, user }) => {
           )}
 
           <a
-            href={template.previewUrl}
+            href={template.preview_url}
             target="_blank"
             rel="noopener noreferrer"
             className="flex-1 py-2 text-center rounded-lg font-medium bg-white/10 hover:bg-white/20 transition"
