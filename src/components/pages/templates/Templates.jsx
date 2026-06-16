@@ -41,6 +41,7 @@ const Templates = () => {
         slug: t.slug,
         description: t.description,
         category: t.category,
+        previewUrl: t.preview_url,
 
         thumbnail: t.thumbnail,
         images: Array.isArray(t.images) ? t.images : [],
