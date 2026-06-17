@@ -356,31 +356,7 @@ const displayPrice =
               {template.description}
             </p>
 
-            {/* {template.features && (
-              <div>
-                <h3 className="text-xl font-semibold mt-8">Key Features</h3>
-                <ul className="mt-4 space-y-2 text-white/70">
-                {Array.isArray(template.features)
-                  ? template.features.map((f, i) => (
-                      <li key={i}>✔ {f}</li>
-                    ))
-                  : null
-                }
-                </ul>
-              </div>
-            )} */}
-
-            {/* {template.useCases && (
-              <div>
-                <h3 className="text-xl font-semibold mt-8">Use Cases</h3>
-                <ul className="mt-4 space-y-2 text-white/70">
-                  {template.useCases.split(",").map((u, i) => (
-                    <li key={i}>• {u.trim()}</li>
-                  ))}
-                </ul>
-              </div>
-            )} */}
-
+           
             {template.technologies && (
               <div>
                 <h3 className="text-xl font-semibold mt-8">Technologies Used</h3>
@@ -536,7 +512,6 @@ const displayPrice =
         </div>
 
         {/* ================= RIGHT – BUY CARD ================= */}
-        {/* ================= RIGHT – BUY CARD ================= */}
         <div className="lg:sticky lg:top-24 self-start">
           <div className="bg-[#161616] p-8 rounded-3xl shadow-2xl space-y-6 border border-white/10">
             
@@ -564,7 +539,6 @@ const displayPrice =
          
 
 
-            {/* ACTION AREA */}
            {/* ACTION AREA */}
             {hasFree ? (
               <button
@@ -598,7 +572,7 @@ const displayPrice =
                 </a>
 
                 
-                {!showPayment && (
+                {/* {!showPayment && (
                <button
                   onClick={() => {
                     setPaymentLoading(true);
@@ -636,7 +610,7 @@ const displayPrice =
                     "Pay with Card"
                   )}
                 </button>
-                )}
+                )} */}
                 
 
                 
