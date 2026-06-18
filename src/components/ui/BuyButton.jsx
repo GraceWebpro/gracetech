@@ -6,7 +6,7 @@ const BuyButton = ({ product }) => {
   const [email, setEmail] = useState("");
 
   const config = {
-    public_key: import.meta.env.VITE_FLW_PUBLIC_KEY,
+    public_key: process.env.REACT_APP_FLW_PUBLIC_KEY, 
     tx_ref: Date.now().toString(),
     amount: product.price,
     currency: "NGN",

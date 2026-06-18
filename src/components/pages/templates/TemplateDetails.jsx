@@ -30,7 +30,8 @@ const TemplateDetails = () => {
   const { currentUser: user } = useAuth();
 
 
-  const nairaAmount = selectedPrice * 1600;
+  // const nairaAmount = selectedPrice * 1600;
+  const nairaAmount = Math.round(selectedPrice * 1600);
 
   const handleFlutterPayment = useFlutterwave({
     public_key: process.env.REACT_APP_FLW_PUBLIC_KEY,    
@@ -39,8 +40,8 @@ const TemplateDetails = () => {
     currency: "NGN",
     payment_options: "card,banktransfer,ussd",
     customer: {
-      email: user?.email || "guest@example.com",
-      name: user?.user_metadata?.full_name || "Guest User",
+      email: user?.email || "user@gmail.com",
+      name: user?.user_metadata?.full_name || "Customer",
     },
     customizations: {
       title: template?.title,
@@ -91,7 +92,7 @@ const TemplateDetails = () => {
         console.log({
           amount: nairaAmount,
           selectedPrice,
-          key: import.meta.env.VITE_FLW_PUBLIC_KEY,
+          key: process.env.REACT_APP_FLW_PUBLIC_KEY, 
         });
       };
     
@@ -204,7 +205,7 @@ const displayPrice =
     };
   
     /* ================= PAYMENT SUCCESS ================= */
-    const handlePaymentSuccess = async (details) => {
+    const handlePaymentSuccess = async () => {
       const version = template.versions?.[selectedVersion];
       if (!version) return;
   
@@ -572,7 +573,7 @@ const displayPrice =
                 </a>
 
                 
-                {/* {!showPayment && (
+                {!showPayment && (
                <button
                   onClick={() => {
                     setPaymentLoading(true);
@@ -584,9 +585,67 @@ const displayPrice =
                         setPaymentLoading(false);
 
                         if (response.status === "successful") {
-                          await handlePaymentSuccess({
-                            transaction_id: response.transaction_id,
-                          });
+
+                          try {
+                            // 🔐 CALL YOUR VERCEL API
+                            const verifyRes = await fetch("/api/verify-payment", {
+                              method: "POST",
+                              headers: {
+                                "Content-Type": "application/json",
+                              },
+                              body: JSON.stringify({
+                                transaction_id: response.transaction_id,
+                              }),
+                            });
+                        
+                            const verifyData = await verifyRes.json();
+                        
+                            if (!verifyData.success) {
+                              alert("Payment verification failed!");
+                              return;
+                            }
+                        
+                            const verified = verifyData.data;
+                        
+                            // ✅ CHECK AMOUNT (VERY IMPORTANT)
+                            if (Number(verified.amount) !== Number(nairaAmount)) {
+                              alert("Payment amount mismatch!");
+                              return;
+                            }
+                        
+                            // ✅ PREVENT DUPLICATE RECORD
+                            const { data: existing } = await supabase
+                              .from("payments")
+                              .select("id")
+                              .eq("transaction_id", verified.id)
+                              .single();
+                        
+                            if (existing) {
+                              alert("Payment already processed");
+                              return;
+                            }
+                        
+                            // ✅ SAVE PAYMENT (SAFE NOW)
+                            await supabase.from("payments").insert([
+                              {
+                                transaction_id: verified.id,
+                                tx_ref: verified.tx_ref,
+                                email: verified.customer.email,
+                                amount: verified.amount,
+                                currency: verified.currency,
+                                product_name: template.title,
+                                status: verified.status,
+                              }
+                            ]);
+                        
+                            // ✅ NOW GIVE DOWNLOAD
+                            await handlePaymentSuccess();
+                        
+                          } catch (err) {
+                            console.error(err);
+                            alert("Error verifying payment");
+                          }
+                        
                         }
 
                         closePaymentModal();
@@ -610,7 +669,7 @@ const displayPrice =
                     "Pay with Card"
                   )}
                 </button>
-                )} */}
+                )}
                 
 
                 
