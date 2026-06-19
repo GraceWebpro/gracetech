@@ -575,10 +575,33 @@ const displayPrice =
                 
                 {!showPayment && (
                <button
-                  onClick={() => {
+                  onClick={async () => {
                     setPaymentLoading(true);
 
+                    try {
+                      // ✅ STEP 1: Create pending payment FIRST
+                      const createRes = await fetch("/api/create-payment", {
+                        method: "POST",
+                        headers: {
+                          "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                          email: userEmail,
+                          product_name: template.title,
+                          amount: nairaAmount,
+                        }),
+                      });
+                  
+                    const { tx_ref } = await createRes.json();
+
                     handleFlutterPayment({
+
+                      tx_ref: tx_ref,
+                      amount: nairaAmount,
+                      customer: {
+                        email: userEmail,
+                      },
+
                       callback: async (response) => {
                         console.log(response);
 
@@ -595,6 +618,7 @@ const displayPrice =
                               },
                               body: JSON.stringify({
                                 transaction_id: response.transaction_id,
+                                tx_ref: tx_ref,
                               }),
                             });
                         
@@ -656,7 +680,12 @@ const displayPrice =
                         console.log("Payment closed");
                       },
                     });
-                  }}
+                  }catch (err) {
+    console.error(err);
+    alert("Failed to start payment");
+    setPaymentLoading(false);
+  }
+} }
                   disabled={paymentLoading}
                   className="w-full py-3 rounded-xl mt-5 bg-primary text-white font-semibold hover:opacity-90 transition disabled:opacity-60 disabled:cursor-not-allowed"
                 >
