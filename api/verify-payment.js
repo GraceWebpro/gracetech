@@ -27,8 +27,8 @@ export default async function handler(req, res) {
 
       console.log("FLW RESPONSE:", data); // 👈 ADD THIS
 
-      console.log("KEY:", process.env.FLW_SECRET_KEY);
-      
+      console.log("KEY EXISTS:", !!process.env.FLW_SECRET_KEY);
+      console.log("KEY START:", process.env.FLW_SECRET_KEY?.slice(0, 12));      
       if (
         data.status === "success" &&
         (data.data.status === "successful" || data.data.status === "completed")
