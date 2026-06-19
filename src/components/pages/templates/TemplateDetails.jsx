@@ -594,7 +594,7 @@ const displayPrice =
                                 "Content-Type": "application/json",
                               },
                               body: JSON.stringify({
-                                transaction_id: response.transaction_id,
+                                transaction_id: response.id,
                               }),
                             });
                         

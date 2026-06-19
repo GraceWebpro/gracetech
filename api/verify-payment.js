@@ -17,10 +17,13 @@ export default async function handler(req, res) {
       );
   
       const data = await response.json();
+
+      console.log("FLW RESPONSE:", data); // 👈 ADD THIS
+
   
       if (
         data.status === "success" &&
-        data.data.status === "successful"
+        (data.data.status === "successful" || data.data.status === "completed")
       ) {
         return res.status(200).json({
           success: true,
