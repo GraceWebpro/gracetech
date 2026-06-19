@@ -27,6 +27,10 @@ const TemplateDetails = () => {
   const [selectedPrice, setSelectedPrice] = useState(0);
   const [paymentLoading, setPaymentLoading] = useState(false);
 
+  const [showEmailModal, setShowEmailModal] = useState(false);
+  const [tempEmail, setTempEmail] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  
   const { currentUser: user } = useAuth();
 
 
@@ -260,6 +264,70 @@ const displayPrice =
     
       setSelectedVersion(key);
       setSelectedPrice(cleanPrice);
+    };
+
+
+    const startPaymentFlow = async (email) => {
+      setPaymentLoading(true);
+    
+      try {
+        // STEP 1: create pending payment
+        const createRes = await fetch("/api/create-payment", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email,
+            product_name: template.title,
+            amount: nairaAmount,
+          }),
+        });
+    
+        const { tx_ref } = await createRes.json();
+    
+        // STEP 2: open flutterwave
+        handleFlutterPayment({
+          tx_ref,
+          amount: nairaAmount,
+          customer: {
+            email,
+          },
+    
+          callback: async (response) => {
+            setPaymentLoading(false);
+    
+            if (response.status === "successful") {
+              const verifyRes = await fetch("/api/verify-payment", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  transaction_id: response.transaction_id,
+                  tx_ref,
+                }),
+              });
+    
+              const verifyData = await verifyRes.json();
+    
+              if (!verifyData.success) {
+                alert("Payment verification failed!");
+                return;
+              }
+              alert("Payment successful! Your download has started.");
+              await handlePaymentSuccess();
+            }
+    
+            closePaymentModal();
+          },
+    
+          onClose: () => {
+            setPaymentLoading(false);
+          },
+        });
+    
+      } catch (err) {
+        console.error(err);
+        alert("Failed to start payment");
+        setPaymentLoading(false);
+      }
     };
 
     
@@ -559,6 +627,43 @@ const displayPrice =
               )}
 
 
+              {showEmailModal && (
+                <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+                  <div className="bg-white w-[90%] max-w-md p-6 rounded-xl">
+
+                    <h2 className="text-lg font-semibold mb-3">
+                      Enter your email to continue
+                    </h2>
+
+                    <input
+                      type="email"
+                      value={tempEmail}
+                      onChange={(e) => setTempEmail(e.target.value)}
+                      placeholder="you@example.com"
+                      className="w-full p-3 border rounded-lg mb-4"
+                    />
+
+                    <button
+                      onClick={() => {
+                        if (!tempEmail.includes("@")) {
+                          alert("Enter a valid email");
+                          return;
+                        }
+
+                        setUserEmail(tempEmail); // store final email
+                        setShowEmailModal(false);
+
+                        // 👇 NOW trigger real payment flow
+                        startPaymentFlow(tempEmail);
+                      }}
+                      className="w-full bg-primary text-white py-3 rounded-lg"
+                    >
+                      Continue to Payment
+                    </button>
+
+                  </div>
+                </div>
+              )}
 
               {selectedVersion && selectedPrice > 0 && (
                 <div className="gap-3">
@@ -573,7 +678,7 @@ const displayPrice =
                 </a>
 
                 
-                {!showPayment && (
+                {/* {!showPayment && (
                <button
                   onClick={async () => {
                     setPaymentLoading(true);
@@ -698,6 +803,24 @@ const displayPrice =
                     "Pay with Card"
                   )}
                 </button>
+                )} */}
+
+                {!showPayment && (
+                  <button onClick={() => {
+                    setShowEmailModal(true);
+                  }}
+                  disabled={paymentLoading}
+                  className="w-full py-3 rounded-xl mt-5 bg-primary text-white font-semibold hover:opacity-90 transition disabled:opacity-60 disabled:cursor-not-allowed"
+                >
+                  {paymentLoading ? (
+                    <div className="flex items-center justify-center gap-2">
+                      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                      Processing...
+                    </div>
+                  ) : (
+                    "Pay with Card"
+                  )}
+                  </button>
                 )}
                 
 

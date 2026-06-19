@@ -1,3 +1,5 @@
+import { sendDownloadEmail } from "../src/components/utils/sendEmail";
+
 export default async function handler(req, res) {
   console.log("BODY:", req.body); // 👈 add this
 
@@ -111,10 +113,28 @@ export default async function handler(req, res) {
       .update({ status: "completed" })
       .eq("tx_ref", tx_ref);
 
+      const { data: template, error: templateError } = await supabase
+      .from("templates") // or whatever your table is called
+      .select("file_url")
+      .eq("name", pending.product_name)
+      .single();
+
+    if (templateError || !template) {
+      throw new Error("Template not found");
+    }
+
+      await sendDownloadEmail({
+        email: pending.email,
+        productName: pending.product_name,
+        downloadUrl: template.file_url,
+      });
+
       return res.status(200).json({
         success: true,
         data: verified,
       });
+
+      
     } catch (error) {
       console.error("ERROR:", error);
       return res.status(500).json({ error: "Verification failed" });
