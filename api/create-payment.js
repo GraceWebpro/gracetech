@@ -1,5 +1,4 @@
 const { v4: uuidv4 } = require("uuid");
-const { supabase } = require("../src/config/supabase");
 
 export default async function handler(req, res) {
   try {
