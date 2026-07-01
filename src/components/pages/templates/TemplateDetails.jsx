@@ -633,17 +633,17 @@ const displayPrice =
                 <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
                   <div className="bg-white w-[90%] max-w-md p-6 rounded-xl">
 
-                    <h2 className="text-lg font-semibold mb-3">
+                    <h2 className="text-lg font-semibold mb-3 text-black">
                       Enter your email to continue
                     </h2>
 
                     <input
-                      type="email"
-                      value={tempEmail}
-                      onChange={(e) => setTempEmail(e.target.value)}
-                      placeholder="you@example.com"
-                      className="w-full p-3 border rounded-lg mb-4"
-                    />
+  type="email"
+  value={tempEmail}
+  onChange={(e) => setTempEmail(e.target.value)}
+  placeholder="you@example.com"
+  className="w-full p-3 border rounded-lg mb-4 text-black placeholder-gray-500 bg-white"
+/>
 
                     <button
                       onClick={() => {
