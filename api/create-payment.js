@@ -14,22 +14,7 @@ export default async function handler(req, res) {
 
     const tx_ref = `tx-${uuidv4()}`;
 
-    const { error } = await supabase.from("pending_payments").insert([
-      {
-        tx_ref,
-        email,
-        product_name,
-        amount,
-        currency: "NGN",
-        status: "pending",
-      },
-    ]);
-
-    if (error) {
-      console.error(error);
-      return res.status(500).json({ error: "DB error" });
-    }
-
+    // ✅ No database — just return tx_ref
     return res.status(200).json({ tx_ref });
 
   } catch (err) {
