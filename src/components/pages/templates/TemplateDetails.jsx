@@ -302,6 +302,8 @@ const displayPrice =
                 body: JSON.stringify({
                   transaction_id: response.transaction_id,
                   tx_ref,
+                  expected_amount: nairaAmount,
+                  product_name: template.title,
                 }),
               });
     
