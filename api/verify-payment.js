@@ -1,4 +1,5 @@
 import { sendDownloadEmail } from "../src/components/utils/sendEmail";
+import { supabase } from "../src/config/supabase"; // adjust path
 
 export default async function handler(req, res) {
   console.log("BODY:", req.body); // 👈 add this
