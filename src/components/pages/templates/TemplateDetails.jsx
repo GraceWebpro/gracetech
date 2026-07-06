@@ -272,7 +272,7 @@ const displayPrice =
 
       console.log("SENDING DATA:", {
         email,
-        poduct_name: template.title,
+        product_name: template.title,
         amount: nairaAmount
       });
     
