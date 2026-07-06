@@ -272,7 +272,7 @@ const displayPrice =
     
       try {
         // STEP 1: create pending payment
-        const createRes = await fetch("/api/create-payment", {
+        const createRes = await fetch("https://www.gracetechie.com.ng/api/create-payment", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
