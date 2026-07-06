@@ -269,6 +269,12 @@ const displayPrice =
 
     const startPaymentFlow = async (email) => {
       setPaymentLoading(true);
+
+      console.log("SENDING DATA:", {
+        email,
+        template_name: template.title,
+        amount: nairaAmount
+      });
     
       try {
         // STEP 1: create pending payment
