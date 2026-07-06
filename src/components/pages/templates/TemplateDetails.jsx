@@ -674,7 +674,8 @@ const displayPrice =
                         // 👇 NOW trigger real payment flow
                         startPaymentFlow(tempEmail);
                       }}
-                      className="w-full bg-primary text-white py-3 rounded-lg"
+                      className="w-full bg-primary text-white border border-white/70 text-white/80 hover:text-white hover:border-white transition py-3 rounded-lg"
+
                     >
                       Continue to Payment
                     </button>

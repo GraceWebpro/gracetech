@@ -1,3 +1,5 @@
+import { supabase } from "../src/config/supabase";
+
 const { v4: uuidv4 } = require("uuid");
 
 export default async function handler(req, res) {
@@ -13,6 +15,17 @@ export default async function handler(req, res) {
     }
 
     const tx_ref = `tx-${uuidv4()}`;
+
+    // ✅ Save to DB as pending
+    const { error } = await supabase.from("payments").insert([
+      {
+        email,
+        product_name,
+        amount,
+        tx_ref,
+        status: "pending",
+      },
+    ]);
 
     // ✅ No database — just return tx_ref
     return res.status(200).json({ tx_ref });
