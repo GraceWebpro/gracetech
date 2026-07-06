@@ -272,7 +272,7 @@ const displayPrice =
 
       console.log("SENDING DATA:", {
         email,
-        template_name: template.title,
+        poduct_name: template.title,
         amount: nairaAmount
       });
     
@@ -285,7 +285,7 @@ const displayPrice =
           },
           body: JSON.stringify({
             email,
-            template_name: template.title,
+            product_name: template.title,
             amount: nairaAmount,
           }),
         });
