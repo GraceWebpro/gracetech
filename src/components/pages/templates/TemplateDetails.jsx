@@ -274,16 +274,26 @@ const displayPrice =
         // STEP 1: create pending payment
         const createRes = await fetch("/api/create-payment", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+          },
           body: JSON.stringify({
             email,
-            product_name: template.title,
+            template_name: template.title,
             amount: nairaAmount,
           }),
         });
-    
-        const { tx_ref } = await createRes.json();
-    
+        
+        console.log("Status:", createRes.status);
+        
+        const data = await createRes.json();
+        console.log("Response:", data);
+        
+        if (!createRes.ok) {
+          throw new Error(data.error || "Failed request");
+        }
+        
+        const { tx_ref } = data;
         // STEP 2: open flutterwave
         handleFlutterPayment({
           tx_ref,
