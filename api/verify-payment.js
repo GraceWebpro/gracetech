@@ -1,4 +1,4 @@
-import { supabase } from "../src/config/supabase";
+import { supabase } from "./supabaseAdmin";
 
 export default async function handler(req, res) {
   console.log("BODY:", req.body);

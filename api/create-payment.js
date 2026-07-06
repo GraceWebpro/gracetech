@@ -1,4 +1,4 @@
-import { supabase } from "../src/config/supabase";
+import { supabase } from "./supabaseAdmin";
 
 const { v4: uuidv4 } = require("uuid");
 
@@ -30,6 +30,7 @@ export default async function handler(req, res) {
     ]);
 
     if (error) {
+      console.error("SUPABASE ERROR:", error);
       return res.status(500).json({ error: "DB error" });
     }
 
