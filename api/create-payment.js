@@ -14,7 +14,7 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: "Missing fields" });
     }
 
-    const tx_ref = `tx-${uuidv4()}`;
+    const tx_ref = `GRACE-tx-${uuidv4() + Date.now()}`;
 
     // ✅ Save to DB as pending
     const { error } = await supabase.from("payments").insert([
@@ -25,7 +25,13 @@ export default async function handler(req, res) {
         tx_ref,
         status: "pending",
       },
+
+      
     ]);
+
+    if (error) {
+      return res.status(500).json({ error: "DB error" });
+    }
 
     // ✅ No database — just return tx_ref
     return res.status(200).json({ tx_ref });

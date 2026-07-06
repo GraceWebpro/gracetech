@@ -23,9 +23,25 @@ export default async function handler(req, res) {
       .eq("tx_ref", tx_ref)
       .single();
 
+      if (error || !payment) {
+        return res.status(404).json({
+          success: false,
+          message: "Payment record not found",
+        });
+      }
+  
+
     if (!payment) {
       return res.status(400).json({ error: "Invalid tx_ref" });
     }
+
+      // ❌ Email mismatch protection
+      if (payment.email !== verified.customer.email) {
+        return res.status(400).json({
+          success: false,
+          message: "Email mismatch",
+        });
+      }
 
     // 🔐 Verify with Flutterwave
     const response = await fetch(
@@ -75,7 +91,7 @@ export default async function handler(req, res) {
         transaction_id: transaction_id,
       })
       .eq("tx_ref", tx_ref);
-      
+
 
     // ✅ SUCCESS
     return res.status(200).json({
