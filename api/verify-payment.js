@@ -65,13 +65,34 @@ export default async function handler(req, res) {
       });
     }
 
+    if (Number(verified.amount) !== Number(payment.amount)) {
+      console.log("❌ AMOUNT MISMATCH", {
+        db: payment.amount,
+        flw: verified.amount,
+      });
+    }
+    
+    if (payment.tx_ref !== verified.tx_ref) {
+      console.log("❌ TX_REF MISMATCH", {
+        db: payment.tx_ref,
+        flw: verified.tx_ref,
+      });
+    }
+    
+    if (
+      payment.email.toLowerCase() !==
+      verified.customer.email.toLowerCase()
+    ) {
+      console.log("❌ EMAIL MISMATCH", {
+        db: payment.email,
+        flw: verified.customer.email,
+      });
+    }
+
     // ✅ Basic validation
     if (
-
-      verified.amount !== payment.amount ||
-      verified.tx_ref !== payment.tx_ref ||
+      Number(verified.amount) !== Number(payment.amount) ||
       verified.currency !== "NGN"
-
     ) {
       return res.status(400).json({
         success: false,
