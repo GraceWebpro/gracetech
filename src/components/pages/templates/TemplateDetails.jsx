@@ -39,7 +39,7 @@ const TemplateDetails = () => {
 
   const handleFlutterPayment = useFlutterwave({
     public_key: process.env.REACT_APP_FLW_PUBLIC_KEY,    
-    tx_ref: tx_ref, // ✅ SAME ONE FROM BACKEND
+    // tx_ref: tx_ref, // ✅ SAME ONE FROM BACKEND
     amount: nairaAmount,
     currency: "NGN",
     payment_options: "card,banktransfer,ussd",
@@ -284,7 +284,7 @@ const displayPrice =
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            email,
+            email: user.email,
             product_name: template.title,
             amount: nairaAmount,
           }),
@@ -299,13 +299,14 @@ const displayPrice =
           throw new Error(data.error || "Failed request");
         }
         
-        const { tx_ref } = data;
+        const tx_ref = data.tx_ref; // ✅ THIS is your real tx_ref
+
         // STEP 2: open flutterwave
         handleFlutterPayment({
-          tx_ref,
+          tx_ref: tx_ref,
           amount: nairaAmount,
           customer: {
-            email,
+            email: user.email,
           },
     
           callback: async (response) => {
