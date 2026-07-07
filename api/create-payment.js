@@ -14,8 +14,8 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: "Missing fields" });
     }
 
-    const tx_ref = `GRACE-tx-${uuidv4() + Date.now()}`;
-
+    const tx_ref = `GRACE-tx-${uuidv4()}-${Date.now()}`;
+    
     // ✅ Save to DB as pending
     const { error } = await supabase.from("payments").insert([
       {

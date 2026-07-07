@@ -17,7 +17,7 @@ export default async function handler(req, res) {
   try {
 
     // 🔎 Check DB first
-    const { data: payment } = await supabase
+    const { data: payment, error } = await supabase
       .from("payments")
       .select("*")
       .eq("tx_ref", tx_ref)
@@ -31,17 +31,10 @@ export default async function handler(req, res) {
       }
   
 
-    if (!payment) {
-      return res.status(400).json({ error: "Invalid tx_ref" });
-    }
+    // if (!payment) {
+    //   return res.status(400).json({ error: "Invalid tx_ref" });
+    // }
 
-      // ❌ Email mismatch protection
-      if (payment.email !== verified.customer.email) {
-        return res.status(400).json({
-          success: false,
-          message: "Email mismatch",
-        });
-      }
 
     // 🔐 Verify with Flutterwave
     const response = await fetch(
@@ -61,6 +54,14 @@ export default async function handler(req, res) {
       return res.status(400).json({
         success: false,
         message: "Verification failed",
+      });
+    }
+
+     // ❌ Email mismatch protection
+     if (payment.email !== verified.customer.email) {
+      return res.status(400).json({
+        success: false,
+        message: "Email mismatch",
       });
     }
 
@@ -88,7 +89,7 @@ export default async function handler(req, res) {
       .from("payments")
       .update({
         status: "successful",
-        transaction_id: transaction_id,
+        transaction_id,
       })
       .eq("tx_ref", tx_ref);
 
