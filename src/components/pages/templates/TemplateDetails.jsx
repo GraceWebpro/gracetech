@@ -311,9 +311,8 @@ const displayPrice =
           callback: async (response) => {
             console.log("FLW FULL RESPONSE:", response);
           
-            if (!response.transaction_id) {
-              console.error("No transaction_id found!");
-              alert("Payment error: Missing transaction ID");
+            if (!response.transaction_id || !response.tx_ref) {
+              alert("Payment error: Missing transaction details");
               return;
             }
           
@@ -324,18 +323,18 @@ const displayPrice =
                   'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                  transaction_id: response.transaction_id
+                  transaction_id: response.transaction_id,
+                  tx_ref: response.tx_ref
                 })
               });
           
               const data = await res.json();
-          
               console.log("VERIFY RESPONSE:", data);
           
-              if (data.status === 'success') {
-                alert('✅ Payment successful');
+              if (data.success) {
+                alert("✅ Payment verified successfully");
               } else {
-                alert('❌ Payment verification failed');
+                alert("❌ Payment verification failed");
               }
           
             } catch (err) {
