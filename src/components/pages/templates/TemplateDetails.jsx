@@ -39,7 +39,7 @@ const TemplateDetails = () => {
 
   const handleFlutterPayment = useFlutterwave({
     public_key: process.env.REACT_APP_FLW_PUBLIC_KEY,    
-    tx_ref: Date.now().toString(),
+    tx_ref: tx_ref, // ✅ SAME ONE FROM BACKEND
     amount: nairaAmount,
     currency: "NGN",
     payment_options: "card,banktransfer,ussd",
