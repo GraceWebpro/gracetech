@@ -11,10 +11,10 @@ export default async function handler(req, res) {
     console.log("BODY:", req.body);
 
     // ✅ Validate input
-    if (!transaction_id || !tx_ref) {
+    if (!transaction_id) {
       return res.status(400).json({
         success: false,
-        message: "Missing transaction_id or tx_ref",
+        message: "Missing transaction_id",
       });
     }
 
@@ -102,8 +102,17 @@ export default async function handler(req, res) {
     });
 
     // ✅ Validate amount
-    if (dbAmount !== flwAmount) {
-      console.log("❌ FAIL: AMOUNT");
+
+    console.log("AMOUNT CHECK:", {
+      dbAmount,
+      flwAmount,
+    });
+    if (Math.abs(dbAmount - flwAmount) > 1) {
+      console.log("❌ FAIL: AMOUNT MISMATCH", {
+        dbAmount,
+        flwAmount,
+      });
+    
       return res.status(400).json({
         success: false,
         message: "Amount mismatch",
@@ -129,8 +138,12 @@ export default async function handler(req, res) {
     // }
 
     // ✅ Validate tx_ref (SAFE VERSION)
-    if (!verified.tx_ref || !verified.tx_ref.includes(tx_ref)) {
-      console.log("❌ FAIL: TX_REF");
+    if (verified.tx_ref !== tx_ref) {
+      console.log("❌ FAIL: TX_REF MISMATCH", {
+        flw: verified.tx_ref,
+        db: tx_ref,
+      });
+    
       return res.status(400).json({
         success: false,
         message: "Transaction reference mismatch",
