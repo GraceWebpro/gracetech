@@ -15,7 +15,7 @@ export default async function handler(req, res) {
     }
 
     const tx_ref = `GRACE-tx-${uuidv4()}-${Date.now()}`;
-    
+
     // ✅ Save to DB as pending
     const { error } = await supabase.from("payments").insert([
       {
@@ -28,6 +28,11 @@ export default async function handler(req, res) {
 
       
     ]);
+
+    console.log("ENV CHECK:", {
+  url: process.env.SUPABASE_URL,
+  key: process.env.SUPABASE_SERVICE_ROLE_KEY ? "OK" : "MISSING",
+});
 
     if (error) {
       console.error("SUPABASE ERROR:", error);

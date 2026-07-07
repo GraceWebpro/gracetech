@@ -312,7 +312,7 @@ const displayPrice =
             setPaymentLoading(false);
     
             if (response.status === "successful") {
-              const verifyRes = await fetch("/api/verify-payment", {
+              const verifyRes = await fetch("https://www.gracetechie.com.ng/api/verify-payment", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
