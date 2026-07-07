@@ -309,31 +309,39 @@ const displayPrice =
           },
     
           callback: async (response) => {
-            setPaymentLoading(false);
-    
-            if (response.status === "successful") {
-              const verifyRes = await fetch("https://www.gracetechie.com.ng/api/verify-payment", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                  transaction_id: response.transaction_id,
-                  tx_ref,
-                  expected_amount: nairaAmount,
-                  product_name: template.title,
-                }),
-              });
-    
-              const verifyData = await verifyRes.json();
-    
-              if (!verifyData.success) {
-                alert("Payment verification failed!");
-                return;
-              }
-              alert("Payment successful! Your download has started.");
-              await handlePaymentSuccess();
+            console.log("FLW FULL RESPONSE:", response);
+          
+            if (!response.transaction_id) {
+              console.error("No transaction_id found!");
+              alert("Payment error: Missing transaction ID");
+              return;
             }
-    
-            closePaymentModal();
+          
+            try {
+              const res = await fetch('/api/verify-payment', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  transaction_id: response.transaction_id
+                })
+              });
+          
+              const data = await res.json();
+          
+              console.log("VERIFY RESPONSE:", data);
+          
+              if (data.status === 'success') {
+                alert('✅ Payment successful');
+              } else {
+                alert('❌ Payment verification failed');
+              }
+          
+            } catch (err) {
+              console.error("VERIFY ERROR:", err);
+              alert("Server error during verification");
+            }
           },
     
           onClose: () => {
