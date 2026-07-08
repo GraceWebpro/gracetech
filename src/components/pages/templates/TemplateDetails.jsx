@@ -38,19 +38,7 @@ const TemplateDetails = () => {
   const nairaAmount = Math.round(selectedPrice * 1600);
 
   const handleFlutterPayment = useFlutterwave({
-    public_key: process.env.REACT_APP_FLW_PUBLIC_KEY,    
-    // tx_ref: tx_ref, // ✅ SAME ONE FROM BACKEND
-    amount: nairaAmount,
-    currency: "NGN",
-    payment_options: "card,banktransfer,ussd",
-    customer: {
-      email: user?.email || "user@gmail.com",
-      name: user?.user_metadata?.full_name || "Customer",
-    },
-    customizations: {
-      title: template?.title,
-      description: selectedVersion + " version purchase",
-    },
+    public_key: process.env.REACT_APP_FLW_PUBLIC_KEY,
   });
 
     /* ================= FETCH SINGLE TEMPLATE ================= */
@@ -305,22 +293,25 @@ const displayPrice =
         }
     
         const backendTxRef = data.tx_ref;
-    
+
+        console.log("FINAL TX_REF SENT:", backendTxRef);
+        
         // ✅ STEP 2: Launch Flutterwave
         handleFlutterPayment({
           public_key: process.env.REACT_APP_FLW_PUBLIC_KEY,
           tx_ref: backendTxRef,
           amount: nairaAmount,
           currency: "NGN",
-    
+          payment_options: "card,banktransfer,ussd",
+
           customer: {
-            email: email,
+            email: user?.email || "user@gmail.com",
             name: user?.user_metadata?.full_name || "Customer",
           },
     
           customizations: {
             title: template.title,
-            description: "Template purchase",
+            description: selectedVersion + " version purchase",
           },
     
           callback: async (response) => {
