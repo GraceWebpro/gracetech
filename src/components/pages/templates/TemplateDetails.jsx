@@ -255,7 +255,7 @@ const displayPrice =
     };
 
 
-    const startPaymentFlow = async (email) => {
+    const startPaymentFlow = async () => {
       setPaymentLoading(true);
     
       try {
@@ -274,7 +274,7 @@ const displayPrice =
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              email,
+              email: user?.email,
               product_name: template.title,
               amount: nairaAmount,
             }),

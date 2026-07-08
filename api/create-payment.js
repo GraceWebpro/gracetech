@@ -10,7 +10,7 @@ export default async function handler(req, res) {
 
     const { email, product_name, amount } = req.body || {};
 
-    if (!email || !product_name || !amount) {
+    if (!product_name || !amount) {
       return res.status(400).json({ error: "Missing fields" });
     }
 
