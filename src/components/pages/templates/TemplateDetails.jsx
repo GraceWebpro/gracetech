@@ -298,7 +298,6 @@ const displayPrice =
         
         // ✅ STEP 2: Launch Flutterwave
         handleFlutterPayment({
-          public_key: process.env.REACT_APP_FLW_PUBLIC_KEY,
           tx_ref: backendTxRef,
           amount: nairaAmount,
           currency: "NGN",
@@ -317,6 +316,8 @@ const displayPrice =
           callback: async (response) => {
             console.log("FLW FULL RESPONSE:", response);
     
+            closePaymentModal(); // 🔥 REQUIRED
+
             // ✅ VALIDATION
             if (
               response.status !== "successful" ||
