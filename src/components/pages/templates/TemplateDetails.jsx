@@ -260,7 +260,7 @@ const displayPrice =
     
       try {
         console.log("SENDING DATA:", {
-          email,
+          email: userEmail || user?.email,
           product_name: template.title,
           amount: nairaAmount,
         });
@@ -274,7 +274,7 @@ const displayPrice =
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              email: user?.email,
+              email: userEmail || user?.email,
               product_name: template.title,
               amount: nairaAmount,
             }),
