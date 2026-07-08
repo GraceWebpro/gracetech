@@ -152,7 +152,7 @@ export default async function handler(req, res) {
 
     // ✅ Prevent duplicate processing
     if (payment.status === "successful") {
-      console.log("⚠️ Already processed");
+      console.log("⚠️ Already processed", tx_ref);
       return res.json({ success: true });
     }
 

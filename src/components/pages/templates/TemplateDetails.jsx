@@ -269,89 +269,111 @@ const displayPrice =
 
     const startPaymentFlow = async (email) => {
       setPaymentLoading(true);
-
-      console.log("SENDING DATA:", {
-        email,
-        product_name: template.title,
-        amount: nairaAmount
-      });
     
       try {
-        // STEP 1: create pending payment
-        const createRes = await fetch("https://www.gracetechie.com.ng/api/create-payment", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email: user.email,
-            product_name: template.title,
-            amount: nairaAmount,
-          }),
-        });
-        
-        console.log("Status:", createRes.status);
-        
-        const data = await createRes.json();
-        console.log("Response:", data);
-        
-        if (!createRes.ok) {
-          throw new Error(data.error || "Failed request");
-        }
-        
-        const tx_ref = data.tx_ref; // ✅ THIS is your real tx_ref
-
-        // STEP 2: open flutterwave
-        handleFlutterPayment({
-          tx_ref: tx_ref,
+        console.log("SENDING DATA:", {
+          email,
+          product_name: template.title,
           amount: nairaAmount,
+        });
+    
+        // ✅ STEP 1: Create payment on backend
+        const createRes = await fetch(
+          "https://www.gracetechie.com.ng/api/create-payment",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email,
+              product_name: template.title,
+              amount: nairaAmount,
+            }),
+          }
+        );
+    
+        const data = await createRes.json();
+        console.log("CREATE PAYMENT RESPONSE:", data);
+    
+        if (!createRes.ok) {
+          throw new Error(data.error || "Failed to create payment");
+        }
+    
+        if (!data.tx_ref) {
+          throw new Error("No tx_ref from backend");
+        }
+    
+        const backendTxRef = data.tx_ref;
+    
+        // ✅ STEP 2: Launch Flutterwave
+        handleFlutterPayment({
+          public_key: process.env.REACT_APP_FLW_PUBLIC_KEY,
+          tx_ref: backendTxRef,
+          amount: nairaAmount,
+          currency: "NGN",
+    
           customer: {
-            email: user.email,
+            email: email,
+            name: user?.user_metadata?.full_name || "Customer",
+          },
+    
+          customizations: {
+            title: template.title,
+            description: "Template purchase",
           },
     
           callback: async (response) => {
             console.log("FLW FULL RESPONSE:", response);
-          
-            if (!response.transaction_id || !response.tx_ref) {
-              alert("Payment error: Missing transaction details");
+    
+            // ✅ VALIDATION
+            if (
+              response.status !== "successful" ||
+              !response.transaction_id ||
+              !response.tx_ref
+            ) {
+              alert("Payment failed or incomplete");
+              setPaymentLoading(false);
               return;
             }
-          
+    
             try {
-              const res = await fetch('/api/verify-payment', {
-                method: 'POST',
+              // ✅ STEP 3: VERIFY PAYMENT
+              const verifyRes = await fetch("/api/verify-payment", {
+                method: "POST",
                 headers: {
-                  'Content-Type': 'application/json'
+                  "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
                   transaction_id: response.transaction_id,
-                  tx_ref: response.tx_ref
-                })
+                  tx_ref: response.tx_ref, // ✅ IMPORTANT: use FLW tx_ref
+                }),
               });
-          
-              const data = await res.json();
-              console.log("VERIFY RESPONSE:", data);
-          
-              if (data.success) {
+    
+              const verifyData = await verifyRes.json();
+              console.log("VERIFY RESPONSE:", verifyData);
+    
+              if (verifyData.success) {
                 alert("✅ Payment verified successfully");
               } else {
                 alert("❌ Payment verification failed");
               }
-          
             } catch (err) {
               console.error("VERIFY ERROR:", err);
               alert("Server error during verification");
             }
+    
+            setPaymentLoading(false);
           },
     
           onClose: () => {
+            console.log("Payment modal closed");
             setPaymentLoading(false);
           },
         });
-    
       } catch (err) {
-        console.error(err);
-        alert("Failed to start payment");
+        console.error("PAYMENT ERROR:", err);
+        alert(err.message || "Failed to start payment");
         setPaymentLoading(false);
       }
     };
