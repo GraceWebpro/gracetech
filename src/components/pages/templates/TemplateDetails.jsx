@@ -41,7 +41,7 @@ const TemplateDetails = () => {
   // m
   const handleFlutterPayment = useFlutterwave({
     public_key: process.env.REACT_APP_FLW_PUBLIC_KEY,
-    tx_ref: tx_Ref, // ✅ THIS IS THE MISSING PIECE
+    tx_ref: txRef, // ✅ THIS IS THE MISSING PIECE
     amount: nairaAmount,
     currency: "NGN",
     payment_options: "card,banktransfer,ussd",
@@ -290,7 +290,9 @@ const displayPrice =
             body: JSON.stringify({
               email: userEmail || user?.email,
               product_name: template.title,
+              slug: template.slug,
               amount: nairaAmount,
+              version: selectedVersion,
             }),
           }
         );
@@ -350,11 +352,38 @@ const displayPrice =
               const verifyData = await verifyRes.json();
               console.log("VERIFY RESPONSE:", verifyData);
     
-              if (verifyData.success) {
-                alert("✅ Payment verified successfully");
-              } else {
+              if (!verifyData.success) {
                 alert("❌ Payment verification failed");
+                return;
               }
+              
+              // Request download from backend
+              const downloadRes = await fetch("/api/download-template", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  tx_ref: response.tx_ref,
+                }),
+              });
+              
+              const downloadData = await downloadRes.json();
+              
+              if (!downloadData.success) {
+                alert(downloadData.message || "Download failed");
+                return;
+              }
+              
+              // Start download
+              const link = document.createElement("a");
+              link.href = downloadData.downloadUrl;
+              link.download = downloadData.filename;
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+              
+              alert("✅ Payment verified successfully");
             } catch (err) {
               console.error("VERIFY ERROR:", err);
               alert("Server error during verification");

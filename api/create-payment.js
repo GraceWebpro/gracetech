@@ -8,7 +8,7 @@ export default async function handler(req, res) {
       return res.status(405).json({ error: "Method not allowed" });
     }
 
-    const { email, product_name, amount } = req.body || {};
+    const { email, product_name, slug, amount, version } = req.body || {};
 
     if (!product_name || !amount) {
       return res.status(400).json({ error: "Missing fields" });
@@ -21,7 +21,9 @@ export default async function handler(req, res) {
       {
         email,
         product_name,
+        slug,
         amount,
+        version,
         tx_ref,
         status: "pending",
       },
