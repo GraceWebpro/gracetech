@@ -278,6 +278,9 @@ const displayPrice =
           product_name: template.title,
           amount: nairaAmount,
         });
+
+        console.log("Popup email:", tempEmail);
+console.log("Email passed:", email);
     
         // ✅ STEP 1: Create payment on backend
         const createRes = await fetch(
@@ -317,7 +320,7 @@ const displayPrice =
           setPaymentLoading(false);
           return;
       }
-      
+
         // ✅ STEP 2: Launch Flutterwave
         window.FlutterwaveCheckout({
 
