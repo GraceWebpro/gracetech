@@ -37,9 +37,7 @@ const TemplateDetails = () => {
   // const nairaAmount = selectedPrice * 1600;
   const nairaAmount = Math.round(selectedPrice * 1600);
 
-  const handleFlutterPayment = useFlutterwave({
-    public_key: process.env.REACT_APP_FLW_PUBLIC_KEY,
-  });
+  // m
 
     /* ================= FETCH SINGLE TEMPLATE ================= */
     useEffect(() => {
@@ -295,9 +293,10 @@ const displayPrice =
         const backendTxRef = data.tx_ref;
 
         console.log("FINAL TX_REF SENT:", backendTxRef);
-        
-        // ✅ STEP 2: Launch Flutterwave
-        handleFlutterPayment({
+
+         // ✅ FULL CONFIG HERE
+        const config = {
+          public_key: process.env.REACT_APP_FLW_PUBLIC_KEY,
           tx_ref: backendTxRef,
           amount: nairaAmount,
           currency: "NGN",
@@ -307,11 +306,18 @@ const displayPrice =
             email: user?.email || "user@gmail.com",
             name: user?.user_metadata?.full_name || "Customer",
           },
-    
+
           customizations: {
             title: template.title,
             description: selectedVersion + " version purchase",
           },
+        };
+
+        const handleFlutterPayment = useFlutterwave(config);
+            
+        // ✅ STEP 2: Launch Flutterwave
+        handleFlutterPayment({
+          
     
           callback: async (response) => {
             console.log("FLW FULL RESPONSE:", response);
