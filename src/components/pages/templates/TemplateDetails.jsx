@@ -312,7 +312,6 @@ const displayPrice =
 
         setTxRef(backendTxRef);
 
-        const handleFlutterPayment = useFlutterwave(config);
             
         // ✅ STEP 2: Launch Flutterwave
         handleFlutterPayment({
