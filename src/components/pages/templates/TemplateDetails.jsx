@@ -41,7 +41,7 @@ const TemplateDetails = () => {
   // m
   const handleFlutterPayment = useFlutterwave({
     public_key: process.env.REACT_APP_FLW_PUBLIC_KEY,
-    tx_ref: backendTxRef, // ✅ THIS IS THE MISSING PIECE
+    tx_ref: txRef, // ✅ THIS IS THE MISSING PIECE
     amount: nairaAmount,
     currency: "NGN",
     payment_options: "card,banktransfer,ussd",
