@@ -30,7 +30,8 @@ const TemplateDetails = () => {
   const [showEmailModal, setShowEmailModal] = useState(false);
   const [tempEmail, setTempEmail] = useState("");
   const [userEmail, setUserEmail] = useState("");
-  
+  const [txRef, setTxRef] = useState(null);
+
   const { currentUser: user } = useAuth();
 
 
@@ -38,6 +39,21 @@ const TemplateDetails = () => {
   const nairaAmount = Math.round(selectedPrice * 1600);
 
   // m
+  const handleFlutterPayment = useFlutterwave({
+    public_key: process.env.REACT_APP_FLW_PUBLIC_KEY,
+    tx_ref: txRef, // ✅ THIS IS THE MISSING PIECE
+    amount: nairaAmount,
+    currency: "NGN",
+    payment_options: "card,banktransfer,ussd",
+    customer: {
+      email: user?.email || "user@gmail.com",
+      name: user?.user_metadata?.full_name || "Customer",
+    },
+    customizations: {
+      title: template?.title,
+      description: selectedVersion + " version purchase",
+    },
+  });
 
     /* ================= FETCH SINGLE TEMPLATE ================= */
     useEffect(() => {
@@ -294,24 +310,7 @@ const displayPrice =
 
         console.log("FINAL TX_REF SENT:", backendTxRef);
 
-         // ✅ FULL CONFIG HERE
-        const config = {
-          public_key: process.env.REACT_APP_FLW_PUBLIC_KEY,
-          tx_ref: backendTxRef,
-          amount: nairaAmount,
-          currency: "NGN",
-          payment_options: "card,banktransfer,ussd",
-
-          customer: {
-            email: user?.email || "user@gmail.com",
-            name: user?.user_metadata?.full_name || "Customer",
-          },
-
-          customizations: {
-            title: template.title,
-            description: selectedVersion + " version purchase",
-          },
-        };
+        setTxRef(backendTxRef);
 
         const handleFlutterPayment = useFlutterwave(config);
             
