@@ -315,7 +315,8 @@ const displayPrice =
             
         // ✅ STEP 2: Launch Flutterwave
         handleFlutterPayment({
-          
+          tx_ref: backendTxRef, // ✅ FORCE it here
+
     
           callback: async (response) => {
             console.log("FLW FULL RESPONSE:", response);
