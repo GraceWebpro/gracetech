@@ -8,7 +8,7 @@ import { formatNairaFromUSD } from "../../utils/currency";
 // import BackendRequestModal from "../../ui/BackendRequestModal";
 import HomeContact from "../../sections/HomeContact";
 import BuyButton from "../../ui/BuyButton";
-import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
+// import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
 import SEO from "../../seo/SEO";
 import { templateFAQSchema, templateSchema } from "../../seo/schema/templateSchema";
 
@@ -30,7 +30,7 @@ const TemplateDetails = () => {
   const [showEmailModal, setShowEmailModal] = useState(false);
   const [tempEmail, setTempEmail] = useState("");
   const [userEmail, setUserEmail] = useState("");
-  const [txRef, setTxRef] = useState(null);
+  // const [paymentConfig, setPaymentConfig] = useState(null);
 
   const { currentUser: user } = useAuth();
 
@@ -39,21 +39,21 @@ const TemplateDetails = () => {
   const nairaAmount = Math.round(selectedPrice * 1600);
 
   // m
-  const handleFlutterPayment = useFlutterwave({
-    public_key: process.env.REACT_APP_FLW_PUBLIC_KEY,
-    tx_ref: txRef, // ✅ THIS IS THE MISSING PIECE
-    amount: nairaAmount,
-    currency: "NGN",
-    payment_options: "card,banktransfer,ussd",
-    customer: {
-      email: user?.email || "user@gmail.com",
-      name: user?.user_metadata?.full_name || "Customer",
-    },
-    customizations: {
-      title: template?.title,
-      description: selectedVersion + " version purchase",
-    },
-  });
+  // const handleFlutterPayment = useFlutterwave({
+  //   public_key: process.env.REACT_APP_FLW_PUBLIC_KEY,
+  //   tx_ref: txRef, // ✅ THIS IS THE MISSING PIECE
+  //   amount: nairaAmount,
+  //   currency: "NGN",
+  //   payment_options: "card,banktransfer,ussd",
+  //   customer: {
+  //     email: user?.email || "user@gmail.com",
+  //     name: user?.user_metadata?.full_name || "Customer",
+  //   },
+  //   customizations: {
+  //     title: template?.title,
+  //     description: selectedVersion + " version purchase",
+  //   },
+  // });
 
     /* ================= FETCH SINGLE TEMPLATE ================= */
     useEffect(() => {
@@ -269,12 +269,12 @@ const displayPrice =
     };
 
 
-    const startPaymentFlow = async () => {
+    const startPaymentFlow = async (email) => {
       setPaymentLoading(true);
     
       try {
         console.log("SENDING DATA:", {
-          email: userEmail || user?.email,
+          email: email || user?.email,
           product_name: template.title,
           amount: nairaAmount,
         });
@@ -288,7 +288,7 @@ const displayPrice =
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              email: userEmail || user?.email,
+              email: email || user?.email,
               product_name: template.title,
               slug: template.slug,
               amount: nairaAmount,
@@ -312,91 +312,136 @@ const displayPrice =
 
         console.log("FINAL TX_REF SENT:", backendTxRef);
 
-        setTxRef(backendTxRef);
-
-            
+        if (!window.FlutterwaveCheckout) {
+          alert("Flutterwave SDK failed to load.");
+          setPaymentLoading(false);
+          return;
+      }
+      
         // ✅ STEP 2: Launch Flutterwave
-        handleFlutterPayment({
-          tx_ref: backendTxRef, // ✅ FORCE it here
+        window.FlutterwaveCheckout({
 
-    
+          public_key: process.env.REACT_APP_FLW_PUBLIC_KEY,
+      
+          tx_ref: backendTxRef,
+      
+          amount: nairaAmount,
+      
+          currency: "NGN",
+      
+          payment_options: "card,banktransfer,ussd",
+      
+          customer: {
+      
+              email: email || user?.email,
+      
+              name: user?.user_metadata?.full_name || "Customer",
+      
+          },
+      
+          customizations: {
+      
+              title: template.title,
+      
+              description: `${selectedVersion} version purchase`,
+      
+          },
+      
           callback: async (response) => {
-            console.log("FLW FULL RESPONSE:", response);
-    
-            closePaymentModal(); // 🔥 REQUIRED
+      
+              console.log(response);
+      
+              try {
+      
+                  const verifyRes = await fetch("/api/verify-payment", {
+      
+                      method: "POST",
+      
+                      headers: {
+      
+                          "Content-Type": "application/json",
+      
+                      },
+      
+                      body: JSON.stringify({
+      
+                          transaction_id: response.transaction_id,
+      
+                          tx_ref: response.tx_ref,
+      
+                      }),
+      
+                  });
+      
+                  const verifyData = await verifyRes.json();
+      
+                  if (!verifyData.success) {
+                      setPaymentLoading(false);
+                      alert("Payment verification failed");
+      
+                      return;
+      
+                  }
+      
+                  const downloadRes = await fetch("/api/download-template", {
+      
+                      method: "POST",
+      
+                      headers: {
+      
+                          "Content-Type": "application/json",
+      
+                      },
+      
+                      body: JSON.stringify({
+      
+                          tx_ref: response.tx_ref,
+      
+                      }),
+      
+                  });
+      
+                  const downloadData = await downloadRes.json();
+      
+                  if (!downloadData.success) {
+                    setPaymentLoading(false);
 
-            // ✅ VALIDATION
-            if (
-              response.status !== "successful" ||
-              !response.transaction_id ||
-              !response.tx_ref
-            ) {
-              alert("Payment failed or incomplete");
+                      alert(downloadData.message);
+      
+                      return;
+      
+                  }
+      
+                  const link = document.createElement("a");
+      
+                  link.href = downloadData.downloadUrl;
+      
+                  link.download = downloadData.filename;
+      
+                  link.click();
+      
+                  alert("Payment successful!");
+                  setPaymentLoading(false);
+      
+              }
+      
+              catch(err){
+      
+                  console.error(err);
+      
+                  alert("Server error");
+      
+              }
+      
+          },
+      
+          onclose: function(){
+      
               setPaymentLoading(false);
-              return;
-            }
-    
-            try {
-              // ✅ STEP 3: VERIFY PAYMENT
-              const verifyRes = await fetch("/api/verify-payment", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                  transaction_id: response.transaction_id,
-                  tx_ref: response.tx_ref, // ✅ IMPORTANT: use FLW tx_ref
-                }),
-              });
-    
-              const verifyData = await verifyRes.json();
-              console.log("VERIFY RESPONSE:", verifyData);
-    
-              if (!verifyData.success) {
-                alert("❌ Payment verification failed");
-                return;
-              }
-              
-              // Request download from backend
-              const downloadRes = await fetch("/api/download-template", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                  tx_ref: response.tx_ref,
-                }),
-              });
-              
-              const downloadData = await downloadRes.json();
-              
-              if (!downloadData.success) {
-                alert(downloadData.message || "Download failed");
-                return;
-              }
-              
-              // Start download
-              const link = document.createElement("a");
-              link.href = downloadData.downloadUrl;
-              link.download = downloadData.filename;
-              document.body.appendChild(link);
-              link.click();
-              document.body.removeChild(link);
-              
-              alert("✅ Payment verified successfully");
-            } catch (err) {
-              console.error("VERIFY ERROR:", err);
-              alert("Server error during verification");
-            }
-    
-            setPaymentLoading(false);
-          },
-    
-          onClose: () => {
-            console.log("Payment modal closed");
-            setPaymentLoading(false);
-          },
-        });
+      
+          }
+      
+      });
       } catch (err) {
         console.error("PAYMENT ERROR:", err);
         alert(err.message || "Failed to start payment");
