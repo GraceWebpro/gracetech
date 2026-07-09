@@ -129,13 +129,13 @@ export default async function handler(req, res) {
     }
 
     // ✅ Validate email
-    // if (!flwEmail || dbEmail !== flwEmail) {
-    //   console.log("❌ FAIL: EMAIL");
-    //   return res.status(400).json({
-    //     success: false,
-    //     message: "Email mismatch",
-    //   });
-    // }
+    if (!flwEmail || dbEmail !== flwEmail) {
+      console.log("❌ FAIL: EMAIL");
+      return res.status(400).json({
+        success: false,
+        message: "Email mismatch",
+      });
+    }
 
     // ✅ Validate tx_ref (SAFE VERSION)
     if (verified.tx_ref !== tx_ref) {
