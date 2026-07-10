@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import './App.css';
-import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import ProjectsPage from './components/pages/ProjectsPage';
 import Navbar from './components/layout/Navbar'
 import Footer from './components/layout/Footer'
@@ -26,11 +26,17 @@ import License from "./components/legal/License";
 import NotFound from "./components/pages/NotFound";
 import BlogList from "./components/pages/BlogList";
 import BlogDetails from "./components/pages/BlogDetails";
+import { logPageView } from "./config/analytics";
+import PageTracker from "./components/sections/PageTracker";
 
 function App() {
   const location = useLocation();
 
   const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    logPageView(location.pathname + location.search);
+  }, [location]);
 
   // Determine the routes
   const isAdminPage = location.pathname.startsWith('/admin');
@@ -47,7 +53,7 @@ function App() {
       )}
 
       <ScrollToTop />
-
+        <PageTracker />
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path='/projects' element={<ProjectsPage />} />

@@ -7,6 +7,9 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { AuthProvider } from './config/AuthProvider';
 import smoothscroll from 'smoothscroll-polyfill';
 import { HelmetProvider } from 'react-helmet-async'
+import { initGA } from './config/analytics';
+
+initGA();
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

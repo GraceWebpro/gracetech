@@ -11,6 +11,7 @@ import BuyButton from "../../ui/BuyButton";
 // import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
 import SEO from "../../seo/SEO";
 import { templateFAQSchema, templateSchema } from "../../seo/schema/templateSchema";
+import { event } from "../../../config/analytics";
 
 const TemplateDetails = () => {
   const { slug } = useParams();
@@ -94,6 +95,13 @@ const TemplateDetails = () => {
         };
     
         setTemplate(formatted);
+
+        event("view_template", {
+          template_name: formatted.title,
+          template_slug: formatted.slug,
+          category: formatted.category,
+        });
+
         setLoading(false);
         console.log({
           amount: nairaAmount,
@@ -207,6 +215,11 @@ const displayPrice =
       const link = document.createElement("a");
       link.href = version.downloadUrl;
       link.download = `${template.title}-free.zip`;
+      
+      event("free_download", {
+        template_name: template.title,
+      });
+
       link.click();
     };
   
@@ -266,6 +279,12 @@ const displayPrice =
     
       setSelectedVersion(key);
       setSelectedPrice(cleanPrice);
+
+      event("select_version", {
+        template_name: template.title,
+        version: key,
+        price: cleanPrice,
+      });
     };
 
 
@@ -414,6 +433,14 @@ console.log("Email passed:", email);
                       return;
       
                   }
+
+                  event("purchase", {
+                    transaction_id: response.transaction_id,
+                    value: selectedPrice,
+                    currency: "USD",
+                    template_name: template.title,
+                    version: selectedVersion,
+                  });
       
                   const link = document.createElement("a");
       
@@ -775,6 +802,11 @@ console.log("Email passed:", email);
                         setUserEmail(tempEmail); // store final email
                         setShowEmailModal(false);
 
+                        event("add_payment_info", {
+                          template_name: template.title,
+                          version: selectedVersion,
+                        });
+
                         // 👇 NOW trigger real payment flow
                         startPaymentFlow(tempEmail);
                       }}
@@ -793,6 +825,12 @@ console.log("Email passed:", email);
                 {/* 💬 WHATSAPP BUTTON */}
                 <a
                   href={whatsappLink}
+                  onClick={() =>
+                    event("whatsapp_checkout", {
+                        template_name: template.title,
+                        version: selectedVersion,
+                    })
+                  }
                   target="_blank"
                   rel="noopener noreferrer"
                   className="block w-full text-center py-3 rounded-xl border border-green-500 text-green-400 hover:bg-green-500 hover:text-black transition"
@@ -930,6 +968,13 @@ console.log("Email passed:", email);
 
                 {!showPayment && (
                   <button onClick={() => {
+
+                    event("begin_checkout", {
+                      template_name: template.title,
+                      version: selectedVersion,
+                      value: selectedPrice,
+                    });
+
                     setShowEmailModal(true);
                   }}
                   disabled={paymentLoading}
