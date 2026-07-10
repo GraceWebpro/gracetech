@@ -7,7 +7,7 @@ import { FaInstagramSquare, FaTwitterSquare, FaTiktok, FaFacebook } from "react-
 import emailjs from '@emailjs/browser';
 import StatusPopup from '../ui/StatusPopup'
 import SEO from '../seo/SEO';
-// import { event } from '../../config/analytics';
+import { event } from '../../config/analytics';
 
 const Contact = () => {
 
@@ -59,7 +59,7 @@ const Contact = () => {
 
       setStatus("Message sent successfully! 🎉");
       
-    //   event("generate_lead");
+      event("generate_lead");
 
       setFormData({ name: '', email: '', message: '' });
 
