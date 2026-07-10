@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { pageView } from "../../config/analytics";
+import { logPageView } from "../../config/analytics";
 
 export default function PageTracker() {
   const location = useLocation();
 
   useEffect(() => {
-    pageView(location.pathname + location.search);
+    logPageView(location.pathname + location.search);
   }, [location]);
 
   return null;
