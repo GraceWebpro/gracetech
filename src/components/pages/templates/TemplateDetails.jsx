@@ -973,6 +973,7 @@ console.log("Email passed:", email);
                       template_name: template.title,
                       version: selectedVersion,
                       value: selectedPrice,
+                      currency: "USD",
                     });
 
                     setShowEmailModal(true);

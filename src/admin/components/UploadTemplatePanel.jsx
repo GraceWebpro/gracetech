@@ -124,8 +124,7 @@ const UploadTemplatePanel = ({ onClose, onSuccess, template, table = "templates"
       .upload(filePath, file, {
         cacheControl: "3600",
         upsert: false,
-        contentType: file.type,
-      });
+        contentType: file.type || "application/zip",      });
   
     if (error) {
       console.error("UPLOAD ERROR:", error);
@@ -185,25 +184,31 @@ const UploadTemplatePanel = ({ onClose, onSuccess, template, table = "templates"
         imageUrls = await uploadMultiple(images, "gallery");
       }
 
-      const processedVersions = {};
+      const processedVersions = { ...(template?.versions || {}) };
 
       for (const key in versions) {
         const current = versions[key];
-        if (!current.available) continue;
 
-        const existingVersion = template?.versions?.[key];
+        if (!current.available) {
+          // ❗ remove version if unchecked
+          delete processedVersions[key];
+          continue;
+        }
+        const existingVersion = processedVersions[key] || {};
 
         let fileUrl =
         existingVersion?.downloadUrl || null;
 
         if (current.file) {
-          fileUrl = await uploadFile(
-            current.file,
-            `versions/${key}`
-          );
+          const uploaded = await uploadFile(current.file, `versions/${key}`);
+          if (!uploaded) {
+            throw new Error(`Failed to upload ${key} file`);
+          }
+          fileUrl = uploaded;
         }
 
         processedVersions[key] = {
+          ...existingVersion,
           available: true,
           price: Number(current.price || 0),
           downloadUrl: fileUrl,
@@ -290,8 +295,7 @@ const UploadTemplatePanel = ({ onClose, onSuccess, template, table = "templates"
         alert(err.message);
       }
 
-      onSuccess();
-      onClose();
+     
     } catch (error) {
       console.error("FULL ERROR:", error);
       alert(error.message);
@@ -487,6 +491,11 @@ const UploadTemplatePanel = ({ onClose, onSuccess, template, table = "templates"
                 className="mt-5"
 
               />
+              {template?.versions?.[key]?.downloadUrl && (
+                <p className="text-green-400 text-xs mt-2">
+                  File already uploaded
+                </p>
+              )}
             </div>
           ))}
         </div>
