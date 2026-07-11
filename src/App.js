@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import './App.css';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import ProjectsPage from './components/pages/ProjectsPage';
@@ -26,7 +26,6 @@ import License from "./components/legal/License";
 import NotFound from "./components/pages/NotFound";
 import BlogList from "./components/pages/BlogList";
 import BlogDetails from "./components/pages/BlogDetails";
-import { logPageView } from "./config/analytics";
 import PageTracker from "./components/sections/PageTracker";
 
 function App() {
@@ -34,9 +33,7 @@ function App() {
 
   const [user, setUser] = useState(null);
 
-  useEffect(() => {
-    logPageView(location.pathname + location.search);
-  }, [location]);
+
 
   // Determine the routes
   const isAdminPage = location.pathname.startsWith('/admin');
