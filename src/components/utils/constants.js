@@ -8,8 +8,8 @@ import {
 
 export const STATS = [
     { label: 'Years Experience', value: '3+' },
-    { label: 'projects Completed', value: '50+' },
-    { label: 'Technologies', value: '15+' },
+    { label: 'projects Delivered', value: '50+' },
+    { label: 'Tools & Technologies', value: '15+' },
     {label: 'Client satisfaction', value: '98%' }
 ];
 

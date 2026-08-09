@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from "../../config/supabase";
-import { Briefcase, Target, Globe, Palette, Zap } from 'lucide-react';
+import { Briefcase, LayoutGrid, Sparkles, Monitor, PenTool, Zap } from 'lucide-react';
 import ProjectCard from "../ui/ProjectCard2";
 import FadeIn from '../animations/FadeIn';
 import SEO from '../seo/SEO';
+import VideoModal from '../ui/VideoModal';
 
 const ProjectsPage = () => {
+  const [activeVideo, setActiveVideo] = useState(null);
+  const [activeTitle, setActiveTitle] = useState("");
+
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState('All');
@@ -47,13 +51,13 @@ const ProjectsPage = () => {
     fetchProjects();
   }, []);
 
-  const categories = ["All", "UI/UX", "UI Components", "Full Stack"];
+  const categories = ["All", "AI Videos", "Websites", "Design"];
   const categoryIcons = {
-    'All': Target,
-    'UI/UX': Globe,
-    'UI Components': Palette,
-    'Full Stack': Zap,
-  };
+    'All': LayoutGrid,
+    'AI Videos': Sparkles,
+    'Websites': Monitor,
+    'Design': PenTool,
+}
 
   const handleRequestSimilar = (project) => {
     const message = `
@@ -108,7 +112,7 @@ const ProjectsPage = () => {
               Projects & Case Studies
             </h2>
             <p className="text-lg text-white/60 max-w-2xl mx-auto text-center">
-                Real projects built to solve real problems — with clarity, purpose, and measurable impact.
+                Real projects built to solve real problems — From websites to AI-powered videos, built to capture attention and drive results.
             </p>
           </div>
         </FadeIn>
@@ -154,14 +158,25 @@ const ProjectsPage = () => {
           <FadeIn delay={200}>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredProjects.map(project => (
- <ProjectCard 
- project={project}   
- onRequestSimilar={handleRequestSimilar}
-/>              ))}
+                <ProjectCard 
+                  project={project}   
+                  onRequestSimilar={handleRequestSimilar}
+                  onPlay={(video) => {
+                    setActiveVideo(video);
+                    setActiveTitle(project.title);
+                  }}
+                />              
+              ))}
             </div>
           </FadeIn>
         )}
       </div>
+
+      <VideoModal
+        video={activeVideo}
+        title={activeTitle}
+        onClose={() => setActiveVideo(null)}
+      />
     </section>
     </>
   );

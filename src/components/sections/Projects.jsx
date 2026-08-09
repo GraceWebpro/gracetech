@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { supabase } from "../../config/supabase"; // ✅ use supabase
-import { Briefcase, Target, Globe, Palette, Zap, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Briefcase, Monitor, ChevronLeft, ChevronRight, LayoutGrid, Sparkles, PenTool } from 'lucide-react';
 // import ProjectCard from "../ui/ProjectCard2";
 // import FadeIn from '../animations/FadeIn';
 import { ArrowRight } from "lucide-react";
@@ -8,8 +8,12 @@ import { Link } from "react-router-dom";
 import './work.css';
 import FadeIn from '../animations/FadeIn';
 import ProjectCard from '../ui/ProjectCard2';
+import VideoModal from '../ui/VideoModal';
 
 const Projects = () => {
+  const [activeVideo, setActiveVideo] = useState(null);
+  const [activeTitle, setActiveTitle] = useState("");
+
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -133,13 +137,13 @@ const Projects = () => {
 
         // Category icons mapping
         const categoryIcons = {
-            'All': Target,
-            'UI/UX': Globe,
-            'UI Components': Palette,
-            'Full Stack': Zap,
+            'All': LayoutGrid,
+            'AI Videos': Sparkles,
+            'Websites': Monitor,
+            'Design': PenTool,
         }
 
-        const categories = ["All", "UI/UX", "UI Components", "Full Stack"];
+        const categories = ["All", "AI Videos", "Websites", "Design"];
 
         const handleRequestSimilar = (project) => {
             const message = `
@@ -180,7 +184,7 @@ const Projects = () => {
                         Selected Work
                     </h2>
                     <p className="text-lg text-white/60 max-w-2xl mx-auto text-center">
-                    A few examples of systems designed and built for clarity, scale, and impact.
+                    A selection of websites, AI Videos, and digital experiences designed to attract attention, engage users, and grow your business. These are built to capture attention and drive results.
                     </p>
                 </div>
             </FadeIn>
@@ -242,6 +246,10 @@ const Projects = () => {
                                         <ProjectCard 
                                             project={project}   
                                             onRequestSimilar={handleRequestSimilar}
+                                            onPlay={(video) => {
+                                              setActiveVideo(video);
+                                              setActiveTitle(project.title);
+                                            }}
                                         />
                                     </div>
                                 ))}
@@ -316,7 +324,11 @@ const Projects = () => {
             
         </div>
 
-       
+        <VideoModal
+        video={activeVideo}
+        title={activeTitle}
+        onClose={() => setActiveVideo(null)}
+      />
 
    </section>
   )

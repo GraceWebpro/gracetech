@@ -174,9 +174,9 @@ console.log("PROJECT ID:", project?.id);
           Choose project category
         </option>
 
-        <option value="UI/UX">UI/UX</option>
-        <option value="UI Components">UI Components</option>
-        <option value="Full Stack">Full Stack</option>
+        <option value="AI Videos">AI Videos</option>
+        <option value="Websites">Websites</option>
+        <option value="Design">Design</option>
       </select>
 
       <input

@@ -51,7 +51,8 @@ function Hero() {
               >                
                 <Star className='w-4 h-4 text-white fill-white' />
                 <span className='text-xs md:text-sm text-white tracking-[1.2px]'>
-                NEW: AI-Powered Videos for Ads, Tutorials & Brand Stories.                </span>
+                  Websites & AI Video Ads That Drives Real Growth                
+                </span>
               </div>
             </FadeIn>
 
@@ -79,7 +80,7 @@ function Hero() {
                 mb-6
                 leading-relaxed
               ">
-                We design and build high-performance digital products — from interactive web apps to AI-powered content — for modern brands.
+                I build high-performing websites and create cinematic AI videos that help brands attract, engage, and convert customers.
               </p>
             </FadeIn>
 
