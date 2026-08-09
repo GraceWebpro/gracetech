@@ -106,7 +106,7 @@ const whatsappLink = `https://wa.me/1234567890?text=${encodeURIComponent(message
       </div>
 
       {config.showPlay && (
-        <div className="mx-5 mb-2 text-sm text-gray-400">
+        <div className="mx-5 mb-4 text-sm text-gray-400">
           Starting from <span className="text-green-400 font-semibold">$25</span>
         </div>
       )}
